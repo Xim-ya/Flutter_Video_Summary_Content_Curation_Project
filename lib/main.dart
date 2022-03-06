@@ -20,17 +20,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'New Project',
-      debugShowCheckedModeBanner: false,
-      useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      onGenerateRoute: FRouter.router.generator,
-      home: RootScreen(),
-    );
+    return Sizer(builder: (context, orientation, deviceType) {
+      return MaterialApp(
+        title: 'New Project',
+        debugShowCheckedModeBanner: false,
+        useInheritedMediaQuery: true,
+        locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        onGenerateRoute: FRouter.router.generator,
+        home: RootScreen(),
+      );
+    });
   }
 }

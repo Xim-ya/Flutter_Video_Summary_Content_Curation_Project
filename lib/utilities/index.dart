@@ -1,11 +1,13 @@
-/* Packages */
+/* Flutter Packages */
 export 'package:flutter/material.dart';
 export 'package:flutter/foundation.dart';
-export 'package:flutter/material.dart';
 export 'package:flutter/services.dart';
+
+/* Packages */
 export 'package:fluro/fluro.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:flutter_hooks/flutter_hooks.dart';
+export 'package:sizer/sizer.dart';
 
 /* Screens */
 export 'package:movie_curation/screens/root_screen.dart';
