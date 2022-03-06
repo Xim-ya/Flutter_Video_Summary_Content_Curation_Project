@@ -28,7 +28,8 @@ class _TempScreen2State extends State<TempScreen2>
 
     return Center(
       child: Container(
-        color: Colors.yellow,
+        width: double.infinity,
+        color: kDarkGrey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

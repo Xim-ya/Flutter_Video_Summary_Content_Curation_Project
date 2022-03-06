@@ -6,7 +6,15 @@ class HomeScreenT extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("HomeScreen TABLET"),
+      padding: EdgeInsets.only(top: 112, left: 84, bottom: 56),
+      child: Column(
+        children: [
+          Text(
+            "HomeScreen TABLET",
+            style: TextStyle(color: Colors.white),
+          ),
+        ],
+      ),
     );
   }
 }

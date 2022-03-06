@@ -37,6 +37,8 @@ dependencies:
   device_preview: ^1.0.0
   flutter_svg: ^1.0.3
   fluro: ^2.0.3
+  flutter_hooks: ^0.18.2+1
+  sizer: ^2.0.15
 
 dev_dependencies:
   flutter_test:

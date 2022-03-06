@@ -5,6 +5,7 @@ export 'package:flutter/material.dart';
 export 'package:flutter/services.dart';
 export 'package:fluro/fluro.dart';
 export 'package:flutter_svg/flutter_svg.dart';
+export 'package:flutter_hooks/flutter_hooks.dart';
 
 /* Screens */
 export 'package:movie_curation/screens/root_screen.dart';
