@@ -26,6 +26,7 @@ class RootScreen extends HookWidget {
         PageController(initialPage: selectedScreen.value, keepPage: true);
 
     return Scaffold(
+      backgroundColor: kDarkGrey,
       body: ResponsiveLayout(
           mobileWidget: Center(
             child: Container(
