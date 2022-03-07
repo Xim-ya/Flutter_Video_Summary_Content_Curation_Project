@@ -1,6 +1,7 @@
 import 'package:movie_curation/utilities/index.dart';
-
 import 'package:movie_curation/utilities/responsive_size.dart';
+import 'package:movie_curation/widgets/horizon_wheel_slider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class HomeScreenT extends StatefulWidget {
   const HomeScreenT({Key? key}) : super(key: key);
@@ -9,14 +10,17 @@ class HomeScreenT extends StatefulWidget {
 }
 
 int _selectedCategoryIndex = 0;
+final ItemScrollController itemScrollController = ItemScrollController();
+final ItemPositionsListener itemPositionsListener =
+    ItemPositionsListener.create();
 
 class _HomeScreenTState extends State<HomeScreenT>
     with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    print(4.25.h);
     List<String> _categoryOptions = ["인기", "최신", "추천"];
 
-    // 678
     return Stack(children: [
       /* Content Image Background  (Image & Gradient Linear Background) */
       Stack(
@@ -47,168 +51,196 @@ class _HomeScreenTState extends State<HomeScreenT>
         ],
       ),
       Container(
-          padding: EdgeInsets.only(
-              top: contentTopP, left: contentLeftP, bottom: contentBottomP),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /* Category Group Button */
-              SizedBox(
-                height:
-                    groupButtonH, // TODO : RESPONSIVE WRP SIZE, 기기 별 대응하지 않으면 다른 방법 찾아야됨 (확인필요)
-                child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemCount: _categoryOptions.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(right: groupButtonRP),
-                      child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            _selectedCategoryIndex = index;
-                          });
-                        },
-                        child: Text(
-                          _categoryOptions[index],
-                          style: TextStyle(
-                              color: Colors.white.withOpacity(
-                                  _selectedCategoryIndex == index ? 1 : 0.24),
-                              fontSize: groupButtonTextSize,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              /* Movie Content Info */
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /* Title */
-                    Text(
-                      "더 스타 이즈 본",
-                      style: FontStyles().movieTitle,
-                    ),
-                    /* GRated & Release Year */
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            color: kLightGrey,
-                          ),
-                          child: Text(
-                            "C18",
-                            style: FontStyles().gRated,
-                          ),
-                        ),
-                        const SizedBox(width: 14),
-                        Text(
-                          "2018",
-                          style: FontStyles().releaseY,
-                        ),
-                      ],
-                    ),
-                    /* Description */
-                    Container(
-                      width: descriptionWrapperW,
+        padding: EdgeInsets.only(
+            top: contentTopP, left: contentLeftP, bottom: contentBottomP),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /* Category Group Button */
+            SizedBox(
+              height:
+                  groupButtonH, // TODO : RESPONSIVE WRP SIZE, 기기 별 대응하지 않으면 다른 방법 찾아야됨 (확인필요)
+              child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: _categoryOptions.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(right: groupButtonRP),
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _selectedCategoryIndex = index;
+                        });
+                      },
                       child: Text(
-                        "음악가는 젊은 가수가 명성을 얻도록 돕고 알코올 중독은 자신의 경력을 내리막길로 몰아갑니다.",
-                        style: FontStyles().description,
+                        _categoryOptions[index],
+                        style: TextStyle(
+                            color: Colors.white.withOpacity(
+                                _selectedCategoryIndex == index ? 1 : 0.24),
+                            fontSize: groupButtonTextSize,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
-                    /* Intent Buttons */
-                    Row(
-                      children: [
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: kYellow,
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                          ),
-                          onPressed: () {},
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SvgPicture.asset("assets/icons/play_ic.svg",
-                                  color: Colors.black),
-                              const SizedBox(width: 6),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 2),
-                                child: Text(
-                                  "컨텐츠",
-                                  style: FontStyles().watchButton,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.transparent,
-                            padding: const EdgeInsets.symmetric(horizontal: 0),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4)),
-                          ),
-                          onPressed: () {},
-                          child: Ink(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                  );
+                },
+              ),
+            ),
+            /* Movie Content Info */
+            Wrap(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(
+                      top: 58), //TODO : 나중에 레이아웃을 확인하고 Responsive Size로 변경 필요
+                  height: contentResponsiveH,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      /* Title */
+                      Text(
+                        "더 스타 이즈 본",
+                        style: FontStyles().movieTitle,
+                      ),
+                      /* GRated & Release Year */
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: <Color>[
-                                  Colors.white.withOpacity(0.2),
-                                  Colors.white.withOpacity(0.06),
-                                ],
-                                tileMode: TileMode.clamp,
-                              ),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4.0)),
+                              borderRadius: BorderRadius.circular(4),
+                              color: kLightGrey,
                             ),
-                            child: Container(
-                              constraints: const BoxConstraints(
-                                  minWidth: 88.0,
-                                  minHeight:
-                                      36.0), // min sizes for Material buttons
-                              alignment: Alignment.center,
+                            child: Text(
+                              "C18",
+                              style: FontStyles().gRated,
+                            ),
+                          ),
+                          const SizedBox(width: 14),
+                          Text(
+                            "2018",
+                            style: FontStyles().releaseY,
+                          ),
+                        ],
+                      ),
+                      /* Description */
+                      Container(
+                        width: contentResponsiveW,
+                        child: Text(
+                          "음악가는 젊은 가수가 명성을 얻도록 돕고 알코올 중독은 자신의 경력을 내리막길로 몰아갑니다.",
+                          style: FontStyles().description,
+                        ),
+                      ),
+                      const SizedBox(),
+                      /* Intent Buttons */
+                      Container(
+                        width: contentResponsiveW,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: kYellow,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                              ),
+                              onPressed: () {},
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SvgPicture.asset(
-                                    "assets/icons/play_ic.svg",
-                                    color: Colors.white,
-                                  ),
+                                  SvgPicture.asset("assets/icons/play_ic.svg",
+                                      color: Colors.black),
                                   const SizedBox(width: 6),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 2),
                                     child: Text(
-                                      '예고편',
-                                      style: FontStyles().elseButton,
+                                      "컨텐츠",
+                                      style: FontStyles().watchButton,
                                     ),
-                                  ),
+                                  )
                                 ],
                               ),
                             ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
+                            Wrap(
+                              children: [
+                                GradientButton(content: "예고편"),
+                                const SizedBox(width: 12),
+                                GradientButton(content: "추가"),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              /* Movie Intent Button List */
+              ],
+            ),
 
-              /* Movie List Carousel Slider */
-            ],
-          )),
+            /* Movie List Carousel Slider */
+            Expanded(
+              child: ScrollablePositionedList.builder(
+                padding: EdgeInsets.only(top: contentSliderDivideP),
+                itemCount: 10,
+                initialScrollIndex: 0,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return ValueListenableBuilder<Iterable<ItemPosition>>(
+                    valueListenable: itemPositionsListener.itemPositions,
+                    builder: (context, positions, child) {
+                      return GestureDetector(
+                        onTap: () {
+                          itemScrollController.scrollTo(
+                              index: index,
+                              duration: Duration(seconds: 1),
+                              curve: Curves.easeInOutCubic);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            right: 32,
+                          ),
+                          color: Colors.yellow,
+                          child: AspectRatio(
+                            aspectRatio: 39 / 58,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                itemScrollController: itemScrollController,
+                itemPositionsListener: itemPositionsListener,
+              ),
+            ),
+          ],
+        ),
+      ),
     ]);
   }
 
   @override
   bool get wantKeepAlive => true;
 }
+
+// SizedBox(
+// height: 400,
+// child: HorizonWheelSlider.useDelegate(
+// scrollDirection: Axis.horizontal,
+// itemExtent: 290,
+// diameterRatio: 200.0,
+// childDelegate: ListWheelChildBuilderDelegate(
+// builder: (BuildContext context, int index) {
+// return Container(
+// height: 290,
+// width: 196,
+// color: Colors.red,
+// margin: EdgeInsets.only(right: 32),
+// child: Center(
+// child: Text("$index"),
+// ),
+// );
+// }),
+// ),
+// )

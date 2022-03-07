@@ -39,6 +39,8 @@ dependencies:
   fluro: ^2.0.3
   flutter_hooks: ^0.18.2+1
   sizer: ^2.0.15
+  carousel_slider: ^4.0.0
+  scrollable_positioned_list: ^0.2.3
 
 
 dev_dependencies:

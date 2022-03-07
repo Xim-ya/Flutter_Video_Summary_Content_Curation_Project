@@ -19,6 +19,7 @@ export 'package:movie_curation/utilities/temp_screen.dart';
 
 /* Widgets */
 export 'package:movie_curation/widgets/responsive_layout.dart';
+export 'package:movie_curation/widgets/gradient_button.dart';
 
 /* Utilities */
 export 'package:movie_curation/utilities/palette.dart';
