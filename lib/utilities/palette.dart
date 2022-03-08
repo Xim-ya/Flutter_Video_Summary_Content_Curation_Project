@@ -12,7 +12,7 @@ class FontStyles {
       : movieTitle = TextStyle(
           color: Colors.white,
           fontSize: size,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
         ),
         gRated = TextStyle(
           color: Colors.white,

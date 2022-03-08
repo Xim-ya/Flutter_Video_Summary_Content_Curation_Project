@@ -41,7 +41,7 @@ dependencies:
   sizer: ^2.0.15
   carousel_slider: ^4.0.0
   scrollable_positioned_list: ^0.2.3
-
+  get: ^4.6.1
 
 dev_dependencies:
   flutter_test:
