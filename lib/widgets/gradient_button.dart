@@ -52,7 +52,7 @@ class GradientButton extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 2),
                 child: Text(
                   content,
-                  style: FontStyles().elseButton,
+                  style: FontStyles(6.5.sp).elseButton,
                 ),
               ),
             ],

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'index.dart';
 
 const Color kYellow = Color(0xFFFFE24B);
@@ -7,32 +6,33 @@ const Color kLightGrey = Color(0xFF646464);
 
 class FontStyles {
   // Color fontSize;
+  double? size;
 
-  FontStyles()
-      : movieTitle = const TextStyle(
+  FontStyles([this.size]) //size is Optional
+      : movieTitle = TextStyle(
           color: Colors.white,
-          fontSize: 68,
+          fontSize: size,
           fontWeight: FontWeight.w500,
         ),
-        gRated = const TextStyle(
+        gRated = TextStyle(
           color: Colors.white,
-          fontSize: 18,
+          fontSize: size,
           fontWeight: FontWeight.normal,
         ),
-        releaseY = const TextStyle(
+        releaseY = TextStyle(
           color: Colors.white,
-          fontSize: 20,
+          fontSize: size,
           fontWeight: FontWeight.normal,
         ),
-        description = const TextStyle(
+        description = TextStyle(
           color: Colors.white,
-          fontSize: 20,
+          fontSize: size,
           fontWeight: FontWeight.normal,
         ),
-        watchButton = const TextStyle(
-            color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
-        elseButton = const TextStyle(
-            color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold);
+        watchButton = TextStyle(
+            color: Colors.black, fontSize: size, fontWeight: FontWeight.bold),
+        elseButton = TextStyle(
+            color: Colors.white, fontSize: size, fontWeight: FontWeight.bold);
 
   final TextStyle movieTitle;
   final TextStyle gRated;

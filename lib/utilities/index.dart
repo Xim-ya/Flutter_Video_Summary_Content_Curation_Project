@@ -8,6 +8,7 @@ export 'package:fluro/fluro.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:flutter_hooks/flutter_hooks.dart';
 export 'package:sizer/sizer.dart';
+export 'package:movie_curation/utilities/responsive_size.dart';
 
 /* Screens */
 export 'package:movie_curation/screens/root_screen.dart';
