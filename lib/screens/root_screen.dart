@@ -16,12 +16,13 @@ class RootScreen extends HookWidget {
     HomeScreen(),
     TempScreen2(),
     TempScreen3(),
-    TempScreen4()
+    TempScreen4(),
   ];
 
   @override
   Widget build(BuildContext context) {
     final selectedScreen = useState(0);
+
     final PageController _controller =
         PageController(initialPage: selectedScreen.value, keepPage: true);
 

@@ -5,7 +5,9 @@ import 'package:movie_curation/widgets/movie_content_info.dart';
 import 'package:movie_curation/widgets/movie_list_slider.dart';
 
 class HomeScreenT extends StatefulWidget {
-  const HomeScreenT({Key? key}) : super(key: key);
+  final VoidCallback routeAction; //
+
+  const HomeScreenT({Key? key, required this.routeAction}) : super(key: key);
   @override
   State<HomeScreenT> createState() => _HomeScreenTState();
 }
@@ -20,6 +22,7 @@ class _HomeScreenTState extends State<HomeScreenT>
     with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    print("1");
     return GetBuilder<MovieVM>(
         init: _movieVM,
         builder: (context) {
@@ -35,7 +38,7 @@ class _HomeScreenTState extends State<HomeScreenT>
                   /* Category Group Button */
                   CategoryGroupButton(movieVM: _movieVM),
                   /* Movie Content Info */
-                  MovieContentInfo(),
+                  MovieContentInfo(routeAction: widget.routeAction),
                   /* Movie List Carousel Slider */
                   MovieListSlider()
                 ],

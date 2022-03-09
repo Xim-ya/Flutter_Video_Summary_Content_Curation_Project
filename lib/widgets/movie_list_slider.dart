@@ -28,9 +28,14 @@ class MovieListSlider extends StatelessWidget {
                     margin: EdgeInsets.only(
                       right: 32,
                     ),
-                    color: Colors.yellow,
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(12)),
                     child: AspectRatio(
                       aspectRatio: 39 / 58,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.asset("assets/images/movie_poster1.jpg"),
+                      ),
                     ),
                   ),
                 );

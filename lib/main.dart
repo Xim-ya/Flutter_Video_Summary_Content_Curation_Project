@@ -16,12 +16,11 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  // This widget is the root of your application.
 
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return MaterialApp(
+      return GetMaterialApp(
         title: 'New Project',
         debugShowCheckedModeBanner: false,
         useInheritedMediaQuery: true,
@@ -30,7 +29,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        onGenerateRoute: FRouter.router.generator,
         home: RootScreen(),
       );
     });

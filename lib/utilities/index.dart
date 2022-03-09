@@ -19,6 +19,9 @@ export 'package:movie_curation/screens/home/mobile/home_screen_mobile.dart';
 export 'package:movie_curation/screens/home/tablet/home_screen_tablet.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
+export 'package:movie_curation/screens/movieDetail/localWidget/movie_detail_tablet.dart';
+export 'package:movie_curation/screens/movieDetail/mobile/movie_detail_mobile.dart';
+export 'package:movie_curation/screens/movieDetail/movie_detail_screen.dart';
 
 /* Models */
 
@@ -31,6 +34,7 @@ export 'package:movie_curation/widgets/gradient_button.dart';
 
 /* Utilities */
 export 'package:movie_curation/utilities/palette.dart';
+export 'package:movie_curation/utilities/orientation.dart';
 
 /* Routes */
 export 'package:movie_curation/routes/fluro_router.dart';

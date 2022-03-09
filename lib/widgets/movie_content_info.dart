@@ -1,7 +1,10 @@
 import 'package:movie_curation/utilities/index.dart';
 
 class MovieContentInfo extends StatelessWidget {
-  const MovieContentInfo({Key? key}) : super(key: key);
+  const MovieContentInfo({Key? key, required this.routeAction})
+      : super(key: key);
+
+  final VoidCallback routeAction;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +66,9 @@ class MovieContentInfo extends StatelessWidget {
                       primary: kYellow,
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      routeAction();
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

@@ -1,5 +1,4 @@
 import 'package:movie_curation/utilities/index.dart';
-import 'package:movie_curation/utilities/orientation.dart';
 
 /* Device 최대 넓이를 확인하여 Tablet, Mobile 반응형 위젯을 인자값으로 전달함 */
 class ResponsiveLayout extends StatelessWidget {
