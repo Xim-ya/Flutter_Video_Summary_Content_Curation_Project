@@ -1,7 +1,8 @@
 import 'package:movie_curation/utilities/index.dart';
 
 class MovieListSlider extends StatelessWidget {
-  const MovieListSlider({Key? key}) : super(key: key);
+  const MovieListSlider({Key? key, required this.movieVM}) : super(key: key);
+  final MovieVM movieVM;
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +11,7 @@ class MovieListSlider extends StatelessWidget {
       child: Container(
         child: ScrollablePositionedList.builder(
           padding: EdgeInsets.only(top: contentSliderDivideP),
-          itemCount: 10,
+          itemCount: movieVM.movieList.length,
           initialScrollIndex: 0,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
@@ -34,7 +35,12 @@ class MovieListSlider extends StatelessWidget {
                       aspectRatio: 39 / 58,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: Image.asset("assets/images/movie_poster1.jpg"),
+                        child: CachedNetworkImage(
+                          placeholder: (context, url) =>
+                              new CircularProgressIndicator(),
+                          imageUrl:
+                              "https://image.tmdb.org/t/p/w500${movieVM.movieList[index].posterUrl}",
+                        ),
                       ),
                     ),
                   ),

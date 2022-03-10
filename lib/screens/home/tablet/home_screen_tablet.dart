@@ -16,10 +16,16 @@ class HomeScreenT extends StatefulWidget {
 final ItemScrollController itemScrollController = ItemScrollController();
 final ItemPositionsListener itemPositionsListener =
     ItemPositionsListener.create();
-final _movieVM = Get.put(MovieVM());
+final _movieVM = Get.put(MovieVM(model: MovieCore()));
 
 class _HomeScreenTState extends State<HomeScreenT>
     with AutomaticKeepAliveClientMixin {
+  @override
+  void initState() {
+    _movieVM.fetchMovies();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     print("1");
@@ -35,12 +41,22 @@ class _HomeScreenTState extends State<HomeScreenT>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  TextButton(
+                      onPressed: () {
+                        _movieVM.fetchMovies();
+                      },
+                      child: Text("Fetch Movie Data")),
+                  TextButton(
+                      onPressed: () {
+                        print("${_movieVM.movieList.length}");
+                      },
+                      child: Text("Load Data")),
                   /* Category Group Button */
                   CategoryGroupButton(movieVM: _movieVM),
                   /* Movie Content Info */
                   MovieContentInfo(routeAction: widget.routeAction),
                   /* Movie List Carousel Slider */
-                  MovieListSlider()
+                  MovieListSlider(movieVM: _movieVM)
                 ],
               ),
             ),

@@ -11,6 +11,7 @@ export 'package:sizer/sizer.dart';
 export 'package:movie_curation/utilities/responsive_size.dart';
 export 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 export 'package:get/get.dart';
+export 'package:cached_network_image/cached_network_image.dart';
 
 /* Screens */
 export 'package:movie_curation/screens/root_screen.dart';
@@ -24,6 +25,7 @@ export 'package:movie_curation/screens/movieDetail/mobile/movie_detail_mobile.da
 export 'package:movie_curation/screens/movieDetail/movie_detail_screen.dart';
 
 /* Models */
+export 'package:movie_curation/models/movie_model.dart';
 
 /* View Models */
 export 'package:movie_curation/viewModels/movie_view_model.dart';
