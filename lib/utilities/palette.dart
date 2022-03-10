@@ -13,6 +13,7 @@ class FontStyles {
           color: Colors.white,
           fontSize: size,
           fontWeight: FontWeight.w400,
+          overflow: TextOverflow.ellipsis,
         ),
         gRated = TextStyle(
           color: Colors.white,
@@ -28,6 +29,7 @@ class FontStyles {
           color: Colors.white,
           fontSize: size,
           fontWeight: FontWeight.normal,
+          overflow: TextOverflow.ellipsis,
         ),
         watchButton = TextStyle(
             color: Colors.black, fontSize: size, fontWeight: FontWeight.bold),

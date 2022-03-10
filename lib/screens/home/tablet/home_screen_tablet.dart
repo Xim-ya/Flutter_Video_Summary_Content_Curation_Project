@@ -31,30 +31,21 @@ class _HomeScreenTState extends State<HomeScreenT>
     print("1");
     return GetBuilder<MovieVM>(
         init: _movieVM,
-        builder: (context) {
+        builder: (_) {
           return Stack(children: [
             /* Content Image Background  (Image & Gradient Linear Background) */
-            GradientPostBackground(),
+            GradientPostBackground(movieVM: _movieVM),
             Container(
               padding: EdgeInsets.only(
                   top: contentTopP, left: contentLeftP, bottom: contentBottomP),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextButton(
-                      onPressed: () {
-                        _movieVM.fetchMovies();
-                      },
-                      child: Text("Fetch Movie Data")),
-                  TextButton(
-                      onPressed: () {
-                        print("${_movieVM.movieList.length}");
-                      },
-                      child: Text("Load Data")),
                   /* Category Group Button */
                   CategoryGroupButton(movieVM: _movieVM),
                   /* Movie Content Info */
-                  MovieContentInfo(routeAction: widget.routeAction),
+                  MovieContentInfo(
+                      routeAction: widget.routeAction, movieVM: _movieVM),
                   /* Movie List Carousel Slider */
                   MovieListSlider(movieVM: _movieVM)
                 ],

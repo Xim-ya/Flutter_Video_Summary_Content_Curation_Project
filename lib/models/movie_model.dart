@@ -1,5 +1,10 @@
 class MovieCore {
   List<Movie> movies = [];
+  late final Movie movie;
+
+  void setSelectedMovie(int index) {
+    movie = movies[index];
+  }
 }
 
 /* Movie 포맷 */

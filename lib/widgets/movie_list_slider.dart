@@ -6,8 +6,19 @@ class MovieListSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void chooseMovieHandler(int index) {
+      // Scroll to Index 인터렉션
+      itemScrollController.scrollTo(
+          index: index,
+          duration: Duration(seconds: 1),
+          curve: Curves.easeInOutCubic);
+
+      // selectedMovieIndex 설정
+      movieVM.setSelectedMovie(index);
+    }
+
     return Expanded(
-      flex: 6,
+      flex: 8,
       child: Container(
         child: ScrollablePositionedList.builder(
           padding: EdgeInsets.only(top: contentSliderDivideP),
@@ -20,13 +31,10 @@ class MovieListSlider extends StatelessWidget {
               builder: (context, positions, child) {
                 return GestureDetector(
                   onTap: () {
-                    itemScrollController.scrollTo(
-                        index: index,
-                        duration: Duration(seconds: 1),
-                        curve: Curves.easeInOutCubic);
+                    chooseMovieHandler(index);
                   },
                   child: Container(
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       right: 32,
                     ),
                     decoration:
@@ -36,10 +44,20 @@ class MovieListSlider extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: CachedNetworkImage(
-                          placeholder: (context, url) =>
-                              new CircularProgressIndicator(),
                           imageUrl:
                               "https://image.tmdb.org/t/p/w500${movieVM.movieList[index].posterUrl}",
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
                       ),
                     ),

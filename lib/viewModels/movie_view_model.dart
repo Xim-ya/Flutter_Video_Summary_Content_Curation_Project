@@ -5,6 +5,7 @@ enum LoadingStatus { done, empty }
 
 class MovieVM extends GetxController {
   int selectedCategoryIndex = 0;
+  int? selectedMovieIndex;
 
   // Model과 연동
   MovieCore _model;
@@ -16,8 +17,14 @@ class MovieVM extends GetxController {
     return _model.movies;
   }
 
+  // Intent - 내부 비즈니스 로직
   void updateCategoryIndex(int index) {
     selectedCategoryIndex = index;
+    update();
+  }
+
+  void setSelectedMovie(int index) {
+    selectedMovieIndex = index;
     update();
   }
 
@@ -28,6 +35,10 @@ class MovieVM extends GetxController {
 
     List<Movie> movieList = await MovieApi().fetchMovies();
     _model.movies = movieList.toList();
+    update();
+
+    loadingStatus =
+        _model.movies.isEmpty ? LoadingStatus.empty : LoadingStatus.done;
     update();
   }
 }

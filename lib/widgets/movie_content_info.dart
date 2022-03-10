@@ -1,16 +1,20 @@
 import 'package:movie_curation/utilities/index.dart';
 
 class MovieContentInfo extends StatelessWidget {
-  const MovieContentInfo({Key? key, required this.routeAction})
+  const MovieContentInfo(
+      {Key? key, required this.routeAction, required this.movieVM})
       : super(key: key);
 
   final VoidCallback routeAction;
+  final MovieVM movieVM;
 
   @override
   Widget build(BuildContext context) {
+    bool isFetched = movieVM.loadingStatus == LoadingStatus.done ? true : false;
+    int? selectedIndex = movieVM.selectedMovieIndex;
     double width = MediaQuery.of(context).size.width;
     return Expanded(
-      flex: 4,
+      flex: 6,
       child: Container(
         width: contentResponsiveW,
         margin: EdgeInsets.only(
@@ -22,7 +26,8 @@ class MovieContentInfo extends StatelessWidget {
           children: [
             /* Title */
             Text(
-              "더 스타 이즈 본",
+              isFetched ? movieVM.movieList[selectedIndex ?? 0].title : "",
+              maxLines: 1,
               style: FontStyles(kMovieTitle).movieTitle,
             ),
             /* GRated & Release Year */
@@ -50,7 +55,8 @@ class MovieContentInfo extends StatelessWidget {
             Container(
               width: width * 3 / 5,
               child: Text(
-                "A musician helps a young singer find fame as age and alcoholism send his own career into a downward spiral. ",
+                isFetched ? movieVM.movieList[selectedIndex ?? 0].overview : "",
+                maxLines: 3,
                 style: FontStyles(5.8.sp).description,
               ),
             ),
