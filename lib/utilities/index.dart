@@ -26,6 +26,7 @@ export 'package:movie_curation/screens/movieDetail/movie_detail_screen.dart';
 
 /* Models */
 export 'package:movie_curation/models/movie_model.dart';
+export 'package:movie_curation/models/movie_genre_model.dart';
 
 /* View Models */
 export 'package:movie_curation/viewModels/movie_view_model.dart';

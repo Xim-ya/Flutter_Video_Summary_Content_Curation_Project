@@ -23,7 +23,7 @@ class MovieContentInfo extends StatelessWidget {
         width: contentResponsiveW,
         margin: EdgeInsets.only(
             top: contentTopP), //TODO : 나중에 레이아웃을 확인하고 Responsive Size로 변경 필요
-        // height: contentResponsiveH,
+        // height: contentReszonsiveH,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,6 +80,7 @@ class MovieContentInfo extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                           ),
                           onPressed: () {
+                            movieVM.fetchGenre();
                             routeAction();
                           },
                           child: Row(

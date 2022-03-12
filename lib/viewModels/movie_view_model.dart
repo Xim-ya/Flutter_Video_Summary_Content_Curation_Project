@@ -17,6 +17,16 @@ class MovieVM extends GetxController {
     return _model.movies;
   }
 
+  List<Genres> get movieGenreList {
+    return _model.movieGenre;
+  }
+
+  void fetchGenre() async {
+    List<Genres> movieGenreList = await MovieApi().fetchMovieGenre();
+    print(movieGenreList[0].name);
+    update();
+  }
+
   // Intent - 내부 비즈니스 로직
   void updateCategoryIndex(int index) {
     selectedCategoryIndex = index;
@@ -33,7 +43,7 @@ class MovieVM extends GetxController {
     loadingStatus = LoadingStatus.empty;
     update();
 
-    List<Movie> movieList = await MovieApi().fetchMovies();
+    List<Movie> movieList = await MovieApi().fetchPopularMovies();
     _model.movies = movieList.toList();
     update();
 

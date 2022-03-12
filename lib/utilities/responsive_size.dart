@@ -13,3 +13,11 @@ final double contentSliderDivideP =
     9.9.h; // 148px (ipad 12.9) //TODO 디테일은 나중에 결정 (수정필요)
 /* Home Screen Tablet  > Movie Content */
 final double kMovieTitle = 15.6.sp;
+
+/* Movie Detail Screen Tablet */
+final double kCastDiverP = 4.7.h;
+
+/* Global */
+final double kTS16 = 4.8.sp;
+final double kTS50 = 14.8.sp;
+final double kTS22 = 6.5.sp;

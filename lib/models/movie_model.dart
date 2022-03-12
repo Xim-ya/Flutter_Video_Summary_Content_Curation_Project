@@ -1,5 +1,8 @@
+import 'package:movie_curation/models/movie_genre_model.dart';
+
 class MovieCore {
   List<Movie> movies = [];
+  List<Genres> movieGenre = [];
   late final Movie movie;
 
   void setSelectedMovie(int index) {

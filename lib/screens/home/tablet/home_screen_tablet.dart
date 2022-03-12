@@ -30,7 +30,7 @@ class _HomeScreenTState extends State<HomeScreenT>
         builder: (_) {
           return Stack(children: [
             /* Content Image Background  (Image & Gradient Linear Background) */
-            GradientPostBackground(movieVM: _movieVM),
+            GradientPostBackground(isRoutedMain: true, movieVM: _movieVM),
             Container(
               padding: EdgeInsets.only(
                   top: contentTopP, left: contentLeftP, bottom: contentBottomP),

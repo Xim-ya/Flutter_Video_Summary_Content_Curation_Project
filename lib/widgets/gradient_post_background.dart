@@ -1,9 +1,11 @@
 import 'package:movie_curation/utilities/index.dart';
 
 class GradientPostBackground extends StatelessWidget {
-  const GradientPostBackground({Key? key, required this.movieVM})
-      : super(key: key);
   final MovieVM movieVM;
+  final bool isRoutedMain;
+  const GradientPostBackground(
+      {Key? key, required this.movieVM, required this.isRoutedMain})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +15,9 @@ class GradientPostBackground extends StatelessWidget {
       children: [
         isFetched
             ? CachedNetworkImage(
-                imageUrl:
-                    "https://image.tmdb.org/t/p/w500${movieVM.movieList[selectedIndex ?? 0].backDropUrl}",
+                imageUrl: isRoutedMain
+                    ? "https://image.tmdb.org/t/p/w500${movieVM.movieList[selectedIndex ?? 0].backDropUrl}"
+                    : "https://image.tmdb.org/t/p/w500${movieVM.movieList[selectedIndex ?? 0].posterUrl}",
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
