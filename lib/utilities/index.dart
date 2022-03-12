@@ -20,7 +20,7 @@ export 'package:movie_curation/screens/home/mobile/home_screen_mobile.dart';
 export 'package:movie_curation/screens/home/tablet/home_screen_tablet.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
-export 'package:movie_curation/screens/movieDetail/localWidget/movie_detail_tablet.dart';
+export 'package:movie_curation/screens/movieDetail/tablet/movie_detail_tablet.dart';
 export 'package:movie_curation/screens/movieDetail/mobile/movie_detail_mobile.dart';
 export 'package:movie_curation/screens/movieDetail/movie_detail_screen.dart';
 
@@ -33,6 +33,10 @@ export 'package:movie_curation/viewModels/movie_view_model.dart';
 /* Widgets */
 export 'package:movie_curation/widgets/responsive_layout.dart';
 export 'package:movie_curation/widgets/gradient_button.dart';
+export 'package:movie_curation/widgets/category_group_button.dart';
+export 'package:movie_curation/widgets/gradient_post_background.dart';
+export 'package:movie_curation/widgets/movie_content_info.dart';
+export 'package:movie_curation/widgets/movie_list_slider.dart';
 
 /* Utilities */
 export 'package:movie_curation/utilities/palette.dart';

@@ -2,9 +2,13 @@ import 'package:movie_curation/utilities/index.dart';
 
 class MovieContentInfo extends StatelessWidget {
   const MovieContentInfo(
-      {Key? key, required this.routeAction, required this.movieVM})
+      {Key? key,
+      required this.isRoutedMain,
+      required this.routeAction,
+      required this.movieVM})
       : super(key: key);
 
+  final bool isRoutedMain; // 라우트되는 부모 스크린 판별 변수
   final VoidCallback routeAction;
   final MovieVM movieVM;
 
@@ -65,32 +69,36 @@ class MovieContentInfo extends StatelessWidget {
             Container(
               width: width * 3 / 5,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: isRoutedMain
+                    ? MainAxisAlignment.spaceBetween
+                    : MainAxisAlignment.start,
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: kYellow,
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                    ),
-                    onPressed: () {
-                      routeAction();
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SvgPicture.asset("assets/icons/play_ic.svg",
-                            color: Colors.black),
-                        const SizedBox(width: 6),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 2),
-                          child: Text(
-                            "컨텐츠",
-                            style: FontStyles(6.5.sp).watchButton,
+                  isRoutedMain
+                      ? ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: kYellow,
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                          ),
+                          onPressed: () {
+                            routeAction();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SvgPicture.asset("assets/icons/play_ic.svg",
+                                  color: Colors.black),
+                              const SizedBox(width: 6),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 2),
+                                child: Text(
+                                  "컨텐츠",
+                                  style: FontStyles(6.5.sp).watchButton,
+                                ),
+                              )
+                            ],
                           ),
                         )
-                      ],
-                    ),
-                  ),
+                      : SizedBox(),
                   Wrap(
                     children: const [
                       GradientButton(content: "예고편"),

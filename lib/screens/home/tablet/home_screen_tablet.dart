@@ -1,8 +1,4 @@
 import 'package:movie_curation/utilities/index.dart';
-import 'package:movie_curation/widgets/category_group_button.dart';
-import 'package:movie_curation/widgets/gradient_post_background.dart';
-import 'package:movie_curation/widgets/movie_content_info.dart';
-import 'package:movie_curation/widgets/movie_list_slider.dart';
 
 class HomeScreenT extends StatefulWidget {
   final VoidCallback routeAction; //
@@ -45,7 +41,9 @@ class _HomeScreenTState extends State<HomeScreenT>
                   CategoryGroupButton(movieVM: _movieVM),
                   /* Movie Content Info */
                   MovieContentInfo(
-                      routeAction: widget.routeAction, movieVM: _movieVM),
+                      isRoutedMain: true,
+                      routeAction: widget.routeAction,
+                      movieVM: _movieVM),
                   /* Movie List Carousel Slider */
                   MovieListSlider(movieVM: _movieVM)
                 ],
