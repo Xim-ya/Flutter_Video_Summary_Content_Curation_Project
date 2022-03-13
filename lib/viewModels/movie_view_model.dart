@@ -21,6 +21,10 @@ class MovieVM extends GetxController {
     return _model.movieGenre;
   }
 
+  List<Actor> get actorList {
+    return _model.actors;
+  }
+
   /* Intent - 내부 비즈니스 로직 */
 
   void updateCategoryIndex(int index) {
@@ -53,5 +57,11 @@ class MovieVM extends GetxController {
     List<Genres> movieGenreList = await MovieApi().fetchMovieGenre(movieId);
     _model.movieGenre = movieGenreList;
     update();
+  }
+
+  // 선택된 영화의 출연진 (Cast Actors)
+  void fetchActors() async {
+    List<Actor> actorList = await MovieApi().fetchActors();
+    _model.actors = actorList;
   }
 }

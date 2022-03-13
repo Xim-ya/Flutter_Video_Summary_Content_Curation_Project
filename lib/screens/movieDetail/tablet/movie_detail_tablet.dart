@@ -47,8 +47,9 @@ class MovieDetailScreenT extends StatelessWidget {
                                 height: castSize + (kTS16 * 2) + 9,
                                 child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: 10,
+                                    itemCount: movieVM.actorList.length,
                                     itemBuilder: (context, index) {
+                                      final castItem = movieVM.actorList[index];
                                       return Container(
                                         margin: EdgeInsets.only(right: 22),
                                         child: Stack(
@@ -62,7 +63,7 @@ class MovieDetailScreenT extends StatelessWidget {
                                                     BorderRadius.circular(1000),
                                                 child: CachedNetworkImage(
                                                   imageUrl:
-                                                      "https://image.tmdb.org/t/p/w500${movieVM.movieList[index].posterUrl}",
+                                                      "https://image.tmdb.org/t/p/w500${castItem.profilePath}",
                                                   imageBuilder: (context,
                                                           imageProvider) =>
                                                       Container(
@@ -89,7 +90,7 @@ class MovieDetailScreenT extends StatelessWidget {
                                               child: Container(
                                                 width: castSize + 4,
                                                 child: Text(
-                                                  "James ",
+                                                  castItem.name ?? "익명",
                                                   maxLines: 2,
                                                   textAlign: TextAlign.center,
                                                   style: FontStyles(kTS16)

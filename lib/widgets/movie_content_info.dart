@@ -83,6 +83,7 @@ class MovieContentInfo extends StatelessWidget {
                             movieVM.fetchGenre(movieVM
                                 .movieList[selectedIndex ?? 0].id
                                 .toInt());
+                            movieVM.fetchActors();
                             routeAction();
                           },
                           child: Row(

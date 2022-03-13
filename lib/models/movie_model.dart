@@ -1,8 +1,9 @@
-import 'package:movie_curation/models/movie_genre_model.dart';
+import 'package:movie_curation/utilities/index.dart';
 
 class MovieCore {
   List<Movie> movies = [];
   List<Genres> movieGenre = [];
+  List<Actor> actors = [];
   late final Movie movie;
 
   void setSelectedMovie(int index) {
@@ -31,16 +32,14 @@ class Movie {
       required this.releaseDate,
       required this.voteAverage});
 
-  factory Movie.fromJson(Map<String, dynamic> json) {
-    return Movie(
-      adult: json['adult'],
-      backDropUrl: json["backdrop_path"],
-      posterUrl: json["poster_path"],
-      id: json["id"],
-      title: json["title"],
-      overview: json["overview"],
-      releaseDate: json["release_date"],
-      voteAverage: json["vote_average"],
-    );
-  }
+  factory Movie.fromJson(Map<String, dynamic> json) => Movie(
+        adult: json['adult'],
+        backDropUrl: json["backdrop_path"],
+        posterUrl: json["poster_path"],
+        id: json["id"],
+        title: json["title"],
+        overview: json["overview"],
+        releaseDate: json["release_date"],
+        voteAverage: json["vote_average"],
+      );
 }
