@@ -13,7 +13,7 @@ class MovieDetailScreenT extends StatelessWidget {
     bool isFetched = movieVM.loadingStatus == LoadingStatus.done ? true : false;
     int? selectedIndex = movieVM.selectedMovieIndex;
     final castSize = 26.6.sp;
-    print(6.5.sp);
+    print(5.29.w);
     return Stack(
       children: [
         GradientPostBackground(isRoutedMain: false, movieVM: movieVM),
@@ -23,14 +23,13 @@ class MovieDetailScreenT extends StatelessWidget {
             children: [
               /* Left Side */
               Expanded(
-                flex: 1,
+                flex: 3,
                 child: Container(
                   padding: EdgeInsets.only(
-                      top: contentTopP,
-                      left: contentLeftP,
-                      bottom: contentBottomP),
+                      top: contentTopP, left: kWS54, bottom: contentBottomP),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       MovieContentInfo(
                           isRoutedMain: false,
@@ -106,6 +105,7 @@ class MovieDetailScreenT extends StatelessWidget {
                               /* Else (Rated...) */
                               Container(
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     /* Rate Section */
                                     Wrap(
@@ -122,8 +122,8 @@ class MovieDetailScreenT extends StatelessWidget {
                                                       .voteAverage
                                                       .toString()
                                                   : "",
-                                              style:
-                                                  FontStyles(kTS50).rateTitle,
+                                              style: FontStyles(kTS50)
+                                                  .categoryTitle,
                                             ),
                                             Container(
                                               margin: EdgeInsets.only(
@@ -134,25 +134,40 @@ class MovieDetailScreenT extends StatelessWidget {
                                             )
                                           ],
                                         ),
-                                        Text("RATE",
-                                            style:
-                                                FontStyles(kTS22).rateSubTitle)
+                                        GestureDetector(
+                                          onTap: () {
+                                            print(movieVM.movieGenreList);
+                                          },
+                                          child: Text("RATE",
+                                              style: FontStyles(kTS22)
+                                                  .categorySubTitle),
+                                        )
                                       ],
                                     ),
-
-                                    /* Movie Genre */
-                                    // Container(
-                                    //   height: 100,
-                                    //   child: ListView.builder(
-                                    //     scrollDirection: Axis.horizontal,
-                                    //     itemCount:
-                                    //         movieVM.movieGenreList.length
-                                    //     itemBuilder: (context, index) {
-                                    //       return Text(movieVM.movieGenreList[0].genres
-                                    //           .toString());
-                                    //     },
-                                    //   ),
-                                    // )
+                                    const SizedBox(height: 10),
+                                    /* Genre Title */
+                                    Text("Genre",
+                                        style: FontStyles(kTS50).categoryTitle),
+                                    /* Genre List */
+                                    Container(
+                                      margin: EdgeInsets.only(top: 4),
+                                      height: kTS50,
+                                      child: ListView.separated(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount:
+                                            movieVM.movieGenreList.length,
+                                        itemBuilder: (context, index) {
+                                          return Text(
+                                              "${movieVM.movieGenreList[index].name}",
+                                              style: FontStyles(kTS22)
+                                                  .categorySubTitle);
+                                        },
+                                        separatorBuilder: (context, index) =>
+                                            Text("/ ",
+                                                style: FontStyles(kTS22)
+                                                    .categorySubTitle),
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -166,7 +181,7 @@ class MovieDetailScreenT extends StatelessWidget {
               ),
               /* Right Side */
               Expanded(
-                flex: 1,
+                flex: 4,
                 child: Container(),
               )
             ],

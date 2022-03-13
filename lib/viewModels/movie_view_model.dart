@@ -21,13 +21,8 @@ class MovieVM extends GetxController {
     return _model.movieGenre;
   }
 
-  void fetchGenre() async {
-    List<Genres> movieGenreList = await MovieApi().fetchMovieGenre();
-    print(movieGenreList[0].name);
-    update();
-  }
+  /* Intent - 내부 비즈니스 로직 */
 
-  // Intent - 내부 비즈니스 로직
   void updateCategoryIndex(int index) {
     selectedCategoryIndex = index;
     update();
@@ -39,7 +34,8 @@ class MovieVM extends GetxController {
   }
 
   /* 네트워킹 */
-  void fetchMovies() async {
+  // 인기 영화
+  void fetchPopularMovie() async {
     loadingStatus = LoadingStatus.empty;
     update();
 
@@ -49,6 +45,13 @@ class MovieVM extends GetxController {
 
     loadingStatus =
         _model.movies.isEmpty ? LoadingStatus.empty : LoadingStatus.done;
+    update();
+  }
+
+  // 선택된 영화의 장르
+  void fetchGenre(int movieId) async {
+    List<Genres> movieGenreList = await MovieApi().fetchMovieGenre(movieId);
+    _model.movieGenre = movieGenreList;
     update();
   }
 }

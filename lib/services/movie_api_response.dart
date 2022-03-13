@@ -20,9 +20,9 @@ class MovieApi {
     }
   }
 
-  Future<List<Genres>> fetchMovieGenre() async {
+  Future<List<Genres>> fetchMovieGenre(int movieId) async {
     String url =
-        "https://api.themoviedb.org/3/movie/414906?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1";
+        "https://api.themoviedb.org/3/movie/${movieId}?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1";
 
     final response = await dio.get(url);
 

@@ -80,7 +80,9 @@ class MovieContentInfo extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                           ),
                           onPressed: () {
-                            movieVM.fetchGenre();
+                            movieVM.fetchGenre(movieVM
+                                .movieList[selectedIndex ?? 0].id
+                                .toInt());
                             routeAction();
                           },
                           child: Row(

@@ -18,7 +18,7 @@ class _HomeScreenTState extends State<HomeScreenT>
     with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
-    _movieVM.fetchMovies();
+    _movieVM.fetchPopularMovie();
     super.initState();
   }
 
