@@ -5,12 +5,10 @@ import 'package:movie_curation/utilities/index.dart';
 */
 
 class GradientButton extends StatelessWidget {
-  const GradientButton({
-    Key? key,
-    required this.content,
-  }) : super(key: key);
-
   final String content;
+  final MovieVM movieVM;
+  const GradientButton({Key? key, required this.content, required this.movieVM})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,9 @@ class GradientButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),
-      onPressed: () {},
+      onPressed: () {
+        movieVM.fetchTrailer();
+      },
       child: Ink(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(

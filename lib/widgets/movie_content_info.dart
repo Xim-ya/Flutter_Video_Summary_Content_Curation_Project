@@ -80,10 +80,11 @@ class MovieContentInfo extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                           ),
                           onPressed: () {
-                            movieVM.fetchGenre(movieVM
+                            final passedIndex = movieVM
                                 .movieList[selectedIndex ?? 0].id
-                                .toInt());
-                            movieVM.fetchActors();
+                                .toInt();
+                            movieVM.fetchGenre(passedIndex);
+                            movieVM.fetchActors(passedIndex);
                             routeAction();
                           },
                           child: Row(
@@ -104,10 +105,14 @@ class MovieContentInfo extends StatelessWidget {
                         )
                       : SizedBox(),
                   Wrap(
-                    children: const [
-                      GradientButton(content: "예고편"),
+                    children: [
+                      GradientButton(content: "예고편", movieVM: movieVM),
+                      // GradientButton(
+                      //   content: "예고편",
+                      //   movieVM: movieVM,
+                      // ),
                       SizedBox(width: 12),
-                      GradientButton(content: "추가"),
+                      GradientButton(content: "추가", movieVM: movieVM),
                     ],
                   )
                 ],

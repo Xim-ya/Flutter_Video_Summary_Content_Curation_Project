@@ -4,6 +4,7 @@ class MovieCore {
   List<Movie> movies = [];
   List<Genres> movieGenre = [];
   List<Actor> actors = [];
+  Trailer? trailer;
   late final Movie movie;
 
   void setSelectedMovie(int index) {

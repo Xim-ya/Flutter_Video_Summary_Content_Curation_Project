@@ -13,7 +13,7 @@ class MovieApi {
 
     final response = await dio.get(url);
 
-    if (response.statusCode == 200) {
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
       final result = response.data;
       Iterable list = result["results"];
       print("API 호출 성공");
@@ -23,13 +23,30 @@ class MovieApi {
     }
   }
 
+  Future<List<Trailer>> fetchTrailer() async {
+    String url =
+        "https://api.themoviedb.org/3/movie/634649/videos?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1";
+
+    final response = await dio.get(url);
+
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
+      final result = response.data;
+      Iterable list = result["results"];
+      print("TRAILER API 호출 성공 ");
+      return list.map((e) => Trailer.fromJson(e)).toList();
+    } else {
+      throw Exception("API 호출 실패");
+    }
+  }
+
   Future<List<Genres>> fetchMovieGenre(int movieId) async {
     String url =
         "https://api.themoviedb.org/3/movie/${movieId}?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1";
 
+    print(movieId);
     final response = await dio.get(url);
 
-    if (response.statusCode == 200) {
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
       final result = response.data['genres'];
       Iterable list = result;
       return list.map((e) => Genres.fromJson(e)).toList();
@@ -38,12 +55,12 @@ class MovieApi {
     }
   }
 
-  Future<List<Actor>> fetchActors() async {
+  Future<List<Actor>> fetchActors(int movieId) async {
     String url =
-        "https://api.themoviedb.org/3/movie/634649/credits?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1";
+        "https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1";
 
     final response = await dio.get(url);
-    if (response.statusCode == 200) {
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
       final result = response.data['cast'];
       Iterable list = result;
       return list.map((e) => Actor.fromJson(e)).toList();
