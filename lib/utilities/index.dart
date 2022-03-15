@@ -12,6 +12,7 @@ export 'package:movie_curation/utilities/responsive_size.dart';
 export 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 export 'package:get/get.dart';
 export 'package:cached_network_image/cached_network_image.dart';
+export 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 /* Screens */
 export 'package:movie_curation/screens/root_screen.dart';

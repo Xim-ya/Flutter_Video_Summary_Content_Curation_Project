@@ -6,6 +6,7 @@ enum LoadingStatus { done, empty }
 class MovieVM extends GetxController {
   int selectedCategoryIndex = 0;
   int? selectedMovieIndex;
+  String? trailerKey;
 
   // Model과 연동
   MovieCore _model;
@@ -29,7 +30,22 @@ class MovieVM extends GetxController {
     return _model.trailer;
   }
 
+  YoutubePlayerController get youtubeController {
+    return YoutubePlayerController(
+      initialVideoId: trailerKey ?? "0",
+      flags: YoutubePlayerFlags(
+        autoPlay: true,
+        mute: true,
+      ),
+    );
+  }
+
   /* Intent - 내부 비즈니스 로직 */
+
+  void setYoutubeId() {
+    trailerKey = "mI9oyFMUlfg";
+    update();
+  }
 
   void updateCategoryIndex(int index) {
     selectedCategoryIndex = index;
@@ -42,8 +58,23 @@ class MovieVM extends GetxController {
   }
 
   /* 네트워킹 */
+
+  void fetchPopularMovieAndTrailer() async {
+    List<Movie> movieList = await MovieApi().fetchPopularMovies();
+    _model.movies = movieList.toList();
+    update();
+
+    final movieId = _model.movies[0].id;
+    fetchTrailer(movieId.toInt());
+    update();
+
+    loadingStatus =
+        _model.movies.isEmpty ? LoadingStatus.empty : LoadingStatus.done;
+    update();
+  }
+
   // 인기 영화
-  void fetchPopularMovie() async {
+  Future<void> fetchPopularMovie() async {
     loadingStatus = LoadingStatus.empty;
     update();
 
@@ -70,10 +101,14 @@ class MovieVM extends GetxController {
   }
 
   // 선택된 영화 예고편
-  void fetchTrailer() async {
-    List<Trailer> trailerList = await MovieApi().fetchTrailer();
-    _model.trailer = trailerList[0]; // 하나의 예고편만
+  void fetchTrailer(int movieId) async {
+    List<Trailer> trailerList = await MovieApi().fetchTrailer(movieId);
+    if (trailerList.isNotEmpty) {
+      _model.trailer = trailerList[0]; // 하나의 예고편만]
+      trailerKey = trailerList[0].key;
+    } else {
+      trailerKey = null;
+    }
     update();
-    print(_model.trailer?.name);
   }
 }

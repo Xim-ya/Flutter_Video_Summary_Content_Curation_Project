@@ -32,9 +32,13 @@ class MovieDetailScreenT extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       MovieContentInfo(
-                          isRoutedMain: false,
-                          routeAction: blankAction,
-                          movieVM: movieVM),
+                        isRoutedMain: false,
+                        routeAction: blankAction,
+                        movieVM: movieVM,
+                        showDialog: () {
+                          print("aim");
+                        },
+                      ),
                       Expanded(
                         flex: 10,
                         child: Container(

@@ -16,16 +16,16 @@ class MovieApi {
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       final result = response.data;
       Iterable list = result["results"];
-      print("API 호출 성공");
+      print("API 호출 성공 (POPULAR MOVIES)");
       return list.map((e) => Movie.fromJson(e)).toList();
     } else {
       throw Exception("API 호출 실패");
     }
   }
 
-  Future<List<Trailer>> fetchTrailer() async {
+  Future<List<Trailer>> fetchTrailer(int movieId) async {
     String url =
-        "https://api.themoviedb.org/3/movie/634649/videos?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1";
+        "https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1";
 
     final response = await dio.get(url);
 

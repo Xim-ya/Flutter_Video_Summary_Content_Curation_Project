@@ -15,6 +15,9 @@ class MovieListSlider extends StatelessWidget {
 
       // selectedMovieIndex 설정
       movieVM.setSelectedMovie(index);
+
+      // 예고편 키값 호출
+      movieVM.fetchTrailer(movieVM.movieList[index].id.toInt());
     }
 
     return Expanded(

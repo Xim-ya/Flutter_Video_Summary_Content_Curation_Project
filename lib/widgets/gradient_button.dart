@@ -7,11 +7,17 @@ import 'package:movie_curation/utilities/index.dart';
 class GradientButton extends StatelessWidget {
   final String content;
   final MovieVM movieVM;
-  const GradientButton({Key? key, required this.content, required this.movieVM})
+  final VoidCallback showTrailer;
+  const GradientButton(
+      {Key? key,
+      required this.content,
+      required this.movieVM,
+      required this.showTrailer})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    int? selectedIndex = movieVM.selectedMovieIndex;
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         primary: Colors.transparent,
@@ -19,7 +25,9 @@ class GradientButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),
       onPressed: () {
-        movieVM.fetchTrailer();
+        final passedIndex = movieVM.movieList[selectedIndex ?? 0].id.toInt();
+        movieVM.fetchTrailer(passedIndex);
+        showTrailer();
       },
       child: Ink(
         padding: const EdgeInsets.symmetric(horizontal: 8),

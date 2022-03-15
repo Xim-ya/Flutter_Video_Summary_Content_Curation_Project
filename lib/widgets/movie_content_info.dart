@@ -5,12 +5,14 @@ class MovieContentInfo extends StatelessWidget {
       {Key? key,
       required this.isRoutedMain,
       required this.routeAction,
-      required this.movieVM})
+      required this.movieVM,
+      required this.showDialog})
       : super(key: key);
 
   final bool isRoutedMain; // 라우트되는 부모 스크린 판별 변수
   final VoidCallback routeAction;
   final MovieVM movieVM;
+  final VoidCallback showDialog;
 
   @override
   Widget build(BuildContext context) {
@@ -106,13 +108,19 @@ class MovieContentInfo extends StatelessWidget {
                       : SizedBox(),
                   Wrap(
                     children: [
-                      GradientButton(content: "예고편", movieVM: movieVM),
-                      // GradientButton(
-                      //   content: "예고편",
-                      //   movieVM: movieVM,
-                      // ),
+                      GradientButton(
+                        content: "예고편",
+                        movieVM: movieVM,
+                        showTrailer: showDialog,
+                      ),
                       SizedBox(width: 12),
-                      GradientButton(content: "추가", movieVM: movieVM),
+                      GradientButton(
+                        content: "추가",
+                        movieVM: movieVM,
+                        showTrailer: () {
+                          print("ADD TO FAVORITE");
+                        },
+                      ),
                     ],
                   )
                 ],
