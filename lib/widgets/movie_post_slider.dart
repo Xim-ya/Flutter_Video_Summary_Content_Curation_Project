@@ -1,7 +1,7 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class MovieListSlider extends StatelessWidget {
-  const MovieListSlider({Key? key, required this.movieVM}) : super(key: key);
+class MoviePostSlider extends StatelessWidget {
+  const MoviePostSlider({Key? key, required this.movieVM}) : super(key: key);
   final MovieVM movieVM;
 
   @override

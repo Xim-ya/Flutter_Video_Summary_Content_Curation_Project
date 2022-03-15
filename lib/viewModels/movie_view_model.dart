@@ -4,16 +4,16 @@ import 'package:movie_curation/utilities/index.dart';
 enum LoadingStatus { done, empty }
 
 class MovieVM extends GetxController {
-  int selectedCategoryIndex = 0;
-  int? selectedMovieIndex;
-  String? trailerKey;
+  int selectedCategoryIndex = 0; // [인기, 최신, 추천] 카테고리 옵션
+  int? selectedMovieIndex; // 선택된 영화의 리스트 인덱스
+  String? trailerKey; // 예고편 영화의 키값
+  LoadingStatus loadingStatus = LoadingStatus.empty; // API response 응답 여부.
 
-  // Model과 연동
+  /* Model과 연동 */
   MovieCore _model;
   MovieVM({required MovieCore model}) : _model = model;
 
-  LoadingStatus loadingStatus = LoadingStatus.empty;
-
+  /* 인스턴스 */
   List<Movie> get movieList {
     return _model.movies;
   }
@@ -26,14 +26,11 @@ class MovieVM extends GetxController {
     return _model.actors;
   }
 
-  Trailer? get trailer {
-    return _model.trailer;
-  }
-
+  // YoutubeController -> videoID를 동적으로 넘겨주기 위해서는 ViewModel에서 관리 필요
   YoutubePlayerController get youtubeController {
     return YoutubePlayerController(
-      initialVideoId: trailerKey ?? "0",
-      flags: YoutubePlayerFlags(
+      initialVideoId: trailerKey ?? "",
+      flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: true,
       ),
@@ -41,12 +38,6 @@ class MovieVM extends GetxController {
   }
 
   /* Intent - 내부 비즈니스 로직 */
-
-  void setYoutubeId() {
-    trailerKey = "mI9oyFMUlfg";
-    update();
-  }
-
   void updateCategoryIndex(int index) {
     selectedCategoryIndex = index;
     update();
@@ -58,16 +49,20 @@ class MovieVM extends GetxController {
   }
 
   /* 네트워킹 */
-
+  // 인기 영화 리스트와 해당 리스트의 첫 영화의 예고편 데이터 호출.
+  // 홈스크린으로 처음 Route 될 때 필요한 네트워킹 로직
   void fetchPopularMovieAndTrailer() async {
+    // 1. Fetch Popular Movie List
     List<Movie> movieList = await MovieApi().fetchPopularMovies();
     _model.movies = movieList.toList();
     update();
 
+    // 2. Fetch Selected Movie Trailer, The First One
     final movieId = _model.movies[0].id;
     fetchTrailer(movieId.toInt());
     update();
 
+    // 3. Set Loading Status if MovieList Fetched
     loadingStatus =
         _model.movies.isEmpty ? LoadingStatus.empty : LoadingStatus.done;
     update();
@@ -104,7 +99,6 @@ class MovieVM extends GetxController {
   void fetchTrailer(int movieId) async {
     List<Trailer> trailerList = await MovieApi().fetchTrailer(movieId);
     if (trailerList.isNotEmpty) {
-      _model.trailer = trailerList[0]; // 하나의 예고편만]
       trailerKey = trailerList[0].key;
     } else {
       trailerKey = null;

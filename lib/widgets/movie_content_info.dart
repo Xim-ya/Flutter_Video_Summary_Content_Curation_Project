@@ -4,13 +4,13 @@ class MovieContentInfo extends StatelessWidget {
   const MovieContentInfo(
       {Key? key,
       required this.isRoutedMain,
-      required this.routeAction,
+      this.routeAction,
       required this.movieVM,
       required this.showDialog})
       : super(key: key);
 
   final bool isRoutedMain; // 라우트되는 부모 스크린 판별 변수
-  final VoidCallback routeAction;
+  final VoidCallback? routeAction;
   final MovieVM movieVM;
   final VoidCallback showDialog;
 
@@ -87,7 +87,7 @@ class MovieContentInfo extends StatelessWidget {
                                 .toInt();
                             movieVM.fetchGenre(passedIndex);
                             movieVM.fetchActors(passedIndex);
-                            routeAction();
+                            routeAction!();
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

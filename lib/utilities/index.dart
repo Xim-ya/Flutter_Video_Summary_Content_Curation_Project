@@ -40,11 +40,13 @@ export 'package:movie_curation/widgets/gradient_button.dart';
 export 'package:movie_curation/widgets/category_group_button.dart';
 export 'package:movie_curation/widgets/gradient_post_background.dart';
 export 'package:movie_curation/widgets/movie_content_info.dart';
-export 'package:movie_curation/widgets/movie_list_slider.dart';
+export 'package:movie_curation/widgets/movie_post_slider.dart';
+export 'package:movie_curation/widgets/trailer_dialog.dart';
 
 /* Utilities */
 export 'package:movie_curation/utilities/palette.dart';
 export 'package:movie_curation/utilities/orientation.dart';
+export 'package:movie_curation/utilities/scroll_controller.dart';
 
 /* Routes */
 export 'package:movie_curation/routes/fluro_router.dart';
