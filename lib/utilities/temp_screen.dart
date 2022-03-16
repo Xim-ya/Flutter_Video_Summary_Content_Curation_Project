@@ -22,26 +22,34 @@ class TempScreen2 extends StatefulWidget {
 class _TempScreen2State extends State<TempScreen2>
     with AutomaticKeepAliveClientMixin {
   int count = 0;
+  YoutubePlayerController _controller = YoutubePlayerController(
+    initialVideoId: 'iLnmTe5Q2Qw',
+    flags: YoutubePlayerFlags(
+      autoPlay: true,
+      mute: true,
+    ),
+  );
   @override
   Widget build(BuildContext context) {
     print("TEMP22! REDERED $count");
 
     return Center(
       child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 200),
         width: double.infinity,
-        color: kDarkGrey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Count ${count}"),
-            ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    count++;
-                  });
-                },
-                child: Text("COUNT"))
-          ],
+        child: Container(
+          child: YoutubePlayerBuilder(
+            player: YoutubePlayer(
+              controller: _controller,
+            ),
+            builder: (context, player) {
+              return Column(
+                children: [
+                  player,
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
@@ -55,9 +63,27 @@ class TempScreen3 extends StatelessWidget {
   const TempScreen3({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    YoutubePlayerController _controller = YoutubePlayerController(
+      initialVideoId: 'iLnmTe5Q2Qw',
+      flags: YoutubePlayerFlags(
+        autoPlay: true,
+        mute: true,
+      ),
+    );
     return Container(
       color: Colors.blue,
-      child: Text("TEMP SCREEN 3"),
+      child: YoutubePlayerBuilder(
+        player: YoutubePlayer(
+          controller: _controller,
+        ),
+        builder: (context, player) {
+          return Column(
+            children: [
+              player,
+            ],
+          );
+        },
+      ),
     );
   }
 }

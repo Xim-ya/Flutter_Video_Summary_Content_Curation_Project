@@ -11,7 +11,7 @@ Future<dynamic> movieTrailerDialog(BuildContext context, MovieVM movieVM) {
         margin: EdgeInsets.all(200),
         color: Colors.white,
         child: YoutubePlayer(
-          controller: movieVM.youtubeController,
+          controller: movieVM.trailerYoutubeController,
           showVideoProgressIndicator: true,
         ),
       );

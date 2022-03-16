@@ -27,7 +27,17 @@ class MovieVM extends GetxController {
   }
 
   // YoutubeController -> videoID를 동적으로 넘겨주기 위해서는 ViewModel에서 관리 필요
-  YoutubePlayerController get youtubeController {
+  YoutubePlayerController get trailerYoutubeController {
+    return YoutubePlayerController(
+      initialVideoId: trailerKey ?? "",
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: true,
+      ),
+    );
+  }
+
+  YoutubePlayerController get movieReviewController {
     return YoutubePlayerController(
       initialVideoId: trailerKey ?? "",
       flags: const YoutubePlayerFlags(
