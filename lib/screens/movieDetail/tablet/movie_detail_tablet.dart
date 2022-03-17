@@ -35,15 +35,6 @@ class _MovieDetailScreenTState extends State<MovieDetailScreenT> {
         controllerList.add(youtubeController(e));
       });
     });
-    // _controller = YoutubePlayerController(
-    //   initialVideoId: "iLnmTe5Q2Qw",
-    //   flags: YoutubePlayerFlags(
-    //       mute: true,
-    //       autoPlay: false,
-    //       disableDragSeek: true,
-    //       loop: false,
-    //       enableCaption: false),
-    // );
 
     super.initState();
   }
@@ -77,29 +68,15 @@ class _MovieDetailScreenTState extends State<MovieDetailScreenT> {
                     movieVM, _showDialog, castSize, isFetched, selectedIndex),
                 /* Right Side */
                 Expanded(
-                  flex: 4,
-                  child: ListView.builder(
-                    itemCount: controllerList.length,
-                    itemBuilder: (context, index) {
-                      return YoutubePlayer(
-                        controller: controllerList[index],
-                        showVideoProgressIndicator: true,
-                        bottomActions: <Widget>[
-                          const SizedBox(width: 14.0),
-                          CurrentPosition(),
-                          const SizedBox(width: 8.0),
-                          ProgressBar(isExpanded: true),
-                          RemainingDuration(),
-                        ],
-                        aspectRatio: 4 / 3,
-                        progressIndicatorColor: Colors.white,
-                        onReady: () {
-                          print('Player is ready.');
-                        },
-                      );
-                    },
-                  ),
-                ),
+                    flex: 4,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 100),
+                      child: ListWheelScrollView(
+                        diameterRatio: 20,
+                        itemExtent: 500,
+                        children: [],
+                      ),
+                    )),
               ],
             ),
           ),
