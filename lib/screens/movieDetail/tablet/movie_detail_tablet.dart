@@ -10,44 +10,52 @@ class MovieDetailScreenT extends StatefulWidget {
 }
 
 class _MovieDetailScreenTState extends State<MovieDetailScreenT> {
+  List<String> youtubeLinks = ["iLnmTe5Q2Qw", "eG9xLPHlDcI", "iLnmTe5Q2Qw"];
+
+  late YoutubePlayerController _controller;
+  List<YoutubePlayerController> controllerList = [];
+
+  YoutubePlayerController youtubeController(String youtubeKey) {
+    return YoutubePlayerController(
+      initialVideoId: youtubeKey,
+      flags: YoutubePlayerFlags(
+          mute: true,
+          autoPlay: false,
+          disableDragSeek: true,
+          loop: false,
+          enableCaption: false),
+    );
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      youtubeLinks.forEach((e) {
+        print(e);
+        controllerList.add(youtubeController(e));
+      });
+    });
+    // _controller = YoutubePlayerController(
+    //   initialVideoId: "iLnmTe5Q2Qw",
+    //   flags: YoutubePlayerFlags(
+    //       mute: true,
+    //       autoPlay: false,
+    //       disableDragSeek: true,
+    //       loop: false,
+    //       enableCaption: false),
+    // );
+
+    super.initState();
+  }
+
   void blankAction() {}
 
   @override
   Widget build(BuildContext context) {
-    final tempList = [
-      0,
-      1,
-    ];
-
     final movieVM = Get.put(MovieVM(model: MovieCore()));
     bool isFetched = movieVM.loadingStatus == LoadingStatus.done ? true : false;
     int? selectedIndex = movieVM.selectedMovieIndex;
     final castSize = 26.6.sp;
-
-    YoutubePlayerController _controller = YoutubePlayerController(
-      initialVideoId: 'iLnmTe5Q2Qw',
-      flags: YoutubePlayerFlags(
-        autoPlay: false,
-        mute: true,
-      ),
-    );
-
-    aim() {
-      return showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (BuildContext context) {
-          return Container(
-            margin: EdgeInsets.all(200),
-            color: Colors.white,
-            child: YoutubePlayer(
-              controller: movieVM.trailerYoutubeController,
-              showVideoProgressIndicator: true,
-            ),
-          );
-        },
-      );
-    }
 
     return Builder(builder: (context) {
       // Alert Dialog 위젯 (영화 예고편)
@@ -70,19 +78,28 @@ class _MovieDetailScreenTState extends State<MovieDetailScreenT> {
                 /* Right Side */
                 Expanded(
                   flex: 4,
-                  child: YoutubePlayerBuilder(
-                    player: YoutubePlayer(
-                      controller: _controller,
-                    ),
-                    builder: (context, player) {
-                      return Column(
-                        children: [
-                          player,
+                  child: ListView.builder(
+                    itemCount: controllerList.length,
+                    itemBuilder: (context, index) {
+                      return YoutubePlayer(
+                        controller: controllerList[index],
+                        showVideoProgressIndicator: true,
+                        bottomActions: <Widget>[
+                          const SizedBox(width: 14.0),
+                          CurrentPosition(),
+                          const SizedBox(width: 8.0),
+                          ProgressBar(isExpanded: true),
+                          RemainingDuration(),
                         ],
+                        aspectRatio: 4 / 3,
+                        progressIndicatorColor: Colors.white,
+                        onReady: () {
+                          print('Player is ready.');
+                        },
                       );
                     },
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -208,7 +225,12 @@ class _MovieDetailScreenTState extends State<MovieDetailScreenT> {
                           ),
                           const SizedBox(height: 10),
                           /* Genre Title */
-                          Text("Genre", style: FontStyles(kTS50).categoryTitle),
+                          GestureDetector(
+                              onTap: () {
+                                print(controllerList.length);
+                              },
+                              child: Text("Genre",
+                                  style: FontStyles(kTS50).categoryTitle)),
                           /* Genre List */
                           Container(
                             margin: EdgeInsets.only(top: 4),

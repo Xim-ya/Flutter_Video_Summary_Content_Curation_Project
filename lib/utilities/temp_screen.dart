@@ -38,18 +38,7 @@ class _TempScreen2State extends State<TempScreen2>
         padding: EdgeInsets.symmetric(horizontal: 200),
         width: double.infinity,
         child: Container(
-          child: YoutubePlayerBuilder(
-            player: YoutubePlayer(
-              controller: _controller,
-            ),
-            builder: (context, player) {
-              return Column(
-                children: [
-                  player,
-                ],
-              );
-            },
-          ),
+          child: Container(),
         ),
       ),
     );
@@ -72,18 +61,7 @@ class TempScreen3 extends StatelessWidget {
     );
     return Container(
       color: Colors.blue,
-      child: YoutubePlayerBuilder(
-        player: YoutubePlayer(
-          controller: _controller,
-        ),
-        builder: (context, player) {
-          return Column(
-            children: [
-              player,
-            ],
-          );
-        },
-      ),
+      child: Container(),
     );
   }
 }

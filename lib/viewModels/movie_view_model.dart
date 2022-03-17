@@ -116,3 +116,20 @@ class MovieVM extends GetxController {
     update();
   }
 }
+
+// YoutubePlayer(
+// controller: _controller,
+// showVideoProgressIndicator: true,
+// bottomActions: <Widget>[
+// const SizedBox(width: 14.0),
+// CurrentPosition(),
+// const SizedBox(width: 8.0),
+// ProgressBar(isExpanded: true),
+// RemainingDuration(),
+// ],
+// aspectRatio: 4 / 3,
+// progressIndicatorColor: Colors.white,
+// onReady: () {
+// print('Player is ready.');
+// },
+// ),
