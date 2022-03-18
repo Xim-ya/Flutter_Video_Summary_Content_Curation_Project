@@ -17,6 +17,7 @@ class _HomeScreenTState extends State<HomeScreenT>
   void initState() {
     // 초기 데이터(인기 영화 리스트, 예고편) 호출
     _movieVM.fetchPopularMovieAndTrailer();
+
     super.initState();
   }
 

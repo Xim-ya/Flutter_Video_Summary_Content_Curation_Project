@@ -30,9 +30,12 @@ export 'package:movie_curation/models/movie_model.dart';
 export 'package:movie_curation/models/movie_genre_model.dart';
 export 'package:movie_curation/models/actor_model.dart';
 export 'package:movie_curation/models/trailer_model.dart';
+export 'package:movie_curation/models/youtube_model.dart';
+export 'package:movie_curation/models/youtube_core_model.dart';
 
 /* View Models */
 export 'package:movie_curation/viewModels/movie_view_model.dart';
+export 'package:movie_curation/services/youtube_api_response.dart';
 
 /* Widgets */
 export 'package:movie_curation/widgets/responsive_layout.dart';

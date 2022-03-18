@@ -29,12 +29,6 @@ class GradientPostBackground extends StatelessWidget {
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               )
             : const SizedBox(),
-        // Image.asset(
-        //   "assets/images/movie_poster.jpeg",
-        //   fit: BoxFit.cover,
-        //   height: double.infinity,
-        //   width: double.infinity,
-        // ),
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(

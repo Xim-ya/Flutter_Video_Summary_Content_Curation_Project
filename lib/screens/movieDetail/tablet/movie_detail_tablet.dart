@@ -1,44 +1,9 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class MovieDetailScreenT extends StatefulWidget {
+class MovieDetailScreenT extends StatelessWidget {
   final VoidCallback routeAction; //;
   const MovieDetailScreenT({Key? key, required this.routeAction})
       : super(key: key);
-
-  @override
-  State<MovieDetailScreenT> createState() => _MovieDetailScreenTState();
-}
-
-class _MovieDetailScreenTState extends State<MovieDetailScreenT> {
-  List<String> youtubeLinks = ["iLnmTe5Q2Qw", "eG9xLPHlDcI", "iLnmTe5Q2Qw"];
-
-  late YoutubePlayerController _controller;
-  List<YoutubePlayerController> controllerList = [];
-
-  YoutubePlayerController youtubeController(String youtubeKey) {
-    return YoutubePlayerController(
-      initialVideoId: youtubeKey,
-      flags: YoutubePlayerFlags(
-          mute: true,
-          autoPlay: false,
-          disableDragSeek: true,
-          loop: false,
-          enableCaption: false),
-    );
-  }
-
-  @override
-  void initState() {
-    setState(() {
-      youtubeLinks.forEach((e) {
-        print(e);
-        controllerList.add(youtubeController(e));
-      });
-    });
-
-    super.initState();
-  }
-
   void blankAction() {}
 
   @override
@@ -46,7 +11,7 @@ class _MovieDetailScreenTState extends State<MovieDetailScreenT> {
     final movieVM = Get.put(MovieVM(model: MovieCore()));
     bool isFetched = movieVM.loadingStatus == LoadingStatus.done ? true : false;
     int? selectedIndex = movieVM.selectedMovieIndex;
-    final castSize = 26.6.sp;
+    var tempList = [1, 2, 3, 4, 5];
 
     return Builder(builder: (context) {
       // Alert Dialog 위젯 (영화 예고편)
@@ -65,16 +30,97 @@ class _MovieDetailScreenTState extends State<MovieDetailScreenT> {
               children: [
                 /* Left Side */
                 leftSide(
-                    movieVM, _showDialog, castSize, isFetched, selectedIndex),
+                    movieVM, _showDialog, kTS100, isFetched, selectedIndex),
                 /* Right Side */
                 Expanded(
                     flex: 4,
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 100),
+                      margin: EdgeInsets.symmetric(horizontal: kWS100),
                       child: ListWheelScrollView(
                         diameterRatio: 20,
                         itemExtent: 500,
-                        children: [],
+                        children: [
+                          ...tempList.map(
+                            (e) {
+                              return Column(
+                                children: [
+                                  AspectRatio(
+                                    aspectRatio: 16 / 9,
+                                    child: Stack(
+                                      children: [
+                                        /* Thumbnail Image */
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(11),
+                                          child: Image.asset(
+                                            "assets/images/movie_poster.jpeg",
+                                            height: double.infinity,
+                                            width: double.infinity,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        /* Linear Background */
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                            gradient: LinearGradient(
+                                              begin: Alignment.bottomCenter,
+                                              end: Alignment.topCenter,
+                                              colors: <Color>[
+                                                kDarkGrey,
+                                                kDarkGrey.withOpacity(0.75),
+                                                kDarkGrey.withOpacity(0.5),
+                                                kDarkGrey.withOpacity(0.4),
+                                              ],
+                                              tileMode: TileMode.clamp,
+                                            ),
+                                          ),
+                                        ),
+                                        /* Likes Icon  */
+                                        Positioned(
+                                          bottom: 20,
+                                          left: 20,
+                                          child: Row(
+                                            children: [
+                                              SvgPicture.asset(
+                                                  "assets/icons/like_ic.svg"),
+                                              SizedBox(width: 10),
+                                              Text("632",
+                                                  style: FontStyles()
+                                                      .youtubeReviewLikes)
+                                            ],
+                                          ),
+                                        ),
+                                        Positioned(
+                                          right: 20,
+                                          top: 20,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            child: Container(
+                                                height: 44,
+                                                width: 44,
+                                                color: Colors.grey),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  /* Youtube Content Title  */
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: Text(
+                                        "넷플릭스에서 찾아낸 숨은 보석같은 미군 작전 영화 [영화리뷰 결말포함], 넷플릭스에서 찾아낸 숨은 보석같은 미군 작전 영화 [영화리뷰 결말포함]",
+                                        maxLines: 2,
+                                        style: FontStyles(kTS22)
+                                            .youtubeReviewTitle),
+                                  )
+                                ],
+                              );
+                            },
+                          )
+                        ],
                       ),
                     )),
               ],
@@ -202,12 +248,7 @@ class _MovieDetailScreenTState extends State<MovieDetailScreenT> {
                           ),
                           const SizedBox(height: 10),
                           /* Genre Title */
-                          GestureDetector(
-                              onTap: () {
-                                print(controllerList.length);
-                              },
-                              child: Text("Genre",
-                                  style: FontStyles(kTS50).categoryTitle)),
+                          Text("Genre", style: FontStyles(kTS50).categoryTitle),
                           /* Genre List */
                           Container(
                             margin: EdgeInsets.only(top: 4),
@@ -245,7 +286,7 @@ class _MovieDetailScreenTState extends State<MovieDetailScreenT> {
         iconSize: 13.5.sp,
         icon: SvgPicture.asset("assets/icons/arrow_left_ic.svg"),
         onPressed: () {
-          widget.routeAction();
+          routeAction();
         },
       ),
     );

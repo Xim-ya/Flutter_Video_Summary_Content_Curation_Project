@@ -75,3 +75,20 @@ class TempScreen4 extends StatelessWidget {
     );
   }
 }
+
+// Stack(
+// children: [
+// Container(
+// color: Colors.yellow,
+// margin: EdgeInsets.only(bottom: 100),
+// ),
+// Positioned(
+// bottom: 60,
+// child: Text(
+// "넷플릭스에서 찾아낸 숨은 보석같은 미군 작전 영화 [영화리뷰 결말포함], 넷플릭스에서 찾아낸 숨은 보석같은 미군 작전 영화 [영화리뷰 결말포함]",
+// style: TextStyle(
+// color: Colors.white, fontSize: 20),
+// ),
+// ),
+// ],
+// );

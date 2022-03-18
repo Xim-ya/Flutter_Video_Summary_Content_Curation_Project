@@ -21,7 +21,9 @@ final double kCastDiverP = 4.7.h;
 final double kTS16 = 4.8.sp;
 final double kTS50 = 14.8.sp;
 final double kTS22 = 6.5.sp;
+final double kTS100 = 26.6.sp;
 final double kWS54 = 5.29.w;
+final double kWS100 = 9.78.w;
 
 /* Color */
 const Color kYellow = Color(0xFFFFE24B);
@@ -70,7 +72,12 @@ class FontStyles {
         categoryTitle = TextStyle(
             color: Colors.white, fontSize: size, fontFamily: 'Staatliches'),
         categorySubTitle = TextStyle(
-            color: kCloudyLightGrey, fontSize: size, fontFamily: 'Staatliches');
+            color: kCloudyLightGrey, fontSize: size, fontFamily: 'Staatliches'),
+        youtubeReviewTitle = TextStyle(
+          color: Colors.white,
+          fontSize: size,
+        ),
+        youtubeReviewLikes = const TextStyle(color: Colors.white, fontSize: 16);
 
   /* Home Screen (tablet)*/
   final TextStyle movieTitle;
@@ -84,4 +91,6 @@ class FontStyles {
   final TextStyle actorName;
   final TextStyle categoryTitle;
   final TextStyle categorySubTitle;
+  final TextStyle youtubeReviewTitle;
+  final TextStyle youtubeReviewLikes;
 }

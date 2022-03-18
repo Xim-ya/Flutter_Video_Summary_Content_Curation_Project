@@ -31,10 +31,15 @@ class MovieContentInfo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /* Title */
-            Text(
-              isFetched ? movieVM.movieList[selectedIndex ?? 0].title : "",
-              maxLines: 1,
-              style: FontStyles(kMovieTitle).movieTitle,
+            GestureDetector(
+              onTap: () {
+                movieVM.fetchYoutubeSearchQuery();
+              },
+              child: Text(
+                isFetched ? movieVM.movieList[selectedIndex ?? 0].title : "",
+                maxLines: 1,
+                style: FontStyles(kMovieTitle).movieTitle,
+              ),
             ),
             /* GRated & Release Year */
             Row(
