@@ -36,6 +36,7 @@ export 'package:movie_curation/models/youtube_core_model.dart';
 /* View Models */
 export 'package:movie_curation/viewModels/movie_view_model.dart';
 export 'package:movie_curation/services/youtube_api_response.dart';
+export 'package:movie_curation/viewModels/youtube_view_model.dart';
 
 /* Widgets */
 export 'package:movie_curation/widgets/responsive_layout.dart';

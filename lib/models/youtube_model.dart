@@ -6,6 +6,7 @@ import 'dart:convert';
 
 Youtube youtubeFromJson(String str) => Youtube.fromJson(json.decode(str));
 String youtubeToJson(Youtube data) => json.encode(data.toJson());
+// https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&q=%EC%8A%A4%ED%8C%8C%EC%9D%B4%EB%8D%94%EB%A7%A8:%EB%85%B8%EC%9B%A8%EC%9D%B4%EC%98%81%ED%99%94%EB%A6%AC%EB%B7%B0
 
 class Youtube {
   final String kind;
