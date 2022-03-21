@@ -16,6 +16,7 @@ class MovieContentInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final youtubeVM = Get.put(YoutubeVM(model: YoutubeCore()));
     bool isFetched = movieVM.loadingStatus == LoadingStatus.done ? true : false;
     int? selectedIndex = movieVM.selectedMovieIndex;
     double width = MediaQuery.of(context).size.width;
@@ -31,15 +32,10 @@ class MovieContentInfo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /* Title */
-            GestureDetector(
-              onTap: () {
-                movieVM.fetchYoutubeSearchQuery();
-              },
-              child: Text(
-                isFetched ? movieVM.movieList[selectedIndex ?? 0].title : "",
-                maxLines: 1,
-                style: FontStyles(kMovieTitle).movieTitle,
-              ),
+            Text(
+              isFetched ? movieVM.movieList[selectedIndex ?? 0].title : "",
+              maxLines: 1,
+              style: FontStyles(kMovieTitle).movieTitle,
             ),
             /* GRated & Release Year */
             Row(
@@ -87,11 +83,14 @@ class MovieContentInfo extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                           ),
                           onPressed: () {
+                            final movieTitle =
+                                movieVM.movieList[selectedIndex ?? 0].title;
                             final passedIndex = movieVM
                                 .movieList[selectedIndex ?? 0].id
                                 .toInt();
                             movieVM.fetchGenre(passedIndex);
                             movieVM.fetchActors(passedIndex);
+                            youtubeVM.fetchYoutubeSearchQuery(movieTitle);
                             routeAction!();
                           },
                           child: Row(

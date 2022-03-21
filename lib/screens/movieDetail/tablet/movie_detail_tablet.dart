@@ -1,27 +1,20 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class MovieDetailScreenT extends StatefulWidget {
+class MovieDetailScreenT extends StatelessWidget {
   final VoidCallback routeAction; //;
-  const MovieDetailScreenT({Key? key, required this.routeAction})
+  final String movieTitle;
+
+  const MovieDetailScreenT(
+      {Key? key, required this.routeAction, required this.movieTitle})
       : super(key: key);
-
-  @override
-  State<MovieDetailScreenT> createState() => _MovieDetailScreenTState();
-}
-
-final youtubeVM = Get.put(YoutubeVM(model: YoutubeCore()));
-
-class _MovieDetailScreenTState extends State<MovieDetailScreenT> {
-  @override
-  void initState() {
-    youtubeVM.fetchYoutubeSearchQuery("멋진 히어로");
-    super.initState();
-  }
 
   void blankAction() {}
 
   @override
   Widget build(BuildContext context) {
+    final youtubeVM = Get.put(YoutubeVM(model: YoutubeCore()));
+    ScrollController _scrollController =
+        ScrollController(initialScrollOffset: 200);
     final movieVM = Get.put(MovieVM(model: MovieCore()));
     bool isFetched = movieVM.loadingStatus == LoadingStatus.done ? true : false;
     int? selectedIndex = movieVM.selectedMovieIndex;
@@ -51,9 +44,10 @@ class _MovieDetailScreenTState extends State<MovieDetailScreenT> {
                       margin: EdgeInsets.symmetric(horizontal: kWS100),
                       child: GetBuilder<YoutubeVM>(
                           init: youtubeVM,
-                          builder: (context) {
+                          builder: (searched) {
                             return ListWheelScrollView(
-                              diameterRatio: 20,
+                              controller: _scrollController,
+                              diameterRatio: 10,
                               itemExtent: 500,
                               children: [
                                 ...youtubeVM.youtubeSearchedQueryList.map(
@@ -85,9 +79,11 @@ class _MovieDetailScreenTState extends State<MovieDetailScreenT> {
                                                       const Center(
                                                           child:
                                                               CircularProgressIndicator()),
-                                                  errorWidget: (context, url,
-                                                          error) =>
-                                                      const Icon(Icons.error),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          const Center(
+                                                              child: Icon(
+                                                                  Icons.error)),
                                                 ),
                                               ),
                                               /* Linear Background */
@@ -323,7 +319,7 @@ class _MovieDetailScreenTState extends State<MovieDetailScreenT> {
         iconSize: 13.5.sp,
         icon: SvgPicture.asset("assets/icons/arrow_left_ic.svg"),
         onPressed: () {
-          widget.routeAction();
+          routeAction();
         },
       ),
     );

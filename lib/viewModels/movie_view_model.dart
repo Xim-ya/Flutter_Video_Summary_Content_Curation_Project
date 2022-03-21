@@ -60,11 +60,6 @@ class MovieVM extends GetxController {
 
   /* 네트워킹 */
 
-  void fetchYoutubeSearchQuery() async {
-    List<Youtube> youtubeList = await YoutubeApi().fetchYoutubeContents();
-    print(youtubeList[0].snippet.title);
-  }
-
   // 인기 영화 리스트와 해당 리스트의 첫 영화의 예고편 데이터 호출.
   // 홈스크린으로 처음 Route 될 때 필요한 네트워킹 로직
   void fetchPopularMovieAndTrailer() async {

@@ -4,9 +4,9 @@ import 'package:movie_curation/utilities/index.dart';
 class YoutubeApi {
   var dio = Dio();
 
-  Future<List<Youtube>> fetchYoutubeContents() async {
+  Future<List<Youtube>> fetchYoutubeContents(String movieTitle) async {
     String url =
-        "https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&q=스파이더맨:노웨이영화리뷰";
+        "https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&q=$movieTitle&영화리뷰";
 
     final response = await dio.get(url);
 
