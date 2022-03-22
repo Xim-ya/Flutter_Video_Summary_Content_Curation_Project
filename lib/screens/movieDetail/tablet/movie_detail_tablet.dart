@@ -1,4 +1,3 @@
-import 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class MovieDetailScreenT extends StatelessWidget {
@@ -52,8 +51,6 @@ class MovieDetailScreenT extends StatelessWidget {
                               itemCount: 0,
                               onItemTapCallback: (index) {
                                 print("onItemTapCallback index: $index");
-                                print(youtubeVM.youtubeSearchedQueryList[index]
-                                    .snippet.title);
                               },
                               child: ListWheelScrollView(
                                 onSelectedItemChanged: (index) {
@@ -137,19 +134,6 @@ class MovieDetailScreenT extends StatelessWidget {
                                                           style: FontStyles()
                                                               .youtubeReviewLikes)
                                                     ],
-                                                  ),
-                                                ),
-                                                Positioned(
-                                                  right: 20,
-                                                  top: 20,
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            100),
-                                                    child: Container(
-                                                        height: 44,
-                                                        width: 44,
-                                                        color: Colors.grey),
                                                   ),
                                                 ),
                                               ],
