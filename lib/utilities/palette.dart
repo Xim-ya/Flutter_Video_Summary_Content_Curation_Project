@@ -24,6 +24,7 @@ final double kTS22 = 6.5.sp;
 final double kTS100 = 26.6.sp;
 final double kWS54 = 5.29.w;
 final double kWS100 = 9.78.w;
+final double kHS500 = 36.65.h;
 
 /* Color */
 const Color kYellow = Color(0xFFFFE24B);

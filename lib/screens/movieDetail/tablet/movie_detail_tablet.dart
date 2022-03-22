@@ -1,3 +1,4 @@
+import 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class MovieDetailScreenT extends StatelessWidget {
@@ -45,114 +46,131 @@ class MovieDetailScreenT extends StatelessWidget {
                       child: GetBuilder<YoutubeVM>(
                           init: youtubeVM,
                           builder: (searched) {
-                            return ListWheelScrollView(
-                              controller: _scrollController,
-                              diameterRatio: 10,
-                              itemExtent: 500,
-                              children: [
-                                ...youtubeVM.youtubeSearchedQueryList.map(
-                                  (query) {
-                                    return Column(
-                                      children: [
-                                        AspectRatio(
-                                          aspectRatio: 16 / 9,
-                                          child: Stack(
-                                            children: [
-                                              /* Thumbnail Image */
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(11),
-                                                child: CachedNetworkImage(
-                                                  imageUrl: query.snippet
-                                                      .thumbnails.medium.url,
-                                                  imageBuilder: (context,
-                                                          imageProvider) =>
-                                                      Container(
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: imageProvider,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  placeholder: (context, url) =>
-                                                      const Center(
-                                                          child:
-                                                              CircularProgressIndicator()),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          const Center(
-                                                              child: Icon(
-                                                                  Icons.error)),
-                                                ),
-                                              ),
-                                              /* Linear Background */
-                                              Container(
-                                                decoration: BoxDecoration(
+                            return ClickableListWheelScrollView(
+                              scrollController: _scrollController,
+                              itemHeight: 500,
+                              itemCount: 0,
+                              onItemTapCallback: (index) {
+                                print("onItemTapCallback index: $index");
+                                print(youtubeVM.youtubeSearchedQueryList[index]
+                                    .snippet.title);
+                              },
+                              child: ListWheelScrollView(
+                                onSelectedItemChanged: (index) {
+                                  print("on Taps!!: $index");
+                                },
+                                controller: _scrollController,
+                                diameterRatio: 10,
+                                itemExtent: kHS500,
+                                children: [
+                                  ...youtubeVM.youtubeSearchedQueryList.map(
+                                    (query) {
+                                      return Column(
+                                        children: [
+                                          AspectRatio(
+                                            aspectRatio: 16 / 9,
+                                            child: Stack(
+                                              children: [
+                                                /* Thumbnail Image */
+                                                ClipRRect(
                                                   borderRadius:
                                                       BorderRadius.circular(11),
-                                                  gradient: LinearGradient(
-                                                    begin:
-                                                        Alignment.bottomCenter,
-                                                    end: Alignment.topCenter,
-                                                    colors: <Color>[
-                                                      Colors.black
-                                                          .withOpacity(0.7),
-                                                      kDarkGrey
-                                                          .withOpacity(0.3),
-                                                      kDarkGrey
-                                                          .withOpacity(0.15),
-                                                      kDarkGrey
-                                                          .withOpacity(0.1),
-                                                    ],
-                                                    tileMode: TileMode.clamp,
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: query.snippet
+                                                        .thumbnails.medium.url,
+                                                    imageBuilder: (context,
+                                                            imageProvider) =>
+                                                        Container(
+                                                      decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                          image: imageProvider,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    placeholder: (context,
+                                                            url) =>
+                                                        const Center(
+                                                            child:
+                                                                CircularProgressIndicator()),
+                                                    errorWidget: (context, url,
+                                                            error) =>
+                                                        const Center(
+                                                            child: Icon(
+                                                                Icons.error)),
                                                   ),
                                                 ),
-                                              ),
-                                              /* Likes Icon  */
-                                              Positioned(
-                                                bottom: 20,
-                                                left: 20,
-                                                child: Row(
-                                                  children: [
-                                                    SvgPicture.asset(
-                                                        "assets/icons/like_ic.svg"),
-                                                    SizedBox(width: 10),
-                                                    Text("632",
-                                                        style: FontStyles()
-                                                            .youtubeReviewLikes)
-                                                  ],
+                                                /* Linear Background */
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            11),
+                                                    gradient: LinearGradient(
+                                                      begin: Alignment
+                                                          .bottomCenter,
+                                                      end: Alignment.topCenter,
+                                                      colors: <Color>[
+                                                        Colors.black
+                                                            .withOpacity(0.7),
+                                                        kDarkGrey
+                                                            .withOpacity(0.3),
+                                                        kDarkGrey
+                                                            .withOpacity(0.15),
+                                                        kDarkGrey
+                                                            .withOpacity(0.1),
+                                                      ],
+                                                      tileMode: TileMode.clamp,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                              Positioned(
-                                                right: 20,
-                                                top: 20,
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100),
-                                                  child: Container(
-                                                      height: 44,
-                                                      width: 44,
-                                                      color: Colors.grey),
+                                                /* Likes Icon  */
+                                                Positioned(
+                                                  bottom: 20,
+                                                  left: 20,
+                                                  child: Row(
+                                                    children: [
+                                                      SvgPicture.asset(
+                                                          "assets/icons/like_ic.svg"),
+                                                      SizedBox(width: 10),
+                                                      Text("632",
+                                                          style: FontStyles()
+                                                              .youtubeReviewLikes)
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                                Positioned(
+                                                  right: 20,
+                                                  top: 20,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            100),
+                                                    child: Container(
+                                                        height: 44,
+                                                        width: 44,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        /* Youtube Content Title  */
-                                        Container(
-                                          margin: EdgeInsets.only(top: 10),
-                                          child: Text(query.snippet.title,
-                                              maxLines: 2,
-                                              style: FontStyles(kTS22)
-                                                  .youtubeReviewTitle),
-                                        )
-                                      ],
-                                    );
-                                  },
-                                )
-                              ],
+                                          /* Youtube Content Title  */
+                                          Container(
+                                            width: double.infinity,
+                                            margin: EdgeInsets.only(top: 10),
+                                            child: Text(query.snippet.title,
+                                                maxLines: 2,
+                                                textAlign: TextAlign.start,
+                                                style: FontStyles(kTS22)
+                                                    .youtubeReviewTitle),
+                                          )
+                                        ],
+                                      );
+                                    },
+                                  )
+                                ],
+                              ),
                             );
                           }),
                     )),
