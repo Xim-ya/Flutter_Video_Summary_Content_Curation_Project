@@ -33,6 +33,7 @@ export 'package:movie_curation/models/actor_model.dart';
 export 'package:movie_curation/models/trailer_model.dart';
 export 'package:movie_curation/models/youtube_model.dart';
 export 'package:movie_curation/models/youtube_core_model.dart';
+export 'package:movie_curation/models/video_detail_model.dart';
 
 /* View Models */
 export 'package:movie_curation/viewModels/movie_view_model.dart';
@@ -47,6 +48,8 @@ export 'package:movie_curation/widgets/gradient_post_background.dart';
 export 'package:movie_curation/widgets/movie_content_info.dart';
 export 'package:movie_curation/widgets/movie_post_slider.dart';
 export 'package:movie_curation/widgets/trailer_dialog.dart';
+export 'package:movie_curation/screens/movieDetail/localWidget/cast_slider.dart';
+export 'package:movie_curation/screens/movieDetail/localWidget/movie_else_info.dart';
 
 /* Utilities */
 export 'package:movie_curation/utilities/palette.dart';

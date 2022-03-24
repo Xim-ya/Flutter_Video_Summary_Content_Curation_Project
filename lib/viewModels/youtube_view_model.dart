@@ -12,6 +12,10 @@ class YoutubeVM extends GetxController {
     return _model.youtubeSearchedQueryList;
   }
 
+  List<VideoDetail> get videoLikesCount {
+    return _model.videoDetailList;
+  }
+
   fetchYoutubeSearchQuery(String movieTitle) async {
     print(movieTitle);
     loadingStatus = LoadingStatus.empty;
@@ -22,5 +26,13 @@ class YoutubeVM extends GetxController {
 
     loadingStatus = LoadingStatus.done;
     update();
+  }
+  // https://www.googleapis.com/youtube/v3/videos?id=N1uXUEvprJU,hzFLd58HmDw&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&part=statistics
+
+  fetchVideoLikesCount() async {
+    // YoutubeApi().fetchVideoLikes();
+    // List<VideoDetail> videoDetailList = await YoutubeApi().fetchVideoLikes();
+    // _model.videoDetailList = videoDetailList;
+    // update();
   }
 }

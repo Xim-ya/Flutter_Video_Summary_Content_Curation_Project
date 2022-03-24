@@ -13,10 +13,23 @@ class YoutubeApi {
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       final result = response.data;
       Iterable list = result["items"];
-      print("API 호출 성공 (YOUTUBE CONTENTS");
       return list.map((e) => Youtube.fromJson(e)).toList();
     } else {
       throw Exception("API 호출 실패");
     }
   }
 }
+
+//TODO: Video Likes 처리는 공부가 좀 더 필요할듯
+// Future<VideoDetail> fetchVideoLikes(String videoId) async {
+//   String url =
+//       "https://www.googleapis.com/youtube/v3/videos?id=$videoId&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&part=statistics";
+//   final response = await dio.get(url);
+//   if (response.statusCode! >= 200 && response.statusCode! < 300) {
+//     final result = response.data;
+//     final list = result["items"][0];
+//     return list.map((e) => VideoDetail.fromJson(e)).toList();
+//   } else {
+//     throw Exception("API 호출 실패");
+//   }
+// }
