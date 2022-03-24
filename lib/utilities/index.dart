@@ -25,6 +25,7 @@ export 'package:movie_curation/screens/movieDetail/tablet/movie_detail_tablet.da
 export 'package:movie_curation/screens/movieDetail/mobile/movie_detail_mobile.dart';
 export 'package:movie_curation/screens/movieDetail/movie_detail_screen.dart';
 export 'package:youtube_player_flutter/youtube_player_flutter.dart';
+export 'package:movie_curation/screens/contentPlayer/content_player_screen.dart';
 
 /* Models */
 export 'package:movie_curation/models/movie_model.dart';

@@ -18,12 +18,16 @@ final double kMovieTitle = 15.6.sp;
 final double kCastDiverP = 4.7.h;
 
 /* Global Resonsive Size */
+//// Based On Font
 final double kTS16 = 4.8.sp;
 final double kTS50 = 14.8.sp;
 final double kTS22 = 6.5.sp;
 final double kTS100 = 26.6.sp;
+//// Based On Width
 final double kWS54 = 5.29.w;
+final double kWS200 = 19.6.w;
 final double kWS100 = 9.78.w;
+//// Based On Width
 final double kHS500 = 36.65.h;
 
 /* Color */

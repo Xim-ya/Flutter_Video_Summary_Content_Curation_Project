@@ -1,5 +1,6 @@
 import 'package:movie_curation/screens/movieDetail/localWidget/youtube_reviewCotents_wheel_slider.dart';
 import 'package:movie_curation/utilities/index.dart';
+import 'package:movie_curation/widgets/back_arrow_button.dart';
 
 class MovieDetailScreenT extends StatelessWidget {
   final VoidCallback routeAction; //;
@@ -19,6 +20,8 @@ class MovieDetailScreenT extends StatelessWidget {
     int? selectedIndex = movieVM.selectedMovieIndex;
     youtubeVM.fetchVideoLikesCount();
 
+    print(19.6.w);
+
     return Builder(
       builder: (context) {
         // Alert Dialog 위젯 (영화 예고편)
@@ -31,7 +34,7 @@ class MovieDetailScreenT extends StatelessWidget {
         return Stack(
           children: [
             GradientPostBackground(isRoutedMain: false, movieVM: movieVM),
-            backButton(),
+            BackArrowButton(routeAction: routeAction),
             Row(
               children: [
                 /* Left Section */

@@ -5,10 +5,17 @@ class YoutubeReviewContentsWheelSlider extends StatelessWidget {
   const YoutubeReviewContentsWheelSlider({Key? key, required this.youtubeVM})
       : super(key: key);
 
+  // 라우팅 동작 (동영상 'videoId' 전달)
+  void routeHandler(int selectedIndex) {
+    final videoId =
+        youtubeVM.youtubeSearchedQueryList[selectedIndex].id.videoId;
+    Get.to(ContentPlayerScreen(videoId: videoId ?? ""));
+  }
+
   @override
   Widget build(BuildContext context) {
     ScrollController _scrollController =
-        ScrollController(initialScrollOffset: 200);
+        ScrollController(initialScrollOffset: kWS200);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: kWS100),
       child: GetBuilder<YoutubeVM>(
@@ -16,15 +23,12 @@ class YoutubeReviewContentsWheelSlider extends StatelessWidget {
           builder: (searched) {
             return ClickableListWheelScrollView(
               scrollController: _scrollController,
-              itemHeight: 0,
+              itemHeight: kHS500,
               itemCount: 0,
               onItemTapCallback: (index) {
-                print("onItemTapCallback index: $index");
+                routeHandler(index);
               },
               child: ListWheelScrollView(
-                onSelectedItemChanged: (index) {
-                  print("on Taps!!: $index");
-                },
                 controller: _scrollController,
                 diameterRatio: 10,
                 itemExtent: kHS500,
@@ -37,16 +41,13 @@ class YoutubeReviewContentsWheelSlider extends StatelessWidget {
                             aspectRatio: 16 / 9,
                             child: Stack(
                               children: [
-                                /* Thumbnail Image */
                                 thumbnailImage(query),
-                                /* Linear Background */
                                 linearBackground(),
-                                /* Likes Icon (임시 삭제) */
+                                /* Likes Icon -->(임시 삭제) */
                                 // likes(),
                               ],
                             ),
                           ),
-                          /* Youtube Content Title  */
                           contentsTitle(query)
                         ],
                       );
@@ -59,6 +60,7 @@ class YoutubeReviewContentsWheelSlider extends StatelessWidget {
     );
   }
 
+/* Youtube Content Title  */
   Container contentsTitle(Youtube query) {
     return Container(
       width: double.infinity,
@@ -70,20 +72,7 @@ class YoutubeReviewContentsWheelSlider extends StatelessWidget {
     );
   }
 
-  Positioned likes() {
-    return Positioned(
-      bottom: 20,
-      left: 20,
-      child: Row(
-        children: [
-          SvgPicture.asset("assets/icons/like_ic.svg"),
-          SizedBox(width: 10),
-          Text("632", style: FontStyles().youtubeReviewLikes)
-        ],
-      ),
-    );
-  }
-
+  /* Linear Background */
   Container linearBackground() {
     return Container(
       decoration: BoxDecoration(
@@ -103,6 +92,7 @@ class YoutubeReviewContentsWheelSlider extends StatelessWidget {
     );
   }
 
+  /* Thumbnail Image */
   ClipRRect thumbnailImage(Youtube query) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(11),
@@ -120,6 +110,20 @@ class YoutubeReviewContentsWheelSlider extends StatelessWidget {
             const Center(child: CircularProgressIndicator()),
         errorWidget: (context, url, error) =>
             const Center(child: Icon(Icons.error)),
+      ),
+    );
+  }
+
+  Positioned likes() {
+    return Positioned(
+      bottom: 20,
+      left: 20,
+      child: Row(
+        children: [
+          SvgPicture.asset("assets/icons/like_ic.svg"),
+          SizedBox(width: 10),
+          Text("632", style: FontStyles().youtubeReviewLikes)
+        ],
       ),
     );
   }

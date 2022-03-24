@@ -45,7 +45,7 @@ class Id {
   });
 
   String kind;
-  String videoId;
+  String? videoId;
 
   factory Id.fromJson(Map<String, dynamic> json) => Id(
         kind: json["kind"],
