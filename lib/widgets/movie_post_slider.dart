@@ -6,6 +6,8 @@ class MoviePostSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic> selectedCategoryContents = movieVM.selectedCategoryContents;
+
     void chooseMovieHandler(int index) {
       // Scroll to Index 인터렉션
       itemScrollController.scrollTo(
@@ -25,7 +27,7 @@ class MoviePostSlider extends StatelessWidget {
       child: Container(
         child: ScrollablePositionedList.builder(
           padding: EdgeInsets.only(top: contentSliderDivideP),
-          itemCount: movieVM.movieList.length,
+          itemCount: selectedCategoryContents.length,
           initialScrollIndex: 0,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
@@ -48,7 +50,7 @@ class MoviePostSlider extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                         child: CachedNetworkImage(
                           imageUrl:
-                              "https://image.tmdb.org/t/p/w500${movieVM.movieList[index].posterUrl}",
+                              "https://image.tmdb.org/t/p/w500${selectedCategoryContents[index].posterUrl}",
                           imageBuilder: (context, imageProvider) => Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(

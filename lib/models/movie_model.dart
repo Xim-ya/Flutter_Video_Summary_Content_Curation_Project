@@ -1,11 +1,17 @@
+import 'package:movie_curation/models/drama_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class MovieCore {
   List<Movie> movies = [];
+  List<Drama> dramas = [];
   List<Genres> movieGenre = [];
   List<Actor> actors = [];
-
   late final Movie movie;
+
+  // List<List<dynamic>> selectedCategoryContents = [
+  //   MovieCore().movies,
+  //   MovieCore().dramas
+  // ];
 
   void setSelectedMovie(int index) {
     movie = movies[index];

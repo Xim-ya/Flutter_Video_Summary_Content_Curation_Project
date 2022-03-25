@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:movie_curation/models/drama_model.dart';
 
 import 'package:movie_curation/utilities/index.dart';
 
@@ -6,6 +7,22 @@ class MovieApi {
   var dio = Dio();
 
   // TODO: 나중에 api Key들을 git ignore 해야됨
+
+  Future<List<Drama>> fetchPopularDrama() async {
+    String url =
+        "https://api.themoviedb.org/3/tv/popular?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1";
+
+    final response = await dio.get(url);
+
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
+      final result = response.data;
+      Iterable list = result["results"];
+      print("API 호출 성공 (Popular Drama)");
+      return list.map((e) => Drama.fromJson(e)).toList();
+    } else {
+      throw Exception("API 호출 실패");
+    }
+  }
 
   Future<List<Movie>> fetchPopularMovies() async {
     String url =

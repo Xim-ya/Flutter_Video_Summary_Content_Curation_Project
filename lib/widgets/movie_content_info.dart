@@ -18,7 +18,14 @@ class MovieContentInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final youtubeVM = Get.put(YoutubeVM(model: YoutubeCore()));
     bool isFetched = movieVM.loadingStatus == LoadingStatus.done ? true : false;
+
+    // 네트워크 빈 String 값 예외처리
+    String streamString(String passedItem) {
+      return passedItem != "" ? passedItem : "내용 없음";
+    }
+
     int? selectedIndex = movieVM.selectedMovieIndex;
+    List<dynamic> selectedCategoryContents = movieVM.selectedCategoryContents;
     double width = MediaQuery.of(context).size.width;
     return Expanded(
       flex: 6,
@@ -33,7 +40,10 @@ class MovieContentInfo extends StatelessWidget {
           children: [
             /* Title */
             Text(
-              isFetched ? movieVM.movieList[selectedIndex ?? 0].title : "",
+              isFetched
+                  ? streamString(
+                      selectedCategoryContents[selectedIndex ?? 0].title)
+                  : "",
               maxLines: 1,
               style: FontStyles(kMovieTitle).movieTitle,
             ),
@@ -62,7 +72,10 @@ class MovieContentInfo extends StatelessWidget {
             Container(
               width: width * 3 / 5,
               child: Text(
-                isFetched ? movieVM.movieList[selectedIndex ?? 0].overview : "",
+                isFetched
+                    ? streamString(
+                        selectedCategoryContents[selectedIndex ?? 0].overview)
+                    : "",
                 maxLines: 3,
                 style: FontStyles(5.8.sp).description,
               ),

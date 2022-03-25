@@ -9,7 +9,7 @@ class YoutubeReviewContentsWheelSlider extends StatelessWidget {
   void routeHandler(int selectedIndex) {
     final videoId =
         youtubeVM.youtubeSearchedQueryList[selectedIndex].id.videoId;
-    Get.to(ContentPlayerScreen(videoId: videoId ?? ""));
+    Get.to(() => ContentPlayerScreen(videoId: videoId ?? ""));
   }
 
   @override

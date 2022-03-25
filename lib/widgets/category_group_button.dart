@@ -8,7 +8,7 @@ class CategoryGroupButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> _categoryOptions = ["인기", "최신", "추천"];
+    List<String> _categoryOptions = ["영화", "드라마", "추천"];
     return Row(
         children: _categoryOptions.map<Widget>((e) {
       int _itemIndex = _categoryOptions.indexWhere((content) => content == e);
@@ -16,6 +16,7 @@ class CategoryGroupButton extends StatelessWidget {
         padding: const EdgeInsets.only(right: 8),
         child: TextButton(
           onPressed: () {
+            movieVM.fetchPopularDrama();
             movieVM.updateCategoryIndex(_itemIndex);
           },
           child: Text(

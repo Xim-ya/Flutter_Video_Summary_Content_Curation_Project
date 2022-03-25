@@ -10,14 +10,15 @@ class GradientPostBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isFetched = movieVM.loadingStatus == LoadingStatus.done ? true : false;
+    List<dynamic> selectedCategoryContents = movieVM.selectedCategoryContents;
     int? selectedIndex = movieVM.selectedMovieIndex;
     return Stack(
       children: [
         isFetched
             ? CachedNetworkImage(
                 imageUrl: isRoutedMain
-                    ? "https://image.tmdb.org/t/p/w500${movieVM.movieList[selectedIndex ?? 0].backDropUrl}"
-                    : "https://image.tmdb.org/t/p/w500${movieVM.movieList[selectedIndex ?? 0].posterUrl}",
+                    ? "https://image.tmdb.org/t/p/w500${selectedCategoryContents[selectedIndex ?? 0].backDropUrl}"
+                    : "https://image.tmdb.org/t/p/w500${selectedCategoryContents[selectedIndex ?? 0].posterUrl}",
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(

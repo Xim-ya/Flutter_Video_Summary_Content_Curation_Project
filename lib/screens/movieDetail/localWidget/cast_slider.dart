@@ -4,6 +4,10 @@ class CastSlider extends StatelessWidget {
   final MovieVM movieVM;
   const CastSlider({Key? key, required this.movieVM}) : super(key: key);
 
+  // 임시 이미지
+  final blackProfileImageUrl =
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,19 +53,26 @@ class CastSlider extends StatelessWidget {
       width: kTS100,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(1000),
-        child: CachedNetworkImage(
-          imageUrl: "https://image.tmdb.org/t/p/w500${castItem.profilePath}",
-          imageBuilder: (context, imageProvider) => Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
+        child: GestureDetector(
+          onTap: () {
+            print(castItem.profilePath);
+          },
+          child: CachedNetworkImage(
+            imageUrl: castItem.profilePath == null
+                ? blackProfileImageUrl
+                : "https://image.tmdb.org/t/p/w500${castItem.profilePath}",
+            imageBuilder: (context, imageProvider) => Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
+            placeholder: (context, url) =>
+                const Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
-          placeholder: (context, url) =>
-              const Center(child: CircularProgressIndicator()),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
       ),
     );

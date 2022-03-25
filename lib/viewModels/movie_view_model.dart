@@ -1,3 +1,4 @@
+import 'package:movie_curation/models/drama_model.dart';
 import 'package:movie_curation/services/movie_api_response.dart';
 import 'package:movie_curation/utilities/index.dart';
 
@@ -24,6 +25,10 @@ class MovieVM extends GetxController {
 
   List<Actor> get actorList {
     return _model.actors;
+  }
+
+  List<dynamic> get selectedCategoryContents {
+    return selectedCategoryIndex == 0 ? _model.movies : _model.dramas;
   }
 
   // YoutubeController -> videoID를 동적으로 넘겨주기 위해서는 ViewModel에서 관리 필요
@@ -86,6 +91,20 @@ class MovieVM extends GetxController {
 
     List<Movie> movieList = await MovieApi().fetchPopularMovies();
     _model.movies = movieList.toList();
+    update();
+
+    loadingStatus =
+        _model.movies.isEmpty ? LoadingStatus.empty : LoadingStatus.done;
+    update();
+  }
+
+  // 인기 드라마
+  Future<void> fetchPopularDrama() async {
+    loadingStatus = LoadingStatus.empty;
+    update();
+
+    List<Drama> dramaList = await MovieApi().fetchPopularDrama();
+    _model.dramas = dramaList.toList();
     update();
 
     loadingStatus =
