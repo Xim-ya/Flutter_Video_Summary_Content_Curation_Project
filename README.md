@@ -10,7 +10,7 @@
 ## 목차
 - [개발 동기](#개발-동기)
 - [요약](#요약)
-- [PainPoint 키워드](#PainPoint-키워드)
+- [고민한 키워드](#고민한-키워드)
 - [보완 및 구현 계획](#보완-및-구현-계획)
 - [구현 결과](#구현-결과)
 
@@ -37,7 +37,7 @@
 
 
 
-## PainPoint 키워드
+##고민한 키워드
 - PageView Routing
   - Animation Controller Issue
   - Route State 관리
