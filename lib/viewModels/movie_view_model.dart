@@ -9,6 +9,7 @@ class MovieVM extends GetxController {
   int? selectedMovieIndex; // 선택된 영화의 리스트 인덱스
   String? trailerKey; // 예고편 영화의 키값
   LoadingStatus loadingStatus = LoadingStatus.empty; // API response 응답 여부.
+  int? selectedMovieId;
 
   /* Model과 연동 */
   MovieCore _model;
@@ -75,7 +76,7 @@ class MovieVM extends GetxController {
 
     // 2. Fetch Selected Movie Trailer, The First One
     final movieId = _model.movies[0].id;
-    fetchTrailer(movieId.toInt());
+    fetchTrailer(movieId.toInt(), null);
     update();
 
     // 3. Set Loading Status if MovieList Fetched
@@ -126,42 +127,14 @@ class MovieVM extends GetxController {
   }
 
   // 선택된 영화 예고편
-  void fetchTrailer(int movieId) async {
+  void fetchTrailer(int movieId, VoidCallback? showTrailer) async {
     List<Trailer> trailerList = await MovieApi().fetchTrailer(movieId);
-    if (trailerList.isNotEmpty) {
-      trailerKey = trailerList[0].key;
-    } else {
-      trailerKey = null;
-    }
+    // 1. 예고편 Youtube Key 값이 존재한다면 예고편 리스트 중 첫 번째 Key값을 반환
+    trailerList.isNotEmpty
+        ? trailerKey = trailerList[0].key
+        : trailerKey = null;
+    // 2. YoutubeController은 전달 받은 key 값으로 에고편 Dialog을 보여주는 메소드를 실행
+    showTrailer != null ? showTrailer() : null;
     update();
   }
 }
-
-// YoutubePlayer(
-// controller: _controller,
-// showVideoProgressIndicator: true,
-// bottomActions: <Widget>[
-// const SizedBox(width: 14.0),
-// CurrentPosition(),
-// const SizedBox(width: 8.0),
-// ProgressBar(isExpanded: true),
-// RemainingDuration(),
-// ],
-// aspectRatio: 4 / 3,
-// progressIndicatorColor: Colors.white,
-// onReady: () {
-// print('Player is ready.');
-// },
-// ),
-
-// YoutubePlayerController youtubeController(String youtubeKey) {
-//   return YoutubePlayerController(
-//     initialVideoId: youtubeKey,
-//     flags: YoutubePlayerFlags(
-//         mute: true,
-//         autoPlay: false,
-//         disableDragSeek: true,
-//         loop: false,
-//         enableCaption: false),
-//   );
-// }

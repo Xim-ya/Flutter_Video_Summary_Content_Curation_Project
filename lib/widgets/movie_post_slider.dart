@@ -19,7 +19,7 @@ class MoviePostSlider extends StatelessWidget {
       movieVM.setSelectedMovie(index);
 
       // 예고편 키값 호출
-      movieVM.fetchTrailer(movieVM.movieList[index].id.toInt());
+      // movieVM.fetchTrailer(movieVM.movieList[index].id.toInt());
     }
 
     return Expanded(
