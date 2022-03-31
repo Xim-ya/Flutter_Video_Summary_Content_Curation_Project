@@ -96,10 +96,11 @@ class MovieContentInfo extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                           ),
                           onPressed: () {
-                            final movieTitle =
-                                movieVM.movieList[selectedIndex ?? 0].title;
+                            final movieTitle = movieVM
+                                .selectedCategoryContents[selectedIndex ?? 0]
+                                .title;
                             final passedIndex = movieVM
-                                .movieList[selectedIndex ?? 0].id
+                                .selectedCategoryContents[selectedIndex ?? 0].id
                                 .toInt();
                             movieVM.fetchGenre(passedIndex);
                             movieVM.fetchActors(passedIndex);
@@ -129,7 +130,6 @@ class MovieContentInfo extends StatelessWidget {
                         content: "예고편",
                         movieVM: movieVM,
                         showTrailer: showDialog,
-                        fetchData: fetchTrailerData,
                       ),
                       SizedBox(width: 12),
                       GradientButton(
@@ -148,9 +148,5 @@ class MovieContentInfo extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void fetchTrailerData() {
-    // movieVM.fetchTrailer(movieVM.selectedMovieId ?? 0);
   }
 }

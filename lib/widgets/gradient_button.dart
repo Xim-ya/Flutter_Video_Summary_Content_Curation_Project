@@ -8,14 +8,12 @@ class GradientButton extends StatelessWidget {
   final String content;
   final MovieVM movieVM;
   final VoidCallback showTrailer;
-  final VoidCallback? fetchData;
-  const GradientButton(
-      {Key? key,
-      required this.content,
-      required this.movieVM,
-      required this.showTrailer,
-      this.fetchData})
-      : super(key: key);
+  const GradientButton({
+    Key? key,
+    required this.content,
+    required this.movieVM,
+    required this.showTrailer,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +25,8 @@ class GradientButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),
       onPressed: () {
-        fetchData!();
-        final passedIndex = movieVM.movieList[selectedIndex ?? 0].id.toInt();
+        final passedIndex =
+            movieVM.selectedCategoryContents[selectedIndex ?? 0].id.toInt();
         movieVM.fetchTrailer(passedIndex, showTrailer);
         // showTrailer();
       },
