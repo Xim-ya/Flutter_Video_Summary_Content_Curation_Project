@@ -1,7 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'utilities/index.dart';
 
-// Device Preview 셋업
+// Device Preview 셋업 (반응형 확인)
 // void main() => runApp(
 //       DevicePreview(
 //         enabled: !kReleaseMode,

@@ -4,10 +4,8 @@ import 'package:movie_curation/widgets/back_arrow_button.dart';
 
 class MovieDetailScreenT extends StatelessWidget {
   final VoidCallback routeAction; //;
-  final String movieTitle;
 
-  const MovieDetailScreenT(
-      {Key? key, required this.routeAction, required this.movieTitle})
+  const MovieDetailScreenT({Key? key, required this.routeAction})
       : super(key: key);
 
   void blankAction() {}

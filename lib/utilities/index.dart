@@ -8,7 +8,6 @@ export 'package:fluro/fluro.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:flutter_hooks/flutter_hooks.dart';
 export 'package:sizer/sizer.dart';
-export 'package:movie_curation/utilities/responsive_size.dart';
 export 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 export 'package:get/get.dart';
 export 'package:cached_network_image/cached_network_image.dart';

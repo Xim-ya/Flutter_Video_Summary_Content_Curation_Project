@@ -39,114 +39,137 @@ class MovieContentInfo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /* Title */
-            Text(
-              isFetched
-                  ? streamString(
-                      selectedCategoryContents[selectedIndex ?? 0].title)
-                  : "",
-              maxLines: 1,
-              style: FontStyles(kMovieTitle).movieTitle,
-            ),
+            contentTitle(isFetched, streamString, selectedCategoryContents,
+                selectedIndex),
             /* GRated & Release Year */
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: kLightGrey,
-                  ),
-                  child: Text(
-                    "C18",
-                    style: FontStyles(4.69.sp).gRated,
-                  ),
-                ),
-                SizedBox(width: 12),
-                Text(
-                  "2018",
-                  style: FontStyles(5.69.sp).releaseY,
-                ),
-              ],
-            ),
+            otherContentInfo(),
             /* Description */
-            Container(
-              width: width * 3 / 5,
-              child: Text(
-                isFetched
-                    ? streamString(
-                        selectedCategoryContents[selectedIndex ?? 0].overview)
-                    : "",
-                maxLines: 3,
-                style: FontStyles(5.8.sp).description,
-              ),
-            ),
+            contentDescription(width, isFetched, streamString,
+                selectedCategoryContents, selectedIndex),
             const SizedBox(),
             /* Intent Buttons */
-            Container(
-              width: width * 3 / 5,
-              child: Row(
-                mainAxisAlignment: isRoutedMain
-                    ? MainAxisAlignment.spaceBetween
-                    : MainAxisAlignment.start,
-                children: [
-                  isRoutedMain
-                      ? ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: kYellow,
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                          ),
-                          onPressed: () {
-                            final movieTitle = movieVM
-                                .selectedCategoryContents[selectedIndex ?? 0]
-                                .title;
-                            final passedIndex = movieVM
-                                .selectedCategoryContents[selectedIndex ?? 0].id
-                                .toInt();
-                            movieVM.fetchGenre(passedIndex);
-                            movieVM.fetchActors(passedIndex);
-                            youtubeVM.fetchYoutubeSearchQuery(movieTitle);
-                            routeAction!();
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SvgPicture.asset("assets/icons/play_ic.svg",
-                                  color: Colors.black),
-                              const SizedBox(width: 6),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 2),
-                                child: Text(
-                                  "컨텐츠",
-                                  style: FontStyles(6.5.sp).watchButton,
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      : SizedBox(),
-                  Wrap(
-                    children: [
-                      GradientButton(
-                        content: "예고편",
-                        movieVM: movieVM,
-                        showTrailer: showDialog,
-                      ),
-                      SizedBox(width: 12),
-                      GradientButton(
-                        content: "추가",
-                        movieVM: movieVM,
-                        showTrailer: () {
-                          print("ADD TO FAVORITE");
-                        },
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
+            intentGroupButtons(width, selectedIndex, youtubeVM),
           ],
         ),
       ),
+    );
+  }
+
+  Container intentGroupButtons(
+      double width, int? selectedIndex, YoutubeVM youtubeVM) {
+    return Container(
+      width: width * 3 / 5,
+      child: Row(
+        mainAxisAlignment: isRoutedMain
+            ? MainAxisAlignment.spaceBetween
+            : MainAxisAlignment.start,
+        children: [
+          isRoutedMain
+              ? ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: kYellow,
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                  ),
+                  onPressed: () {
+                    final movieTitle = movieVM
+                        .selectedCategoryContents[selectedIndex ?? 0].title;
+                    final passedIndex = movieVM
+                        .selectedCategoryContents[selectedIndex ?? 0].id
+                        .toInt();
+                    movieVM.fetchGenre(passedIndex);
+                    movieVM.fetchActors(passedIndex);
+                    youtubeVM.fetchYoutubeSearchQuery(movieTitle);
+                    routeAction!();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SvgPicture.asset("assets/icons/play_ic.svg",
+                          color: Colors.black),
+                      const SizedBox(width: 6),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2),
+                        child: Text(
+                          "컨텐츠",
+                          style: FontStyles(6.5.sp).watchButton,
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              : SizedBox(),
+          Wrap(
+            children: [
+              GradientButton(
+                content: "예고편",
+                movieVM: movieVM,
+                showTrailer: showDialog,
+              ),
+              SizedBox(width: 12),
+              GradientButton(
+                content: "추가",
+                movieVM: movieVM,
+                showTrailer: () {
+                  print("ADD TO FAVORITE");
+                },
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Container contentDescription(
+      double width,
+      bool isFetched,
+      String streamString(String passedItem),
+      List<dynamic> selectedCategoryContents,
+      int? selectedIndex) {
+    return Container(
+      width: width * 3 / 5,
+      child: Text(
+        isFetched
+            ? streamString(
+                selectedCategoryContents[selectedIndex ?? 0].overview)
+            : "",
+        maxLines: 3,
+        style: FontStyles(5.8.sp).description,
+      ),
+    );
+  }
+
+  Row otherContentInfo() {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: kLightGrey,
+          ),
+          child: Text(
+            "C18",
+            style: FontStyles(4.69.sp).gRated,
+          ),
+        ),
+        SizedBox(width: 12),
+        Text(
+          "2018",
+          style: FontStyles(5.69.sp).releaseY,
+        ),
+      ],
+    );
+  }
+
+  Text contentTitle(bool isFetched, String streamString(String passedItem),
+      List<dynamic> selectedCategoryContents, int? selectedIndex) {
+    return Text(
+      isFetched
+          ? streamString(selectedCategoryContents[selectedIndex ?? 0].title)
+          : "",
+      maxLines: 1,
+      style: FontStyles(kMovieTitle).movieTitle,
     );
   }
 }

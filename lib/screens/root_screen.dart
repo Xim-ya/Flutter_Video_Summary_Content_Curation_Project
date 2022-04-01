@@ -1,15 +1,6 @@
 import 'package:movie_curation/utilities/index.dart';
 
-/* 디바이스 기기 별(mobile, tablet)별 네비게이션 + 컨텐츠 스크린 구조가 다르기 때문에 디바이스 레이아웃을 감지하고 필요한 위젯을 반환하는 로직을 담고 있는 스크린*/
-
-/* Tablet Layout
-   Tablet Navigation Bar
-     - Navigation Rail 위젯을 이용하여 Side NavgationBar 위젯을 구현하려고 했지만 디자인 명세에 맞는 UI를 그리는데 제한 있음 (Align 조정이 안됨)
-       - 직접 Custom Navigation Bar을 만듬 (
-          - React Hook을 사용하여 불필요한 렌더링 방지 (Statefull X)
-          - AutomaticKeepAliveClientMixin을 extend하여 여러 RouteScreen State을 유지할 수 있도록 함.
-
-*/
+/* 디바이스 기기 별(mobile, tablet)별 네비게이션 바 + 컨텐츠 스크린 구조가 다르기 때문에 디바이스 레이아웃을 감지하고 필요한 위젯을 반환하는 로직을 담고 있는 Root 스크린*/
 
 class RootScreen extends HookWidget {
   final screenList = [
@@ -21,23 +12,26 @@ class RootScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedScreen = useState(0);
-
-    final PageController _controller =
-        PageController(initialPage: selectedScreen.value, keepPage: true);
+    final selectedScreen = useState(0); // React Hook으로 NavigationBar State관리
+    final PageController _controller = PageController(
+        initialPage: selectedScreen.value,
+        keepPage:
+            true); // Page BuilderController (화면이 전환되어도 이전 화면은 State을 값을 유지)
 
     return Scaffold(
       backgroundColor: kDarkGrey,
       body: ResponsiveLayout(
-          mobileWidget: Center(
-            child: Container(
-              child: Text("MOBILE BODY"),
-            ),
+        mobileWidget: Center(
+          child: Container(
+            child: Text("MOBILE BODY"), // 현재 Tablet 디바이스만 구현
           ),
-          tabletWidget: tabletBody(_controller, selectedScreen)),
+        ),
+        tabletWidget: tabletBody(_controller, selectedScreen),
+      ),
     );
   }
 
+  /* Side Navigation Bar (테블릿 버전) ㄴ*/
   Row tabletBody(PageController controller, ValueNotifier<int> selectedScreen) {
     return Row(
       children: [
@@ -76,6 +70,7 @@ class RootScreen extends HookWidget {
     );
   }
 
+  // Navigation Bar Button
   IconButton navButton(int page, String iconPath, PageController controller,
       ValueNotifier<int> selectedScreen) {
     return IconButton(

@@ -9,8 +9,6 @@ class HomeScreen extends HookWidget {
     final PageController _controller =
         PageController(initialPage: 0, keepPage: true);
 
-    final String aim = "기생충";
-
     // HomeScreen --> Movie Detail Screen 라우트
     void routeHandler() {
       _controller.animateToPage(screenIndex.value == 0 ? 1 : 0,
@@ -31,7 +29,7 @@ class HomeScreen extends HookWidget {
           itemBuilder: (context, index) {
             return [
               HomeScreenT(routeAction: routeHandler),
-              MovieDetailScreenT(routeAction: routeHandler, movieTitle: aim),
+              MovieDetailScreenT(routeAction: routeHandler),
             ][index];
           },
         ));
