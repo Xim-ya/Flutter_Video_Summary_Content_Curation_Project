@@ -14,7 +14,7 @@ export 'package:cached_network_image/cached_network_image.dart';
 export 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
 
 /* Screens */
-export 'package:movie_curation/screens/root_screen.dart';
+export 'package:movie_curation/screens/root/root_screen.dart';
 export 'package:movie_curation/screens/home/home_screen.dart';
 export 'package:movie_curation/screens/home/mobile/home_screen_mobile.dart';
 export 'package:movie_curation/screens/home/tablet/home_screen_tablet.dart';
@@ -25,6 +25,7 @@ export 'package:movie_curation/screens/movieDetail/mobile/movie_detail_mobile.da
 export 'package:movie_curation/screens/movieDetail/movie_detail_screen.dart';
 export 'package:youtube_player_flutter/youtube_player_flutter.dart';
 export 'package:movie_curation/screens/contentPlayer/content_player_screen.dart';
+export 'package:movie_curation/screens/root/root_screen_mobile.dart';
 
 /* Models */
 export 'package:movie_curation/models/movie_model.dart';

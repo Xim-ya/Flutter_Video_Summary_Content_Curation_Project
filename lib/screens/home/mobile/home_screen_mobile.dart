@@ -5,6 +5,9 @@ class HomeScreenM extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Container(child: Text("HOME SCREEN MOBILE MODE")));
+    return SafeArea(
+        child: Container(
+            color: kDarkGrey,
+            child: Center(child: Text("HOME SCREEN MOBILE MODE"))));
   }
 }
