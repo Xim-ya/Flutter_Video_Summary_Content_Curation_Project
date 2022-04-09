@@ -1,10 +1,15 @@
 import 'package:movie_curation/utilities/index.dart';
 
 class GradientPostBackground extends StatelessWidget {
-  final MovieVM movieVM;
-  final bool isRoutedMain;
+  final MovieVM movieVM; // VIEW MODEL
+  final bool
+      isRoutedMain; // HomeScreen(MainScreen),MovieDetail(컨텐츠 상세페이지)에서 각각 다르게 이미지를 호출하기 위한 기준 값
+  final bool? isUsedInMobile; // 모바일에서 호출되면 Background Layer을 다른 위젯으로 보여줌.
   const GradientPostBackground(
-      {Key? key, required this.movieVM, required this.isRoutedMain})
+      {Key? key,
+      required this.movieVM,
+      required this.isRoutedMain,
+      this.isUsedInMobile})
       : super(key: key);
 
   @override
@@ -17,12 +22,19 @@ class GradientPostBackground extends StatelessWidget {
         isFetched
             ? backgroundImage(selectedCategoryContents, selectedIndex)
             : const SizedBox(),
-        gradientLayerBox(),
+        isUsedInMobile ?? false ? darkLayerBox() : gradientLayerBox(),
       ],
     );
   }
 
-  // Dark Gradient Layer 컨테이너ㄴ
+  // 모바일 디바이스에서 사용되는 Background Layer
+  Container darkLayerBox() {
+    return Container(
+      color: kDarkGrey.withOpacity(0.8),
+    );
+  }
+
+  // 테블릿 디바이스에서 사용되는 Background GradientLayer
   Container gradientLayerBox() {
     return Container(
       decoration: BoxDecoration(
