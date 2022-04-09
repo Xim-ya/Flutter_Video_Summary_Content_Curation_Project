@@ -30,7 +30,7 @@ class GradientPostBackground extends StatelessWidget {
   // 모바일 디바이스에서 사용되는 Background Layer
   Container darkLayerBox() {
     return Container(
-      color: kDarkGrey.withOpacity(0.8),
+      color: kDarkGrey.withOpacity(0.86),
     );
   }
 

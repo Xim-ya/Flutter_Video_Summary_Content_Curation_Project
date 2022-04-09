@@ -39,10 +39,16 @@ const Color kCloudyLightGrey = Color(0xFF505050);
 
 class FontStyles {
   double? size;
+  bool? isMobile;
 
-  FontStyles([this.size]) //size 값은 Optional 타입
+  FontStyles([this.size, this.isMobile]) //size 값은 Optional 타입
       /*  Home Screen (Tablet)  */
-      : movieTitle = TextStyle(
+      : categoryGroupButton = TextStyle(
+          fontSize: isMobile ?? false ? 17.7.sp : 9.55.sp,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+        movieTitle = TextStyle(
           color: Colors.white,
           fontSize: size,
           fontWeight: FontWeight.w400,
@@ -91,6 +97,7 @@ class FontStyles {
   final TextStyle description;
   final TextStyle watchButton;
   final TextStyle elseButton;
+  final TextStyle categoryGroupButton;
 
 /* Movie Detail Screen  (tablet)*/
   final TextStyle actorName;

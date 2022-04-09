@@ -16,13 +16,21 @@ class _HomeScreenMState extends State<HomeScreenM> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
-        children: [
-          GradientPostBackground(
-              movieVM: _movieVM, isRoutedMain: false, isUsedInMobile: true)
-        ],
-      ),
+    print(17.7.sp);
+    return GetBuilder<MovieVM>(
+      init: _movieVM,
+      builder: (context) {
+        return Stack(
+          children: [
+            GradientPostBackground(
+                movieVM: _movieVM, isRoutedMain: false, isUsedInMobile: true),
+            SafeArea(
+              child:
+                  CategoryGroupButton(movieVM: _movieVM, isUsedInMobile: true),
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -1,10 +1,12 @@
 import 'package:movie_curation/utilities/index.dart';
 
 class CategoryGroupButton extends StatelessWidget {
-  const CategoryGroupButton({Key? key, required this.movieVM})
-      : super(key: key);
-
   final MovieVM movieVM;
+  final bool? isUsedInMobile; // Mobile <--> Tablet 예외처리 작업을 위한 기준 값
+
+  const CategoryGroupButton(
+      {Key? key, required this.movieVM, this.isUsedInMobile})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class CategoryGroupButton extends StatelessWidget {
         children: _categoryOptions.map<Widget>((e) {
       int _itemIndex = _categoryOptions.indexWhere((content) => content == e);
       return Container(
-        padding: const EdgeInsets.only(right: 8),
+        padding: EdgeInsets.only(right: isUsedInMobile ?? false ? 4 : 8),
         child: TextButton(
           onPressed: () {
             movieVM.fetchPopularDrama();
@@ -24,7 +26,8 @@ class CategoryGroupButton extends StatelessWidget {
             style: TextStyle(
                 color: Colors.white.withOpacity(
                     movieVM.selectedCategoryIndex == _itemIndex ? 1 : 0.24),
-                fontSize: groupButtonTextSize,
+                fontSize:
+                    isUsedInMobile ?? false ? 17.7.sp : groupButtonTextSize,
                 fontWeight: FontWeight.bold),
           ),
         ),
