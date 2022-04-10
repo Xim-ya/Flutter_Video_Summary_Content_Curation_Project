@@ -38,15 +38,18 @@ class MovieContentInfo extends StatelessWidget {
     List<dynamic> selectedCategoryContents = movieVM.selectedCategoryContents;
     double width = MediaQuery.of(context).size.width;
     return Expanded(
-      flex: 6,
+      flex: isUsedInMobile ?? false ? 5 : 6,
+      // flex: 6,
       child: Container(
+        padding:
+            EdgeInsets.symmetric(horizontal: isUsedInMobile ?? false ? 16 : 0),
         width: responsiveSize(
             mobileS: double.infinity,
             tabletS: contentResponsiveW,
             isMobile: isUsedInMobile ?? false),
         margin: EdgeInsets.only(
             top: responsiveSize(
-                mobileS: 3.5.h,
+                mobileS: 1.8.h,
                 tabletS: 4.25.h,
                 isMobile: isUsedInMobile ?? false)),
         child: Column(

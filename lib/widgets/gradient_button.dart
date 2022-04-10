@@ -48,10 +48,8 @@ class GradientButton extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(4.0)),
         ),
         child: Container(
-          constraints: BoxConstraints(
-              minHeight: isUsedInMobile ?? false
-                  ? 28
-                  : 38.0), // min sizes for Material buttons
+          constraints:
+              BoxConstraints(minHeight: isUsedInMobile ?? false ? 26 : 38.0),
           alignment: Alignment.center,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

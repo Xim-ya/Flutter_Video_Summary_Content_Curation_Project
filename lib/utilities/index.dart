@@ -12,6 +12,7 @@ export 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 export 'package:get/get.dart';
 export 'package:cached_network_image/cached_network_image.dart';
 export 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
+export 'package:carousel_slider/carousel_slider.dart';
 
 /* Screens */
 export 'package:movie_curation/screens/root/root_screen.dart';

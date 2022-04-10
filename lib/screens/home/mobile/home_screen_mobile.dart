@@ -1,3 +1,4 @@
+import 'package:movie_curation/screens/home/localWidget/poster_carousel_slider.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class HomeScreenM extends StatefulWidget {
@@ -16,8 +17,6 @@ class _HomeScreenMState extends State<HomeScreenM> {
 
   @override
   Widget build(BuildContext context) {
-    print("HEIGHT  ${4.5.h}");
-
     void tempAction() {
       print("SOME ROUTES");
     }
@@ -37,7 +36,7 @@ class _HomeScreenMState extends State<HomeScreenM> {
                 movieVM: _movieVM, isRoutedMain: false, isUsedInMobile: true),
             SafeArea(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                // padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
                     /* Category Group Button */
@@ -51,12 +50,7 @@ class _HomeScreenMState extends State<HomeScreenM> {
                       showDialog: _showDialog,
                       isUsedInMobile: true,
                     ),
-                    Expanded(
-                      flex: 9,
-                      child: Container(
-                        color: Colors.blue.withOpacity(0.5),
-                      ),
-                    ),
+                    PosterCarouselSlider(movieVM: _movieVM)
                   ],
                 ),
               ),
