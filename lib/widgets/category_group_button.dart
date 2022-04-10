@@ -15,7 +15,7 @@ class CategoryGroupButton extends StatelessWidget {
         children: _categoryOptions.map<Widget>((e) {
       int _itemIndex = _categoryOptions.indexWhere((content) => content == e);
       return Container(
-        padding: EdgeInsets.only(right: isUsedInMobile ?? false ? 4 : 8),
+        padding: EdgeInsets.only(right: isUsedInMobile ?? false ? 0 : 8),
         child: TextButton(
           onPressed: () {
             movieVM.fetchPopularDrama();

@@ -50,30 +50,34 @@ class FontStyles {
         ),
         movieTitle = TextStyle(
           color: Colors.white,
-          fontSize: size,
+          fontSize: isMobile ?? false ? 27.2.sp : 15.6.sp,
           fontWeight: FontWeight.w400,
           overflow: TextOverflow.ellipsis,
         ),
         gRated = TextStyle(
           color: Colors.white,
-          fontSize: size,
+          fontSize: isMobile ?? false ? 12 : 4.69.sp,
           fontWeight: FontWeight.normal,
         ),
         releaseY = TextStyle(
           color: Colors.white,
-          fontSize: size,
+          fontSize: isMobile ?? false ? 16 : 5.69.sp,
           fontWeight: FontWeight.normal,
         ),
         description = TextStyle(
           color: Colors.white,
-          fontSize: size,
+          fontSize: isMobile ?? false ? 14 : 5.8.sp,
           fontWeight: FontWeight.normal,
           overflow: TextOverflow.ellipsis,
         ),
         watchButton = TextStyle(
-            color: Colors.black, fontSize: size, fontWeight: FontWeight.bold),
+            color: Colors.black,
+            fontSize: isMobile ?? false ? 12 : 6.5.sp,
+            fontWeight: FontWeight.bold),
         elseButton = TextStyle(
-            color: Colors.white, fontSize: size, fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: isMobile ?? false ? 12 : 6.5.sp,
+            fontWeight: FontWeight.bold),
 
         /*  Movie Detail Screen  (Tablet)  */
         actorName = TextStyle(

@@ -16,7 +16,18 @@ class _HomeScreenMState extends State<HomeScreenM> {
 
   @override
   Widget build(BuildContext context) {
-    print(17.7.sp);
+    print("HEIGHT  ${4.5.h}");
+
+    void tempAction() {
+      print("SOME ROUTES");
+    }
+
+    void _showDialog() async {
+      _movieVM.trailerKey == null
+          ? noTrailerDialog(context)
+          : movieTrailerDialog(context, _movieVM);
+    }
+
     return GetBuilder<MovieVM>(
       init: _movieVM,
       builder: (context) {
@@ -25,8 +36,30 @@ class _HomeScreenMState extends State<HomeScreenM> {
             GradientPostBackground(
                 movieVM: _movieVM, isRoutedMain: false, isUsedInMobile: true),
             SafeArea(
-              child:
-                  CategoryGroupButton(movieVM: _movieVM, isUsedInMobile: true),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+                    /* Category Group Button */
+                    CategoryGroupButton(
+                        movieVM: _movieVM, isUsedInMobile: true),
+                    /* Movie Content Info */
+                    MovieContentInfo(
+                      isRoutedMain: true,
+                      routeAction: tempAction,
+                      movieVM: _movieVM,
+                      showDialog: _showDialog,
+                      isUsedInMobile: true,
+                    ),
+                    Expanded(
+                      flex: 9,
+                      child: Container(
+                        color: Colors.blue.withOpacity(0.5),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         );

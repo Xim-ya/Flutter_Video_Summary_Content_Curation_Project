@@ -8,11 +8,13 @@ class GradientButton extends StatelessWidget {
   final String content;
   final MovieVM movieVM;
   final VoidCallback showTrailer;
+  final bool? isUsedInMobile;
   const GradientButton({
     Key? key,
     required this.content,
     required this.movieVM,
     required this.showTrailer,
+    this.isUsedInMobile,
   }) : super(key: key);
 
   @override
@@ -46,8 +48,10 @@ class GradientButton extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(4.0)),
         ),
         child: Container(
-          constraints: const BoxConstraints(
-              minHeight: 38.0), // min sizes for Material buttons
+          constraints: BoxConstraints(
+              minHeight: isUsedInMobile ?? false
+                  ? 28
+                  : 38.0), // min sizes for Material buttons
           alignment: Alignment.center,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -55,13 +59,14 @@ class GradientButton extends StatelessWidget {
               SvgPicture.asset(
                 "assets/icons/play_ic.svg",
                 color: Colors.white,
+                height: isUsedInMobile ?? false ? 14 : 20,
               ),
               const SizedBox(width: 6),
               Padding(
                 padding: const EdgeInsets.only(top: 2),
                 child: Text(
                   content,
-                  style: FontStyles(6.5.sp).elseButton,
+                  style: FontStyles(0, isUsedInMobile).elseButton,
                 ),
               ),
             ],

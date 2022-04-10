@@ -1,18 +1,28 @@
 import 'package:movie_curation/utilities/index.dart';
 
 class MovieContentInfo extends StatelessWidget {
+  final bool isRoutedMain; // 라우트되는 부모 스크린 판별 변수
+  final VoidCallback? routeAction;
+  final MovieVM movieVM;
+  final VoidCallback showDialog;
+  final bool? isUsedInMobile;
+
   const MovieContentInfo(
       {Key? key,
       required this.isRoutedMain,
       this.routeAction,
       required this.movieVM,
-      required this.showDialog})
+      required this.showDialog,
+      this.isUsedInMobile})
       : super(key: key);
 
-  final bool isRoutedMain; // 라우트되는 부모 스크린 판별 변수
-  final VoidCallback? routeAction;
-  final MovieVM movieVM;
-  final VoidCallback showDialog;
+  // 디바이스 종류(Mobile, Tablet)에 따라 각각 다른 사이즈를 반환하는 메소드
+  double responsiveSize(
+      {required double mobileS,
+      required double tabletS,
+      required bool isMobile}) {
+    return isMobile ? mobileS : tabletS;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +40,15 @@ class MovieContentInfo extends StatelessWidget {
     return Expanded(
       flex: 6,
       child: Container(
-        width: contentResponsiveW,
+        width: responsiveSize(
+            mobileS: double.infinity,
+            tabletS: contentResponsiveW,
+            isMobile: isUsedInMobile ?? false),
         margin: EdgeInsets.only(
-            top: contentTopP), //TODO : 나중에 레이아웃을 확인하고 Responsive Size로 변경 필요
-        // height: contentReszonsiveH,
+            top: responsiveSize(
+                mobileS: 3.5.h,
+                tabletS: 4.25.h,
+                isMobile: isUsedInMobile ?? false)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +73,7 @@ class MovieContentInfo extends StatelessWidget {
   Container intentGroupButtons(
       double width, int? selectedIndex, YoutubeVM youtubeVM) {
     return Container(
-      width: width * 3 / 5,
+      width: isUsedInMobile ?? false ? width : width * 3 / 5,
       child: Row(
         mainAxisAlignment: isRoutedMain
             ? MainAxisAlignment.spaceBetween
@@ -67,6 +82,8 @@ class MovieContentInfo extends StatelessWidget {
           isRoutedMain
               ? ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    minimumSize:
+                        isUsedInMobile ?? false ? const Size(1, 26) : null,
                     primary: kYellow,
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                   ),
@@ -85,25 +102,27 @@ class MovieContentInfo extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SvgPicture.asset("assets/icons/play_ic.svg",
+                          height: isUsedInMobile ?? false ? 14 : 20,
                           color: Colors.black),
                       const SizedBox(width: 6),
                       Padding(
                         padding: const EdgeInsets.only(top: 2),
                         child: Text(
                           "컨텐츠",
-                          style: FontStyles(6.5.sp).watchButton,
+                          style: FontStyles(0, isUsedInMobile).watchButton,
                         ),
                       )
                     ],
                   ),
                 )
-              : SizedBox(),
+              : const SizedBox(),
           Wrap(
             children: [
               GradientButton(
                 content: "예고편",
                 movieVM: movieVM,
                 showTrailer: showDialog,
+                isUsedInMobile: isUsedInMobile,
               ),
               SizedBox(width: 12),
               GradientButton(
@@ -112,6 +131,7 @@ class MovieContentInfo extends StatelessWidget {
                 showTrailer: () {
                   print("ADD TO FAVORITE");
                 },
+                isUsedInMobile: isUsedInMobile,
               ),
             ],
           )
@@ -127,14 +147,14 @@ class MovieContentInfo extends StatelessWidget {
       List<dynamic> selectedCategoryContents,
       int? selectedIndex) {
     return Container(
-      width: width * 3 / 5,
+      width: isUsedInMobile ?? false ? width : width * 3 / 5,
       child: Text(
         isFetched
             ? streamString(
                 selectedCategoryContents[selectedIndex ?? 0].overview)
             : "",
         maxLines: 3,
-        style: FontStyles(5.8.sp).description,
+        style: FontStyles(0, isUsedInMobile).description,
       ),
     );
   }
@@ -150,13 +170,13 @@ class MovieContentInfo extends StatelessWidget {
           ),
           child: Text(
             "C18",
-            style: FontStyles(4.69.sp).gRated,
+            style: FontStyles(0, isUsedInMobile).gRated,
           ),
         ),
         SizedBox(width: 12),
         Text(
           "2018",
-          style: FontStyles(5.69.sp).releaseY,
+          style: FontStyles(0, isUsedInMobile).releaseY,
         ),
       ],
     );
@@ -169,7 +189,7 @@ class MovieContentInfo extends StatelessWidget {
           ? streamString(selectedCategoryContents[selectedIndex ?? 0].title)
           : "",
       maxLines: 1,
-      style: FontStyles(kMovieTitle).movieTitle,
+      style: FontStyles(0, isUsedInMobile).movieTitle,
     );
   }
 }
