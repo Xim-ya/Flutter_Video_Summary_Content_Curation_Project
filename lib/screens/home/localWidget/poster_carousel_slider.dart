@@ -17,12 +17,14 @@ class PosterCarouselSlider extends StatelessWidget {
               child: CarouselSlider.builder(
                 itemCount: movieVM.selectedCategoryContents.length,
                 options: CarouselOptions(
-                  autoPlay: false,
-                  enlargeCenterPage: true,
-                  viewportFraction: 0.7,
-                  aspectRatio: 215 / 319,
-                  initialPage: 0,
-                ),
+                    autoPlay: false,
+                    enlargeCenterPage: true,
+                    viewportFraction: 0.7,
+                    aspectRatio: 215 / 319,
+                    initialPage: 0,
+                    onPageChanged: (index, _) {
+                      movieVM.setSelectedMovie(index);
+                    }),
                 itemBuilder:
                     (BuildContext context, int index, int pageViewIndex) {
                   final contents = movieVM.selectedCategoryContents[index];

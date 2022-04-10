@@ -21,22 +21,28 @@ class _HomeScreenMState extends State<HomeScreenM> {
       print("SOME ROUTES");
     }
 
-    void _showDialog() async {
-      _movieVM.trailerKey == null
-          ? noTrailerDialog(context)
-          : movieTrailerDialog(context, _movieVM);
-    }
-
     return GetBuilder<MovieVM>(
       init: _movieVM,
-      builder: (context) {
+      builder: (_) {
+        // Alert Dialog 위젯 (영화 예고편)
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.landscapeLeft,
+          DeviceOrientation.landscapeRight
+        ]);
+        void _showDialog() async {
+          _movieVM.trailerKey == null
+              ? noTrailerDialog(context)
+              // : getToTrailerPlayer(_movieVM);
+              : movieTrailerDialog(
+                  context: context, movieVM: _movieVM, isUsedInMobile: true);
+        }
+
         return Stack(
           children: [
             GradientPostBackground(
                 movieVM: _movieVM, isRoutedMain: false, isUsedInMobile: true),
             SafeArea(
               child: Container(
-                // padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
                     /* Category Group Button */

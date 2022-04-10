@@ -29,7 +29,7 @@ class _HomeScreenTState extends State<HomeScreenT>
         void _showDialog() async {
           _movieVM.trailerKey == null
               ? noTrailerDialog(context)
-              : movieTrailerDialog(context, _movieVM);
+              : movieTrailerDialog(context: context, movieVM: _movieVM);
         }
 
         return Stack(

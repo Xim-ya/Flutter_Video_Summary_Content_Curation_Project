@@ -26,7 +26,7 @@ class MovieDetailScreenT extends StatelessWidget {
         void _showDialog() async {
           movieVM.trailerKey == null
               ? noTrailerDialog(context)
-              : movieTrailerDialog(context, movieVM);
+              : movieTrailerDialog(context: context, movieVM: movieVM);
         }
 
         return Stack(
