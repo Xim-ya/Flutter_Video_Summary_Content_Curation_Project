@@ -52,6 +52,14 @@ class RootScreenM extends HookWidget {
                 )),
           ],
         ),
-        body: screenList[selectedIndex.value]);
+        body: IndexedStack(
+          index: selectedIndex.value,
+          children: [
+            HomeScreenM(),
+            TempScreen2(),
+            TempScreen3(),
+            TempScreen4(),
+          ],
+        ));
   }
 }

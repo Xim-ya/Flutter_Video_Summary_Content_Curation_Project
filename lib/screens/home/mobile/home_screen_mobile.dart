@@ -25,10 +25,6 @@ class _HomeScreenMState extends State<HomeScreenM> {
       init: _movieVM,
       builder: (_) {
         // Alert Dialog 위젯 (영화 예고편)
-        SystemChrome.setPreferredOrientations([
-          DeviceOrientation.landscapeLeft,
-          DeviceOrientation.landscapeRight
-        ]);
         void _showDialog() async {
           _movieVM.trailerKey == null
               ? noTrailerDialog(context)
