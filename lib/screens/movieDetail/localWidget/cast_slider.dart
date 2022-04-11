@@ -1,17 +1,23 @@
 import 'package:movie_curation/utilities/index.dart';
 
+// TODO: TABLET & MOBILE 반응형 예외처리 코드게 매우 복잡. 대폭 수정 필요
 class CastSlider extends StatelessWidget {
   final MovieVM movieVM;
-  const CastSlider({Key? key, required this.movieVM}) : super(key: key);
-
-  // 임시 이미지
-  final blackProfileImageUrl =
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+  final bool? isUsedInMobile;
+  const CastSlider({Key? key, required this.movieVM, this.isUsedInMobile})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final double extraMobileSize = responsiveSize(
+        mobileS: 30, tabletS: 0, isMobile: isUsedInMobile ?? false);
+
     return Container(
-      height: kTS100 + (kTS16 * 2) + 9,
+      padding: EdgeInsets.only(
+        left: responsiveSize(
+            mobileS: 16, tabletS: 0, isMobile: isUsedInMobile ?? false),
+      ),
+      height: kTS100 + (kTS16 * 2) + 9 + extraMobileSize + 8,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: movieVM.actorList.length,
@@ -22,9 +28,9 @@ class CastSlider extends StatelessWidget {
               child: Stack(
                 children: [
                   /* Cast Image */
-                  CastProfileImage(castItem),
+                  CastProfileImage(castItem, extraMobileSize),
                   /* Cast Name */
-                  CastProfileName(castItem)
+                  CastProfileName(castItem, extraMobileSize)
                 ],
               ),
             );
@@ -32,25 +38,27 @@ class CastSlider extends StatelessWidget {
     );
   }
 
-  Positioned CastProfileName(Actor castItem) {
+  Positioned CastProfileName(Actor castItem, double extraMobileSize) {
+    final double extraMargin = responsiveSize(
+        mobileS: 16, tabletS: 0, isMobile: isUsedInMobile ?? false);
     return Positioned(
-      top: kTS100 + 4,
+      top: kTS100 + 4 + extraMobileSize,
       child: Container(
-        width: kTS100 + 4,
+        width: kTS100 + 4 + extraMobileSize,
         child: Text(
           castItem.name ?? "익명",
           maxLines: 2,
           textAlign: TextAlign.center,
-          style: FontStyles(kTS16).actorName,
+          style: FontStyles(0, isUsedInMobile).actorName,
         ),
       ),
     );
   }
 
-  SizedBox CastProfileImage(Actor castItem) {
+  SizedBox CastProfileImage(Actor castItem, double extraMobileSize) {
     return SizedBox(
-      height: kTS100,
-      width: kTS100,
+      height: kTS100 + extraMobileSize,
+      width: kTS100 + extraMobileSize,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(1000),
         child: GestureDetector(

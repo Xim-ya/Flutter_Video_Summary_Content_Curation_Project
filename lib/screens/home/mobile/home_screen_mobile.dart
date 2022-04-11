@@ -17,8 +17,8 @@ class _HomeScreenMState extends State<HomeScreenM> {
 
   @override
   Widget build(BuildContext context) {
-    void tempAction() {
-      print("SOME ROUTES");
+    void routeAction() {
+      Get.to(() => MovieDetailScreenM());
     }
 
     return GetBuilder<MovieVM>(
@@ -47,7 +47,7 @@ class _HomeScreenMState extends State<HomeScreenM> {
                     /* Movie Content Info */
                     MovieContentInfo(
                       isRoutedMain: true,
-                      routeAction: tempAction,
+                      routeAction: routeAction,
                       movieVM: _movieVM,
                       showDialog: _showDialog,
                       isUsedInMobile: true,

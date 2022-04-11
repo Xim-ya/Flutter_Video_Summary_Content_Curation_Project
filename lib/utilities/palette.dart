@@ -82,7 +82,7 @@ class FontStyles {
         /*  Movie Detail Screen  (Tablet)  */
         actorName = TextStyle(
             color: kCloudyGrey,
-            fontSize: size,
+            fontSize: isMobile ?? false ? 12 : kTS16,
             overflow: TextOverflow.ellipsis),
         categoryTitle = TextStyle(
             color: Colors.white, fontSize: size, fontFamily: 'Staatliches'),
@@ -109,4 +109,12 @@ class FontStyles {
   final TextStyle categorySubTitle;
   final TextStyle youtubeReviewTitle;
   final TextStyle youtubeReviewLikes;
+}
+
+// 디바이스 종류(Mobile, Tablet)에 따라 각각 다른 사이즈를 반환하는 메소드
+double responsiveSize(
+    {required double mobileS,
+    required double tabletS,
+    required bool isMobile}) {
+  return isMobile ? mobileS : tabletS;
 }

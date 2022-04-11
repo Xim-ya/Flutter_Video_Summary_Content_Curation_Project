@@ -30,23 +30,28 @@ class PosterCarouselSlider extends StatelessWidget {
                   final contents = movieVM.selectedCategoryContents[index];
                   return Container(
                     margin: EdgeInsets.only(top: 14, bottom: 22),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: CachedNetworkImage(
-                        imageUrl:
-                            "https://image.tmdb.org/t/p/w500${contents.posterUrl}",
-                        imageBuilder: (context, imageProvider) => Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
+                    child: GestureDetector(
+                      onDoubleTap: () {
+                        Get.to(() => MovieDetailScreenM());
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              "https://image.tmdb.org/t/p/w500${contents.posterUrl}",
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
-                        placeholder: (context, url) =>
-                            const Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
                       ),
                     ),
                   );

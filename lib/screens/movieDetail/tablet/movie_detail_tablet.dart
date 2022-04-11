@@ -1,6 +1,4 @@
-import 'package:movie_curation/screens/movieDetail/localWidget/youtube_reviewCotents_wheel_slider.dart';
 import 'package:movie_curation/utilities/index.dart';
-import 'package:movie_curation/widgets/back_arrow_button.dart';
 
 class MovieDetailScreenT extends StatelessWidget {
   final VoidCallback routeAction; //;
@@ -74,9 +72,9 @@ class MovieDetailScreenT extends StatelessWidget {
                 ),
                 /* Right Section */
                 Expanded(
-                    flex: 4,
-                    child:
-                        YoutubeReviewContentsWheelSlider(youtubeVM: youtubeVM)),
+                  flex: 4,
+                  child: YoutubeReviewContentsWheelSlider(youtubeVM: youtubeVM),
+                ),
               ],
             ),
           ],

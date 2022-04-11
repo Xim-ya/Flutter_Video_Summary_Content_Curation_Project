@@ -52,11 +52,15 @@ export 'package:movie_curation/widgets/movie_post_slider.dart';
 export 'package:movie_curation/widgets/trailer_dialog.dart';
 export 'package:movie_curation/screens/movieDetail/localWidget/cast_slider.dart';
 export 'package:movie_curation/screens/movieDetail/localWidget/movie_else_info.dart';
+export 'package:movie_curation/widgets/back_arrow_button.dart';
+export 'package:movie_curation/screens/movieDetail/localWidget/main_content_info_mobile.dart'; // MovieDetailScreen(M) > MainContentInfoMobile
+export 'package:movie_curation/screens/movieDetail/localWidget/youtube_reviewCotents_wheel_slider.dart'; // MovieDetailScreen(T) > WheelSlider
 
 /* Utilities */
 export 'package:movie_curation/utilities/palette.dart';
 export 'package:movie_curation/utilities/orientation.dart';
 export 'package:movie_curation/utilities/scroll_controller.dart';
+export 'package:movie_curation/utilities/data/dummy_data.dart';
 
 /* Routes */
 export 'package:movie_curation/routes/fluro_router.dart';
