@@ -9,6 +9,19 @@ class PosterCarouselSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final youtubeVM = Get.put(YoutubeVM(model: YoutubeCore()));
+    int? selectedIndex = movieVM.selectedMovieIndex;
+    void setContentsMetaData(int index) {
+      movieVM.setSelectedMovie(index);
+      final movieTitle =
+          movieVM.selectedCategoryContents[selectedIndex ?? 0].title;
+      final passedIndex =
+          movieVM.selectedCategoryContents[selectedIndex ?? 0].id.toInt();
+      movieVM.fetchGenre(passedIndex);
+      movieVM.fetchActors(passedIndex);
+      youtubeVM.fetchYoutubeSearchQuery(movieTitle);
+    }
+
     return Expanded(
       flex: 9,
       child: movieVM.loadingStatus == LoadingStatus.done
@@ -32,7 +45,8 @@ class PosterCarouselSlider extends StatelessWidget {
                     margin: EdgeInsets.only(top: 14, bottom: 22),
                     child: GestureDetector(
                       onDoubleTap: () {
-                        Get.to(() => MovieDetailScreenM());
+                        setContentsMetaData(index);
+                        // Get.to(() => MovieDetailScreenM());
                       },
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),

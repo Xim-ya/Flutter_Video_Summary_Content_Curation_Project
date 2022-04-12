@@ -5,12 +5,12 @@ class MovieElseInfo extends StatelessWidget {
   final bool isFetched;
   final int? selectedIndex;
 
-  const MovieElseInfo(
-      {Key? key,
-      required this.movieVM,
-      required this.isFetched,
-      this.selectedIndex})
-      : super(key: key);
+  const MovieElseInfo({
+    Key? key,
+    required this.movieVM,
+    required this.isFetched,
+    this.selectedIndex,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

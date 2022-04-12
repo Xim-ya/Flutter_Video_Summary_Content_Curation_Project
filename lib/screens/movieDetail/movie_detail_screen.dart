@@ -8,7 +8,7 @@ class MovieDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: ResponsiveLayout(
-        mobileWidget: MovieDetailScreenM(),
+        mobileWidget: Container(),
         tabletWidget: Container(), //TODO 이중 레이아웃 빌더 제거 할 필요 있음.
       ),
     );

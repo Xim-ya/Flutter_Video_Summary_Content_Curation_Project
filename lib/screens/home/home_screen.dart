@@ -15,23 +15,20 @@ class HomeScreen extends HookWidget {
           duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
     }
 
-    return ResponsiveLayout(
-        mobileWidget: Container(),
-        /* Horizon PageView Builder : route 기능으로 이용 */
-        tabletWidget: PageView.builder(
-          controller: _controller,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: 2,
-          onPageChanged: (index) {
-            screenIndex.value = index;
-          },
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return [
-              HomeScreenT(routeAction: routeHandler),
-              MovieDetailScreenT(routeAction: routeHandler),
-            ][index];
-          },
-        ));
+    return PageView.builder(
+      controller: _controller,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 2,
+      onPageChanged: (index) {
+        screenIndex.value = index;
+      },
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (context, index) {
+        return [
+          HomeScreenT(routeAction: routeHandler),
+          MovieDetailScreenT(routeAction: routeHandler),
+        ][index];
+      },
+    );
   }
 }

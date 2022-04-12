@@ -14,9 +14,6 @@ class MovieDetailScreenT extends StatelessWidget {
     final movieVM = Get.put(MovieVM(model: MovieCore()));
     bool isFetched = movieVM.loadingStatus == LoadingStatus.done ? true : false;
     int? selectedIndex = movieVM.selectedMovieIndex;
-    youtubeVM.fetchVideoLikesCount();
-
-    print(19.6.w);
 
     return Builder(
       builder: (context) {

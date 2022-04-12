@@ -77,6 +77,7 @@ class MainContentInfoM extends StatelessWidget {
                     movieVM.fetchGenre(passedIndex);
                     movieVM.fetchActors(passedIndex);
                     youtubeVM.fetchYoutubeSearchQuery(movieTitle);
+                    print("AIMED!Q");
                     routeAction!();
                   },
                   child: Row(

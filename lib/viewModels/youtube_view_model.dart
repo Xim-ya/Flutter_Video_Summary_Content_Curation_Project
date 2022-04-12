@@ -17,7 +17,7 @@ class YoutubeVM extends GetxController {
   }
 
   fetchYoutubeSearchQuery(String movieTitle) async {
-    print(movieTitle);
+    print("YOUTUBE VM $movieTitle");
     loadingStatus = LoadingStatus.empty;
     List<Youtube> youtubeList =
         await YoutubeApi().fetchYoutubeContents(movieTitle);

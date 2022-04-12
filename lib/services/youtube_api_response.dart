@@ -6,7 +6,7 @@ class YoutubeApi {
 
   Future<List<Youtube>> fetchYoutubeContents(String movieTitle) async {
     String url =
-        "https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&q=$movieTitle&영화리뷰";
+        "https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCmmGQuJuL4W7jdBD1yJEft0VZ-8a8ciak&q=$movieTitle&영화리뷰";
 
     final response = await dio.get(url);
 
