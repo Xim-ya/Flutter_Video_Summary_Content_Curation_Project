@@ -84,6 +84,13 @@
     - 코드 분할 규칙 설정
   - 더 고민해야될 요소는?
 
+- Tablet & Mobile 공통 위젯 & 모듈
+  - Tablet & Mobile 레이아웃에서 모두 호출될 수 있는 Global 위젯을 만들기 위한 조건
+  - 어떻게 예외 처리를 해야되나?
+    - Responsive Fonts (X)
+    - Passing Boolean Condition?
+    - Just using if else case state?   
+
 ## 보완 및 구현 계획
 - 기획 & 디자인
   - 기획 디자인이 어느정도 완성이 된 후 개발 진행
