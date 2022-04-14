@@ -1,8 +1,14 @@
+import 'package:movie_curation/screens/movieDetail/localWidget/youtube_content_list_view.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class MovieDetailScreenM extends StatelessWidget {
   final _movieVM = Get.put(MovieVM(model: MovieCore()));
   final _youtubeVM = Get.put(YoutubeVM(model: YoutubeCore()));
+
+  void routeBackHandler() {
+    Get.back();
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isFetched =
@@ -31,7 +37,7 @@ class MovieDetailScreenM extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      BackArrowButton(routeAction: Get.back),
+                      BackArrowButton(routeAction: routeBackHandler),
                       /* Movie Content Info */
                       MainContentInfoM(
                           isRoutedMain: false,
@@ -39,13 +45,8 @@ class MovieDetailScreenM extends StatelessWidget {
                           showDialog: _showDialog),
                       SizedBox(height: 20),
                       /* Actor(Cast) Slider */
-                      GetBuilder<MovieVM>(
-                        init: _movieVM,
-                        builder: (context) {
-                          return CastSlider(
-                              movieVM: _movieVM, isUsedInMobile: true);
-                        },
-                      ),
+                      CastSlider(movieVM: _movieVM, isUsedInMobile: true),
+
                       /* Else (Rate & Genre) */
                       MovieElseInfo(
                         isFetched: isFetched,
@@ -55,30 +56,7 @@ class MovieDetailScreenM extends StatelessWidget {
                       ),
 
                       /* Youtube Contents */
-                      // GetBuilder<YoutubeVM>(
-                      //     init: _youtubeVM,
-                      //     builder: (context) {
-                      //       return ListView.builder(
-                      //         shrinkWrap: true,
-                      //         itemCount:
-                      //             _youtubeVM.youtubeSearchedQueryList.length,
-                      //         itemBuilder: (context, index) {
-                      //           final youtubeContent =
-                      //               _youtubeVM.youtubeSearchedQueryList[index];
-                      //           return Container(
-                      //             child: Column(
-                      //               children: [
-                      //                 thumbnailImage(youtubeContent),
-                      //                 Text(
-                      //                   youtubeContent.snippet.title,
-                      //                   style: TextStyle(color: Colors.white),
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //           );
-                      //         },
-                      //       );
-                      //     }),
+                      YoutubeContentsListView(youtubeVM: _youtubeVM)
                     ],
                   ),
                 ),
@@ -87,28 +65,6 @@ class MovieDetailScreenM extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-
-  /* Thumbnail Image */
-  ClipRRect thumbnailImage(Youtube query) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(11),
-      child: CachedNetworkImage(
-        imageUrl: query.snippet.thumbnails.medium.url,
-        imageBuilder: (context, imageProvider) => Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        placeholder: (context, url) =>
-            const Center(child: CircularProgressIndicator()),
-        errorWidget: (context, url, error) =>
-            const Center(child: Icon(Icons.error)),
-      ),
     );
   }
 }

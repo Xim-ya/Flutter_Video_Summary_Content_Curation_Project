@@ -12,30 +12,34 @@ class CastSlider extends StatelessWidget {
     final double extraMobileSize = responsiveSize(
         mobileS: 30, tabletS: 0, isMobile: isUsedInMobile ?? false);
 
-    return Container(
-      padding: EdgeInsets.only(
-        left: responsiveSize(
-            mobileS: 16, tabletS: 0, isMobile: isUsedInMobile ?? false),
-      ),
-      height: kTS100 + (kTS16 * 2) + 9 + extraMobileSize + 8,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: movieVM.actorList.length,
-          itemBuilder: (context, index) {
-            final castItem = movieVM.actorList[index];
-            return Container(
-              margin: const EdgeInsets.only(right: 22),
-              child: Stack(
-                children: [
-                  /* Cast Image */
-                  CastProfileImage(castItem, extraMobileSize),
-                  /* Cast Name */
-                  CastProfileName(castItem, extraMobileSize)
-                ],
-              ),
-            );
-          }),
-    );
+    return GetBuilder<MovieVM>(
+        init: movieVM,
+        builder: (context) {
+          return Container(
+            padding: EdgeInsets.only(
+              left: responsiveSize(
+                  mobileS: 16, tabletS: 0, isMobile: isUsedInMobile ?? false),
+            ),
+            height: kTS100 + (kTS16 * 2) + 9 + extraMobileSize + 8,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: movieVM.actorList.length,
+                itemBuilder: (context, index) {
+                  final castItem = movieVM.actorList[index];
+                  return Container(
+                    margin: const EdgeInsets.only(right: 22),
+                    child: Stack(
+                      children: [
+                        /* Cast Image */
+                        CastProfileImage(castItem, extraMobileSize),
+                        /* Cast Name */
+                        CastProfileName(castItem, extraMobileSize)
+                      ],
+                    ),
+                  );
+                }),
+          );
+        });
   }
 
   Positioned CastProfileName(Actor castItem, double extraMobileSize) {

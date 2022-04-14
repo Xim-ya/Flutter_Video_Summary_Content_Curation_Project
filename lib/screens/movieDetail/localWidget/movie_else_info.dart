@@ -18,18 +18,22 @@ class MovieElseInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     // MOBILE & TABLET Device 예외처리
     return isUsedInMobile ?? false
-        ? Container(
-            margin: const EdgeInsets.only(right: 16, top: 16),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Rate(),
-                const SizedBox(width: 20),
-                Genre(),
-              ],
-            ),
-          )
+        ? GetBuilder<MovieVM>(
+            init: movieVM,
+            builder: (context) {
+              return Container(
+                margin: const EdgeInsets.only(right: 16, top: 16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Rate(),
+                    const SizedBox(width: 20),
+                    Genre(),
+                  ],
+                ),
+              );
+            })
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
