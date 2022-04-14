@@ -85,9 +85,13 @@ class FontStyles {
             fontSize: isMobile ?? false ? 12 : kTS16,
             overflow: TextOverflow.ellipsis),
         categoryTitle = TextStyle(
-            color: Colors.white, fontSize: size, fontFamily: 'Staatliches'),
+            color: Colors.white,
+            fontSize: isMobile ?? false ? 32 : kTS50,
+            fontFamily: 'Staatliches'),
         categorySubTitle = TextStyle(
-            color: kCloudyLightGrey, fontSize: size, fontFamily: 'Staatliches'),
+            color: kCloudyLightGrey,
+            fontSize: isMobile ?? false ? 12 : kTS22,
+            fontFamily: 'Staatliches'),
         youtubeReviewTitle = TextStyle(
           color: Colors.white,
           fontSize: size,

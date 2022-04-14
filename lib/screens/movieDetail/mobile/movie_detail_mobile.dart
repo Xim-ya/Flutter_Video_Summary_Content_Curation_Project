@@ -47,6 +47,12 @@ class MovieDetailScreenM extends StatelessWidget {
                         },
                       ),
                       /* Else (Rate & Genre) */
+                      MovieElseInfo(
+                        isFetched: isFetched,
+                        movieVM: _movieVM,
+                        selectedIndex: selectedIndex,
+                        isUsedInMobile: true,
+                      ),
 
                       /* Youtube Contents */
                       // GetBuilder<YoutubeVM>(
