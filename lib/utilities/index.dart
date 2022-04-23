@@ -27,6 +27,7 @@ export 'package:movie_curation/screens/movieDetail/movie_detail_screen.dart';
 export 'package:youtube_player_flutter/youtube_player_flutter.dart';
 export 'package:movie_curation/screens/contentPlayer/content_player_screen.dart';
 export 'package:movie_curation/screens/root/root_screen_mobile.dart';
+export 'package:movie_curation/screens/searchScreen/search_screen_tablet.dart';
 
 /* Models */
 export 'package:movie_curation/models/movie_model.dart';
@@ -41,6 +42,7 @@ export 'package:movie_curation/models/video_detail_model.dart';
 export 'package:movie_curation/viewModels/movie_view_model.dart';
 export 'package:movie_curation/services/youtube_api_response.dart';
 export 'package:movie_curation/viewModels/youtube_view_model.dart';
+export 'package:movie_curation/viewModels/search_content_view_model.dart';
 
 /* Widgets */
 export 'package:movie_curation/widgets/responsive_layout.dart';
@@ -61,6 +63,7 @@ export 'package:movie_curation/utilities/palette.dart';
 export 'package:movie_curation/utilities/orientation.dart';
 export 'package:movie_curation/utilities/scroll_controller.dart';
 export 'package:movie_curation/utilities/data/dummy_data.dart';
+export 'package:movie_curation/utilities/responsive_size.dart';
 
 /* Routes */
 export 'package:movie_curation/routes/fluro_router.dart';

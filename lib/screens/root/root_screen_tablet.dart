@@ -3,14 +3,14 @@ import 'package:movie_curation/utilities/index.dart';
 class RootScreenT extends HookWidget {
   final screenList = [
     HomeScreen(),
-    TempScreen2(),
+    SearchScreenT(),
     TempScreen3(),
     TempScreen4(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    final selectedScreen = useState(0); // React Hook으로 NavigationBar State관리
+    final selectedScreen = useState(1); // React Hook으로 NavigationBar State관리
     final PageController _controller = PageController(
         initialPage: selectedScreen.value,
         keepPage:

@@ -10,10 +10,9 @@ class CategoryGroupButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> _categoryOptions = ["영화", "드라마", "추천"];
     return Row(
-        children: _categoryOptions.map<Widget>((e) {
-      int _itemIndex = _categoryOptions.indexWhere((content) => content == e);
+        children: categoryOptions.map<Widget>((e) {
+      int _itemIndex = categoryOptions.indexWhere((content) => content == e);
       return Container(
         padding: EdgeInsets.only(right: isUsedInMobile ?? false ? 0 : 8),
         child: TextButton(

@@ -93,7 +93,6 @@ class MovieContentInfo extends StatelessWidget {
                   onPressed: () {
                     final movieTitle = movieVM
                         .selectedCategoryContents[selectedIndex ?? 0].title;
-                    print("MAIN CONTENT INFO " + movieTitle);
                     final passedIndex = movieVM
                         .selectedCategoryContents[selectedIndex ?? 0].id
                         .toInt();

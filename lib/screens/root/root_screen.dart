@@ -10,6 +10,7 @@ class RootScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false, // Disable Screen Resize Effect
       backgroundColor: kDarkGrey,
       body: ResponsiveLayout(
         mobileWidget: RootScreenM(),
