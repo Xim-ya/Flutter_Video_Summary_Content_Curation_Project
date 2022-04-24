@@ -1,5 +1,3 @@
-import 'package:movie_curation/models/drama_model.dart';
-import 'package:movie_curation/services/movie_api_response.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 enum LoadingStatus { done, empty }

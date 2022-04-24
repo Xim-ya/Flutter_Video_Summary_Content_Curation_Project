@@ -54,7 +54,7 @@ class _SearchScreenTState extends State<SearchScreenT>
       height: double.infinity,
       child: ListView.builder(
           shrinkWrap: true,
-          itemCount: 3,
+          itemCount: 10,
           itemBuilder: (context, index) {
             return Container(
               padding: EdgeInsets.only(bottom: 22, top: 22, left: 32),
@@ -129,9 +129,10 @@ class _SearchScreenTState extends State<SearchScreenT>
             return ListView.builder(
               padding: const EdgeInsets.only(top: 60, right: 60),
               shrinkWrap: true,
-              itemCount: genreOptionList.length,
+              itemCount: genreKeyList.length,
               itemBuilder: (context, index) {
-                final genreItem = genreOptionList[index];
+                final genreKey = genreKeyList[index];
+                final genreItem = genreDefaults[genreKey];
                 return TextButton(
                   style: ElevatedButton.styleFrom(
                     primary: Colors.transparent,
@@ -140,13 +141,13 @@ class _SearchScreenTState extends State<SearchScreenT>
                         borderRadius: BorderRadius.circular(4)),
                   ),
                   onPressed: () {
-                    searchVM.setSelectedGenre(index);
+                    searchVM.tapGroupButton(genreKey);
                   },
                   child: Container(
                     padding: const EdgeInsets.only(left: 12),
                     alignment: Alignment.centerLeft,
                     decoration: BoxDecoration(
-                      border: index == searchVM.selectedGenre
+                      border: genreKey == searchVM.selectedGenre
                           ? Border.all(color: kYellow, width: 1)
                           : null,
                       borderRadius: BorderRadius.circular(6),
@@ -154,7 +155,7 @@ class _SearchScreenTState extends State<SearchScreenT>
                     margin: EdgeInsets.only(bottom: 4),
                     height: 54,
                     child: Text(
-                      genreItem,
+                      genreItem ?? "장르",
                       style: FontStyles().genreOption,
                     ),
                   ),
