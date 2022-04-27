@@ -1,3 +1,5 @@
+/* Single Imports  */
+
 import 'package:movie_curation/utilities/index.dart';
 
 class HomeScreenT extends StatefulWidget {

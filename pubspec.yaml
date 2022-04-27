@@ -47,6 +47,7 @@ dependencies:
   youtube_player_flutter: ^8.0.0
   youtube_player_iframe: ^2.2.2
   clickable_list_wheel_view: ^0.0.4
+  infinite_scroll_pagination: ^3.1.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:movie_curation/models/drama_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class MovieApi {

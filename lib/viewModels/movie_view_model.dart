@@ -4,7 +4,7 @@ enum LoadingStatus { done, empty }
 
 class MovieVM extends GetxController {
   int selectedCategoryIndex = 0; // [인기, 최신, 추천] 카테고리 옵션
-  int? selectedMovieIndex; // 선택된 영화의 리스트 인덱스
+  int? selectedMovieIndex; // 선 택된 영화의 리스트 인덱스
   String? trailerKey; // 예고편 영화의 키값
   LoadingStatus loadingStatus = LoadingStatus.empty; // API response 응답 여부.
   int? selectedMovieId;

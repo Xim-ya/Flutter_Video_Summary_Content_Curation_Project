@@ -38,6 +38,7 @@ export 'package:movie_curation/models/youtube_model.dart';
 export 'package:movie_curation/models/youtube_core_model.dart';
 export 'package:movie_curation/models/video_detail_model.dart';
 export 'package:movie_curation/models/drama_model.dart';
+export 'package:movie_curation/models/search_core_model.dart';
 
 /* View Models */
 export 'package:movie_curation/viewModels/movie_view_model.dart';
@@ -58,6 +59,8 @@ export 'package:movie_curation/screens/movieDetail/localWidget/movie_else_info.d
 export 'package:movie_curation/widgets/back_arrow_button.dart';
 export 'package:movie_curation/screens/movieDetail/localWidget/main_content_info_mobile.dart'; // MovieDetailScreen(M) > MainContentInfoMobile
 export 'package:movie_curation/screens/movieDetail/localWidget/youtube_reviewCotents_wheel_slider.dart'; // MovieDetailScreen(T) > WheelSlider
+export 'package:movie_curation/screens/searchScreen/localWidget/random_poster_background.dart';
+export 'package:movie_curation/screens/searchScreen/localWidget/content_thumbnail_vertical_slider.dart';
 
 /* Services */
 export 'package:movie_curation/services/movie_api_response.dart';
