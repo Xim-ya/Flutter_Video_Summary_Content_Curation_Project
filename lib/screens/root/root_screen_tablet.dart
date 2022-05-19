@@ -2,7 +2,7 @@ import 'package:movie_curation/utilities/index.dart';
 
 class RootScreenT extends HookWidget {
   final screenList = [
-    HomeScreen(),
+    HomePageBuilderT(),
     SearchScreenT(),
     TempScreen3(),
     TempScreen4(),
@@ -59,7 +59,7 @@ class RootScreenT extends HookWidget {
     return IconButton(
       onPressed: () {
         controller.animateToPage(page,
-            duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+            duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
       },
       icon: SvgPicture.asset(iconPath,
           color: selectedScreen.value == page ? kYellow : Colors.white),

@@ -1,4 +1,3 @@
-import 'package:movie_curation/screens/movieDetail/localWidget/youtube_content_list_view.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class MovieDetailScreenM extends StatelessWidget {

@@ -16,18 +16,18 @@ export 'package:carousel_slider/carousel_slider.dart';
 
 /* Screens */
 export 'package:movie_curation/screens/root/root_screen.dart';
-export 'package:movie_curation/screens/home/home_screen.dart';
+export 'package:movie_curation/screens/home/tablet/home_page_builder_tablet.dart';
 export 'package:movie_curation/screens/home/mobile/home_screen_mobile.dart';
 export 'package:movie_curation/screens/home/tablet/home_screen_tablet.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
-export 'package:movie_curation/screens/movieDetail/tablet/movie_detail_tablet.dart';
-export 'package:movie_curation/screens/movieDetail/mobile/movie_detail_mobile.dart';
-export 'package:movie_curation/screens/movieDetail/movie_detail_screen.dart';
+export 'package:movie_curation/screens/movieDetail/movie_detail_tablet.dart';
+export 'package:movie_curation/screens/movieDetail/movie_detail_mobile.dart';
 export 'package:youtube_player_flutter/youtube_player_flutter.dart';
 export 'package:movie_curation/screens/contentPlayer/content_player_screen.dart';
 export 'package:movie_curation/screens/root/root_screen_mobile.dart';
 export 'package:movie_curation/screens/searchScreen/search_screen_tablet.dart';
+export 'package:movie_curation/screens/searchScreen/search_screen_mobile.dart';
 
 /* Models */
 export 'package:movie_curation/models/movie_model.dart';
@@ -58,9 +58,10 @@ export 'package:movie_curation/screens/movieDetail/localWidget/cast_slider.dart'
 export 'package:movie_curation/screens/movieDetail/localWidget/movie_else_info.dart';
 export 'package:movie_curation/widgets/back_arrow_button.dart';
 export 'package:movie_curation/screens/movieDetail/localWidget/main_content_info_mobile.dart'; // MovieDetailScreen(M) > MainContentInfoMobile
-export 'package:movie_curation/screens/movieDetail/localWidget/youtube_reviewCotents_wheel_slider.dart'; // MovieDetailScreen(T) > WheelSlider
+export 'package:movie_curation/screens/movieDetail/localWidget/youtube_review_contents_wheel_slider.dart'; // MovieDetailScreen(T) > WheelSlider
 export 'package:movie_curation/screens/searchScreen/localWidget/random_poster_background.dart';
 export 'package:movie_curation/screens/searchScreen/localWidget/content_thumbnail_vertical_slider.dart';
+export 'package:movie_curation/screens/movieDetail/localWidget/youtube_content_list_view.dart';
 
 /* Services */
 export 'package:movie_curation/services/movie_api_response.dart';
