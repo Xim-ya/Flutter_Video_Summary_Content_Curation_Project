@@ -2,18 +2,18 @@
 
 import 'package:movie_curation/utilities/index.dart';
 
-class HomeScreenT extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   final VoidCallback routeAction; // PageViewBuilder 라우트 콜백 함수
 
-  const HomeScreenT({Key? key, required this.routeAction}) : super(key: key);
+  const HomeScreen({Key? key, required this.routeAction}) : super(key: key);
   @override
-  State<HomeScreenT> createState() => _HomeScreenTState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 final _movieVM = Get.put(MovieVM(model: MovieCore()));
 
 // "AutomaticKeepAliveClientMixin -> 화면 전화 시 기존 state값 유지"
-class _HomeScreenTState extends State<HomeScreenT>
+class _HomeScreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin {
   @override
   void initState() {

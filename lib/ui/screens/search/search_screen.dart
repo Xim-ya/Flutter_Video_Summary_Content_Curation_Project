@@ -1,13 +1,15 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class SearchScreenT extends StatefulWidget {
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({Key? key}) : super(key: key);
+
   @override
-  State<SearchScreenT> createState() => _SearchScreenTState();
+  State<SearchScreen> createState() => _SearchScreenState();
 }
 
 final _searchVM = SearchVM(model: SearchCore());
 
-class _SearchScreenTState extends State<SearchScreenT>
+class _SearchScreenState extends State<SearchScreen>
     with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
