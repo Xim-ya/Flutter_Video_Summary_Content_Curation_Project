@@ -1,4 +1,6 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:movie_curation/app/di/app_binding.dart';
+import 'package:movie_curation/app/routes/app_pages.dart';
 import 'package:movie_curation/ui/screens/root/root_screen_tablet.dart';
 import 'utilities/index.dart';
 
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
         title: 'New Project',
         debugShowCheckedModeBanner: false,
         useInheritedMediaQuery: true,
+        initialBinding: AppBinding(),
         locale: DevicePreview.locale(context),
         builder: DevicePreview.appBuilder,
         theme: ThemeData(

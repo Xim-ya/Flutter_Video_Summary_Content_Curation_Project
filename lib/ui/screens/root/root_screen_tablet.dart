@@ -1,10 +1,13 @@
+import 'package:movie_curation/app/routes/app_pages.dart';
+import 'package:movie_curation/ui/screens/home/homePagedView/home_paged_view_binding.dart';
 import 'package:movie_curation/ui/screens/home/new_home_root_page_view.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class RootScreenT extends HookWidget {
-  final screenList = [
+  final List<Widget> screenList = [
     // const HomePagedView(),
     NewHomePagedView(),
+
     // NewHomeRootPageView(screenWidgets: [TempScreen1(), TempScreen2()]),
     SearchScreen(),
     const TempScreen3(),
