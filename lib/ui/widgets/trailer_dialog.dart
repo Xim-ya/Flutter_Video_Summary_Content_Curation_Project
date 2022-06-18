@@ -1,4 +1,3 @@
-import 'package:movie_curation/ui/screens/home/mobile/trailer_player_screen_mobile.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 // // TODO: Iframe 추가 설정 필요(소리, 테마 컬러 등) + 반응형 Margin
@@ -24,10 +23,6 @@ Future<dynamic> movieTrailerDialog(
       );
     },
   );
-}
-
-void getToTrailerPlayer(MovieVM movieVM) {
-  Get.to(() => TrailerPlayerScreenM(movieVM: movieVM));
 }
 
 // TODO: 디자인 수정 필요. (조금 밋밋함)

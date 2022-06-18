@@ -1,7 +1,7 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class HomePageBuilderT extends HookWidget {
-  const HomePageBuilderT({Key? key}) : super(key: key);
+class HomeRootPageViewBuilder extends HookWidget {
+  const HomeRootPageViewBuilder({Key? key}) : super(key: key);
 
   /* 📕 해당 스크린 위젯에서 `Flutter Hook`을 사용하는 이유
   *  Getx를 사용해서 접근해도 무방하겠지만 이렇게 해당 스크린 위젯에서만 필요한 state 관리 로직은
@@ -31,8 +31,8 @@ class HomePageBuilderT extends HookWidget {
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
         return [
-          HomeScreenT(routeAction: routeHandler),
-          MovieDetailScreenT(routeAction: routeHandler),
+          HomeScreen(routeAction: routeHandler),
+          ContentDetailScreen(routeAction: routeHandler),
         ][index];
       },
     );

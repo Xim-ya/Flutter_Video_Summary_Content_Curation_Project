@@ -15,17 +15,14 @@ export 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
 export 'package:carousel_slider/carousel_slider.dart';
 
 /* Screens */
-export 'package:movie_curation/ui/screens/home/tablet/home_page_builder_tablet.dart';
-export 'package:movie_curation/ui/screens/home/mobile/home_screen_mobile.dart';
-export 'package:movie_curation/ui/screens/home/tablet/home_screen_tablet.dart';
+export 'package:movie_curation/ui/screens/home/home_root_page_view_builder.dart';
+export 'package:movie_curation/ui/screens/home/home_screen.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
-export 'package:movie_curation/ui/screens/movieDetail/movie_detail_tablet.dart';
-export 'package:movie_curation/ui/screens/movieDetail/movie_detail_mobile.dart';
+export 'package:movie_curation/ui/screens/content/contentDetail/content_detail_screen.dart';
 export 'package:youtube_player_flutter/youtube_player_flutter.dart';
-export 'package:movie_curation/ui/screens/contentPlayer/content_player_screen.dart';
-export 'package:movie_curation/ui/screens/searchScreen/search_screen_tablet.dart';
-export 'package:movie_curation/ui/screens/searchScreen/search_screen_mobile.dart';
+export 'package:movie_curation/ui/screens/content/contentPlayer/content_player_screen.dart';
+export 'package:movie_curation/ui/screens/search/search_screen.dart';
 
 /* Models */
 export 'package:movie_curation/models/movie_model.dart';
@@ -52,14 +49,14 @@ export 'package:movie_curation/ui/widgets/gradient_post_background.dart';
 export 'package:movie_curation/ui/widgets/movie_content_info.dart';
 export 'package:movie_curation/ui/widgets/movie_post_slider.dart';
 export 'package:movie_curation/ui/widgets/trailer_dialog.dart';
-export 'package:movie_curation/ui/screens/movieDetail/localWidget/cast_slider.dart';
-export 'package:movie_curation/ui/screens/movieDetail/localWidget/movie_else_info.dart';
+export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/cast_slider.dart';
+export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/movie_else_info.dart';
 export 'package:movie_curation/ui/widgets/back_arrow_button.dart';
-export 'package:movie_curation/ui/screens/movieDetail/localWidget/main_content_info_mobile.dart'; // MovieDetailScreen(M) > MainContentInfoMobile
-export 'package:movie_curation/ui/screens/movieDetail/localWidget/youtube_review_contents_wheel_slider.dart'; // MovieDetailScreen(T) > WheelSlider
-export 'package:movie_curation/ui/screens/searchScreen/localWidget/random_poster_background.dart';
-export 'package:movie_curation/ui/screens/searchScreen/localWidget/content_thumbnail_vertical_slider.dart';
-export 'package:movie_curation/ui/screens/movieDetail/localWidget/youtube_content_list_view.dart';
+export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/main_content_info_mobile.dart'; // MovieDetailScreen(M) > MainContentInfoMobile
+export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/youtube_review_contents_wheel_slider.dart'; // MovieDetailScreen(T) > WheelSlider
+export 'package:movie_curation/ui/screens/search/localWidget/random_poster_background.dart';
+export 'package:movie_curation/ui/screens/search/localWidget/content_thumbnail_vertical_slider.dart';
+export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/youtube_content_list_view.dart';
 
 /* Services */
 export 'package:movie_curation/services/movie_api_response.dart';

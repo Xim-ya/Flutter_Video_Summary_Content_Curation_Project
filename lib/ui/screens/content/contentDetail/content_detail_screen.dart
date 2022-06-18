@@ -1,9 +1,9 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class MovieDetailScreenT extends StatelessWidget {
+class ContentDetailScreen extends StatelessWidget {
   final VoidCallback routeAction; //;
 
-  const MovieDetailScreenT({Key? key, required this.routeAction})
+  const ContentDetailScreen({Key? key, required this.routeAction})
       : super(key: key);
 
   void blankAction() {}
