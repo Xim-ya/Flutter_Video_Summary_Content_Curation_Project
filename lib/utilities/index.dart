@@ -15,7 +15,7 @@ export 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
 export 'package:carousel_slider/carousel_slider.dart';
 
 /* Screens */
-export 'package:movie_curation/ui/screens/home/home_root_page_view_builder.dart';
+export 'package:movie_curation/ui/screens/home/homePagedView/home_paged_view.dart';
 export 'package:movie_curation/ui/screens/home/home_screen.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
