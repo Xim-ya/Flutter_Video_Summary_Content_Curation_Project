@@ -1,4 +1,4 @@
-import 'package:movie_curation/screens/home/localWidget/poster_carousel_slider.dart';
+import 'package:movie_curation/ui/screens/home/localWidget/poster_carousel_slider.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class HomeScreenM extends StatefulWidget {
