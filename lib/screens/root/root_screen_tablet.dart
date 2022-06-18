@@ -16,40 +16,44 @@ class RootScreenT extends HookWidget {
         keepPage:
             true); // Page BuilderController (화면이 전환되어도 이전 화면은 State을 값을 유지)
 
-    return Row(
-      children: [
-        Container(
-          width: 70,
-          color: kDarkGrey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(),
-              navButton(
-                  0, "assets/icons/home_ic.svg", _controller, selectedScreen),
-              navButton(
-                  1, "assets/icons/search_ic.svg", _controller, selectedScreen),
-              navButton(2, "assets/icons/credit_card_ic.svg", _controller,
-                  selectedScreen),
-              navButton(3, "assets/icons/my_profile_ic.svg", _controller,
-                  selectedScreen),
-              SizedBox(),
-            ],
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: kDarkGrey,
+      body: Row(
+        children: [
+          Container(
+            width: 70,
+            color: kDarkGrey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(),
+                navButton(
+                    0, "assets/icons/home_ic.svg", _controller, selectedScreen),
+                navButton(1, "assets/icons/search_ic.svg", _controller,
+                    selectedScreen),
+                navButton(2, "assets/icons/credit_card_ic.svg", _controller,
+                    selectedScreen),
+                navButton(3, "assets/icons/my_profile_ic.svg", _controller,
+                    selectedScreen),
+                SizedBox(),
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          child: PageView.builder(
-              controller: _controller,
-              itemCount: screenList.length,
-              scrollDirection: Axis.vertical,
-              onPageChanged: (int page) {
-                selectedScreen.value = page;
-              },
-              itemBuilder: (context, index) {
-                return screenList[index];
-              }),
-        )
-      ],
+          Expanded(
+            child: PageView.builder(
+                controller: _controller,
+                itemCount: screenList.length,
+                scrollDirection: Axis.vertical,
+                onPageChanged: (int page) {
+                  selectedScreen.value = page;
+                },
+                itemBuilder: (context, index) {
+                  return screenList[index];
+                }),
+          )
+        ],
+      ),
     );
   }
 
