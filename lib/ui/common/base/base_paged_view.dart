@@ -1,23 +1,27 @@
-import 'package:movie_curation/ui/common/base/base_paged_view_view_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 @immutable
-abstract class BasePagedView<T extends BasePagedViewViewModel>
-    extends GetView<T> {
-  const BasePagedView({Key? key}) : super(key: key);
+abstract class BasePagedView extends StatelessWidget {
+  ValueNotifier<int> screenIndex = 0 as ValueNotifier<int>;
+  final List<Widget> screenList = [];
+  final PageController pageController = PageController();
 
-  T get vm => controller;
+  // HomeScreen --> Movie Detail Screen (Route, Based On PageBuilder)
+  void routeHandler() {
+    pageController.animateToPage(screenIndex == 0 ? 1 : 0,
+        duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+  }
 
   @override
   Widget build(BuildContext context) {
-    initViewModel();
-    observeRxData(context);
+    PageController pageControllerNested = pageController;
+
     return PageView.builder(
-      controller: vm.pageController,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: vm.screenList.length,
+      controller: pageControllerNested,
+      // physics: const NeverScrollableScrollPhysics(),
+      itemCount: screenList.length,
       onPageChanged: (index) {
-        vm.screenIndex = index;
+        screenIndex = index as ValueNotifier<int>;
       },
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
@@ -25,14 +29,6 @@ abstract class BasePagedView<T extends BasePagedViewViewModel>
       },
     );
   }
-
-  @mustCallSuper
-  void initViewModel() {
-    vm.initialized;
-  }
-
-  @mustCallSuper
-  void observeRxData(BuildContext context) {}
 
   Widget buildPagedView(BuildContext context);
 }
