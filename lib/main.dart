@@ -1,7 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:movie_curation/app/di/app_binding.dart';
 import 'package:movie_curation/app/routes/app_pages.dart';
-import 'package:movie_curation/ui/screens/root/root_screen_tablet.dart';
+import 'package:movie_curation/ui/screens/root/root_paged_view.dart';
 import 'utilities/index.dart';
 
 // Device Preview 셋업 (반응형 확인)
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: RootScreenT(),
+        home: RootPagedView(),
       );
     });
   }

@@ -1,8 +1,6 @@
 import 'package:movie_curation/utilities/index.dart';
 
-enum LoadingStatus { done, empty }
-
-class MovieVM extends GetxController {
+class HomeViewModel extends GetxController {
   int selectedCategoryIndex = 0; // [인기, 최신, 추천] 카테고리 옵션
   int? selectedMovieIndex; // 선 택된 영화의 리스트 인덱스
   String? trailerKey; // 예고편 영화의 키값
@@ -11,7 +9,7 @@ class MovieVM extends GetxController {
 
   /* Model과 연동 */
   MovieCore _model;
-  MovieVM({required MovieCore model}) : _model = model;
+  HomeViewModel({required MovieCore model}) : _model = model;
 
   /* 인스턴스 */
   List<Movie> get movieList {
