@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_popular_movie_response.dart';
+import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_popular_movie_responsee.dart';
 import 'package:retrofit/retrofit.dart';
 import 'response/tmdb_popular_drama_response.dart';
 
@@ -12,8 +12,8 @@ part 'tmdb_api.g.dart';
 // "https://api.themoviedb.org/3/movie/popular?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1"
 
 @RestApi(baseUrl: "https://api.themoviedb.org/3")
-abstract class TMDBApi {
-  factory TMDBApi(Dio dio, {String baseUrl}) = _TMDBApi;
+abstract class TmdbApi {
+  factory TmdbApi(Dio dio, {String baseUrl}) = _TmdbApi;
 
   //인기 영화 호출
   @GET(

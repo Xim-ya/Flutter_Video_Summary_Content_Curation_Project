@@ -14,7 +14,7 @@ class TmdbMovieItemResponse {
   List<int> genre_ids;
 
   @JsonKey(name: 'id')
-  List<int> id;
+  int id;
 
   @JsonKey(name: 'original_language')
   String original_language;
