@@ -17,7 +17,7 @@ class TmdbDramaItemResponse {
   int id;
 
   @JsonKey(name: 'name')
-  String? name;
+  String name;
 
   @JsonKey(name: 'origin_country')
   List<String> origin_country;

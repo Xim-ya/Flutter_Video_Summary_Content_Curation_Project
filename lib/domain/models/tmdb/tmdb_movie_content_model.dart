@@ -3,20 +3,20 @@ import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_popula
 
 class TmdbMovieContentParentModel {
   final int page;
-  final List<TmdbContentModel> results;
+  final List<TmdbMovieContentModel> results;
 
   TmdbMovieContentParentModel({required this.results, required this.page});
 
   factory TmdbMovieContentParentModel.fromResponse(
       TmdbPopularMovieResponse response) {
-    List<TmdbContentModel> result = (response.results)
-        .map((e) => TmdbContentModel.fromResponse(e))
+    List<TmdbMovieContentModel> result = (response.results)
+        .map((e) => TmdbMovieContentModel.fromResponse(e))
         .toList();
     return TmdbMovieContentParentModel(results: result, page: response.page);
   }
 }
 
-class TmdbContentModel {
+class TmdbMovieContentModel {
   final bool adult;
   final String? backDropUrl;
   final String? posterUrl;
@@ -26,7 +26,7 @@ class TmdbContentModel {
   final String releaseDate;
   final num voteAverage;
 
-  TmdbContentModel(
+  TmdbMovieContentModel(
       {required this.adult,
       this.backDropUrl,
       this.posterUrl,
@@ -36,8 +36,8 @@ class TmdbContentModel {
       required this.releaseDate,
       required this.voteAverage});
 
-  factory TmdbContentModel.fromResponse(TmdbMovieItemResponse response) =>
-      TmdbContentModel(
+  factory TmdbMovieContentModel.fromResponse(TmdbMovieItemResponse response) =>
+      TmdbMovieContentModel(
           adult: response.adult,
           id: response.id,
           title: response.title,

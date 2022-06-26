@@ -13,7 +13,7 @@ TmdbDramaItemResponse _$TmdbDramaItemResponseFromJson(
       json['first_air_date'] as String,
       (json['genre_ids'] as List<dynamic>).map((e) => e as int).toList(),
       json['id'] as int,
-      json['name'] as String?,
+      json['name'] as String,
       (json['origin_country'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
