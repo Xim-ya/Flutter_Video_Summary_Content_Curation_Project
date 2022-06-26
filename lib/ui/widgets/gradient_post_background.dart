@@ -1,36 +1,28 @@
 import 'package:movie_curation/utilities/index.dart';
 
 class GradientPostBackground extends StatelessWidget {
-  final MovieVM movieVM; // VIEW MODEL
+  final String? backDropPosterImgUrl;
+
   final bool
       isRoutedMain; // HomeScreen(MainScreen),MovieDetail(컨텐츠 상세페이지)에서 각각 다르게 이미지를 호출하기 위한 기준 값
   final bool? isUsedInMobile; // 모바일에서 호출되면 Background Layer을 다른 위젯으로 보여줌.
   const GradientPostBackground(
       {Key? key,
-      required this.movieVM,
       required this.isRoutedMain,
-      this.isUsedInMobile})
+      this.isUsedInMobile,
+      required this.backDropPosterImgUrl})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    bool isFetched = movieVM.loadingStatus == LoadingStatus.done ? true : false;
-    List<dynamic> selectedCategoryContents = movieVM.selectedCategoryContents;
-    int? selectedIndex = movieVM.selectedMovieIndex;
+    // bool isFetched = movieVM.loadingStatus == LoadingStatus.done ? true : false;
+    // List<dynamic> selectedCategoryContents = movieVM.selectedCategoryContents;
+    int? selectedIndex = 0;
     return Stack(
       children: [
-        isFetched
-            ? backgroundImage(selectedCategoryContents, selectedIndex)
-            : const SizedBox(),
-        isUsedInMobile ?? false ? darkLayerBox() : gradientLayerBox(),
+        backgroundImage(backDropPosterImgUrl, selectedIndex),
+        gradientLayerBox(),
       ],
-    );
-  }
-
-  // 모바일 디바이스에서 사용되는 Background Layer
-  Container darkLayerBox() {
-    return Container(
-      color: kDarkGrey.withOpacity(0.86),
     );
   }
 
@@ -57,11 +49,12 @@ class GradientPostBackground extends StatelessWidget {
 
   // Gradient Background 뒤로 보여지는 컨텐츠 Background Image
   CachedNetworkImage backgroundImage(
-      List<dynamic> selectedCategoryContents, int? selectedIndex) {
+      String? selectedCategoryContents, int? selectedIndex) {
     return CachedNetworkImage(
-      imageUrl: isRoutedMain // HomeScreen(MainScreen),MovieDetail(컨텐츠 상세페이지)에서 각각 다르게 이미지를 호출
-          ? "https://image.tmdb.org/t/p/w500${selectedCategoryContents[selectedIndex ?? 0].backDropUrl}"
-          : "https://image.tmdb.org/t/p/w500${selectedCategoryContents[selectedIndex ?? 0].posterUrl}",
+      imageUrl:
+          isRoutedMain // HomeScreen(MainScreen),MovieDetail(컨텐츠 상세페이지)에서 각각 다르게 이미지를 호출
+              ? "https://image.tmdb.org/t/p/w500$backDropPosterImgUrl"
+              : "https://image.tmdb.org/t/p/w500$backDropPosterImgUrl",
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
           image: DecorationImage(

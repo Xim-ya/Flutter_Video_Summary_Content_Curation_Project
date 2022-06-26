@@ -26,7 +26,7 @@ class ContentDetailScreen extends StatelessWidget {
 
         return Stack(
           children: [
-            GradientPostBackground(isRoutedMain: false, movieVM: movieVM),
+            // GradientPostBackground(isRoutedMain: false, movieVM: movieVM),
             BackArrowButton(routeAction: routeAction),
             Row(
               children: [
