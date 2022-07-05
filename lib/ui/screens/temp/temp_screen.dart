@@ -3,7 +3,11 @@ import 'package:movie_curation/ui/screens/home/home_view_model_new.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class TempHomeScreen extends BaseScreen<HomeViewModelNew> {
-  const TempHomeScreen({Key? key}) : super(key: key);
+  final VoidCallback routeAction; // PageViewBuilder 라우트 콜백 함수
+  const TempHomeScreen({
+    Key? key,
+    required this.routeAction,
+  }) : super(key: key);
 
   // final VoidCallback? routeAction; // PageViewBuilder 라우트 콜백 함수
 
@@ -20,14 +24,19 @@ class TempHomeScreen extends BaseScreen<HomeViewModelNew> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /* Category Group Button */
-            const CategoryGroupButton(),
+            CategoryGroupButton(),
+            TextButton(
+                onPressed: () {
+                  routeAction();
+                },
+                child: Text(
+                  "TEXT!!",
+                  style: TextStyle(fontSize: 60, color: Colors.white),
+                )),
             /* Movie Content Info */
-            // MovieContentInfo(
-            //   isRoutedMain: true,
-            //   routeAction: widget.routeAction,
-            //   movieVM: _movieVM,
-            //   showDialog: _showDialog,
-            // ),
+            MovieContentInfo(
+              isRoutedMain: true,
+            ),
             /* Movie List Carousel Slider */
             // MoviePostSlider(movieVM: _movieVM)
           ],

@@ -9,11 +9,11 @@ class HomeViewModelNew extends BaseViewModel {
   /* 전역변수 및 객체 */
   final Rxn<List<TmdbMovieContentModel>> _popularMovieList = Rxn();
   RxInt selectedCategoryIndex = 0.obs; // [인기, 최신, 추천] 카테고리 옵션
+  RxInt selectedContentIndex = 0.obs; // 홈 화면에서 선택된 컨텐츠의 인덱스
 
   /* Usecase 메소드 */
   final LoadPopularMoviesUseCase loadPopularMovies;
 
-  /* 메소드 */
   // 카테고리 그룹 버튼을 탭 되었을 때
   void onGroupBtnTap(int index) {
     selectedCategoryIndex.value = index;
@@ -35,9 +35,12 @@ class HomeViewModelNew extends BaseViewModel {
   @override
   void onInit() async {
     super.onInit();
+
     await loadPopularMovieList();
   }
 
   /* 캡술화 - (Getter) */
   List<TmdbMovieContentModel>? get popularMovieList => _popularMovieList.value;
+  TmdbMovieContentModel? get selectedMovieContent =>
+      _popularMovieList.value?[selectedContentIndex.value];
 }

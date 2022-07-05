@@ -45,12 +45,12 @@ class _NewHomeScreenState extends State<NewHomeScreen>
                   /* Category Group Button */
                   // CategoryGroupButton(movieVM: _movieVM),
                   /* Movie Content Info */
-                  MovieContentInfo(
-                    isRoutedMain: true,
-                    routeAction: widget.routeAction,
-                    movieVM: _movieVM,
-                    showDialog: _showDialog,
-                  ),
+                  // MovieContentInfo(
+                  //   isRoutedMain: true,
+                  //   routeAction: widget.routeAction,
+                  //   movieVM: _movieVM,
+                  //   showDialog: _showDialog,
+                  // ),
                   /* Movie List Carousel Slider */
                   MoviePostSlider(movieVM: _movieVM)
                 ],

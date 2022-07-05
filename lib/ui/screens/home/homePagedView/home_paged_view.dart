@@ -19,6 +19,7 @@ class HomePagedView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    // VM Controller  생성
     Get.lazyPut(() => HomeViewModelNew(Get.find()));
 
     //  PagedViewScreen의 Screen Index, 0 : 홈 스크린, 1 : 컨텐츠 상세 스크린
@@ -29,7 +30,7 @@ class HomePagedView extends HookWidget {
         PageController(initialPage: _screenIndex.value, keepPage: true);
 
     // PagedView 안에서 화면이동(route) 하는 메소드
-    void _pagedRouteHandler() {
+    void pagedRouteHandler() {
       _pagedController.animateToPage(_screenIndex.value == 0 ? 1 : 0,
           duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
     }
@@ -37,9 +38,9 @@ class HomePagedView extends HookWidget {
     // PagedView에서 관리하는 스크린 리스트 -(화면이동 메소드를 인자로 전달)
     final screenList = [
       // HomeScreen(routeAction: _pagedRouteHandler),
-      const TempHomeScreen(),
+      TempHomeScreen(routeAction: pagedRouteHandler),
       // NewHomeScreen(routeAction: _pagedRouteHandler),
-      ContentDetailScreen(routeAction: _pagedRouteHandler),
+      ContentDetailScreen(routeAction: pagedRouteHandler),
     ];
 
     return PageView.builder(

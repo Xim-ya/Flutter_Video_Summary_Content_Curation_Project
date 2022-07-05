@@ -41,10 +41,10 @@ class ContentDetailScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         /* Movie Main Info  */
-                        MovieContentInfo(
-                            isRoutedMain: false,
-                            movieVM: movieVM,
-                            showDialog: _showDialog),
+                        // MovieContentInfo(
+                        //     isRoutedMain: false,
+                        //     movieVM: movieVM,
+                        //     showDialog: _showDialog),
                         Expanded(
                           flex: 10,
                           child: Container(
