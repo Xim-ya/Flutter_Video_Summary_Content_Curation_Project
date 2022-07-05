@@ -19,6 +19,8 @@ class HomePagedView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => HomeViewModelNew(Get.find()));
+
     //  PagedViewScreen의 Screen Index, 0 : 홈 스크린, 1 : 컨텐츠 상세 스크린
     final _screenIndex = useState(0);
 

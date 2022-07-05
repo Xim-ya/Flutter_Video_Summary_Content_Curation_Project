@@ -28,8 +28,8 @@ class TmdbMovieContentModel {
 
   TmdbMovieContentModel(
       {required this.adult,
-      this.backDropUrl,
-      this.posterUrl,
+      required this.backDropUrl,
+      required this.posterUrl,
       required this.id,
       required this.title,
       required this.overview,
@@ -43,5 +43,7 @@ class TmdbMovieContentModel {
           title: response.title,
           overview: response.overview,
           releaseDate: response.release_date,
-          voteAverage: response.vote_average);
+          voteAverage: response.vote_average,
+          backDropUrl: response.backdrop_path,
+          posterUrl: response.poster_path);
 }

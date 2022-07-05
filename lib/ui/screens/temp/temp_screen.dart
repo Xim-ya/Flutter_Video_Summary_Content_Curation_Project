@@ -9,13 +9,36 @@ class TempHomeScreen extends BaseScreen<HomeViewModelNew> {
 
   @override
   Widget buildScreen(BuildContext context) {
-    return Stack(
-      children: [
-        /* Content Image Background  (Image & Gradient Linear Background) */
-        GradientPostBackground(
-          isRoutedMain: true,
-          backDropPosterImgUrl: vm.popularMovieList![0].backDropUrl,
+    return Stack(children: [
+      const GradientPostBackground(
+        usedOnHomeScreen: true,
+      ),
+      Container(
+        padding: EdgeInsets.only(
+            top: contentTopP, left: contentLeftP, bottom: contentBottomP),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /* Category Group Button */
+            const CategoryGroupButton(),
+            /* Movie Content Info */
+            // MovieContentInfo(
+            //   isRoutedMain: true,
+            //   routeAction: widget.routeAction,
+            //   movieVM: _movieVM,
+            //   showDialog: _showDialog,
+            // ),
+            /* Movie List Carousel Slider */
+            // MoviePostSlider(movieVM: _movieVM)
+          ],
         ),
+      ),
+    ]
+        /* Content Image Background  (Image & Gradient Linear Background) */
+        // GradientPostBackground(
+        //   isRoutedMain: true,
+        //   backDropPosterImgUrl: vm.popularMovieList![0].backDropUrl,
+        // ),
         // Container(
         //   padding: EdgeInsets.only(
         //       top: contentTopP, left: contentLeftP, bottom: contentBottomP),
@@ -36,7 +59,7 @@ class TempHomeScreen extends BaseScreen<HomeViewModelNew> {
         //     ],
         //   ),
         // ),
-      ],
-    );
+
+        );
   }
 }

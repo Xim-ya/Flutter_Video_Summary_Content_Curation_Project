@@ -43,7 +43,7 @@ class _NewHomeScreenState extends State<NewHomeScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /* Category Group Button */
-                  CategoryGroupButton(movieVM: _movieVM),
+                  // CategoryGroupButton(movieVM: _movieVM),
                   /* Movie Content Info */
                   MovieContentInfo(
                     isRoutedMain: true,
