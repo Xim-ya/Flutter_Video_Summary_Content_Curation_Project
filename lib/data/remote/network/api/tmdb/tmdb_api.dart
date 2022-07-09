@@ -1,9 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_popular_movie_responsee.dart';
+import 'package:movie_curation/utilities/index.dart';
 import 'package:retrofit/retrofit.dart';
-import 'response/tmdb_movie_video_info.dart';
-import 'response/tmdb_popular_drama_response.dart';
-
 part 'tmdb_api.g.dart';
 
 // 인기 드라마 컨텐츠

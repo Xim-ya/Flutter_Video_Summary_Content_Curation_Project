@@ -1,5 +1,5 @@
 import 'package:movie_curation/ui/common/base/base_view.dart';
-import 'package:movie_curation/ui/screens/home/home_view_model_new.dart';
+import 'package:movie_curation/ui/screens/home/home_view_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class GradientPostBackground extends StatelessWidget {

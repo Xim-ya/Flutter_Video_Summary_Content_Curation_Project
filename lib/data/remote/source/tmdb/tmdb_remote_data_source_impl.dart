@@ -1,9 +1,4 @@
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info.dart';
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_popular_drama_response.dart';
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_popular_movie_responsee.dart';
-import 'package:movie_curation/data/remote/network/api/tmdb/tmdb_api.dart';
-import 'package:movie_curation/data/remote/source/tmdb/tmdb_remote_data_source.dart';
-import 'package:movie_curation/utilities/mixin/api_error_handler_mixin.dart';
+import 'package:movie_curation/utilities/index.dart';
 
 class TmdbRemoteDataSourceImpl
     with ApiErrorHandlerMixin

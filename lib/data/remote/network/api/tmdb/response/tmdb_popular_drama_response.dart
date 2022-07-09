@@ -1,5 +1,4 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'tmdb_drama_item_response.dart';
+import 'package:movie_curation/utilities/index.dart';
 
 part 'tmdb_popular_drama_response.g.dart';
 

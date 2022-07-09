@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tmdb_movie_video_info.dart';
+part of 'tmdb_movie_video_info_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

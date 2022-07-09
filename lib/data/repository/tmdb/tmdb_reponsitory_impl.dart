@@ -1,8 +1,4 @@
-import 'package:movie_curation/data/remote/source/tmdb/tmdb_remote_data_source.dart';
-import 'package:movie_curation/data/repository/tmdb/tmdb_repository.dart';
-import 'package:movie_curation/domain/models/content/content_model.dart';
-import 'package:movie_curation/domain/models/tmdb/tmdbMovieVideoInfoModel.dart';
-import 'package:movie_curation/utilities/result.dart';
+import 'package:movie_curation/utilities/index.dart';
 
 class TmdbRepositoryImpl implements TmdbRepository {
   TmdbRepositoryImpl(this._dataSource);
@@ -30,26 +26,6 @@ class TmdbRepositoryImpl implements TmdbRepository {
       return Result.failure(e);
     }
   }
-
-  // @override
-  // Future<List<TmdbMovieVideoInfoModel>> loadMovieVideoInfo(int contentId) {
-  //   final response = _dataSource.loadTmdbMovieVideoInfo(contentId).then(
-  //       (value) =>
-  //           value.results.map(TmdbMovieVideoInfoModel.fromResponse).toList());
-  //   return response;
-  // }
-
-  // @override
-  // Future<List<TmdbMovieVideoInfoModel>> loadMovieVideoInfo(int contentId) {
-  //     try {
-  //       final response = _dataSource.loadTmdbMovieVideoInfo(contentId).then(
-  //           (value) =>
-  //               value.results.map(TmdbMovieVideoInfoModel.fromResponse).toList());
-  //       return response;
-  //     } on Exception catch (e) {
-  //       print(e);
-  //     }
-  // }
 
   @override
   Future<Result<List<TmdbMovieVideoInfoModel>>> loadMovieVideoInfo(

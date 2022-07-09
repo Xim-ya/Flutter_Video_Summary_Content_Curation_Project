@@ -1,6 +1,6 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:movie_curation/utilities/index.dart';
 
-part 'tmdb_movie_video_info_item.g.dart';
+part 'tmdb_movie_video_info_item_response.g.dart';
 
 @JsonSerializable(createToJson: false)
 class TmdbMovieVideoInfoItemResponse {

@@ -1,5 +1,4 @@
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_popular_drama_response.dart';
-import 'package:movie_curation/domain/models/content/content_model.dart';
+import 'package:movie_curation/utilities/index.dart';
 
 class TmdbDramaContentParentModel {
   final int page;

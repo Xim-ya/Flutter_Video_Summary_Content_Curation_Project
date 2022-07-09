@@ -1,5 +1,4 @@
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info.dart';
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_item.dart';
+import 'package:movie_curation/utilities/index.dart';
 
 class TmdbMovieVideoInfoParentModel {
   final int id;

@@ -1,7 +1,4 @@
-import 'package:movie_curation/data/repository/tmdb/tmdb_repository.dart';
-import 'package:movie_curation/domain/base/base_no_param_use_case.dart';
-import 'package:movie_curation/domain/models/content/content_model.dart';
-import 'package:movie_curation/utilities/result.dart';
+import 'package:movie_curation/utilities/index.dart';
 
 class TmdbLoadPopularDramasUseCase extends BaseNoParamUseCase {
   TmdbLoadPopularDramasUseCase(this._repository);

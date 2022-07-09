@@ -1,6 +1,4 @@
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info.dart';
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_popular_drama_response.dart';
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_popular_movie_responsee.dart';
+import 'package:movie_curation/utilities/index.dart';
 
 abstract class TmdbRemoteDataSource {
   /* TMDB - 인기 영화 호출 */
