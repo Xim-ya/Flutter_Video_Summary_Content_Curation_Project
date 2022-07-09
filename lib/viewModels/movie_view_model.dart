@@ -102,7 +102,7 @@ class MovieVM extends GetxController {
     loadingStatus = LoadingStatus.empty;
     update();
 
-    List<Drama> dramaList = await MovieApi().fetchPopularDrama();
+    List<Drama> dramaList = await MovieApi.fetchPopularDrama();
     _model.dramas = dramaList.toList();
     update();
 

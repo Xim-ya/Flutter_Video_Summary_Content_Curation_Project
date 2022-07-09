@@ -5,11 +5,11 @@ class MovieApi {
   var dio = Dio();
 
   // TODO: 나중에 api Key들을 git ignore 해야됨
-  Future<List<Drama>> fetchPopularDrama() async {
+  static Future<List<Drama>> fetchPopularDrama() async {
     String url =
         "https://api.themoviedb.org/3/tv/popular?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1";
 
-    final response = await dio.get(url);
+    final response = await Dio().get(url);
 
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       final result = response.data;
