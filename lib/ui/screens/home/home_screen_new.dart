@@ -26,11 +26,11 @@ class _NewHomeScreenState extends State<NewHomeScreen>
       init: _movieVM,
       builder: (_) {
         // Alert Dialog 위젯 (영화 예고편)
-        void _showDialog() async {
-          _movieVM.trailerKey == null
-              ? noTrailerDialog(context)
-              : movieTrailerDialog(context: context, movieVM: _movieVM);
-        }
+        // void _showDialog() async {
+        //   _movieVM.trailerKey == null
+        //       ? noTrailerDialog(context)
+        //       : movieTrailerDialog(context: context, movieVM: _movieVM);
+        // }
 
         return Stack(
           children: [
@@ -52,7 +52,7 @@ class _NewHomeScreenState extends State<NewHomeScreen>
                   //   showDialog: _showDialog,
                   // ),
                   /* Movie List Carousel Slider */
-                  MoviePostSlider(movieVM: _movieVM)
+                  // MoviePostSlider(movieVM: _movieVM)
                 ],
               ),
             ),

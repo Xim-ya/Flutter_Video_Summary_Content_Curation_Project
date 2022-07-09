@@ -2,21 +2,28 @@ import 'package:movie_curation/ui/common/base/base_view.dart';
 import 'package:movie_curation/ui/screens/home/home_view_model_new.dart';
 import 'package:movie_curation/utilities/index.dart';
 
-class MovieContentInfo extends BaseView<HomeViewModelNew> {
-  const MovieContentInfo({
+class ContentInfoContainer extends BaseView<HomeViewModelNew> {
+  const ContentInfoContainer({
     Key? key,
-    required this.isRoutedMain,
+    required this.isUsedOnHomeScreen,
+    required this.title,
+    required this.description,
+    required this.routeAction,
   }) : super(key: key);
 
-  final bool isRoutedMain; // 라우트되는 부모 스크린 판별 변수
+  final bool isUsedOnHomeScreen; // 라우트되는 부모 스크린 판별 변수
+  final String? title; // 제목
+  final String? description; // 요약 설명
+  final VoidCallback routeAction; // PageView Builder 화면 전환 메소드
 
   @override
   Widget buildView(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Expanded(
       flex: 6,
       // flex: 6,
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 0),
           width: contentResponsiveW,
           margin: EdgeInsets.only(
             top: 4.25.h,
@@ -28,17 +35,89 @@ class MovieContentInfo extends BaseView<HomeViewModelNew> {
               children: [
                 /* Title */
                 Text(
-                  vm.selectedMovieContent?.title ?? "제목 없음",
+                  vm.selectedMovieContent?.title ?? "",
                   maxLines: 1,
                   style: FontStyles(0, false).movieTitle,
                 ),
+                otherContentInfo(),
                 /* GRated & Release Year */
-                // otherContentInfo(),
-                /* Description */
-                // contentDescription(width, isFetched, streamString,
-                //     selectedCategoryContents, selectedIndex),
+                Container(
+                  width: width * 3 / 5,
+                  child: Text(
+                    description ?? "",
+                    maxLines: 3,
+                    style: FontStyles(0, isUsedInMobile).description,
+                  ),
+                ),
                 const SizedBox(),
                 /* Intent Buttons */
+                Container(
+                  width: width * 3 / 5,
+                  child: Row(
+                    mainAxisAlignment: isUsedOnHomeScreen
+                        ? MainAxisAlignment.spaceBetween
+                        : MainAxisAlignment.start,
+                    children: [
+                      isUsedOnHomeScreen
+                          ? ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: kYellow,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                              ),
+                              onPressed: () {
+                                // final movieTitle = movieVM
+                                //     .selectedCategoryContents[selectedIndex ?? 0].title;
+                                // final passedIndex = movieVM
+                                //     .selectedCategoryContents[selectedIndex ?? 0].id
+                                //     .toInt();
+                                // movieVM.fetchGenre(passedIndex);
+                                // movieVM.fetchActors(passedIndex);
+                                // youtubeVM.fetchYoutubeSearchQuery(movieTitle);
+                                routeAction();
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SvgPicture.asset("assets/icons/play_ic.svg",
+                                      height: 20, color: Colors.black),
+                                  const SizedBox(width: 6),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 2),
+                                    child: Text(
+                                      "컨텐츠",
+                                      style: FontStyles(0, isUsedInMobile)
+                                          .watchButton,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          : const SizedBox(),
+                      Wrap(
+                        children: [
+                          GradientButton(
+                            content: "예고편",
+                            onBtnTapHandler: vm.showMovieTrailer,
+                            // movieVM: movieVM,
+                            // showTrailer: showDialog,
+                            // isUsedInMobile: isUsedInMobile,
+                          ),
+                          const SizedBox(width: 12),
+                          GradientButton(
+                            content: "추가", onBtnTapHandler: vm.showMovieTrailer,
+                            // movieVM: movieVM,
+                            // showTrailer: () {
+                            //   print("ADD TO FAVORITE");
+                            // },
+                            // isUsedInMobile: isUsedInMobile,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
                 // intentGroupButtons(width, selectedIndex, youtubeVM),
               ],
             ),
@@ -181,16 +260,16 @@ class MovieContentInfo extends BaseView<HomeViewModelNew> {
     );
   }
 
-  Text contentTitle(bool isFetched, String streamString(String passedItem),
-      List<dynamic> selectedCategoryContents, int? selectedIndex) {
-    return Text(
-      isFetched
-          ? streamString(selectedCategoryContents[selectedIndex ?? 0].title)
-          : "",
-      maxLines: 1,
-      style: FontStyles(0, isUsedInMobile).movieTitle,
-    );
-  }
+  // Text contentTitle(bool isFetched, String streamString(String passedItem),
+  //     List<dynamic> selectedCategoryContents, int? selectedIndex) {
+  //   return Text(
+  //     isFetched
+  //         ? streamString(selectedCategoryContents[selectedIndex ?? 0].title)
+  //         : "",
+  //     maxLines: 1,
+  //     style: FontStyles(0, isUsedInMobile).movieTitle,
+  //   );
+  // }
 }
 
 class ContentTitle extends StatelessWidget {

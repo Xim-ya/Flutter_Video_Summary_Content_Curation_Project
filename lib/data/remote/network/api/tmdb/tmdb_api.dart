@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_popular_movie_responsee.dart';
 import 'package:retrofit/retrofit.dart';
+import 'response/tmdb_movie_video_info.dart';
 import 'response/tmdb_popular_drama_response.dart';
 
 part 'tmdb_api.g.dart';
@@ -24,4 +25,9 @@ abstract class TmdbApi {
   @GET(
       "/tv/popular?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1")
   Future<TmdbPopularDramaResponse> loadPopularDrama();
+  // https://api.themoviedb.org/3/movie/453395/videos?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1
+  @GET(
+      "/movie/{contentId}/videos?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1")
+  Future<TmdbMovieVideoInfoResponse> loadTmdbMovieVideoInfo(
+      @Path("contentId") int contentId);
 }

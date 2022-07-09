@@ -13,62 +13,58 @@ class TempHomeScreen extends BaseScreen<HomeViewModelNew> {
 
   @override
   Widget buildScreen(BuildContext context) {
-    return Stack(children: [
-      const GradientPostBackground(
-        usedOnHomeScreen: true,
-      ),
-      Container(
-        padding: EdgeInsets.only(
-            top: contentTopP, left: contentLeftP, bottom: contentBottomP),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /* Category Group Button */
-            CategoryGroupButton(),
-            TextButton(
-                onPressed: () {
-                  routeAction();
-                },
-                child: Text(
-                  "TEXT!!",
-                  style: TextStyle(fontSize: 60, color: Colors.white),
-                )),
-            /* Movie Content Info */
-            MovieContentInfo(
-              isRoutedMain: true,
+    return Obx(() => Stack(children: [
+          GradientPostBackground(
+            backgroundImgUrl: vm.selectedMovieContent?.backDropUrl ??
+                vm.selectedMovieContent?.posterUrl,
+          ),
+          Container(
+            padding: EdgeInsets.only(
+                top: contentTopP, left: contentLeftP, bottom: contentBottomP),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /* Category Group Button */
+                const CategoryGroupButton(),
+                /* Movie Content Info */
+                ContentInfoContainer(
+                  isUsedOnHomeScreen: true,
+                  title: vm.selectedMovieContent?.title,
+                  description: vm.selectedMovieContent?.overview,
+                  routeAction: routeAction,
+                ),
+                /* Movie List Carousel Slider */
+                const ContentPosterSlider()
+              ],
             ),
-            /* Movie List Carousel Slider */
-            // MoviePostSlider(movieVM: _movieVM)
-          ],
-        ),
-      ),
-    ]
-        /* Content Image Background  (Image & Gradient Linear Background) */
-        // GradientPostBackground(
-        //   isRoutedMain: true,
-        //   backDropPosterImgUrl: vm.popularMovieList![0].backDropUrl,
-        // ),
-        // Container(
-        //   padding: EdgeInsets.only(
-        //       top: contentTopP, left: contentLeftP, bottom: contentBottomP),
-        //   child: Column(
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: [
-        //       /* Category Group Button */
-        //       CategoryGroupButton(movieVM: _movieVM),
-        //       /* Movie Content Info */
-        //       MovieContentInfo(
-        //         isRoutedMain: true,
-        //         routeAction: widget.routeAction,
-        //         movieVM: _movieVM,
-        //         showDialog: _showDialog,
-        //       ),
-        //       /* Movie List Carousel Slider */
-        //       MoviePostSlider(movieVM: _movieVM)
-        //     ],
-        //   ),
-        // ),
+          ),
+        ]
+            /* Content Image Background  (Image & Gradient Linear Background) */
+            // GradientPostBackground(
+            //   isRoutedMain: true,
+            //   backDropPosterImgUrl: vm.popularMovieList![0].backDropUrl,
+            // ),
+            // Container(
+            //   padding: EdgeInsets.only(
+            //       top: contentTopP, left: contentLeftP, bottom: contentBottomP),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       /* Category Group Button */
+            //       CategoryGroupButton(movieVM: _movieVM),
+            //       /* Movie Content Info */
+            //       MovieContentInfo(
+            //         isRoutedMain: true,
+            //         routeAction: widget.routeAction,
+            //         movieVM: _movieVM,
+            //         showDialog: _showDialog,
+            //       ),
+            //       /* Movie List Carousel Slider */
+            //       MoviePostSlider(movieVM: _movieVM)
+            //     ],
+            //   ),
+            // ),
 
-        );
+            ));
   }
 }

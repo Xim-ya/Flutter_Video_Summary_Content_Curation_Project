@@ -18,11 +18,11 @@ class ContentDetailScreen extends StatelessWidget {
     return Builder(
       builder: (context) {
         // Alert Dialog 위젯 (영화 예고편)
-        void _showDialog() async {
-          movieVM.trailerKey == null
-              ? noTrailerDialog(context)
-              : movieTrailerDialog(context: context, movieVM: movieVM);
-        }
+        // void _showDialog() async {
+        //   movieVM.trailerKey == null
+        //       ? noTrailerDialog(context)
+        //       : movieTrailerDialog(context: context, movieVM: movieVM);
+        // }
 
         return Stack(
           children: [

@@ -6,20 +6,22 @@ import 'package:movie_curation/utilities/index.dart';
 
 class GradientButton extends StatelessWidget {
   final String content;
-  final MovieVM movieVM;
-  final VoidCallback showTrailer;
-  final bool? isUsedInMobile;
+  final Function onBtnTapHandler;
+  // final MovieVM movieVM;
+  // final VoidCallback showTrailer;
+  // final bool? isUsedInMobile;
   const GradientButton({
     Key? key,
     required this.content,
-    required this.movieVM,
-    required this.showTrailer,
-    this.isUsedInMobile,
+    required this.onBtnTapHandler,
+    // required this.movieVM,
+    // required this.showTrailer,
+    // this.isUsedInMobile,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    int? selectedIndex = movieVM.selectedMovieIndex;
+    // int? selectedIndex = movieVM.selectedMovieIndex;
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         primary: Colors.transparent,
@@ -27,11 +29,12 @@ class GradientButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),
       onPressed: () {
-        final passedIndex =
-            movieVM.selectedCategoryContents[selectedIndex ?? 0].id.toInt();
-        movieVM.fetchTrailer(passedIndex, showTrailer);
-        // showTrailer();
+        onBtnTapHandler();
       },
+      // final passedIndex =
+      //     movieVM.selectedCategoryContents[selectedIndex ?? 0].id.toInt();
+      // movieVM.fetchTrailer(passedIndex, showTrailer);
+      // showTrailer();
       child: Ink(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
@@ -48,8 +51,7 @@ class GradientButton extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(4.0)),
         ),
         child: Container(
-          constraints:
-              BoxConstraints(minHeight: isUsedInMobile ?? false ? 26 : 38.0),
+          constraints: const BoxConstraints(minHeight: 38.0),
           alignment: Alignment.center,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -57,14 +59,14 @@ class GradientButton extends StatelessWidget {
               SvgPicture.asset(
                 "assets/icons/play_ic.svg",
                 color: Colors.white,
-                height: isUsedInMobile ?? false ? 14 : 20,
+                height: 20,
               ),
               const SizedBox(width: 6),
               Padding(
                 padding: const EdgeInsets.only(top: 2),
                 child: Text(
                   content,
-                  style: FontStyles(0, isUsedInMobile).elseButton,
+                  style: FontStyles(0, false).elseButton,
                 ),
               ),
             ],
