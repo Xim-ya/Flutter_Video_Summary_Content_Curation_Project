@@ -23,8 +23,23 @@ abstract class TmdbApi {
       "/tv/popular?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1")
   Future<TmdbPopularDramaResponse> loadPopularDrama();
   // https://api.themoviedb.org/3/movie/453395/videos?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1
+
+  // 영화 비디오 정보 호출 (예고판 키값 등등)
   @GET(
-      "/movie/{contentId}/videos?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1")
+      "/movie/{movieId}/videos?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1")
   Future<TmdbMovieVideoInfoResponse> loadTmdbMovieVideoInfo(
-      @Path("contentId") int contentId);
+      @Path("movieId") int movieId);
+
+  // https://api.themoviedb.org/3/movie/${453395}/credits?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1
+  // 영화 크래딧 정보 호출 (출연진 정보 등등)
+  @GET(
+      "/movie/{movieId}/credits?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1")
+  Future<TmdbMovieCreditResponse> loadMovieCreditInfo(
+      @Path("movieId") int movieId);
+
+  // 드라마 크래딧 정보 호출 (출연진 정보 등등)
+  @GET(
+      "/tv/{dramaId}/credits?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1")
+  Future<TmdbDramaCreditResponse> loadDramaCreditInfo(
+      @Path("dramaId") int dramaId);
 }

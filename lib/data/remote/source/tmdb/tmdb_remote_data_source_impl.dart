@@ -18,4 +18,12 @@ class TmdbRemoteDataSourceImpl
   @override
   Future<TmdbMovieVideoInfoResponse> loadTmdbMovieVideoInfo(int contentId) =>
       loadResponseOrThrow(() => _api.loadTmdbMovieVideoInfo(contentId));
+
+  @override
+  Future<TmdbDramaCreditResponse> loadTmdbDramaCredit(int dramaId) =>
+      loadResponseOrThrow(() => _api.loadDramaCreditInfo(dramaId));
+
+  @override
+  Future<TmdbMovieCreditResponse> loadTmdbMovieCredit(int movieId) =>
+      loadResponseOrThrow(() => _api.loadMovieCreditInfo(movieId));
 }

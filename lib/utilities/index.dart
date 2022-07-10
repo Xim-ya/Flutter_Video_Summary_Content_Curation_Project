@@ -27,20 +27,24 @@ export 'package:movie_curation/data/remote/network/api/tmdb/tmdb_api.dart';
 export 'package:movie_curation/data/repository/tmdb/tmdb_repository.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_item_response.dart';
+export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_drama_credit_response.dart';
+export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_credit_response.dart';
 
 /* DomainLayer (useCase, model) */
 export 'package:movie_curation/domain/models/content/content_model.dart';
-export 'package:movie_curation/domain/models/tmdb/tmdbMovieVideoInfoModel.dart';
+export 'package:movie_curation/domain/models/tmdb/tmdb_movie_video_info_model.dart';
 export 'package:movie_curation/domain/models/content/content_model.dart';
 export 'package:movie_curation/domain/useCase/tmdb/tmdb_load_movie_video_info_use_case.dart';
 export 'package:movie_curation/domain/useCase/tmdb/tmdb_load_popular_movies_use_case.dart';
+export 'package:movie_curation/domain/useCase/tmdb/tmdb_load_drama_casts_use_case.dart';
+export 'package:movie_curation/domain/useCase/tmdb/tmdb_load_movie_casts_use_case.dart';
 
 /* Presentation Layer (MVVM) */
 export 'package:movie_curation/ui/screens/home/home_view_model.dart';
 
 //old
 export 'package:movie_curation/ui/screens/home/homePagedView/home_paged_view.dart';
-export 'package:movie_curation/ui/screens/home/home_screen_old.dart';
+export 'package:movie_curation/ui/screens/home/home_screen.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
 export 'package:movie_curation/ui/screens/content/contentDetail/content_detail_screen.dart';

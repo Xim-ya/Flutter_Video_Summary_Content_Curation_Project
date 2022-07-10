@@ -32,7 +32,10 @@ class ContentPosterSlider extends BaseView<HomeViewModel> {
                 valueListenable: itemPositionsListener.itemPositions,
                 builder: (context, positions, child) {
                   return GestureDetector(
-                    onTap: () => chooseMovieHandler(index),
+                    onTap: () {
+                      chooseMovieHandler(index);
+                      print(vm.selectedMovieContent!.id);
+                    },
                     child: Container(
                       margin: const EdgeInsets.only(
                         right: 32,

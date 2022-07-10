@@ -2,8 +2,8 @@ import 'dart:math';
 import 'package:movie_curation/data/repository/tmdb/tmdb_repository.dart';
 import 'package:movie_curation/domain/base/base_use_case.dart';
 
-class LoadTmdbLoadMovieTrailerKey extends BaseUseCase<int, String?> {
-  LoadTmdbLoadMovieTrailerKey(this._repository);
+class TmdbLoadMovieTrailerKeyUseCase extends BaseUseCase<int, String?> {
+  TmdbLoadMovieTrailerKeyUseCase(this._repository);
   final TmdbRepository _repository;
 
   // Random으로 영화 Trailer Key를 호출

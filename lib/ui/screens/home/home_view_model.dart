@@ -1,10 +1,13 @@
+import 'package:movie_curation/domain/models/content/content_cast_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class HomeViewModel extends BaseViewModel {
-  HomeViewModel(this.loadPopularMovies, this.loadMovieTrailerKey);
+  HomeViewModel(this._loadPopularMovies, this.loadMovieTrailerKey,
+      this._loadMovieCasts, this._loadDramaCasts);
 
   /* 전역변수 및 객체 */
   final Rxn<List<ContentModel>> _popularMovieList = Rxn();
+  final Rxn<List<ContentCastModel>> _contentCastList = Rxn();
   RxString? _trailerKey;
 
   // State Variables;
@@ -23,11 +26,12 @@ class HomeViewModel extends BaseViewModel {
   }
 
   /* Usecase */
-  final LoadPopularMoviesUseCase loadPopularMovies;
-  final LoadTmdbLoadMovieTrailerKey loadMovieTrailerKey;
+  final LoadPopularMoviesUseCase _loadPopularMovies;
+  final TmdbLoadMovieTrailerKeyUseCase loadMovieTrailerKey;
+  final TmdbLoadMovieCastsUseCase _loadMovieCasts;
+  final TmdbLoadDramaCastsUseCase _loadDramaCasts;
 
   /* 메소드 */
-
   // 카테고리 그룹 버튼을 탭 되었을 때
   void onGroupBtnTap(int index) {
     selectedCategoryIndex.value = index;
@@ -47,18 +51,24 @@ class HomeViewModel extends BaseViewModel {
         hasTrailerKey: trailerKey == null ? false : true));
   }
 
-  Future<void> getMovieContentId() async {
-    final contentId = selectedMovieContent!.id;
-  }
-
   /* 네트워킹 메소드 */
   // 인기 영화 리스트 호출
   Future<void> loadPopularMovieList() async {
     loading(true);
-    final responseResult = await loadPopularMovies.call();
+    final responseResult = await _loadPopularMovies.call();
     responseResult.fold(onSuccess: (data) {
       _popularMovieList.value = data;
       loading(false);
+    }, onFailure: (error) {
+      print(error);
+    });
+  }
+
+  Future<void> loadMovieCastList() async {
+    final responseResult =
+        await _loadMovieCasts.call(selectedMovieContent!.id as int);
+    responseResult.fold(onSuccess: (data) {
+      _contentCastList.value = data;
     }, onFailure: (error) {
       print(error);
     });
@@ -73,6 +83,7 @@ class HomeViewModel extends BaseViewModel {
 
   /* 캡술화 - (Getter) */
   List<ContentModel>? get popularMovieList => _popularMovieList.value;
+  List<ContentCastModel>? get contentCastList => _contentCastList.value;
   ContentModel? get selectedMovieContent =>
       _popularMovieList.value?[selectedContentIndex.value];
 }

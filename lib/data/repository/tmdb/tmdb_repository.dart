@@ -1,3 +1,4 @@
+import 'package:movie_curation/domain/models/content/content_cast_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 abstract class TmdbRepository {
@@ -8,6 +9,11 @@ abstract class TmdbRepository {
   Future<Result<List<ContentModel>>> loadPopularDrama();
 
   /* TMDB - 영화 비디오 정보 */
-  Future<Result<List<TmdbMovieVideoInfoModel>>> loadMovieVideoInfo(
-      int contentId);
+  Future<Result<List<TmdbMovieVideoInfoModel>>> loadMovieVideoInfo(int movieId);
+
+  /* TMDB - 영화 크래딧 리스트 */
+  Future<Result<List<ContentCastModel>>> loadMovieCastInfo(int movieId);
+
+  /* TMDB - 드라마 크래딧 리스트 */
+  Future<Result<List<ContentCastModel>>> loadDramaCastInfo(int dramaId);
 }

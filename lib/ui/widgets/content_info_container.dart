@@ -6,14 +6,10 @@ class ContentInfoContainer extends BaseView<HomeViewModel> {
   const ContentInfoContainer({
     Key? key,
     required this.isUsedOnHomeScreen,
-    required this.title,
-    required this.description,
     required this.routeAction,
   }) : super(key: key);
 
   final bool isUsedOnHomeScreen; // 라우트되는 부모 스크린 판별 변수
-  final String? title; // 제목
-  final String? description; // 요약 설명
   final VoidCallback routeAction; // PageView Builder 화면 전환 메소드
 
   @override
@@ -21,7 +17,6 @@ class ContentInfoContainer extends BaseView<HomeViewModel> {
     double width = MediaQuery.of(context).size.width;
     return Expanded(
       flex: 6,
-      // flex: 6,
       child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 0),
           width: contentResponsiveW,
@@ -41,10 +36,10 @@ class ContentInfoContainer extends BaseView<HomeViewModel> {
                 ),
                 otherContentInfo(),
                 /* GRated & Release Year */
-                Container(
+                SizedBox(
                   width: width * 3 / 5,
                   child: Text(
-                    description ?? "",
+                    vm.selectedMovieContent?.overview ?? "내용 없음",
                     maxLines: 3,
                     style: FontStyles(0, isUsedInMobile).description,
                   ),
@@ -66,14 +61,7 @@ class ContentInfoContainer extends BaseView<HomeViewModel> {
                                     const EdgeInsets.symmetric(horizontal: 8),
                               ),
                               onPressed: () {
-                                // final movieTitle = movieVM
-                                //     .selectedCategoryContents[selectedIndex ?? 0].title;
-                                // final passedIndex = movieVM
-                                //     .selectedCategoryContents[selectedIndex ?? 0].id
-                                //     .toInt();
-                                // movieVM.fetchGenre(passedIndex);
-                                // movieVM.fetchActors(passedIndex);
-                                // youtubeVM.fetchYoutubeSearchQuery(movieTitle);
+                                vm.loadMovieCastList();
                                 routeAction();
                               },
                               child: Row(

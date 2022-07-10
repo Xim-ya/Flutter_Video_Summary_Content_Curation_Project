@@ -1,4 +1,4 @@
-import 'package:movie_curation/ui/screens/home/home_view_model.dart';
+import 'package:movie_curation/ui/screens/content/contentDetail/localWidget/content_detail_screen_new.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 /* 📕 해당 스크린 위젯에서 `Flutter Hook`을 사용하는 이유
@@ -18,7 +18,8 @@ class HomePagedView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     // VM Controller  생성
-    Get.lazyPut(() => HomeViewModel(Get.find(), Get.find()));
+    Get.lazyPut(
+        () => HomeViewModel(Get.find(), Get.find(), Get.find(), Get.find()));
 
     //  PagedViewScreen의 Screen Index, 0 : 홈 스크린, 1 : 컨텐츠 상세 스크린
     final _screenIndex = useState(0);
@@ -36,7 +37,7 @@ class HomePagedView extends HookWidget {
     // PagedView에서 관리하는 스크린 리스트 -(화면이동 메소드를 인자로 전달)
     final screenList = [
       HomeScreen(routeAction: _pagedRouteHandler),
-      ContentDetailScreen(routeAction: _pagedRouteHandler),
+      ContentDetailNewScreen(routeAction: _pagedRouteHandler),
     ];
 
     return PageView.builder(

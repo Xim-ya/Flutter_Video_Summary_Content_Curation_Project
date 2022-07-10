@@ -25,14 +25,12 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
               children: [
                 /* Category Group Button */
                 const CategoryGroupButton(),
-                /* Movie Content Info */
+                /* Content Content Info */
                 ContentInfoContainer(
                   isUsedOnHomeScreen: true,
-                  title: vm.selectedMovieContent?.title,
-                  description: vm.selectedMovieContent?.overview,
                   routeAction: routeAction,
                 ),
-                /* Movie List Carousel Slider */
+                /* Content Post Slider  */
                 const ContentPosterSlider()
               ],
             ),

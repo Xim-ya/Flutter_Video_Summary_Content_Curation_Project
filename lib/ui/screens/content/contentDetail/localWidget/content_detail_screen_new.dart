@@ -1,15 +1,12 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class ContentDetailScreen extends StatelessWidget {
+class ContentDetailNewScreen extends BaseScreen<HomeViewModel> {
+  const ContentDetailNewScreen({Key? key, required this.routeAction})
+      : super(key: key);
   final VoidCallback routeAction; //;
 
-  const ContentDetailScreen({Key? key, required this.routeAction})
-      : super(key: key);
-
-  void blankAction() {}
-
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     final youtubeVM = Get.put(YoutubeVM(model: YoutubeCore()));
     final movieVM = Get.put(MovieVM(model: MovieCore()));
     bool isFetched = movieVM.loadingStatus == LoadingStatus.done ? true : false;
@@ -17,16 +14,12 @@ class ContentDetailScreen extends StatelessWidget {
 
     return Builder(
       builder: (context) {
-        // Alert Dialog 위젯 (영화 예고편)
-        // void _showDialog() async {
-        //   movieVM.trailerKey == null
-        //       ? noTrailerDialog(context)
-        //       : movieTrailerDialog(context: context, movieVM: movieVM);
-        // }
-
         return Stack(
           children: [
             // GradientPostBackground(isRoutedMain: false, movieVM: movieVM),
+            GradientPostBackground(
+                backgroundImgUrl: vm.selectedMovieContent?.posterUrl ??
+                    vm.selectedMovieContent?.backDropUrl),
             BackArrowButton(routeAction: routeAction),
             Row(
               children: [
@@ -40,11 +33,10 @@ class ContentDetailScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        /* Movie Main Info  */
-                        // MovieContentInfo(
-                        //     isRoutedMain: false,
-                        //     movieVM: movieVM,
-                        //     showDialog: _showDialog),
+                        /* Content Main Info  */
+                        ContentInfoContainer(
+                            isUsedOnHomeScreen: false,
+                            routeAction: routeAction),
                         Expanded(
                           flex: 10,
                           child: Container(
@@ -53,7 +45,12 @@ class ContentDetailScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 /* Actor(Cast) Slider */
-                                // CastSlider(movieVM: movieVM),
+                                Obx(() => vm.contentCastList == null
+                                    ? const SizedBox()
+                                    : CastSlider(
+                                        movieVM: movieVM,
+                                        castList: vm.contentCastList!)),
+
                                 /* Else (Rate & Genre) */
                                 MovieElseInfo(
                                     isFetched: isFetched,
@@ -78,19 +75,19 @@ class ContentDetailScreen extends StatelessWidget {
         );
       },
     );
-  }
 
-  Positioned backButton() {
-    return Positioned(
-      left: 30,
-      top: 10.8.sp,
-      child: IconButton(
-        iconSize: 13.5.sp,
-        icon: SvgPicture.asset("assets/icons/arrow_left_ic.svg"),
-        onPressed: () {
-          routeAction();
-        },
-      ),
-    );
+    Positioned backButton() {
+      return Positioned(
+        left: 30,
+        top: 10.8.sp,
+        child: IconButton(
+          iconSize: 13.5.sp,
+          icon: SvgPicture.asset("assets/icons/arrow_left_ic.svg"),
+          onPressed: () {
+            routeAction();
+          },
+        ),
+      );
+    }
   }
 }
