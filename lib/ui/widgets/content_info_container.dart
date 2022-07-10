@@ -61,7 +61,9 @@ class ContentInfoContainer extends BaseView<HomeViewModel> {
                                     const EdgeInsets.symmetric(horizontal: 8),
                               ),
                               onPressed: () {
+                                vm.loadYoutubeSearchList();
                                 vm.loadMovieCastList();
+                                vm.getContentGenre();
                                 routeAction();
                               },
                               child: Row(

@@ -1,5 +1,3 @@
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_drama_credit_response.dart';
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_credit_response.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 abstract class TmdbRemoteDataSource {

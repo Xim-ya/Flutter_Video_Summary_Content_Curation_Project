@@ -34,7 +34,7 @@ class ContentPosterSlider extends BaseView<HomeViewModel> {
                   return GestureDetector(
                     onTap: () {
                       chooseMovieHandler(index);
-                      print(vm.selectedMovieContent!.id);
+                      vm.loadYoutubeSearchList();
                     },
                     child: Container(
                       margin: const EdgeInsets.only(

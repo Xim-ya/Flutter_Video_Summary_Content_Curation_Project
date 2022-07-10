@@ -1,6 +1,7 @@
+import 'package:movie_curation/ui/common/base/base_view.dart';
 import 'package:movie_curation/utilities/index.dart';
 
-class YoutubeReviewContentsWheelSlider extends StatelessWidget {
+class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
   final YoutubeVM youtubeVM;
   const YoutubeReviewContentsWheelSlider({Key? key, required this.youtubeVM})
       : super(key: key);
@@ -13,59 +14,71 @@ class YoutubeReviewContentsWheelSlider extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildView(BuildContext context) {
     ScrollController _scrollController =
         ScrollController(initialScrollOffset: kWS200);
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: kWS100),
-      child: GetBuilder<YoutubeVM>(
-          init: youtubeVM,
-          builder: (searched) {
-            return ClickableListWheelScrollView(
-              scrollController: _scrollController,
-              itemHeight: kHS500,
-              itemCount: 0,
-              onItemTapCallback: (index) {
-                routeHandler(index);
-              },
-              child: ListWheelScrollView(
-                controller: _scrollController,
-                diameterRatio: 10,
-                itemExtent: kHS500,
-                children: [
-                  ...youtubeVM.youtubeSearchedQueryList.map(
-                    (query) {
-                      return Column(
-                        children: [
-                          AspectRatio(
-                            aspectRatio: 16 / 9,
-                            child: Stack(
-                              children: [
-                                thumbnailImage(query),
-                                linearBackground(),
-                                /* Likes Icon -->(임시 삭제) */
-                                // likes(),
-                              ],
-                            ),
-                          ),
-                          contentsTitle(query)
-                        ],
-                      );
+    return Obx(() => vm.youtubeSearchList == null
+        ? GestureDetector(
+            onTap: () {
+              print(vm.youtubeSearchList?.length ?? "없음");
+            },
+            child: Container(
+              height: 100,
+              width: 100,
+              color: Colors.red,
+            ),
+          )
+        : Container(
+            margin: EdgeInsets.symmetric(horizontal: kWS100),
+            child: GetBuilder<YoutubeVM>(
+                init: youtubeVM,
+                builder: (searched) {
+                  return ClickableListWheelScrollView(
+                    scrollController: _scrollController,
+                    itemHeight: kHS500,
+                    itemCount: 0,
+                    onItemTapCallback: (index) {
+                      routeHandler(index);
                     },
-                  )
-                ],
-              ),
-            );
-          }),
-    );
+                    child: ListWheelScrollView(
+                      controller: _scrollController,
+                      diameterRatio: 10,
+                      itemExtent: kHS500,
+                      children: [
+                        ...vm.youtubeSearchList!.map(
+                          (data) {
+                            return Column(
+                              children: [
+                                AspectRatio(
+                                  aspectRatio: 16 / 9,
+                                  child: Stack(
+                                    children: [
+                                      thumbnailImage(data.snippet
+                                          .thumbnails["medium"]!["url"]),
+                                      linearBackground(),
+                                      /* Likes Icon -->(임시 삭제) */
+                                      // likes(),
+                                    ],
+                                  ),
+                                ),
+                                contentsTitle(data.snippet.title)
+                              ],
+                            );
+                          },
+                        )
+                      ],
+                    ),
+                  );
+                }),
+          ));
   }
 
 /* Youtube Content Title  */
-  Container contentsTitle(Youtube query) {
+  Container contentsTitle(String title) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(top: 10),
-      child: Text(query.snippet.title,
+      child: Text(title,
           maxLines: 2,
           textAlign: TextAlign.start,
           style: FontStyles(kTS22).youtubeReviewTitle),
@@ -93,11 +106,11 @@ class YoutubeReviewContentsWheelSlider extends StatelessWidget {
   }
 
   /* Thumbnail Image */
-  ClipRRect thumbnailImage(Youtube query) {
+  ClipRRect thumbnailImage(String thumbnailImg) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(11),
       child: CachedNetworkImage(
-        imageUrl: query.snippet.thumbnails.medium.url,
+        imageUrl: thumbnailImg,
         imageBuilder: (context, imageProvider) => Container(
           decoration: BoxDecoration(
             image: DecorationImage(

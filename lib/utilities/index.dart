@@ -78,7 +78,7 @@ export 'package:movie_curation/ui/widgets/content_info_container.dart';
 export 'package:movie_curation/ui/widgets/content_poster_slider.dart';
 export 'package:movie_curation/ui/widgets/trailer_dialog.dart';
 export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/cast_slider.dart';
-export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/movie_else_info.dart';
+export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/content_else_info.dart';
 export 'package:movie_curation/ui/widgets/back_arrow_button.dart';
 export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/main_content_info_mobile.dart'; // MovieDetailScreen(M) > MainContentInfoMobile
 export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/youtube_review_contents_wheel_slider.dart'; // MovieDetailScreen(T) > WheelSlider

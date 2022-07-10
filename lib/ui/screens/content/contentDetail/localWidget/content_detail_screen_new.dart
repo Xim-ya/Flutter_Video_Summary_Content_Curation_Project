@@ -16,7 +16,7 @@ class ContentDetailNewScreen extends BaseScreen<HomeViewModel> {
       builder: (context) {
         return Stack(
           children: [
-            // GradientPostBackground(isRoutedMain: false, movieVM: movieVM),
+            /* Poster Background Container (shows poster img) */
             GradientPostBackground(
                 backgroundImgUrl: vm.selectedMovieContent?.posterUrl ??
                     vm.selectedMovieContent?.backDropUrl),
@@ -48,14 +48,23 @@ class ContentDetailNewScreen extends BaseScreen<HomeViewModel> {
                                 Obx(() => vm.contentCastList == null
                                     ? const SizedBox()
                                     : CastSlider(
-                                        movieVM: movieVM,
                                         castList: vm.contentCastList!)),
 
                                 /* Else (Rate & Genre) */
-                                MovieElseInfo(
+                                GestureDetector(
+                                  onTap: () {
+                                    print(vm.contentGenreList);
+                                  },
+                                  child: ContentElseInfo(
                                     isFetched: isFetched,
                                     movieVM: movieVM,
-                                    selectedIndex: selectedIndex),
+                                    selectedIndex: selectedIndex,
+                                    genreList: vm.contentGenreList,
+                                    rateScore: vm
+                                        .selectedMovieContent?.voteAverage
+                                        .toDouble(),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
