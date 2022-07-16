@@ -1,71 +1,67 @@
+import 'package:movie_curation/domain/models/youtube/youtube_search_list_model.dart';
+import 'package:movie_curation/ui/common/base/base_view.dart';
 import 'package:movie_curation/utilities/index.dart';
 
-class YoutubeReviewContentsWheelSlider extends StatelessWidget {
-  final YoutubeVM youtubeVM;
-  const YoutubeReviewContentsWheelSlider({Key? key, required this.youtubeVM})
+class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
+  const YoutubeReviewContentsWheelSlider(
+      {Key? key,
+      required this.wheelScrollController,
+      required this.youtubeSearchList})
       : super(key: key);
 
-  // 라우팅 동작 (동영상 'videoId' 전달)
-  void routeHandler(int selectedIndex) {
-    final videoId =
-        youtubeVM.youtubeSearchedQueryList[selectedIndex].id.videoId;
-    Get.to(() => ContentPlayerScreen(videoId: videoId ?? ""));
-  }
+  final ScrollController wheelScrollController;
+  final List<YoutubeSearchListItemModel>? youtubeSearchList;
 
   @override
-  Widget build(BuildContext context) {
-    ScrollController _scrollController =
-        ScrollController(initialScrollOffset: kWS200);
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: kWS100),
-      child: GetBuilder<YoutubeVM>(
-          init: youtubeVM,
-          builder: (searched) {
-            return ClickableListWheelScrollView(
-              scrollController: _scrollController,
+  Widget buildView(BuildContext context) {
+    return youtubeSearchList != null
+        ? Container(
+            margin: EdgeInsets.symmetric(horizontal: kWS100),
+            child: ClickableListWheelScrollView(
+              scrollController: wheelScrollController,
               itemHeight: kHS500,
               itemCount: 0,
               onItemTapCallback: (index) {
-                routeHandler(index);
+                final videoId = youtubeSearchList![index].id["videoId"];
+                Get.to(() => ContentYoutubePlayerScreen(videoId: videoId));
               },
               child: ListWheelScrollView(
-                controller: _scrollController,
+                controller: wheelScrollController,
                 diameterRatio: 10,
                 itemExtent: kHS500,
                 children: [
-                  ...youtubeVM.youtubeSearchedQueryList.map(
-                    (query) {
-                      return Column(
+                  ...youtubeSearchList!.map(
+                    (data) {
+                      return Wrap(
                         children: [
                           AspectRatio(
                             aspectRatio: 16 / 9,
                             child: Stack(
                               children: [
-                                thumbnailImage(query),
+                                thumbnailImage(
+                                    data.snippet.thumbnails["medium"]!["url"]),
                                 linearBackground(),
-                                /* Likes Icon -->(임시 삭제) */
-                                // likes(),
                               ],
                             ),
                           ),
-                          contentsTitle(query)
+                          contentsTitle(data.snippet.title)
                         ],
                       );
                     },
                   )
                 ],
               ),
-            );
-          }),
-    );
+            ),
+          )
+        : const SizedBox();
   }
 
 /* Youtube Content Title  */
-  Container contentsTitle(Youtube query) {
+  Container contentsTitle(String title) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.only(top: 10),
-      child: Text(query.snippet.title,
+      margin: const EdgeInsets.only(top: 10),
+      child: Text(title,
           maxLines: 2,
           textAlign: TextAlign.start,
           style: FontStyles(kTS22).youtubeReviewTitle),
@@ -93,11 +89,11 @@ class YoutubeReviewContentsWheelSlider extends StatelessWidget {
   }
 
   /* Thumbnail Image */
-  ClipRRect thumbnailImage(Youtube query) {
+  ClipRRect thumbnailImage(String thumbnailImg) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(11),
       child: CachedNetworkImage(
-        imageUrl: query.snippet.thumbnails.medium.url,
+        imageUrl: thumbnailImg,
         imageBuilder: (context, imageProvider) => Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -110,20 +106,6 @@ class YoutubeReviewContentsWheelSlider extends StatelessWidget {
             const Center(child: CircularProgressIndicator()),
         errorWidget: (context, url, error) =>
             const Center(child: Icon(Icons.error)),
-      ),
-    );
-  }
-
-  Positioned likes() {
-    return Positioned(
-      bottom: 20,
-      left: 20,
-      child: Row(
-        children: [
-          SvgPicture.asset("assets/icons/like_ic.svg"),
-          SizedBox(width: 10),
-          Text("632", style: FontStyles().youtubeReviewLikes)
-        ],
       ),
     );
   }

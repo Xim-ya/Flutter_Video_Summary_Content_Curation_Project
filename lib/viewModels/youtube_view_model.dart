@@ -20,7 +20,7 @@ class YoutubeVM extends GetxController {
     print("YOUTUBE VM $movieTitle");
     loadingStatus = LoadingStatus.empty;
     List<Youtube> youtubeList =
-        await YoutubeApi().fetchYoutubeContents(movieTitle);
+        await YoutubeApiOld().fetchYoutubeContents(movieTitle);
     _model.youtubeSearchedQueryList = youtubeList.toList();
     update();
 

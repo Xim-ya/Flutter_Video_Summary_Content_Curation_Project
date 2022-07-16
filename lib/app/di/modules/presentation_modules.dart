@@ -6,6 +6,7 @@ abstract class PresentationModules {
 
   static void dependencies() {
     /* Home */
-    Get.lazyPut(() => HomeViewModel(Get.find(), Get.find()));
+    // Get.lazyPut(() => HomeViewModel(
+    //     Get.find(), Get.find(), Get.find(), Get.find(), Get.find()));
   }
 }

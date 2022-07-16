@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:movie_curation/utilities/index.dart';
 
-class YoutubeApi {
+class YoutubeApiOld {
   var dio = Dio();
 
   Future<List<Youtube>> fetchYoutubeContents(String movieTitle) async {

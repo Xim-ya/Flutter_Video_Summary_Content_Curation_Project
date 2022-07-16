@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:movie_curation/ui/widgets/back_arrow_button.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class ContentPlayerScreen extends StatelessWidget {
+class ContentYoutubePlayerScreen extends StatelessWidget {
   final String videoId;
-  const ContentPlayerScreen({Key? key, required this.videoId})
+  const ContentYoutubePlayerScreen({Key? key, required this.videoId})
       : super(key: key);
 
   @override

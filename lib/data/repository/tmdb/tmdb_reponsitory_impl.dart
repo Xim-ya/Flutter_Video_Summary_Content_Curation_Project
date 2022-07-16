@@ -1,3 +1,4 @@
+import 'package:movie_curation/domain/models/content/content_cast_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class TmdbRepositoryImpl implements TmdbRepository {
@@ -34,6 +35,30 @@ class TmdbRepositoryImpl implements TmdbRepository {
       final response = await _dataSource.loadTmdbMovieVideoInfo(contentId).then(
           (value) =>
               value.results.map(TmdbMovieVideoInfoModel.fromResponse).toList());
+      return Result.success(response);
+    } on Exception catch (e) {
+      return Result.failure(e);
+    }
+  }
+
+  @override
+  Future<Result<List<ContentCastModel>>> loadDramaCastInfo(int dramaId) async {
+    try {
+      final response = await _dataSource.loadTmdbMovieCredit(dramaId).then(
+          (value) =>
+              value.cast.map(ContentCastModel.fromDramaResponse).toList());
+      return Result.success(response);
+    } on Exception catch (e) {
+      return Result.failure(e);
+    }
+  }
+
+  @override
+  Future<Result<List<ContentCastModel>>> loadMovieCastInfo(int movieId) async {
+    try {
+      final response = await _dataSource.loadTmdbMovieCredit(movieId).then(
+          (value) =>
+              value.cast.map(ContentCastModel.fromMovieResponse).toList());
       return Result.success(response);
     } on Exception catch (e) {
       return Result.failure(e);

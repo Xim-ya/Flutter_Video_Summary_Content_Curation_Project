@@ -8,5 +8,11 @@ abstract class TmdbRemoteDataSource {
   Future<TmdbPopularDramaResponse> loadPopularDrama();
 
   /* TMDB - 영화 비디오 정보 (trailerkey, video 제공 플랫폼 정보 등을 담고 있음) */
-  Future<TmdbMovieVideoInfoResponse> loadTmdbMovieVideoInfo(int contentId);
+  Future<TmdbMovieVideoInfoResponse> loadTmdbMovieVideoInfo(int movieId);
+
+  /* TMDB - 영화 크래딧 정보 호출 (출연진 정보 등등) */
+  Future<TmdbMovieCreditResponse> loadTmdbMovieCredit(int movieId);
+
+  /* TMDB - 드라마 크래딧 정보 호출 (출연진 정보 등등) */
+  Future<TmdbDramaCreditResponse> loadTmdbDramaCredit(int dramaId);
 }
