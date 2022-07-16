@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
-import 'package:movie_curation/ui/screens/content/contentDetail/localWidget/youtube_review_contents_wheel_slider.dart';
-import 'package:movie_curation/ui/widgets/content_info_container.dart';
-import 'package:movie_curation/utilities/responsive_size.dart';
-
 /* 2022.07.16 Created by Ximya
 *  컨텐츠 상세 페이지 Scaffold.
 * */
+
+import '../../../../utilities/index.dart';
 
 class ContentDetailScaffold extends StatelessWidget {
   const ContentDetailScaffold(

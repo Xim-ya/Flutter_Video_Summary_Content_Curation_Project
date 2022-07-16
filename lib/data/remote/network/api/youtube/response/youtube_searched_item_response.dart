@@ -1,5 +1,4 @@
 import 'package:movie_curation/utilities/index.dart';
-
 part 'youtube_searched_item_response.g.dart';
 
 @JsonSerializable(createToJson: false)

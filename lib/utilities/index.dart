@@ -15,7 +15,7 @@ export 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
 export 'package:carousel_slider/carousel_slider.dart';
 export 'package:json_annotation/json_annotation.dart';
 
-/* DataLayer (api, datasource, repository) */
+/* DataLayer (api, datasource, repository, remote) */
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_popular_drama_response.dart';
@@ -29,8 +29,16 @@ export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_drama_credit_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_credit_response.dart';
+export 'package:movie_curation/data/remote/network/api/youtube/response/youtube_searched_list_response.dart';
+export 'package:movie_curation/data/remote/network/api/youtube/response/youtube_searched_item_response.dart';
+export 'package:movie_curation/data/remote/source/youtube/youtube_remote_data_source.dart';
+export 'package:movie_curation/data/repository/youtube/youtube_repository.dart';
+export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_drama_credit_response.dart';
+export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_credit_response.dart';
+export 'package:movie_curation/data/remote/network/api/youtube/response/youtube_searched_item_response.dart';
+export 'package:movie_curation/data/remote/network/api/youtube/response/youtube_searched_list_response.dart';
 
-/* DomainLayer (useCase, model) */
+/* DomainLayer (useCase, model, repository) */
 export 'package:movie_curation/domain/models/content/content_model.dart';
 export 'package:movie_curation/domain/models/tmdb/tmdb_movie_video_info_model.dart';
 export 'package:movie_curation/domain/models/content/content_model.dart';
@@ -38,16 +46,24 @@ export 'package:movie_curation/domain/useCase/tmdb/tmdb_load_movie_video_info_us
 export 'package:movie_curation/domain/useCase/tmdb/tmdb_load_popular_movies_use_case.dart';
 export 'package:movie_curation/domain/useCase/tmdb/tmdb_load_drama_casts_use_case.dart';
 export 'package:movie_curation/domain/useCase/tmdb/tmdb_load_movie_casts_use_case.dart';
+export 'package:movie_curation/domain/models/youtube/youtube_search_list_model.dart';
+export 'package:movie_curation/domain/models/content/content_cast_model.dart';
+export 'package:movie_curation/domain/models/content/content_cast_model.dart';
+export 'package:movie_curation/domain/models/content/content_cast_model.dart';
+export 'package:movie_curation/domain/base/base_use_case.dart';
+export 'package:movie_curation/data/repository/tmdb/tmdb_repository.dart';
+export 'package:movie_curation/domain/useCase/api/youtube_load_search_list_use_case.dart';
 
 /* Presentation Layer (MVVM) */
 export 'package:movie_curation/ui/screens/home/home_view_model.dart';
+export 'package:movie_curation/ui/screens/content/contentDetail/content_detail_scaffold.dart';
+export 'package:movie_curation/ui/screens/content/contentDetail/content_detail_screen.dart';
 
 //old
 export 'package:movie_curation/ui/screens/home/homePagedView/home_paged_view.dart';
 export 'package:movie_curation/ui/screens/home/home_screen.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
-export 'package:movie_curation/ui/screens/content/contentDetail/content_detail_screen.dart';
 export 'package:youtube_player_flutter/youtube_player_flutter.dart';
 export 'package:movie_curation/ui/screens/content/contentPlayer/content_youtube_player_screen.dart';
 export 'package:movie_curation/ui/screens/search/search_screen.dart';
@@ -80,7 +96,6 @@ export 'package:movie_curation/ui/widgets/trailer_dialog.dart';
 export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/cast_slider.dart';
 export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/content_else_info.dart';
 export 'package:movie_curation/ui/widgets/back_arrow_button.dart';
-export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/main_content_info_mobile.dart'; // MovieDetailScreen(M) > MainContentInfoMobile
 export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/youtube_review_contents_wheel_slider.dart'; // MovieDetailScreen(T) > WheelSlider
 export 'package:movie_curation/ui/screens/search/localWidget/random_poster_background.dart';
 export 'package:movie_curation/ui/screens/search/localWidget/content_thumbnail_vertical_slider.dart';
@@ -102,6 +117,8 @@ export 'package:movie_curation/utilities/result.dart';
 export 'package:movie_curation/domain/base/base_no_param_use_case.dart';
 export 'package:movie_curation/ui/common/base/base_screen.dart';
 export 'package:movie_curation/ui/common/base/base_view_model.dart';
+export 'package:movie_curation/ui/common/base/base_view.dart';
+export 'package:movie_curation/domain/base/base_use_case.dart';
 
 /* Routes */
 export 'package:movie_curation/routes/fluro_router.dart';

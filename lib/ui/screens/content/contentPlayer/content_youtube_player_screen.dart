@@ -1,4 +1,3 @@
-/* 해당 소스파일에서 MultiImport 방식으로 Import 구문 작성 필요, YoutubePlayer, YoutubePlayerIframe 패키지가 중복되어 에러 발생 */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie_curation/ui/widgets/back_arrow_button.dart';

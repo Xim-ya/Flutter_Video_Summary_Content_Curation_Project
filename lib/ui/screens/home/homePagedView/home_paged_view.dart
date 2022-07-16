@@ -1,4 +1,3 @@
-import 'package:movie_curation/ui/screens/content/contentDetail/localWidget/content_detail_screen_new.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 /* 📕 해당 스크린 위젯에서 `Flutter Hook`을 사용하는 이유
@@ -37,7 +36,7 @@ class HomePagedView extends HookWidget {
     // PagedView에서 관리하는 스크린 리스트 -(화면이동 메소드를 인자로 전달)
     final screenList = [
       HomeScreen(routeAction: _pagedRouteHandler),
-      ContentDetailNewScreen(routeAction: _pagedRouteHandler),
+      ContentDetailScreen(routeAction: _pagedRouteHandler),
     ];
 
     return PageView.builder(
