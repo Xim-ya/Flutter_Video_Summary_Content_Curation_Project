@@ -1,11 +1,17 @@
+import 'package:movie_curation/domain/useCase/tmdb/tmdb_load_poopular_dramas_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class HomeViewModel extends BaseViewModel {
-  HomeViewModel(this._loadPopularMovies, this.loadMovieTrailerKey,
-      this._loadMovieCasts, this._loadDramaCasts, this._loadYoutubeSearchList);
+  HomeViewModel(
+      this._loadPopularMovies,
+      this.loadMovieTrailerKey,
+      this._loadPopularDramas,
+      this._loadMovieCasts,
+      this._loadDramaCasts,
+      this._loadYoutubeSearchList);
 
   /* 전역변수 및 객체 */
-  final Rxn<List<ContentModel>> _popularMovieList = Rxn();
+  final Rxn<List<ContentModel>> _selectedContentList = Rxn();
   final Rxn<List<ContentCastModel>> _contentCastList = Rxn();
   final Rxn<List<YoutubeSearchListItemModel>> _youtubeSearchList = Rxn();
   RxString? _trailerKey;
@@ -30,6 +36,7 @@ class HomeViewModel extends BaseViewModel {
 
   /* Usecase */
   final LoadPopularMoviesUseCase _loadPopularMovies;
+  final TmdbLoadPopularDramasUseCase _loadPopularDramas;
   final TmdbLoadMovieTrailerKeyUseCase loadMovieTrailerKey;
   final TmdbLoadMovieCastsUseCase _loadMovieCasts;
   final TmdbLoadDramaCastsUseCase _loadDramaCasts;
@@ -37,8 +44,21 @@ class HomeViewModel extends BaseViewModel {
 
   /* 메소드 */
   // 카테고리 그룹 버튼을 탭 되었을 때
-  void onGroupBtnTap(int index) {
-    selectedCategoryIndex.value = index;
+  void onCategoryBtnTap(int index) {
+    if (selectedCategoryIndex.value == index)
+      return; // 현재 카테고리가 다시 클릭 되었을 때는 해당 메소드 종료
+    selectedCategoryIndex.value = index; // 카테고리 변경
+    switch (index) {
+      case 0:
+        loadPopularMovieList();
+        break;
+      case 1:
+        loadPopularDramaList();
+        break;
+      case 2:
+        print("Firebase");
+        break;
+    }
   }
 
   // 콘텐츠가 선택 되었을 때
@@ -46,7 +66,7 @@ class HomeViewModel extends BaseViewModel {
     selectedContentIndex.value = index;
   }
 
-  // 선택된 컨텐츠의 장르 정보 호출
+  // 선택된 컨텐츠의 [장르] 정보 호출
   void getContentGenre() {
     List<int> genreIdList = selectedMovieContent!.genreIds!.toList();
     final filteredGenreList = genreIdList.map((e) => genreDefaults[e]);
@@ -65,19 +85,31 @@ class HomeViewModel extends BaseViewModel {
   }
 
   /* 네트워킹 메소드 */
-  // 인기 영화 리스트 호출
+  // 인기 [영화] 리스트 호출
   Future<void> loadPopularMovieList() async {
     loading(true);
     final responseResult = await _loadPopularMovies.call();
     responseResult.fold(onSuccess: (data) {
-      _popularMovieList.value = data;
+      _selectedContentList.value = data;
       loading(false);
     }, onFailure: (error) {
       print(error);
     });
   }
 
-  // 영화 캐스트 정보 호출
+  // 인기 [드라마] 리스트 호출
+  Future<void> loadPopularDramaList() async {
+    loading(true);
+    final responseResult = await _loadPopularDramas.call();
+    responseResult.fold(onSuccess: (data) {
+      _selectedContentList.value = data;
+      loading(false);
+    }, onFailure: (error) {
+      print(error);
+    });
+  }
+
+  // 영화 [캐스트] 정보 호출
   Future<void> loadMovieCastList() async {
     final responseResult =
         await _loadMovieCasts.call(selectedMovieContent!.id as int);
@@ -107,12 +139,12 @@ class HomeViewModel extends BaseViewModel {
   }
 
   /* 캡술화 - (Getter) */
-  List<ContentModel>? get popularMovieList => _popularMovieList.value;
+  List<ContentModel>? get popularMovieList => _selectedContentList.value;
   List<ContentCastModel>? get contentCastList => _contentCastList.value;
   List<YoutubeSearchListItemModel>? get youtubeSearchList =>
       _youtubeSearchList.value;
   ContentModel? get selectedMovieContent =>
-      _popularMovieList.value?[selectedContentIndex.value];
+      _selectedContentList.value?[selectedContentIndex.value];
   List<String>? get contentGenreList => _contentGenreList;
   ScrollController get wheelScrollController => _scrollController;
 }

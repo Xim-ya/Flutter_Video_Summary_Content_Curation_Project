@@ -16,6 +16,7 @@ class ContentPosterSlider extends BaseView<HomeViewModel> {
 
       // selectedMovieIndex 설정
       vm.contentSelectHandler(index);
+      print(vm.selectedMovieContent!.id);
     }
 
     return Obx(() => Expanded(
@@ -32,7 +33,6 @@ class ContentPosterSlider extends BaseView<HomeViewModel> {
                   return GestureDetector(
                     onTap: () {
                       chooseMovieHandler(index);
-                      vm.loadYoutubeSearchList();
                     },
                     child: Container(
                       margin: const EdgeInsets.only(

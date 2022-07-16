@@ -37,6 +37,7 @@ export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_drama_
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_credit_response.dart';
 export 'package:movie_curation/data/remote/network/api/youtube/response/youtube_searched_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/youtube/response/youtube_searched_list_response.dart';
+export 'package:movie_curation/data/remote/network/api/youtube/response/youtube_searched_list_response.dart';
 
 /* DomainLayer (useCase, model, repository) */
 export 'package:movie_curation/domain/models/content/content_model.dart';
