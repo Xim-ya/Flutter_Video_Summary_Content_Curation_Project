@@ -1,5 +1,3 @@
-import 'package:movie_curation/domain/base/base_use_case.dart';
-import 'package:movie_curation/domain/models/content/content_cast_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class TmdbLoadMovieCastsUseCase

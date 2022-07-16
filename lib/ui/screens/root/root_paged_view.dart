@@ -1,4 +1,3 @@
-import 'package:movie_curation/app/routes/app_pages.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class RootPagedView extends HookWidget {

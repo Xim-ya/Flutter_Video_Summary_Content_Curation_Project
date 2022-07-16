@@ -1,6 +1,3 @@
-import 'package:movie_curation/domain/models/content/content_cast_model.dart';
-import 'package:movie_curation/domain/models/youtube/youtube_search_list_model.dart';
-import 'package:movie_curation/domain/useCase/api/youtube_load_search_list_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class HomeViewModel extends BaseViewModel {

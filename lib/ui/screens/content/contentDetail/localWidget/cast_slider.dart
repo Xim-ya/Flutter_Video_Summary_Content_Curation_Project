@@ -1,7 +1,5 @@
-import 'package:movie_curation/domain/models/content/content_cast_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
-// TODO: TABLET & MOBILE 반응형 예외처리 코드게 매우 복잡. 대폭 수정 필요
 class CastSlider extends StatelessWidget {
   const CastSlider({Key? key, required this.castList}) : super(key: key);
   final List<ContentCastModel>? castList;

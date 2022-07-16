@@ -1,5 +1,3 @@
-import 'package:movie_curation/domain/models/youtube/youtube_search_list_model.dart';
-import 'package:movie_curation/ui/common/base/base_view.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {

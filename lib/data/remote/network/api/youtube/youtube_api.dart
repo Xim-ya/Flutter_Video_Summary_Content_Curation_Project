@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:movie_curation/data/remote/network/api/youtube/response/youtube_searched_list_response.dart';
+import 'package:movie_curation/utilities/index.dart';
 import 'package:retrofit/retrofit.dart';
-
 part 'youtube_api.g.dart';
 
 @RestApi(baseUrl: 'https://www.googleapis.com/youtube/v3')
