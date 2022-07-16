@@ -1,19 +1,11 @@
 import 'package:movie_curation/utilities/index.dart';
 
 class ContentElseInfo extends StatelessWidget {
-  final MovieVM movieVM;
-  final bool isFetched;
-  final int? selectedIndex;
-  final bool? isUsedInMobile;
   final List<String>? genreList;
   final double? rateScore;
 
   const ContentElseInfo({
     Key? key,
-    required this.movieVM,
-    required this.isFetched,
-    this.selectedIndex,
-    this.isUsedInMobile,
     required this.genreList,
     required this.rateScore,
   }) : super(key: key);
@@ -29,66 +21,6 @@ class ContentElseInfo extends StatelessWidget {
         // Genre(),
       ],
     );
-  }
-
-  /* Rate Section */
-  Widget Rate() {
-    return false
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  // Rate Score
-                  Text(
-                    isFetched
-                        ? movieVM.movieList[selectedIndex ?? 0].voteAverage
-                            .toString()
-                        : "",
-                    style: FontStyles(0, isUsedInMobile).categoryTitle,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 8, bottom: 10),
-                    child: SvgPicture.asset(
-                      "assets/icons/yellow_star_ic.svg",
-                      width: 16,
-                    ),
-                  )
-                ],
-              ),
-              // Rate SubTitle
-              Text("RATE",
-                  style: FontStyles(0, isUsedInMobile).categorySubTitle)
-            ],
-          )
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  // Rate Score
-                  Text(
-                    isFetched
-                        ? movieVM.movieList[selectedIndex ?? 0].voteAverage
-                            .toString()
-                        : "",
-                    style: FontStyles(0, isUsedInMobile).categoryTitle,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 8, bottom: 10),
-                    child: SvgPicture.asset(
-                      "assets/icons/yellow_star_ic.svg",
-                    ),
-                  )
-                ],
-              ),
-              // Rate SubTitle
-              Text("RATE",
-                  style: FontStyles(0, isUsedInMobile).categorySubTitle)
-            ],
-          );
   }
 }
 

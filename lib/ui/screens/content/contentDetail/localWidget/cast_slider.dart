@@ -4,30 +4,32 @@ import 'package:movie_curation/utilities/index.dart';
 // TODO: TABLET & MOBILE 반응형 예외처리 코드게 매우 복잡. 대폭 수정 필요
 class CastSlider extends StatelessWidget {
   const CastSlider({Key? key, required this.castList}) : super(key: key);
-  final List<ContentCastModel> castList;
+  final List<ContentCastModel>? castList;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: kTS100 + (kTS16 * 2) + 9 + 8,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: castList.length,
-        itemBuilder: (context, index) {
-          return Container(
-            margin: const EdgeInsets.only(right: 22),
-            child: Stack(
-              children: [
-                /* Cast Image */
-                _CastProfileImg(profileUrl: castList[index].profileUrl),
-                /* Cast Name */
-                _CastProfileName(name: castList[index].name),
-              ],
+    return castList != null
+        ? SizedBox(
+            height: kTS100 + (kTS16 * 2) + 9 + 8,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: castList!.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: const EdgeInsets.only(right: 22),
+                  child: Stack(
+                    children: [
+                      /* Cast Image */
+                      _CastProfileImg(profileUrl: castList![index].profileUrl),
+                      /* Cast Name */
+                      _CastProfileName(name: castList![index].name),
+                    ],
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
-    );
+          )
+        : const SizedBox();
   }
 }
 

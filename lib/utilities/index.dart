@@ -49,7 +49,7 @@ export 'package:movie_curation/utilities/temp_screen.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
 export 'package:movie_curation/ui/screens/content/contentDetail/content_detail_screen.dart';
 export 'package:youtube_player_flutter/youtube_player_flutter.dart';
-export 'package:movie_curation/ui/screens/content/contentPlayer/content_player_screen.dart';
+export 'package:movie_curation/ui/screens/content/contentPlayer/content_youtube_player_screen.dart';
 export 'package:movie_curation/ui/screens/search/search_screen.dart';
 
 /* Models */

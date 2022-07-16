@@ -27,9 +27,6 @@ class YoutubeSearchListItemModel {
       YoutubeSearchedItemResponse response) {
     YoutubeItemSnippetModel result =
         YoutubeItemSnippetModel.fromResponse(response.snippet);
-    // List<YoutubeItemSnippetModel> result = (response.snippet)
-    //     .map((e) => YoutubeItemSnippetModel.fromResponse(e))
-    //     .toList();
     return YoutubeSearchListItemModel(
         etag: response.etag, id: response.id, snippet: result);
   }

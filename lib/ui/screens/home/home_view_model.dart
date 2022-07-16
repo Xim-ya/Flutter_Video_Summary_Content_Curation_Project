@@ -29,6 +29,8 @@ class HomeViewModel extends BaseViewModel {
     );
   }
 
+  late final ScrollController _scrollController;
+
   /* Usecase */
   final LoadPopularMoviesUseCase _loadPopularMovies;
   final TmdbLoadMovieTrailerKeyUseCase loadMovieTrailerKey;
@@ -47,12 +49,15 @@ class HomeViewModel extends BaseViewModel {
     selectedContentIndex.value = index;
   }
 
+  // 선택된 컨텐츠의 장르 정보 호출
   void getContentGenre() {
     List<int> genreIdList = selectedMovieContent!.genreIds!.toList();
+    final filteredGenreList = genreIdList.map((e) => genreDefaults[e]);
     _contentGenreList =
-        genreIdList.map((e) => genreDefaults[e]).cast<String>().toList();
+        filteredGenreList.map((e) => e ?? "확인 필요 장르").cast<String>().toList();
   }
 
+  // 예고편 다이어로 위젯
   Future<void> showMovieTrailer() async {
     final int contentId = selectedMovieContent!.id.toInt();
     final trailerKey = await loadMovieTrailerKey.call(contentId);
@@ -88,7 +93,8 @@ class HomeViewModel extends BaseViewModel {
 
   // 유튜브 '리뷰' 컨텐츠 검색 정보 호출
   Future<void> loadYoutubeSearchList() async {
-    final responseResult = await _loadYoutubeSearchList.call("닥터 스트레인지");
+    final responseResult =
+        await _loadYoutubeSearchList.call(selectedMovieContent!.title);
     responseResult.fold(onSuccess: (data) {
       _youtubeSearchList.value = data;
     }, onFailure: (error) {
@@ -100,6 +106,7 @@ class HomeViewModel extends BaseViewModel {
   void onInit() async {
     super.onInit();
     await loadPopularMovieList();
+    _scrollController = ScrollController(initialScrollOffset: kWS200);
   }
 
   /* 캡술화 - (Getter) */
@@ -110,4 +117,5 @@ class HomeViewModel extends BaseViewModel {
   ContentModel? get selectedMovieContent =>
       _popularMovieList.value?[selectedContentIndex.value];
   List<String>? get contentGenreList => _contentGenreList;
+  ScrollController get wheelScrollController => _scrollController;
 }

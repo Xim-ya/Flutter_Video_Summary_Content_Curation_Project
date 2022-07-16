@@ -42,6 +42,7 @@ const Map<int, String> genreDefaults = {
   878: "SF",
   10770: "TV 영화",
   53: "스릴러",
+  27: "호러",
   10752: "전쟁",
   37: "서부",
 };
@@ -65,6 +66,7 @@ const List<int> genreKeyList = [
   878,
   10770,
   53,
+  27,
   10752,
   37
 ];
