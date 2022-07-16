@@ -53,7 +53,9 @@ export 'package:movie_curation/domain/models/content/content_cast_model.dart';
 export 'package:movie_curation/domain/models/content/content_cast_model.dart';
 export 'package:movie_curation/domain/base/base_use_case.dart';
 export 'package:movie_curation/data/repository/tmdb/tmdb_repository.dart';
-export 'package:movie_curation/domain/useCase/api/youtube_load_search_list_use_case.dart';
+export 'package:movie_curation/domain/useCase/youtube/youtube_load_search_list_use_case.dart';
+export 'package:movie_curation/domain/useCase/tmdb/tmdb_load_poopular_dramas_use_case.dart';
+export 'package:movie_curation/domain/useCase/content/load_popular_content_list_use_case.dart';
 
 /* Presentation Layer (MVVM) */
 export 'package:movie_curation/ui/screens/home/home_view_model.dart';

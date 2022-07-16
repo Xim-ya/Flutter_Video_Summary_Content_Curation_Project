@@ -1,4 +1,3 @@
-import 'package:movie_curation/domain/useCase/tmdb/tmdb_load_poopular_dramas_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class HomeViewModel extends BaseViewModel {
@@ -8,6 +7,7 @@ class HomeViewModel extends BaseViewModel {
       this._loadPopularDramas,
       this._loadMovieCasts,
       this._loadDramaCasts,
+      this._loadPopularContentListUseCase,
       this._loadYoutubeSearchList);
 
   /* 전역변수 및 객체 */
@@ -38,6 +38,7 @@ class HomeViewModel extends BaseViewModel {
   final LoadPopularMoviesUseCase _loadPopularMovies;
   final TmdbLoadPopularDramasUseCase _loadPopularDramas;
   final TmdbLoadMovieTrailerKeyUseCase loadMovieTrailerKey;
+  final LoadPopularContentListUseCase _loadPopularContentListUseCase;
   final TmdbLoadMovieCastsUseCase _loadMovieCasts;
   final TmdbLoadDramaCastsUseCase _loadDramaCasts;
   final YoutubeLoadSearchListUseCase _loadYoutubeSearchList;
@@ -46,19 +47,9 @@ class HomeViewModel extends BaseViewModel {
   // 카테고리 그룹 버튼을 탭 되었을 때
   void onCategoryBtnTap(int index) {
     if (selectedCategoryIndex.value == index)
-      return; // 현재 카테고리가 다시 클릭 되었을 때는 해당 메소드 종료
+      return; // 현재 카테고리가 다시 클릭 되었을 때는 해당 메소드 종료 (불필요 네트워크 호출 제거)
     selectedCategoryIndex.value = index; // 카테고리 변경
-    switch (index) {
-      case 0:
-        loadPopularMovieList();
-        break;
-      case 1:
-        loadPopularDramaList();
-        break;
-      case 2:
-        print("Firebase");
-        break;
-    }
+    loadPopularContentList();
   }
 
   // 콘텐츠가 선택 되었을 때
@@ -85,6 +76,19 @@ class HomeViewModel extends BaseViewModel {
   }
 
   /* 네트워킹 메소드 */
+  // 인기 [컨텐츠] 데이터 호출. (현재 선택된 카테고리 인덱스를 기준으로 호출)
+  Future<void> loadPopularContentList() async {
+    loading(true);
+    final responseResult =
+        await _loadPopularContentListUseCase.call(selectedCategoryIndex.value);
+    responseResult.fold(onSuccess: (data) {
+      _selectedContentList.value = data;
+      loading(false);
+    }, onFailure: (error) {
+      print(error);
+    });
+  }
+
   // 인기 [영화] 리스트 호출
   Future<void> loadPopularMovieList() async {
     loading(true);
