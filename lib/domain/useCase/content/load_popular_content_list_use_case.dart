@@ -18,8 +18,6 @@ class LoadPopularContentListUseCase
       case 1:
         return _repository.loadPopularDrama();
       case 2:
-        print("Firebase Registered Custom");
-        break;
     }
     return _repository.loadPopularMovie();
   }

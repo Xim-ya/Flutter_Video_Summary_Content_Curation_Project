@@ -1,4 +1,6 @@
+import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_detail_info_response.dart';
 import 'package:movie_curation/domain/models/content/content_cast_model.dart';
+import 'package:movie_curation/domain/models/tmdb/tmdb_movie_detail_info_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class TmdbRepositoryImpl implements TmdbRepository {
@@ -59,6 +61,19 @@ class TmdbRepositoryImpl implements TmdbRepository {
       final response = await _dataSource.loadTmdbMovieCredit(movieId).then(
           (value) =>
               value.cast.map(ContentCastModel.fromMovieResponse).toList());
+      return Result.success(response);
+    } on Exception catch (e) {
+      return Result.failure(e);
+    }
+  }
+
+  @override
+  Future<Result<TmdbMovieDetailInfoModel>> loadMovieDetailInfo(
+      int movieId) async {
+    try {
+      final response = await _dataSource
+          .loadTmdbMovieDetailInfo(movieId)
+          .then(TmdbMovieDetailInfoModel.fromResponse);
       return Result.success(response);
     } on Exception catch (e) {
       return Result.failure(e);

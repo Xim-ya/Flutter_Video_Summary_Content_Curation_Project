@@ -1,4 +1,4 @@
-import 'package:movie_curation/domain/useCase/content/load_popular_content_list_use_case.dart';
+import 'package:movie_curation/domain/useCase/tmdb/tmdb_load_movie_detail_info_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 abstract class DomainModules {
@@ -13,5 +13,6 @@ abstract class DomainModules {
     Get.lazyPut(() => YoutubeLoadSearchListUseCase(Get.find()), fenix: true);
     Get.lazyPut(() => TmdbLoadPopularDramasUseCase(Get.find()), fenix: true);
     Get.lazyPut(() => LoadPopularContentListUseCase(Get.find()), fenix: true);
+    Get.lazyPut(() => TmdbLoadMovieDetailInfoUseCase(Get.find()), fenix: true);
   }
 }

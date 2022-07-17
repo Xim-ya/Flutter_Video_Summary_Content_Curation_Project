@@ -1,3 +1,4 @@
+import 'package:movie_curation/domain/useCase/tmdb/tmdb_load_movie_detail_info_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class HomeViewModel extends BaseViewModel {
@@ -8,6 +9,7 @@ class HomeViewModel extends BaseViewModel {
       this._loadMovieCasts,
       this._loadDramaCasts,
       this._loadPopularContentListUseCase,
+      this._loadMovieDetailInfo,
       this._loadYoutubeSearchList);
 
   /* 전역변수 및 객체 */
@@ -42,6 +44,7 @@ class HomeViewModel extends BaseViewModel {
   final TmdbLoadMovieCastsUseCase _loadMovieCasts;
   final TmdbLoadDramaCastsUseCase _loadDramaCasts;
   final YoutubeLoadSearchListUseCase _loadYoutubeSearchList;
+  final TmdbLoadMovieDetailInfoUseCase _loadMovieDetailInfo;
 
   /* 메소드 */
   // 카테고리 그룹 버튼을 탭 되었을 때
@@ -113,6 +116,18 @@ class HomeViewModel extends BaseViewModel {
     });
   }
 
+  // 인기 [상세 정보] 호출
+  Future<void> loadMovieDetailInfo() async {
+    loading(true);
+    final responseResult = await _loadMovieDetailInfo.call(453395);
+    responseResult.fold(onSuccess: (data) {
+      print(data);
+      loading(false);
+    }, onFailure: (error) {
+      print(error);
+    });
+  }
+
   // 영화 [캐스트] 정보 호출
   Future<void> loadMovieCastList() async {
     final responseResult =
@@ -139,6 +154,7 @@ class HomeViewModel extends BaseViewModel {
   void onInit() async {
     super.onInit();
     await loadPopularMovieList();
+    loadMovieDetailInfo();
     _scrollController = ScrollController(initialScrollOffset: kWS200);
   }
 
