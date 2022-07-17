@@ -23,7 +23,7 @@ class ContentPosterSlider extends BaseView<HomeViewModel> {
           flex: 8,
           child: ScrollablePositionedList.builder(
             padding: EdgeInsets.only(top: contentSliderDivideP),
-            itemCount: vm.popularMovieList?.length ?? 0,
+            itemCount: vm.selectedContentList?.length ?? 0,
             initialScrollIndex: 0,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
@@ -46,7 +46,7 @@ class ContentPosterSlider extends BaseView<HomeViewModel> {
                           borderRadius: BorderRadius.circular(12),
                           child: CachedNetworkImage(
                             imageUrl:
-                                "https://image.tmdb.org/t/p/w500${vm.popularMovieList![index].posterUrl}",
+                                "https://image.tmdb.org/t/p/w500${vm.selectedContentList![index].posterUrl}",
                             imageBuilder: (context, imageProvider) => Container(
                               decoration: BoxDecoration(
                                 image: DecorationImage(

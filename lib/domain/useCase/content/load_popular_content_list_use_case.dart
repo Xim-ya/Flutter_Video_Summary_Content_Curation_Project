@@ -1,3 +1,5 @@
+import 'package:movie_curation/domain/useCase/tmdb/tmdb_load_movie_detail_info_use_case.dart';
+import 'package:movie_curation/utilities/data/firebase_temp_data.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 /* 2022.07.16 Created by Ximya
@@ -11,14 +13,28 @@ class LoadPopularContentListUseCase
   final TmdbRepository _repository;
 
   @override
-  Future<Result<List<ContentModel>>> call(request) {
-    switch (request) {
-      case 0:
-        return _repository.loadPopularMovie();
-      case 1:
-        return _repository.loadPopularDrama();
-      case 2:
+  Future<Result<List<ContentModel>>> call(request) async {
+    if (request == 0) {
+      print("1번 호출");
+      return _repository.loadPopularMovie();
+    } else if (request == 1) {
+      return _repository.loadPopularDrama();
+    } else {
+      List<ContentModel> registeredContents = [];
+      List<RegisteredContent> registeredList = FirebaseTemp.registerContentList;
+      try {
+        for (RegisteredContent content in registeredList) {
+          registeredContents.add(await _repository
+              .loadMovieDetailInfo(content.contentId)
+              .then((value) {
+            return ContentModel.fromMovieDetailInfoResponse(
+                value, content.youtubeVideIdList);
+          }));
+        }
+        return Result.success(registeredContents);
+      } on Exception catch (e) {
+        return Result.failure(e);
+      }
     }
-    return _repository.loadPopularMovie();
   }
 }

@@ -1,5 +1,4 @@
-import 'package:movie_curation/domain/models/content/content_cast_model.dart';
-import 'package:movie_curation/domain/models/tmdb/tmdb_movie_detail_info_model.dart';
+import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_detail_info_response.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 abstract class TmdbRepository {
@@ -19,5 +18,5 @@ abstract class TmdbRepository {
   Future<Result<List<ContentCastModel>>> loadDramaCastInfo(int dramaId);
 
   /* TMDB - 영화 상세 정보 */
-  Future<Result<TmdbMovieDetailInfoModel>> loadMovieDetailInfo(int movieId);
+  Future<TmdbMovieDetailInfoResponse> loadMovieDetailInfo(int movieId);
 }

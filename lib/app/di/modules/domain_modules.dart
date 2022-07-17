@@ -13,6 +13,6 @@ abstract class DomainModules {
     Get.lazyPut(() => YoutubeLoadSearchListUseCase(Get.find()), fenix: true);
     Get.lazyPut(() => TmdbLoadPopularDramasUseCase(Get.find()), fenix: true);
     Get.lazyPut(() => LoadPopularContentListUseCase(Get.find()), fenix: true);
-    Get.lazyPut(() => TmdbLoadMovieDetailInfoUseCase(Get.find()), fenix: true);
+    Get.lazyPut(() => LoadRegisteredContentsUseCase(Get.find()), fenix: true);
   }
 }

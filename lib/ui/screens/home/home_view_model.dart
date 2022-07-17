@@ -3,19 +3,23 @@ import 'package:movie_curation/utilities/index.dart';
 
 class HomeViewModel extends BaseViewModel {
   HomeViewModel(
-      this._loadPopularMovies,
-      this.loadMovieTrailerKey,
-      this._loadPopularDramas,
-      this._loadMovieCasts,
-      this._loadDramaCasts,
-      this._loadPopularContentListUseCase,
-      this._loadMovieDetailInfo,
-      this._loadYoutubeSearchList);
+    this._loadPopularMovies,
+    this.loadMovieTrailerKey,
+    this._loadPopularDramas,
+    this._loadMovieCasts,
+    this._loadDramaCasts,
+    this._loadPopularContentListUseCase,
+    this._loadYoutubeSearchList,
+    this._loadRegisteredContentsUseCase,
+  );
 
   /* 전역변수 및 객체 */
   final Rxn<List<ContentModel>> _selectedContentList = Rxn();
   final Rxn<List<ContentCastModel>> _contentCastList = Rxn();
   final Rxn<List<YoutubeSearchListItemModel>> _youtubeSearchList = Rxn();
+  final Rxn<List<ContentModel>> _popularMovieList = Rxn();
+  final Rxn<List<ContentModel>> _popularDramaList = Rxn();
+  final Rxn<List<ContentModel>> _registeredContentList = Rxn();
   RxString? _trailerKey;
   List<String>? _contentGenreList;
 
@@ -44,15 +48,40 @@ class HomeViewModel extends BaseViewModel {
   final TmdbLoadMovieCastsUseCase _loadMovieCasts;
   final TmdbLoadDramaCastsUseCase _loadDramaCasts;
   final YoutubeLoadSearchListUseCase _loadYoutubeSearchList;
-  final TmdbLoadMovieDetailInfoUseCase _loadMovieDetailInfo;
+  final LoadRegisteredContentsUseCase _loadRegisteredContentsUseCase;
 
   /* 메소드 */
   // 카테고리 그룹 버튼을 탭 되었을 때
   void onCategoryBtnTap(int index) {
     if (selectedCategoryIndex.value == index)
       return; // 현재 카테고리가 다시 클릭 되었을 때는 해당 메소드 종료 (불필요 네트워크 호출 제거)
+    print("인덱스 ${index}");
     selectedCategoryIndex.value = index; // 카테고리 변경
+    selectedContentIndex.value = 0; // 컨텐츠 인덱스 초기화
     loadPopularContentList();
+    // switch (index) {
+    //   case 0:
+    //     if (_popularMovieList.value == null) {
+    //       loadPopularMovieList();
+    //     } else {
+    //       _selectedContentList.value = _popularMovieList.value;
+    //     }
+    //     break;
+    //   case 1:
+    //     if (_popularDramaList.value == null) {
+    //       loadPopularDramaList();
+    //     } else {
+    //       _selectedContentList.value = _popularDramaList.value;
+    //     }
+    //     break;
+    //   case 2:
+    //     if (_registeredContentList.value == null) {
+    //       loadRegisteredContentList();
+    //     } else {
+    //       _selectedContentList.value = _registeredContentList.value;
+    //     }
+    //     break;
+    // }
   }
 
   // 콘텐츠가 선택 되었을 때
@@ -98,6 +127,7 @@ class HomeViewModel extends BaseViewModel {
     final responseResult = await _loadPopularMovies.call();
     responseResult.fold(onSuccess: (data) {
       _selectedContentList.value = data;
+      _popularMovieList.value = data;
       loading(false);
     }, onFailure: (error) {
       print(error);
@@ -110,18 +140,20 @@ class HomeViewModel extends BaseViewModel {
     final responseResult = await _loadPopularDramas.call();
     responseResult.fold(onSuccess: (data) {
       _selectedContentList.value = data;
+      _popularDramaList.value = data;
       loading(false);
     }, onFailure: (error) {
       print(error);
     });
   }
 
-  // 인기 [상세 정보] 호출
-  Future<void> loadMovieDetailInfo() async {
+//  [등록된 컨텐츠] 리스트 호출
+  Future<void> loadRegisteredContentList() async {
     loading(true);
-    final responseResult = await _loadMovieDetailInfo.call(453395);
+    final responseResult = await _loadRegisteredContentsUseCase.call(453395);
     responseResult.fold(onSuccess: (data) {
-      print(data);
+      _selectedContentList.value = data;
+      _registeredContentList.value = data;
       loading(false);
     }, onFailure: (error) {
       print(error);
@@ -153,13 +185,12 @@ class HomeViewModel extends BaseViewModel {
   @override
   void onInit() async {
     super.onInit();
-    await loadPopularMovieList();
-    loadMovieDetailInfo();
+    await loadPopularContentList();
     _scrollController = ScrollController(initialScrollOffset: kWS200);
   }
 
   /* 캡술화 - (Getter) */
-  List<ContentModel>? get popularMovieList => _selectedContentList.value;
+  List<ContentModel>? get selectedContentList => _selectedContentList.value;
   List<ContentCastModel>? get contentCastList => _contentCastList.value;
   List<YoutubeSearchListItemModel>? get youtubeSearchList =>
       _youtubeSearchList.value;
