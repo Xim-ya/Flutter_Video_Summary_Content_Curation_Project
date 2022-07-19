@@ -1,4 +1,3 @@
-import 'package:movie_curation/domain/useCase/tmdb/tmdb_load_movie_detail_info_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class HomeViewModel extends BaseViewModel {
