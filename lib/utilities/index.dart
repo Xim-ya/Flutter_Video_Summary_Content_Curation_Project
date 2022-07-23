@@ -71,23 +71,6 @@ export 'package:youtube_player_flutter/youtube_player_flutter.dart';
 export 'package:movie_curation/ui/screens/content/contentPlayer/content_youtube_player_screen.dart';
 export 'package:movie_curation/ui/screens/search/search_screen.dart';
 
-/* Models */
-export 'package:movie_curation/models/movie_model.dart';
-export 'package:movie_curation/models/movie_genre_model.dart';
-export 'package:movie_curation/models/actor_model.dart';
-export 'package:movie_curation/models/trailer_model.dart';
-export 'package:movie_curation/models/youtube_model.dart';
-export 'package:movie_curation/models/youtube_core_model.dart';
-export 'package:movie_curation/models/video_detail_model.dart';
-export 'package:movie_curation/models/drama_model.dart';
-export 'package:movie_curation/models/search_core_model.dart';
-
-/* View Models */
-export 'package:movie_curation/viewModels/movie_view_model.dart';
-export 'package:movie_curation/services/youtube_api_response.dart';
-export 'package:movie_curation/viewModels/youtube_view_model.dart';
-export 'package:movie_curation/viewModels/search_content_view_model.dart';
-
 /* Widgets */
 export 'package:movie_curation/ui/widgets/responsive_layout.dart';
 export 'package:movie_curation/ui/widgets/gradient_button.dart';
@@ -103,9 +86,6 @@ export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/yout
 export 'package:movie_curation/ui/screens/search/localWidget/random_poster_background.dart';
 export 'package:movie_curation/ui/screens/search/localWidget/content_thumbnail_vertical_slider.dart';
 export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/youtube_content_list_view.dart';
-
-/* Services */
-export 'package:movie_curation/services/movie_api_response.dart';
 
 /* Utilities */
 export 'package:movie_curation/utilities/palette.dart';

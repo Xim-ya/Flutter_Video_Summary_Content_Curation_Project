@@ -24,25 +24,6 @@ class LoadPopularContentListUseCase
       return _tmdbRepository.loadPopularDrama();
     } else {
       return _contentRepository.loadRecommendedContentInfo();
-
-      // // 추천 영화&드라마 리스트
-      // List<ContentModel> registeredContents = [];
-      // List<RegisteredContent> registeredList = FirebaseTemp.registerContentList;
-      // try {
-      //   for (RegisteredContent content in registeredList) {
-      //     registeredContents.add(
-      //       await _repository.loadMovieDetailInfo(content.contentId).then(
-      //         (value) {
-      //           return ContentModel.fromMovieDetailInfoResponse(
-      //               value, content.youtubeVideIdList);
-      //         },
-      //       ),
-      //     );
-      //   }
-      //   return Result.success(registeredContents);
-      // } on Exception catch (e) {
-      //   return Result.failure(e);
-      // }
     }
   }
 }
