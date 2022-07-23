@@ -15,7 +15,7 @@ class CategoryGroupButton extends BaseView<HomeViewModel> {
           padding: const EdgeInsets.only(right: 8),
           child: Obx(
             () => TextButton(
-              onPressed: () => vm.onGroupBtnTap(_itemIndex),
+              onPressed: () => vm.onCategoryBtnTap(_itemIndex),
               // movieVM.fetchPopularDrama();
               // movieVM.updateCategoryIndex(_itemIndex);
               child: Text(

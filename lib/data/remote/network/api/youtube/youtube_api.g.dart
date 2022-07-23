@@ -25,7 +25,7 @@ class _YoutubeApi implements YoutubeApi {
         YoutubeSearchListResponse>(Options(
             method: 'GET', headers: _headers, extra: _extra)
         .compose(_dio.options,
-            '/search?part=snippet&key=AIzaSyCmmGQuJuL4W7jdBD1yJEft0VZ-8a8ciak&q=$contentTitle&영화리뷰',
+            '/search?part=snippet&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&q=$contentTitle&영화리뷰',
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = YoutubeSearchListResponse.fromJson(_result.data!);

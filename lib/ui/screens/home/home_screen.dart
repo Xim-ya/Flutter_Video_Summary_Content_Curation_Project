@@ -10,33 +10,37 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
   @override
   Widget buildScreen(BuildContext context) {
     return Obx(
-      () => Stack(
-        children: [
-          /* Content Gradient Bacgkround */
-          GradientPostBackground(
-            backgroundImgUrl: vm.selectedMovieContent?.backDropUrl ??
-                vm.selectedMovieContent?.posterUrl,
-          ),
-          Container(
-            padding: EdgeInsets.only(
-                top: contentTopP, left: contentLeftP, bottom: contentBottomP),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      () => vm.selectedContentList != null
+          ? Stack(
               children: [
-                /* Category Group Button */
-                const CategoryGroupButton(),
-                /* Content Content Info */
-                ContentInfoContainer(
-                  isUsedOnHomeScreen: true,
-                  routeAction: routeAction,
+                /* Content Gradient Bacgkround */
+                GradientPostBackground(
+                  backgroundImgUrl: vm.selectedMovieContent?.backDropUrl ??
+                      vm.selectedMovieContent?.posterUrl,
                 ),
-                /* Content Post Slider  */
-                const ContentPosterSlider()
+                Container(
+                  padding: EdgeInsets.only(
+                      top: contentTopP,
+                      left: contentLeftP,
+                      bottom: contentBottomP),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      /* Category Group Button */
+                      const CategoryGroupButton(),
+                      /* Content Content Info */
+                      ContentInfoContainer(
+                        isUsedOnHomeScreen: true,
+                        routeAction: routeAction,
+                      ),
+                      /* Content Post Slider  */
+                      const ContentPosterSlider()
+                    ],
+                  ),
+                ),
               ],
-            ),
-          ),
-        ],
-      ),
+            )
+          : SizedBox(),
     );
   }
 }

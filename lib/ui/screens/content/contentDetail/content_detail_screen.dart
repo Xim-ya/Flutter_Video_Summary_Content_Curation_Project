@@ -19,9 +19,11 @@ class ContentDetailScreen extends BaseScreen<HomeViewModel> {
         genreList: vm.contentGenreList,
         rateScore: vm.selectedMovieContent?.voteAverage.toDouble(),
       ),
-      contentWheelSlider: YoutubeReviewContentsWheelSlider(
-        wheelScrollController: vm.wheelScrollController,
-        youtubeSearchList: vm.youtubeSearchList,
+      contentWheelSlider: Obx(
+        () => YoutubeReviewContentsWheelSlider(
+          wheelScrollController: vm.wheelScrollController,
+          youtubeSearchList: vm.youtubeSearchList,
+        ),
       ),
     );
   }

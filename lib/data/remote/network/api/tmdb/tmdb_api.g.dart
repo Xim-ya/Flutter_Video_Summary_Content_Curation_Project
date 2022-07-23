@@ -84,6 +84,23 @@ class _TmdbApi implements TmdbApi {
   }
 
   @override
+  Future<TmdbMovieDetailInfoResponse> loadMovieDetailInfo(movieId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<
+        TmdbMovieDetailInfoResponse>(Options(
+            method: 'GET', headers: _headers, extra: _extra)
+        .compose(_dio.options,
+            '/movie/$movieId?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1',
+            queryParameters: queryParameters, data: _data)
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = TmdbMovieDetailInfoResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<TmdbDramaCreditResponse> loadDramaCreditInfo(dramaId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

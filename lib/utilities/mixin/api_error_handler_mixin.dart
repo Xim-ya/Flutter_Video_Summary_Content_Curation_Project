@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 
 mixin ApiErrorHandlerMixin {
@@ -8,6 +9,8 @@ mixin ApiErrorHandlerMixin {
       throw e.error;
       // if (exception is NetworkException) throw exception;
       // rethrow;
+    } on FirebaseException catch (e) {
+      throw e.code;
     } on Exception catch (_) {
       rethrow;
     }

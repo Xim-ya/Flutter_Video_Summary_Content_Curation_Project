@@ -1,6 +1,4 @@
-import 'package:movie_curation/data/remote/network/api/youtube/response/youtube_searched_list_response.dart';
 import 'package:movie_curation/data/remote/network/api/youtube/youtube_api.dart';
-import 'package:movie_curation/data/remote/source/youtube/youtube_remote_data_source.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class YoutubeRemoteDataSourceImpl

@@ -1,3 +1,4 @@
+import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_detail_info_response.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class TmdbRemoteDataSourceImpl
@@ -26,4 +27,8 @@ class TmdbRemoteDataSourceImpl
   @override
   Future<TmdbMovieCreditResponse> loadTmdbMovieCredit(int movieId) =>
       loadResponseOrThrow(() => _api.loadMovieCreditInfo(movieId));
+
+  @override
+  Future<TmdbMovieDetailInfoResponse> loadTmdbMovieDetailInfo(int movieId) =>
+      loadResponseOrThrow(() => _api.loadMovieDetailInfo(movieId));
 }

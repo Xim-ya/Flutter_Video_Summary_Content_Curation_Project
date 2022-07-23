@@ -1,4 +1,4 @@
-import 'package:movie_curation/domain/models/content/content_cast_model.dart';
+import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_detail_info_response.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class TmdbRepositoryImpl implements TmdbRepository {
@@ -64,4 +64,21 @@ class TmdbRepositoryImpl implements TmdbRepository {
       return Result.failure(e);
     }
   }
+
+  @override
+  Future<TmdbMovieDetailInfoResponse> loadMovieDetailInfo(int movieId) {
+    return _dataSource.loadTmdbMovieDetailInfo(movieId);
+  }
+
+// @override
+// Future<Result<ContentModel>> loadMovieDetailInfo(int movieId) async {
+//   try {
+//     final response = await _dataSource
+//         .loadTmdbMovieDetailInfo(movieId)
+//         .then(ContentModel.fromMovieDetailInfoResponse);
+//     return Result.success(response);
+//   } on Exception catch (e) {
+//     return Result.failure(e);
+//   }
+// }
 }

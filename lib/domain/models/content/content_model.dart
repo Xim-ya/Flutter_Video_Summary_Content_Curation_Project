@@ -1,3 +1,5 @@
+import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_detail_info_response.dart';
+import 'package:movie_curation/domain/models/tmdb/tmdb_movie_detail_info_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ContentModel {
@@ -6,10 +8,11 @@ class ContentModel {
   final String? posterUrl;
   final num id;
   final String title;
-  final String overview;
+  final String? overview;
   final String releaseDate;
   final num voteAverage;
   final List<int>? genreIds;
+  final List<String>? youtubeVideoIds;
 
   ContentModel({
     required this.adult,
@@ -21,6 +24,7 @@ class ContentModel {
     required this.releaseDate,
     required this.voteAverage,
     required this.genreIds,
+    required this.youtubeVideoIds,
   });
 
   factory ContentModel.fromMovieResponse(TmdbMovieItemResponse response) =>
@@ -34,6 +38,7 @@ class ContentModel {
         backDropUrl: response.backdrop_path,
         posterUrl: response.poster_path,
         genreIds: response.genre_ids,
+        youtubeVideoIds: null,
       );
 
   factory ContentModel.fromDramaResponse(TmdbDramaItemResponse response) =>
@@ -47,5 +52,26 @@ class ContentModel {
         backDropUrl: response.backdrop_path,
         posterUrl: response.poster_path,
         genreIds: response.genre_ids,
+        youtubeVideoIds: null,
       );
+
+  factory ContentModel.fromMovieDetailInfoResponse(
+      TmdbMovieDetailInfoResponse response, List<String> youtubeIdList) {
+    List<int>? genreIdList = response.genres
+        ?.map((e) => TmdbMovieDetailGenreModel.fromResponse(e).id)
+        .toList();
+
+    return ContentModel(
+      adult: response.adult,
+      backDropUrl: response.backdrop_path,
+      posterUrl: response.poster_path,
+      id: response.id,
+      title: response.title,
+      overview: response.overview,
+      releaseDate: response.release_date,
+      voteAverage: response.vote_average,
+      genreIds: genreIdList,
+      youtubeVideoIds: youtubeIdList,
+    );
+  }
 }

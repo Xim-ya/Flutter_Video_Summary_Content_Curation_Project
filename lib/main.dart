@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:movie_curation/app/di/app_binding.dart';
-import 'package:movie_curation/app/routes/app_pages.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:movie_curation/ui/screens/root/root_paged_view.dart';
 import 'utilities/index.dart';
 
@@ -12,8 +13,13 @@ import 'utilities/index.dart';
 //       ),
 //     );
 
-void main() {
+void main() async {
   // FRouter.setupRouter();
+  WidgetsFlutterBinding.ensureInitialized(); // Firebase 셋팅
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
