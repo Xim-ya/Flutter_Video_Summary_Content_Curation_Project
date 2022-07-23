@@ -56,6 +56,7 @@ dependencies:
   clickable_list_wheel_view: ^0.0.4
   infinite_scroll_pagination: ^3.1.0
   firebase_core: ^1.20.0
+  cloud_firestore: ^3.4.0
 
 dev_dependencies:
   flutter_test:

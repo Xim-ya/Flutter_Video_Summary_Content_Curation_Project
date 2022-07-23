@@ -1,3 +1,4 @@
+import 'package:movie_curation/data/repository/content/content_repository.dart';
 import 'package:movie_curation/domain/useCase/tmdb/tmdb_load_movie_detail_info_use_case.dart';
 import 'package:movie_curation/utilities/data/firebase_temp_data.dart';
 import 'package:movie_curation/utilities/index.dart';
@@ -9,32 +10,39 @@ import 'package:movie_curation/utilities/index.dart';
 
 class LoadPopularContentListUseCase
     extends BaseUseCase<int, Result<List<ContentModel>>> {
-  LoadPopularContentListUseCase(this._repository);
-  final TmdbRepository _repository;
+  LoadPopularContentListUseCase(this._tmdbRepository, this._contentRepository);
+  final TmdbRepository _tmdbRepository;
+  final ContentRepository _contentRepository;
 
   @override
   Future<Result<List<ContentModel>>> call(request) async {
     if (request == 0) {
-      print("1번 호출");
-      return _repository.loadPopularMovie();
+      // TMDB > 인기 영화 리스트
+      return _tmdbRepository.loadPopularMovie();
     } else if (request == 1) {
-      return _repository.loadPopularDrama();
+      // TMDB > 인기 드라 리스트
+      return _tmdbRepository.loadPopularDrama();
     } else {
-      List<ContentModel> registeredContents = [];
-      List<RegisteredContent> registeredList = FirebaseTemp.registerContentList;
-      try {
-        for (RegisteredContent content in registeredList) {
-          registeredContents.add(await _repository
-              .loadMovieDetailInfo(content.contentId)
-              .then((value) {
-            return ContentModel.fromMovieDetailInfoResponse(
-                value, content.youtubeVideIdList);
-          }));
-        }
-        return Result.success(registeredContents);
-      } on Exception catch (e) {
-        return Result.failure(e);
-      }
+      return _contentRepository.loadRecommendedContentInfo();
+
+      // // 추천 영화&드라마 리스트
+      // List<ContentModel> registeredContents = [];
+      // List<RegisteredContent> registeredList = FirebaseTemp.registerContentList;
+      // try {
+      //   for (RegisteredContent content in registeredList) {
+      //     registeredContents.add(
+      //       await _repository.loadMovieDetailInfo(content.contentId).then(
+      //         (value) {
+      //           return ContentModel.fromMovieDetailInfoResponse(
+      //               value, content.youtubeVideIdList);
+      //         },
+      //       ),
+      //     );
+      //   }
+      //   return Result.success(registeredContents);
+      // } on Exception catch (e) {
+      //   return Result.failure(e);
+      // }
     }
   }
 }

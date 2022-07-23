@@ -15,6 +15,16 @@ class FirebaseTemp {
   ];
 }
 
+//
+// {
+//   title: '탑건 메버릭'
+//   type: 001,
+//   contentId: 361743,
+//   youtubeVideIdList: ['TaUgXoYjY4U', 'PlAIolfdhW0', 'AQ7reWRisqU'],
+//   youtubeChannelIdLit : ['D120asdas3', 'D120asdas3', 'D120asdas3', 'D120asdas3']
+// }
+//
+
 // Firebase에 집어넣을 컨텐츠 모델 객체
 class RegisteredContent {
   final String title;

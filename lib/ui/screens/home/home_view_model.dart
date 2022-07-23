@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:movie_curation/utilities/data/firebase_temp_data.dart';
 import 'package:movie_curation/utilities/index.dart';
+
+import '../../../data/remote/network/api/content/response/content_recommended_info_response.dart';
 
 class HomeViewModel extends BaseViewModel {
   HomeViewModel(
@@ -17,6 +21,7 @@ class HomeViewModel extends BaseViewModel {
   final Rxn<List<ContentModel>> _registeredContentList = Rxn();
   RxString? _trailerKey;
   List<String>? _contentGenreList;
+  final db = FirebaseFirestore.instance;
 
   // State Variables;
   RxInt selectedCategoryIndex = 0.obs; // [인기, 최신, 추천] 카테고리 옵션
@@ -132,6 +137,22 @@ class HomeViewModel extends BaseViewModel {
     super.onInit();
     await loadPopularContentList();
     _scrollController = ScrollController(initialScrollOffset: kWS200);
+
+    /***** PLAY-GROUND *****/
+    final docRef = db.collection("contents").doc("Recommend");
+    docRef.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        final core = data['data'] as List<dynamic>;
+
+        List<ContentRecommendedInfoResponse> aimData = core
+            .map((e) => ContentRecommendedInfoResponse.fromResponse(e))
+            .toList();
+        print("aim2 ${aimData[0].title}");
+      },
+      onError: (e) => print("Error getting document: $e"),
+    );
+    /************************/
   }
 
   /* 캡술화 - (Getter) */
@@ -144,3 +165,35 @@ class HomeViewModel extends BaseViewModel {
   List<String>? get contentGenreList => _contentGenreList;
   ScrollController get wheelScrollController => _scrollController;
 }
+
+// List<Map<String, dynamic>> contentList = [
+//   {
+//     'title': '닥터 스트레인지',
+//     'type': 0,
+//     'contentId': 453395,
+//     'youtubeVideIdList': ['TaUgXoYjY4U', 'PlAIolfdhW0', 'AQ7reWRisqU'],
+//     'youtubeChannelIdLit': [
+//       'D120asdas3',
+//       'D120asdas3',
+//       'D120asdas3',
+//       'D120asdas3'
+//     ]
+//   },
+//   {
+//     'title': '탑건 2 메버릭',
+//     'type': 0,
+//     'contentId': 361743,
+//     'youtubeVideIdList': ['TaUgXoYjY4U', 'PlAIolfdhW0', 'AQ7reWRisqU'],
+//     'youtubeChannelIdLit': [
+//       'D120asdas3',
+//       'D120asdas3',
+//       'D120asdas3',
+//       'D120asdas3'
+//     ]
+//   },
+// ];
+//
+// db.collection("contents").doc('Recommend').set({
+// 'data': FieldValue.arrayUnion(contentList)
+// }, SetOptions(merge: true)).onError(
+// (e, _) => print("Error writing document: $e"));
