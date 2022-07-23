@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1017459134618",
+    "firebase_url": "https://video-content-curation-project-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "video-content-curation-project",
+    "storage_bucket": "video-content-curation-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017459134618:android:5b79cff5c9ef156e664f23",
+        "android_client_info": {
+          "package_name": "com.example.movie_curation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1017459134618-o4iupbn7quj3q55hu562mqjuhjohffr6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8Ld6erKvaGFuSrzoTXGA09DraC1fbRCE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1017459134618-o4iupbn7quj3q55hu562mqjuhjohffr6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
