@@ -14,7 +14,11 @@ class ContentDetailScreen extends BaseScreen<ContentDetailViewModel> {
       backArrowBtn: BackArrowButton(routeAction: routeAction),
       castSlider: Obx(() => CastSlider(castList: vm.contentCastList)),
       contentInfo: ContentInfoContainer(
-          isUsedOnHomeScreen: false, routeAction: routeAction),
+          title: vm.selectedContent?.title,
+          overView: vm.selectedContent?.overview,
+          isUsedOnHomeScreen: false,
+          showTrailerDialog: vm.showContentTrailer,
+          routeAction: routeAction),
       genreAndRateInfo: ContentElseInfo(
         genreList: vm.contentGenreList,
         rateScore: vm.selectedContent?.voteAverage.toDouble(),

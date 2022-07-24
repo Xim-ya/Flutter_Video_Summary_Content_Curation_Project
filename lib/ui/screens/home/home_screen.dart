@@ -10,7 +10,7 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
   @override
   Widget buildScreen(BuildContext context) {
     return Obx(
-      () => vm.selectedContentList != null
+      () => vm.selectedContentList != null && vm.loading.isFalse
           ? Stack(
               children: [
                 /* Content Gradient Bacgkround */
@@ -29,9 +29,14 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
                       /* Category Group Button */
                       const CategoryGroupButton(),
                       /* Content Content Info */
-                      ContentInfoContainer(
-                        isUsedOnHomeScreen: true,
-                        routeAction: routeAction,
+                      Obx(
+                        () => ContentInfoContainer(
+                          title: vm.selectedContent?.title,
+                          overView: vm.selectedContent?.overview,
+                          showTrailerDialog: vm.showContentTrailer,
+                          isUsedOnHomeScreen: true,
+                          routeAction: routeAction,
+                        ),
                       ),
                       /* Content Post Slider  */
                       const ContentPosterSlider()
@@ -40,7 +45,7 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
                 ),
               ],
             )
-          : SizedBox(),
+          : const SizedBox(),
     );
   }
 }

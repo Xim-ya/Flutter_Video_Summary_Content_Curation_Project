@@ -12,10 +12,12 @@ class LoadYoutubeMetaDataListUseCase extends BaseUseCase<List<String>,
     for (String videoId in request) {
       final String link = 'https://www.youtube.com/watch?v=$videoId';
       MetaDataModel metaData = await YoutubeMetaData.getData(link);
-      youtubeVideoInfoList.add(YoutubeSearchListItemModel(
-          videoTitle: metaData.title,
-          videoId: videoId,
-          thumbnailUrl: metaData.thumbnailUrl));
+      youtubeVideoInfoList.add(
+        YoutubeSearchListItemModel(
+            videoTitle: metaData.title,
+            videoId: videoId,
+            thumbnailUrl: metaData.thumbnailUrl),
+      );
     }
     return Result.success(youtubeVideoInfoList);
   }
