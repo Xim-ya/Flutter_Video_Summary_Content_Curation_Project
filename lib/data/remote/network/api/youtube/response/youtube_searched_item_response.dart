@@ -10,7 +10,7 @@ class YoutubeSearchedItemResponse {
   String etag;
 
   @JsonKey(name: 'id')
-  Map<String, dynamic> id;
+  YoutubeItemIdInfoResponse id;
 
   @JsonKey(name: 'snippet')
   YoutubeItemSnippetResponse snippet;
@@ -19,6 +19,56 @@ class YoutubeSearchedItemResponse {
 
   factory YoutubeSearchedItemResponse.fromJson(Map<String, dynamic> json) =>
       _$YoutubeSearchedItemResponseFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class YoutubeItemThumbnailInfoResponse {
+  @JsonKey(name: 'default')
+  YoutubeItemThumbnailOptionResponse defaultOption;
+
+  @JsonKey(name: 'medium')
+  YoutubeItemThumbnailOptionResponse medium;
+
+  @JsonKey(name: 'high')
+  YoutubeItemThumbnailOptionResponse high;
+
+  YoutubeItemThumbnailInfoResponse(this.defaultOption, this.medium, this.high);
+
+  factory YoutubeItemThumbnailInfoResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$YoutubeItemThumbnailInfoResponseFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class YoutubeItemThumbnailOptionResponse {
+  @JsonKey(name: 'url')
+  String? url;
+
+  @JsonKey(name: 'width')
+  int? width;
+
+  @JsonKey(name: 'high')
+  int? high;
+
+  YoutubeItemThumbnailOptionResponse(this.url, this.width, this.high);
+
+  factory YoutubeItemThumbnailOptionResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$YoutubeItemThumbnailOptionResponseFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class YoutubeItemIdInfoResponse {
+  @JsonKey(name: 'kind')
+  String kind;
+
+  @JsonKey(name: 'videoId')
+  String videoId;
+
+  YoutubeItemIdInfoResponse(this.kind, this.videoId);
+
+  factory YoutubeItemIdInfoResponse.fromJson(Map<String, dynamic> json) =>
+      _$YoutubeItemIdInfoResponseFromJson(json);
 }
 
 @JsonSerializable(createToJson: false)
@@ -36,7 +86,7 @@ class YoutubeItemSnippetResponse {
   String? description;
 
   @JsonKey(name: 'thumbnails')
-  Map<String, Map<String, dynamic>> thumbnails;
+  YoutubeItemThumbnailInfoResponse thumbnails;
 
   @JsonKey(name: 'channelTitle')
   String channelTitle;

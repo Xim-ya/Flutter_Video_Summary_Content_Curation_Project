@@ -38,6 +38,7 @@ dependencies:
   json_annotation: ^4.4.0
 
 
+  youtube_metadata: ^1.0.0 # Youtube API 없이 Youtube Video 정보 호출
 
 
   # Else

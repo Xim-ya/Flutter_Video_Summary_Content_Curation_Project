@@ -20,7 +20,7 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
               itemHeight: kHS500,
               itemCount: 0,
               onItemTapCallback: (index) {
-                final videoId = youtubeSearchList![index].id["videoId"];
+                final videoId = youtubeSearchList![index].videoId;
                 Get.to(() => ContentYoutubePlayerScreen(videoId: videoId));
               },
               child: ListWheelScrollView(
@@ -36,13 +36,12 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
                             aspectRatio: 16 / 9,
                             child: Stack(
                               children: [
-                                thumbnailImage(
-                                    data.snippet.thumbnails["medium"]!["url"]),
+                                thumbnailImage(data.thumbnailUrl!),
                                 linearBackground(),
                               ],
                             ),
                           ),
-                          contentsTitle(data.snippet.title)
+                          contentsTitle(data.videoTitle)
                         ],
                       );
                     },

@@ -12,14 +12,13 @@ class HomeViewModel extends BaseViewModel {
   final Rxn<List<ContentModel>> _popularDramaList = Rxn();
   final Rxn<List<ContentModel>> _recommendedContentList = Rxn();
   RxString? _trailerKey;
-  List<String>? _contentGenreList;
   final db = FirebaseFirestore.instance;
 
   // State Variables;
   RxInt selectedCategoryIndex = 0.obs; // [인기, 최신, 추천] 카테고리 옵션
   RxInt selectedContentIndex = 0.obs; // 홈 화면에서 선택된 컨텐츠의 인덱스
 
-  // 컨트롤러 (Youtube Player Controller)
+  // 컨트롤러 (Youtube Player Controller, 예고편)
   YoutubePlayerController get _trailerYoutubeController {
     return YoutubePlayerController(
       initialVideoId: _trailerKey?.value ?? "",
@@ -66,14 +65,6 @@ class HomeViewModel extends BaseViewModel {
     selectedContentIndex.value = index;
   }
 
-  // 선택된 컨텐츠의 [장르] 정보 호출
-  void getContentGenre() {
-    List<int> genreIdList = selectedContent!.genreIds!.toList();
-    final filteredGenreList = genreIdList.map((e) => genreDefaults[e]);
-    _contentGenreList =
-        filteredGenreList.map((e) => e ?? "확인 필요 장르").cast<String>().toList();
-  }
-
   // 예고편 다이어로 위젯
   Future<void> showMovieTrailer() async {
     final int contentId = selectedContent!.id.toInt();
@@ -102,10 +93,6 @@ class HomeViewModel extends BaseViewModel {
   void onInit() async {
     super.onInit();
     await loadPopularContentList();
-
-    /***** PLAY-GROUND *****/
-
-    /************************/
   }
 
   /* 캡술화 - (Getter) */
@@ -114,6 +101,4 @@ class HomeViewModel extends BaseViewModel {
       _selectedContentList.value?[selectedContentIndex.value];
   static ContentModel? get selectedContentG =>
       Get.find<HomeViewModel>().selectedContent;
-
-  List<String>? get contentGenreList => _contentGenreList;
 }

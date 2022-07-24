@@ -15,72 +15,20 @@ class YoutubeSearchListParentModel {
 }
 
 class YoutubeSearchListItemModel {
-  final String etag;
-  final Map<String, dynamic> id;
-  final YoutubeItemSnippetModel snippet;
+  final String videoTitle;
+  final String videoId;
+  final String? thumbnailUrl;
 
   YoutubeSearchListItemModel(
-      {required this.etag, required this.id, required this.snippet});
+      {required this.videoTitle,
+      required this.videoId,
+      required this.thumbnailUrl});
 
   factory YoutubeSearchListItemModel.fromResponse(
       YoutubeSearchedItemResponse response) {
-    YoutubeItemSnippetModel result =
-        YoutubeItemSnippetModel.fromResponse(response.snippet);
     return YoutubeSearchListItemModel(
-        etag: response.etag, id: response.id, snippet: result);
+        videoTitle: response.snippet.title,
+        videoId: response.id.videoId,
+        thumbnailUrl: response.snippet.thumbnails.medium.url);
   }
 }
-
-class YoutubeItemSnippetModel {
-  final String channelId;
-  final String? description;
-  final Map<String, Map<String, dynamic>> thumbnails;
-  final String channelTitle;
-  final String title;
-
-  YoutubeItemSnippetModel({
-    required this.channelId,
-    required this.description,
-    required this.thumbnails,
-    required this.channelTitle,
-    required this.title,
-  });
-
-  factory YoutubeItemSnippetModel.fromResponse(
-      YoutubeItemSnippetResponse response) {
-    return YoutubeItemSnippetModel(
-        channelId: response.channelId,
-        description: response.description,
-        thumbnails: response.thumbnails,
-        channelTitle: response.channelTitle,
-        title: response.title);
-  }
-}
-
-// class YoutubeThumbnailItemModel {
-//   final YoutubeThumbnailDefaultModel defaultThumbnail;
-//   final YoutubeThumbnailDefaultModel medium;
-//   final YoutubeThumbnailDefaultModel high;
-//
-//
-//   YoutubeThumbnailItemModel({required this.defaultThumbnail, required this.medium, required this.high});
-//
-//   factory YoutubeThumbnailItemModel.fromResponse(YoutubeThumbnailItemResponse response) {
-//
-//     YoutubeThumbnailItemModel(medium: null)
-//   }
-// }
-
-// class YoutubeThumbnailDefaultModel {
-//   final String url;
-//   final int width;
-//   final int height;
-//
-//   YoutubeThumbnailDefaultModel(
-//       {required this.url, required this.width, required this.height});
-//
-//   factory YoutubeThumbnailDefaultModel.fromResponse(
-//           YoutubeThumbnailDefaultModel response) =>
-//       YoutubeThumbnailDefaultModel(
-//           url: response.url, width: response.width, height: response.height);
-// }
