@@ -25,6 +25,8 @@ class ContentModel {
     required this.youtubeVideoIds,
   });
 
+  /* API 별로 Factory 패턴을 다르게 함.*/
+  // TMDB 인기 영화 API
   factory ContentModel.fromMovieResponse(TmdbMovieItemResponse response) =>
       ContentModel(
         adult: response.adult,
@@ -39,6 +41,7 @@ class ContentModel {
         youtubeVideoIds: null,
       );
 
+  // TMDB 인기 드라마 API
   factory ContentModel.fromDramaResponse(TmdbDramaItemResponse response) =>
       ContentModel(
         adult: null,
@@ -53,6 +56,7 @@ class ContentModel {
         youtubeVideoIds: null,
       );
 
+  // TMDB 영화 상세정보 API
   factory ContentModel.fromMovieDetailInfoResponse(
       TmdbMovieDetailInfoResponse response, List<String> youtubeIdList) {
     List<int>? genreIdList = response.genres
