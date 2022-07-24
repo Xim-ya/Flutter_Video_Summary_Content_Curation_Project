@@ -1,8 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:movie_curation/utilities/data/firebase_temp_data.dart';
 import 'package:movie_curation/utilities/index.dart';
-
-import '../../../data/remote/network/api/content/response/content_recommended_info_response.dart';
 
 class HomeViewModel extends BaseViewModel {
   HomeViewModel(

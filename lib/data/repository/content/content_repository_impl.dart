@@ -1,9 +1,4 @@
-import 'package:movie_curation/data/remote/network/api/content/response/content_recommended_info_response.dart';
-import 'package:movie_curation/data/remote/source/content/content_remote_data_source.dart';
-import 'package:movie_curation/data/repository/content/content_repository.dart';
-import 'package:movie_curation/data/repository/tmdb/tmdb_repository.dart';
-import 'package:movie_curation/domain/models/content/content_model.dart';
-import 'package:movie_curation/utilities/result.dart';
+import 'package:movie_curation/utilities/index.dart';
 
 class ContentRepositoryImpl implements ContentRepository {
   ContentRepositoryImpl(this._dataSource, this._repository);

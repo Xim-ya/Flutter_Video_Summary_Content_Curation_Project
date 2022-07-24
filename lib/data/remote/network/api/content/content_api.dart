@@ -1,5 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:movie_curation/data/remote/network/api/content/response/content_recommended_info_response.dart';
+import 'package:movie_curation/utilities/index.dart';
 
 class ContentApi {
   final db = FirebaseFirestore.instance;

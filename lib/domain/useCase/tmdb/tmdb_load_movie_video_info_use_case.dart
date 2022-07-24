@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:movie_curation/utilities/index.dart';
 
 class TmdbLoadMovieTrailerKeyUseCase extends BaseUseCase<int, String?> {

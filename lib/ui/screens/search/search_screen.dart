@@ -7,14 +7,11 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
-final _searchVM = SearchVM(model: SearchCore());
-
 class _SearchScreenState extends State<SearchScreen>
     with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
-    _searchVM.fetchAllContents();
   }
 
   @override
@@ -45,10 +42,10 @@ class _SearchScreenState extends State<SearchScreen>
               ),
             ),
             /* Contents List Slider */
-            Expanded(
-              flex: 2,
-              child: ContentThumbnailVerticalSlider(searchVM: _searchVM),
-            ),
+            // Expanded(
+            //   flex: 2,
+            //   child: ContentThumbnailVerticalSlider(searchVM: _searchVM),
+            // ),
             /* Right Side (Movie Contents) */
           ],
         ),
@@ -58,47 +55,40 @@ class _SearchScreenState extends State<SearchScreen>
 
   Expanded genreGroupButton() {
     return Expanded(
-      child: GetBuilder<SearchVM>(
-          init: _searchVM,
-          builder: (context) {
-            return ListView.builder(
-              padding: const EdgeInsets.only(top: 60, right: 60),
-              shrinkWrap: true,
-              itemCount: genreKeyList.length,
-              itemBuilder: (context, index) {
-                final genreKey = genreKeyList[index];
-                final genreItem = genreDefaults[genreKey];
-                return TextButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
-                    padding: const EdgeInsets.symmetric(horizontal: 0),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)),
-                  ),
-                  onPressed: () {
-                    _searchVM.tapGroupButton(genreKey);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.only(left: 12),
-                    alignment: Alignment.centerLeft,
-                    decoration: BoxDecoration(
-                      border: genreKey == _searchVM.selectedGenre
-                          ? Border.all(color: kYellow, width: 1)
-                          : null,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    margin: EdgeInsets.only(bottom: 4),
-                    height: 54,
-                    child: Text(
-                      genreItem ?? "장르",
-                      style: FontStyles().genreOption,
-                    ),
-                  ),
-                );
-              },
-            );
-          }),
-    );
+        child: ListView.builder(
+      padding: const EdgeInsets.only(top: 60, right: 60),
+      shrinkWrap: true,
+      itemCount: genreKeyList.length,
+      itemBuilder: (context, index) {
+        final genreKey = genreKeyList[index];
+        final genreItem = genreDefaults[genreKey];
+        return TextButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.transparent,
+            padding: const EdgeInsets.symmetric(horizontal: 0),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+          ),
+          onPressed: () {},
+          child: Container(
+            padding: const EdgeInsets.only(left: 12),
+            alignment: Alignment.centerLeft,
+            // decoration: BoxDecoration(
+            //   border: genreKey == _searchVM.selectedGenre
+            //       ? Border.all(color: kYellow, width: 1)
+            //       : null,
+            //   borderRadius: BorderRadius.circular(6),
+            // ),
+            margin: EdgeInsets.only(bottom: 4),
+            height: 54,
+            child: Text(
+              genreItem ?? "장르",
+              style: FontStyles().genreOption,
+            ),
+          ),
+        );
+      },
+    ));
   }
 
   Widget searchBar(double screenWidth) {

@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class ContentRecommendedInfoResponse {
   final int contentId;
   final String? title;
