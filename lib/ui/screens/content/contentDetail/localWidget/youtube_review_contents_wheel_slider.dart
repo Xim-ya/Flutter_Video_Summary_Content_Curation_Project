@@ -51,7 +51,9 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
               ),
             ),
           )
-        : const SizedBox();
+        : const Center(
+            child: CircularProgressIndicator(),
+          );
   }
 
 /* Youtube Content Title  */

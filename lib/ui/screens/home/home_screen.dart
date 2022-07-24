@@ -15,8 +15,8 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
               children: [
                 /* Content Gradient Bacgkround */
                 GradientPostBackground(
-                  backgroundImgUrl: vm.selectedMovieContent?.backDropUrl ??
-                      vm.selectedMovieContent?.posterUrl,
+                  backgroundImgUrl: vm.selectedContent?.backDropUrl ??
+                      vm.selectedContent?.posterUrl,
                 ),
                 Container(
                   padding: EdgeInsets.only(

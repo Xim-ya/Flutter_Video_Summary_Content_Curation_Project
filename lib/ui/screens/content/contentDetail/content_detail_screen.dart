@@ -1,6 +1,6 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class ContentDetailScreen extends BaseScreen<HomeViewModel> {
+class ContentDetailScreen extends BaseScreen<ContentDetailViewModel> {
   const ContentDetailScreen({Key? key, required this.routeAction})
       : super(key: key);
   final VoidCallback routeAction;
@@ -9,15 +9,15 @@ class ContentDetailScreen extends BaseScreen<HomeViewModel> {
   Widget buildScreen(BuildContext context) {
     return ContentDetailScaffold(
       background: GradientPostBackground(
-          backgroundImgUrl: vm.selectedMovieContent?.posterUrl ??
-              vm.selectedMovieContent?.backDropUrl),
+          backgroundImgUrl:
+              vm.selectedContent?.posterUrl ?? vm.selectedContent?.backDropUrl),
       backArrowBtn: BackArrowButton(routeAction: routeAction),
-      castSlider: CastSlider(castList: vm.contentCastList),
+      castSlider: Obx(() => CastSlider(castList: vm.contentCastList)),
       contentInfo: ContentInfoContainer(
           isUsedOnHomeScreen: false, routeAction: routeAction),
       genreAndRateInfo: ContentElseInfo(
         genreList: vm.contentGenreList,
-        rateScore: vm.selectedMovieContent?.voteAverage.toDouble(),
+        rateScore: vm.selectedContent?.voteAverage.toDouble(),
       ),
       contentWheelSlider: Obx(
         () => YoutubeReviewContentsWheelSlider(

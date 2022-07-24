@@ -68,16 +68,4 @@ class TmdbRepositoryImpl implements TmdbRepository {
   Future<TmdbMovieDetailInfoResponse> loadMovieDetailInfo(int movieId) {
     return _dataSource.loadTmdbMovieDetailInfo(movieId);
   }
-
-// @override
-// Future<Result<ContentModel>> loadMovieDetailInfo(int movieId) async {
-//   try {
-//     final response = await _dataSource
-//         .loadTmdbMovieDetailInfo(movieId)
-//         .then(ContentModel.fromMovieDetailInfoResponse);
-//     return Result.success(response);
-//   } on Exception catch (e) {
-//     return Result.failure(e);
-//   }
-// }
 }

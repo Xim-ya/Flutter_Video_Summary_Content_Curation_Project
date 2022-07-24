@@ -16,7 +16,7 @@ class ContentPosterSlider extends BaseView<HomeViewModel> {
 
       // selectedMovieIndex 설정
       vm.contentSelectHandler(index);
-      print(vm.selectedMovieContent!.id);
+      print(vm.selectedContent!.id);
     }
 
     return Obx(() => Expanded(

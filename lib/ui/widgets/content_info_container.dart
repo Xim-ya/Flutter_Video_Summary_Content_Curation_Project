@@ -30,7 +30,7 @@ class ContentInfoContainer extends BaseView<HomeViewModel> {
               children: [
                 /* Title */
                 Text(
-                  vm.selectedMovieContent?.title ?? "",
+                  vm.selectedContent?.title ?? "",
                   maxLines: 1,
                   style: FontStyles(0, false).movieTitle,
                 ),
@@ -39,7 +39,7 @@ class ContentInfoContainer extends BaseView<HomeViewModel> {
                 SizedBox(
                   width: width * 3 / 5,
                   child: Text(
-                    vm.selectedMovieContent?.overview ?? "내용 없음",
+                    vm.selectedContent?.overview ?? "내용 없음",
                     maxLines: 3,
                     style: FontStyles(0, isUsedInMobile).description,
                   ),
@@ -60,12 +60,7 @@ class ContentInfoContainer extends BaseView<HomeViewModel> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 8),
                               ),
-                              onPressed: () {
-                                vm.loadYoutubeSearchList();
-                                vm.loadMovieCastList();
-                                vm.getContentGenre();
-                                routeAction();
-                              },
+                              onPressed: routeAction,
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
