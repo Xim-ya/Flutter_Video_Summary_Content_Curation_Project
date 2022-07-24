@@ -21,7 +21,7 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
               itemCount: 0,
               onItemTapCallback: (index) {
                 final videoId = youtubeSearchList![index].videoId;
-                Get.to(() => ContentYoutubePlayerScreen(videoId: videoId));
+                Get.to(() => ContentYoutubePlayerScreen(videoId: videoId!));
               },
               child: ListWheelScrollView(
                 controller: wheelScrollController,
@@ -41,7 +41,7 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
                               ],
                             ),
                           ),
-                          contentsTitle(data.videoTitle)
+                          contentsTitle(data.videoTitle ?? "제목 없음")
                         ],
                       );
                     },

@@ -39,7 +39,8 @@ class HomePagedView extends HookWidget {
         Get.delete<ContentDetailViewModel>();
       } else {
         // `ContentDetail` VM Controller 생성
-        Get.lazyPut(() => ContentDetailViewModel(Get.find(), Get.find()));
+        Get.lazyPut(
+            () => ContentDetailViewModel(Get.find(), Get.find(), Get.find()));
       }
       // PagedView 라우팅
       _pagedController.animateToPage(_screenIndex.value == 0 ? 1 : 0,

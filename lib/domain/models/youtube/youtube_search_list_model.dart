@@ -15,8 +15,8 @@ class YoutubeSearchListParentModel {
 }
 
 class YoutubeSearchListItemModel {
-  final String videoTitle;
-  final String videoId;
+  final String? videoTitle;
+  final String? videoId;
   final String? thumbnailUrl;
 
   YoutubeSearchListItemModel(

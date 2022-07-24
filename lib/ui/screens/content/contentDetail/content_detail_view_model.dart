@@ -1,7 +1,9 @@
+import 'package:movie_curation/domain/useCase/youtube/youtube_load_youtube_meta_data_ues_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ContentDetailViewModel extends BaseViewModel {
-  ContentDetailViewModel(this._loadYoutubeSearchList, this._loadMovieCasts);
+  ContentDetailViewModel(this._loadYoutubeSearchList, this._loadMovieCasts,
+      this._loadYoutubeMetaDataListUseCase);
 
   /* 전역변수 및 객체 */
   final Rxn<List<YoutubeSearchListItemModel>> _youtubeSearchList = Rxn();
@@ -14,17 +16,28 @@ class ContentDetailViewModel extends BaseViewModel {
   /* Usecase */
   final YoutubeLoadSearchListUseCase _loadYoutubeSearchList;
   final TmdbLoadMovieCastsUseCase _loadMovieCasts;
+  final LoadYoutubeMetaDataListUseCase _loadYoutubeMetaDataListUseCase;
 
   /* 네트워킹 메소드 */
   // 유튜브 '리뷰' 컨텐츠 검색 정보 호출
   Future<void> loadYoutubeSearchList() async {
-    final responseResult =
-        await _loadYoutubeSearchList.call(selectedContent!.title);
-    responseResult.fold(onSuccess: (data) {
-      _youtubeSearchList.value = data;
-    }, onFailure: (error) {
-      print(error);
-    });
+    if (selectedContent?.youtubeVideoIds == null) {
+      final responseResult =
+          await _loadYoutubeSearchList.call(selectedContent!.title);
+      responseResult.fold(onSuccess: (data) {
+        _youtubeSearchList.value = data;
+      }, onFailure: (error) {
+        print(error);
+      });
+    } else {
+      final responseResult = await _loadYoutubeMetaDataListUseCase
+          .call(selectedContent!.youtubeVideoIds!);
+      responseResult.fold(onSuccess: (data) {
+        _youtubeSearchList.value = data;
+      }, onFailure: (error) {
+        print(error);
+      });
+    }
   }
 
   // 영화 [캐스트] 정보 호출
