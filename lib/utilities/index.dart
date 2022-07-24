@@ -14,8 +14,9 @@ export 'package:cached_network_image/cached_network_image.dart';
 export 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
 export 'package:carousel_slider/carousel_slider.dart';
 export 'package:json_annotation/json_annotation.dart';
+export 'package:cloud_firestore/cloud_firestore.dart';
 
-/* DataLayer (api, datasource, repository, remote) */
+/* DataLayer (api, datasource, repository) */
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_popular_drama_response.dart';
@@ -38,8 +39,15 @@ export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_
 export 'package:movie_curation/data/remote/network/api/youtube/response/youtube_searched_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/youtube/response/youtube_searched_list_response.dart';
 export 'package:movie_curation/data/remote/network/api/youtube/response/youtube_searched_list_response.dart';
+export 'package:movie_curation/data/remote/network/api/content/response/content_recommended_info_response.dart';
+export 'package:movie_curation/data/remote/network/api/content/content_api.dart';
+export 'package:movie_curation/data/remote/source/content/content_remote_data_source.dart';
+export 'package:movie_curation/data/remote/network/api/content/response/content_recommended_info_response.dart';
+export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_detail_info_response.dart';
+export 'package:movie_curation/data/remote/network/api/youtube/youtube_api.dart';
+export 'package:movie_curation/data/repository/content/content_repository.dart';
 
-/* DomainLayer (useCase, model, repository) */
+/* DomainLayer (useCase, model) */
 export 'package:movie_curation/domain/models/content/content_model.dart';
 export 'package:movie_curation/domain/models/tmdb/tmdb_movie_video_info_model.dart';
 export 'package:movie_curation/domain/models/content/content_model.dart';
@@ -56,6 +64,8 @@ export 'package:movie_curation/data/repository/tmdb/tmdb_repository.dart';
 export 'package:movie_curation/domain/useCase/youtube/youtube_load_search_list_use_case.dart';
 export 'package:movie_curation/domain/useCase/tmdb/tmdb_load_poopular_dramas_use_case.dart';
 export 'package:movie_curation/domain/useCase/content/load_popular_content_list_use_case.dart';
+export 'package:movie_curation/domain/models/content/content_model.dart';
+export 'package:movie_curation/domain/models/tmdb/tmdb_movie_detail_info_model.dart';
 
 /* Presentation Layer (MVVM) */
 export 'package:movie_curation/ui/screens/home/home_view_model.dart';

@@ -1,4 +1,4 @@
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_detail_info_response.dart';
+import 'package:movie_curation/utilities/index.dart';
 
 class TmdbMovieDetailInfoModel {
   final bool? adult;

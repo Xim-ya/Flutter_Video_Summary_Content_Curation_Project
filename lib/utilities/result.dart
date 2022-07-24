@@ -35,29 +35,6 @@ abstract class Result<T> {
     required R Function(T value) onSuccess,
     required R Function(Exception e) onFailure,
   }) {
-    /// 2022.05.11 추가 : onFailure에서 공통 오류 발생 시 처리 로직을 추가함.
-    /*R _failureWithCommonError(Exception e) {
-      /// 네트워크 연결이 되어 있지 않음
-      if(e is NetworkConnectException) {
-        ConnectionErrorDialog.showConnectionErrorDialog();
-        return null;
-      }
-      /// 네트워크 연결 지연(timeout)
-      else if(e is DioError && e.type == DioErrorType.connectTimeout) {
-        TimeoutDialog.showTimeoutDialog();
-        return null;
-      }
-      /// 서버 점검(500 에러 등)
-      else if(e is ServerUnderMaintenanceException || e == NetworkException.serverNotRespond()) {
-        ServerUnderMaintenanceDialog.showServerCheckDialog();
-        return null;
-      }
-      /// 기타 통상적인 오류 처리
-      else {
-        return onFailure((this as Failure).error);
-      }
-    }*/
-
     return this is Success
         ? onSuccess((this as Success).value)
         : onFailure((this as Failure).error);

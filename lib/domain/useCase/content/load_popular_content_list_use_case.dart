@@ -1,6 +1,3 @@
-import 'package:movie_curation/data/repository/content/content_repository.dart';
-import 'package:movie_curation/domain/useCase/tmdb/tmdb_load_movie_detail_info_use_case.dart';
-import 'package:movie_curation/utilities/data/firebase_temp_data.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 /* 2022.07.16 Created by Ximya

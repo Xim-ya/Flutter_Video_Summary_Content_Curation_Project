@@ -1,6 +1,3 @@
-import 'package:movie_curation/data/remote/network/api/content/content_api.dart';
-import 'package:movie_curation/data/remote/network/api/content/response/content_recommended_info_response.dart';
-import 'package:movie_curation/data/remote/source/content/content_remote_data_source.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ContentRemoteDataSourceImpl

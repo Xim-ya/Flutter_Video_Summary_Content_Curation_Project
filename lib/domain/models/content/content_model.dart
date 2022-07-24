@@ -1,5 +1,3 @@
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_detail_info_response.dart';
-import 'package:movie_curation/domain/models/tmdb/tmdb_movie_detail_info_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ContentModel {
