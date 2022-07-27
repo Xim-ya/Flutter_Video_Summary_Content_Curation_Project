@@ -8,7 +8,7 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
       : super(key: key);
 
   final ScrollController wheelScrollController;
-  final List<YoutubeSearchListItemModel>? youtubeSearchList;
+  final List<YoutubeVideoContentModel>? youtubeSearchList;
 
   @override
   Widget buildView(BuildContext context) {
@@ -20,6 +20,7 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
               itemHeight: kHS500,
               itemCount: 0,
               onItemTapCallback: (index) {
+                print(youtubeSearchList![0].profileUrl);
                 final videoId = youtubeSearchList![index].videoId;
                 Get.to(() => ContentYoutubePlayerScreen(videoId: videoId!));
               },
@@ -41,7 +42,8 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
                               ],
                             ),
                           ),
-                          contentsTitle(data.videoTitle ?? "제목 없음")
+                          contentsTitle(data.videoTitle ?? "제목 없음",
+                              data.profileUrl ?? "miss Url")
                         ],
                       );
                     },
@@ -56,14 +58,31 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
   }
 
 /* Youtube Content Title  */
-  Container contentsTitle(String title) {
+  Container contentsTitle(String title, String profileUrl) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(top: 10),
-      child: Text(title,
-          maxLines: 2,
-          textAlign: TextAlign.start,
-          style: FontStyles(kTS22).youtubeReviewTitle),
+      child: Row(
+        children: <Widget>[
+          Text(profileUrl),
+          // Text()
+          // Container(
+          //   height: 50,
+          //   width: 50,
+          //   decoration: const BoxDecoration(
+          //     color: Colors.grey,
+          //     shape: BoxShape.circle,
+          //   ),
+          // ),
+          const SizedBox(width: 12),
+          Flexible(
+            child: Text(title,
+                maxLines: 2,
+                textAlign: TextAlign.start,
+                style: FontStyles(kTS22).youtubeReviewTitle),
+          )
+        ],
+      ),
     );
   }
 

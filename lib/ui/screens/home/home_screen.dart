@@ -1,4 +1,5 @@
 import 'package:movie_curation/utilities/index.dart';
+import 'package:movie_curation/utilities/regex.dart';
 
 class HomeScreen extends BaseScreen<HomeViewModel> {
   final VoidCallback routeAction; // PageViewBuilder 라우트 콜백 함수
@@ -33,9 +34,11 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
                         () => ContentInfoContainer(
                           title: vm.selectedContent?.title,
                           overView: vm.selectedContent?.overview,
+                          releaseDate: vm.selectedContent?.releaseDate,
                           showTrailerDialog: vm.showContentTrailer,
                           isUsedOnHomeScreen: true,
                           routeAction: routeAction,
+                          adult: vm.selectedContent?.adult,
                         ),
                       ),
                       /* Content Post Slider  */

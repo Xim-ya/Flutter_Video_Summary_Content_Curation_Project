@@ -16,6 +16,6 @@ abstract class DomainModules {
         fenix: true);
 
     /* Content Detail */
-    Get.lazyPut(() => LoadYoutubeMetaDataListUseCase());
+    Get.lazyPut(() => LoadYoutubeMetaDataListUseCase(Get.find()));
   }
 }

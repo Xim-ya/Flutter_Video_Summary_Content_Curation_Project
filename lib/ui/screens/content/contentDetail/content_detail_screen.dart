@@ -15,6 +15,8 @@ class ContentDetailScreen extends BaseScreen<ContentDetailViewModel> {
       castSlider: Obx(() => CastSlider(castList: vm.contentCastList)),
       contentInfo: ContentInfoContainer(
           title: vm.selectedContent?.title,
+          releaseDate: vm.selectedContent?.releaseDate,
+          adult: vm.selectedContent?.adult,
           overView: vm.selectedContent?.overview,
           isUsedOnHomeScreen: false,
           showTrailerDialog: vm.showContentTrailer,

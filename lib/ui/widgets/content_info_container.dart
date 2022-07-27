@@ -2,6 +2,7 @@ import 'package:movie_curation/ui/common/base/base_view.dart';
 import 'package:movie_curation/ui/screens/home/home_view_model.dart';
 import 'package:movie_curation/ui/widgets/content_info_container_scaffold.dart';
 import 'package:movie_curation/utilities/index.dart';
+import 'package:movie_curation/utilities/regex.dart';
 
 class ContentInfoContainer extends StatelessWidget {
   const ContentInfoContainer({
@@ -10,6 +11,8 @@ class ContentInfoContainer extends StatelessWidget {
     required this.routeAction,
     required this.showTrailerDialog,
     required this.title,
+    required this.releaseDate,
+    required this.adult,
     required this.overView,
   }) : super(key: key);
 
@@ -17,6 +20,8 @@ class ContentInfoContainer extends StatelessWidget {
   final VoidCallback routeAction; // PageView Builder 화면 전환 메소드
   final VoidCallback showTrailerDialog;
   final String? title;
+  final bool? adult;
+  final String? releaseDate;
   final String? overView;
 
   @override
@@ -45,13 +50,13 @@ class ContentInfoContainer extends StatelessWidget {
               color: kLightGrey,
             ),
             child: Text(
-              "C18",
+              adult ?? false ? "청소년 관람 불가" : "일반",
               style: FontStyles(0, isUsedInMobile).gRated,
             ),
           ),
           const SizedBox(width: 12),
           Text(
-            "2018",
+            releaseDate != null ? Regex.dateYM(releaseDate!) : "개봉일 확인 불가",
             style: FontStyles(0, isUsedInMobile).releaseY,
           ),
         ],

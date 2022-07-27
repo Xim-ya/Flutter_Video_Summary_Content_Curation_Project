@@ -6,7 +6,7 @@ class ContentDetailViewModel extends BaseViewModel {
       this._loadYoutubeMetaDataListUseCase);
 
   /* 전역변수 및 객체 */
-  final Rxn<List<YoutubeSearchListItemModel>> _youtubeSearchList = Rxn();
+  final Rxn<List<YoutubeVideoContentModel>> _youtubeSearchList = Rxn();
   final Rxn<List<ContentCastModel>> _contentCastList = Rxn();
   late List<String>? _contentGenreList;
 
@@ -96,7 +96,7 @@ class ContentDetailViewModel extends BaseViewModel {
   ContentModel? get selectedContent => HomeViewModel.selectedContentG;
   List<ContentCastModel>? get contentCastList => _contentCastList.value;
   List<String>? get contentGenreList => _contentGenreList;
-  List<YoutubeSearchListItemModel>? get youtubeSearchList =>
+  List<YoutubeVideoContentModel>? get youtubeSearchList =>
       _youtubeSearchList.value;
   ScrollController get wheelScrollController => _scrollController;
 }
