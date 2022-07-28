@@ -18,10 +18,18 @@ class LoadYoutubeMetaDataListUseCase
     for (String videoId in request) {
       final String link = 'https://www.youtube.com/watch?v=$videoId';
       MetaDataModel metaData = await YoutubeMetaData.getData(link);
-      print(metaData.authorUrl);
-      // final String profileUrl =  _youtubeRepository.loadYoutubeChannel(metaData.authorUrl)
-      final String aim = Regex.getChannelId(metaData.authorUrl!);
-      print(aim);
+      final String channelId = Regex.getChannelId(metaData.authorUrl!);
+
+      print(channelId);
+      // final response = await _youtubeRepository.loadYoutubeChannel(channelId);
+      // String? channelThumbnail;
+      // response.fold(onSuccess: (data) {
+      //   channelThumbnail = data.thumbnailUrl;
+      // }, onFailure: (error) {
+      //   channelThumbnail = null;
+      //   print("error");
+      // });
+      // print(channelThumbnail);
       youtubeVideoInfoList.add(
         YoutubeVideoContentModel(
           videoTitle: metaData.title,

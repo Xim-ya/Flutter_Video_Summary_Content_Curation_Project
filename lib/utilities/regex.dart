@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:movie_curation/utilities/index.dart';
 
 class Regex {
   /* 구독자 수를 만명 단위로 표시함. */
@@ -23,7 +24,12 @@ class Regex {
       DateFormat('M').format(DateTime.parse(date));
 
   /* Youtube 채널 URL에서 channelID를 추출 */
-  static String getChannelId(String url) => RegExp(
-          r'^https?:\/\/(www\.)?youtube\.com\/(channel\/UC[\w-]{21}[AQgw]|(c\/|user\/)?[\w-]+)$')
-      .toString();
+  // 정규식으로 변경 필요
+  static String getChannelId(String url) {
+    if (url.contains('https://www.youtube.com/channel/')) {
+      return url.replaceAll('https://www.youtube.com/channel/', '');
+    } else {
+      return url.replaceAll('https://www.youtube.com/c/', '');
+    }
+  }
 }

@@ -21,5 +21,8 @@ abstract class YoutubeApi {
   Future<YoutubeChannelResponse> loadYoutubeChannel(
       @Path('channelId') String channelId);
 }
+// https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&q=드디어 공식 발표된 2025년까지 마블 신작 21개
 //  https://www.googleapis.com/youtube/v3/channels?part=snippet&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&id=UCtLzE2zAxNxIIMO5-A8RuhQ
+// https://www.youtube.com/c/BMan%EC%82%90%EB%A7%A8
+//  https://www.googleapis.com/youtube/v3/channels?part=snippet&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&id=BMan%EC%82%90%EB%A7%A8
 // https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&q=미니언즈&영화리뷰
