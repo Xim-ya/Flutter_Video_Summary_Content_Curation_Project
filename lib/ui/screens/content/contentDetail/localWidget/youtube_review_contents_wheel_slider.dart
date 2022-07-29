@@ -8,7 +8,7 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
       : super(key: key);
 
   final ScrollController wheelScrollController;
-  final List<YoutubeSearchListItemModel>? youtubeSearchList;
+  final List<YoutubeVideoContentModel>? youtubeSearchList;
 
   @override
   Widget buildView(BuildContext context) {
@@ -20,8 +20,9 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
               itemHeight: kHS500,
               itemCount: 0,
               onItemTapCallback: (index) {
-                final videoId = youtubeSearchList![index].id["videoId"];
-                Get.to(() => ContentYoutubePlayerScreen(videoId: videoId));
+                print(youtubeSearchList![index].profileUrl);
+                final videoId = youtubeSearchList![index].videoId;
+                Get.to(() => ContentYoutubePlayerScreen(videoId: videoId!));
               },
               child: ListWheelScrollView(
                 controller: wheelScrollController,
@@ -36,13 +37,13 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
                             aspectRatio: 16 / 9,
                             child: Stack(
                               children: [
-                                thumbnailImage(
-                                    data.snippet.thumbnails["medium"]!["url"]),
+                                thumbnailImage(data.thumbnailUrl!),
                                 linearBackground(),
                               ],
                             ),
                           ),
-                          contentsTitle(data.snippet.title)
+                          contentsTitle(data.videoTitle ?? "제목 없음",
+                              data.profileUrl ?? "miss Url")
                         ],
                       );
                     },
@@ -51,18 +52,50 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
               ),
             ),
           )
-        : const SizedBox();
+        : const Center(
+            child: CircularProgressIndicator(),
+          );
   }
 
 /* Youtube Content Title  */
-  Container contentsTitle(String title) {
+  Container contentsTitle(String title, String? profileUrl) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(top: 10),
-      child: Text(title,
-          maxLines: 2,
-          textAlign: TextAlign.start,
-          style: FontStyles(kTS22).youtubeReviewTitle),
+      child: Row(
+        children: <Widget>[
+          profileUrl == null || profileUrl == 'miss Url'
+              ? SizedBox()
+              : Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  height: 50,
+                  width: 50,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(1000),
+                      child: CachedNetworkImage(
+                        imageUrl: profileUrl,
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      )),
+                ),
+          Flexible(
+            child: Text(title,
+                maxLines: 2,
+                textAlign: TextAlign.start,
+                style: FontStyles(kTS22).youtubeReviewTitle),
+          )
+        ],
+      ),
     );
   }
 

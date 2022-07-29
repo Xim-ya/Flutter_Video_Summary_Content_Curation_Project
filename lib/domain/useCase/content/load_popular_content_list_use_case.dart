@@ -14,13 +14,14 @@ class LoadPopularContentListUseCase
   @override
   Future<Result<List<ContentModel>>> call(request) async {
     if (request == 0) {
+      // Firebase > Content - 추천 컨텐츠 리스트
+      return _contentRepository.loadRecommendedContentInfo();
+    } else if (request == 1) {
       // TMDB > 인기 영화 리스트
       return _tmdbRepository.loadPopularMovie();
-    } else if (request == 1) {
+    } else {
       // TMDB > 인기 드라 리스트
       return _tmdbRepository.loadPopularDrama();
-    } else {
-      return _contentRepository.loadRecommendedContentInfo();
     }
   }
 }

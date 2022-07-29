@@ -1,4 +1,5 @@
 import 'package:movie_curation/utilities/index.dart';
+import 'package:movie_curation/utilities/regex.dart';
 
 class HomeScreen extends BaseScreen<HomeViewModel> {
   final VoidCallback routeAction; // PageViewBuilder 라우트 콜백 함수
@@ -10,13 +11,13 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
   @override
   Widget buildScreen(BuildContext context) {
     return Obx(
-      () => vm.selectedContentList != null
+      () => vm.selectedContentList != null && vm.loading.isFalse
           ? Stack(
               children: [
                 /* Content Gradient Bacgkround */
                 GradientPostBackground(
-                  backgroundImgUrl: vm.selectedMovieContent?.backDropUrl ??
-                      vm.selectedMovieContent?.posterUrl,
+                  backgroundImgUrl: vm.selectedContent?.backDropUrl ??
+                      vm.selectedContent?.posterUrl,
                 ),
                 Container(
                   padding: EdgeInsets.only(
@@ -29,9 +30,16 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
                       /* Category Group Button */
                       const CategoryGroupButton(),
                       /* Content Content Info */
-                      ContentInfoContainer(
-                        isUsedOnHomeScreen: true,
-                        routeAction: routeAction,
+                      Obx(
+                        () => ContentInfoContainer(
+                          title: vm.selectedContent?.title,
+                          overView: vm.selectedContent?.overview,
+                          releaseDate: vm.selectedContent?.releaseDate,
+                          showTrailerDialog: vm.showContentTrailer,
+                          isUsedOnHomeScreen: true,
+                          routeAction: routeAction,
+                          adult: vm.selectedContent?.adult,
+                        ),
                       ),
                       /* Content Post Slider  */
                       const ContentPosterSlider()
@@ -40,7 +48,7 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
                 ),
               ],
             )
-          : SizedBox(),
+          : const SizedBox(),
     );
   }
 }

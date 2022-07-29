@@ -16,8 +16,9 @@ export 'package:carousel_slider/carousel_slider.dart';
 export 'package:json_annotation/json_annotation.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 
-/* DataLayer (api, datasource, repository) */
+/* Data Layer (api, datasource, repository) */
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_item_response.dart';
+export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_cast_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_popular_drama_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_popular_movie_responsee.dart';
@@ -47,7 +48,7 @@ export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_
 export 'package:movie_curation/data/remote/network/api/youtube/youtube_api.dart';
 export 'package:movie_curation/data/repository/content/content_repository.dart';
 
-/* DomainLayer (useCase, model) */
+/* Domain Layer (useCase, model) */
 export 'package:movie_curation/domain/models/content/content_model.dart';
 export 'package:movie_curation/domain/models/tmdb/tmdb_movie_video_info_model.dart';
 export 'package:movie_curation/domain/models/content/content_model.dart';
@@ -59,7 +60,6 @@ export 'package:movie_curation/domain/models/youtube/youtube_search_list_model.d
 export 'package:movie_curation/domain/models/content/content_cast_model.dart';
 export 'package:movie_curation/domain/models/content/content_cast_model.dart';
 export 'package:movie_curation/domain/models/content/content_cast_model.dart';
-export 'package:movie_curation/domain/base/base_use_case.dart';
 export 'package:movie_curation/data/repository/tmdb/tmdb_repository.dart';
 export 'package:movie_curation/domain/useCase/youtube/youtube_load_search_list_use_case.dart';
 export 'package:movie_curation/domain/useCase/tmdb/tmdb_load_poopular_dramas_use_case.dart';
@@ -71,6 +71,7 @@ export 'package:movie_curation/domain/models/tmdb/tmdb_movie_detail_info_model.d
 export 'package:movie_curation/ui/screens/home/home_view_model.dart';
 export 'package:movie_curation/ui/screens/content/contentDetail/content_detail_scaffold.dart';
 export 'package:movie_curation/ui/screens/content/contentDetail/content_detail_screen.dart';
+export 'package:movie_curation/ui/screens/content/contentDetail/content_detail_view_model.dart';
 
 //old
 export 'package:movie_curation/ui/screens/home/homePagedView/home_paged_view.dart';
@@ -111,6 +112,7 @@ export 'package:movie_curation/domain/base/base_no_param_use_case.dart';
 export 'package:movie_curation/ui/common/base/base_screen.dart';
 export 'package:movie_curation/ui/common/base/base_view_model.dart';
 export 'package:movie_curation/ui/common/base/base_view.dart';
+export 'package:movie_curation/domain/base/base_use_case.dart';
 export 'package:movie_curation/domain/base/base_use_case.dart';
 
 /* Routes */

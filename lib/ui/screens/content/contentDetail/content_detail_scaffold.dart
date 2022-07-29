@@ -42,10 +42,6 @@ class ContentDetailScaffold extends StatelessWidget {
             ),
             /* Right Section */
             _RightSection(contentWheelSlider: contentWheelSlider)
-            // Expanded(
-            //   flex: 4,
-            //   child: YoutubeReviewContentsWheelSlider(),
-            // ),
           ],
         ),
       ],

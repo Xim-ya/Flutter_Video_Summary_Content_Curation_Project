@@ -5,13 +5,20 @@ import 'firebase_options.dart';
 import 'package:movie_curation/ui/screens/root/root_paged_view.dart';
 import 'utilities/index.dart';
 
-// Device Preview 셋업 (반응형 확인)
-// void main() => runApp(
-//       DevicePreview(
-//         enabled: !kReleaseMode,
-//         builder: (context) => const MyApp(),
-//       ),
-//     );
+// Device Preview 셋업 (반응형 레이아웃 확인)
+// void main() async {
+//   // FRouter.setupRouter();
+//   WidgetsFlutterBinding.ensureInitialized(); // Firebase 셋팅
+//   await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform,
+//   );
+//   runApp(
+//     DevicePreview(
+//       enabled: !kReleaseMode,
+//       builder: (context) => const MyApp(),
+//     ),
+//   );
+// }
 
 void main() async {
   // FRouter.setupRouter();

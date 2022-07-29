@@ -56,6 +56,10 @@ class RootPagedView extends HookWidget {
                   itemCount: screenList.length,
                   scrollDirection: Axis.vertical,
                   onPageChanged: (int page) {
+                    if (Get.isRegistered<ContentDetailViewModel>()) {
+                      // 직접 Controller을 삭제.
+                      Get.delete<ContentDetailViewModel>();
+                    }
                     _screenIndex.value = page;
                   },
                   itemBuilder: (context, index) {

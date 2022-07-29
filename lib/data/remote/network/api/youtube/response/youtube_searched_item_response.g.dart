@@ -11,9 +11,16 @@ YoutubeSearchedItemResponse _$YoutubeSearchedItemResponseFromJson(
     YoutubeSearchedItemResponse(
       json['kind'] as String,
       json['etag'] as String,
-      json['id'] as Map<String, dynamic>,
+      YoutubeItemIdInfoResponse.fromJson(json['id'] as Map<String, dynamic>),
       YoutubeItemSnippetResponse.fromJson(
           json['snippet'] as Map<String, dynamic>),
+    );
+
+YoutubeItemIdInfoResponse _$YoutubeItemIdInfoResponseFromJson(
+        Map<String, dynamic> json) =>
+    YoutubeItemIdInfoResponse(
+      json['kind'] as String,
+      json['videoId'] as String,
     );
 
 YoutubeItemSnippetResponse _$YoutubeItemSnippetResponseFromJson(
@@ -23,9 +30,8 @@ YoutubeItemSnippetResponse _$YoutubeItemSnippetResponseFromJson(
       json['channelId'] as String,
       json['title'] as String,
       json['description'] as String?,
-      (json['thumbnails'] as Map<String, dynamic>).map(
-        (k, e) => MapEntry(k, e as Map<String, dynamic>),
-      ),
+      YoutubeItemThumbnailInfoResponse.fromJson(
+          json['thumbnails'] as Map<String, dynamic>),
       json['channelTitle'] as String,
       json['liveBroadcastContent'] as String,
       json['publishTime'] as String,

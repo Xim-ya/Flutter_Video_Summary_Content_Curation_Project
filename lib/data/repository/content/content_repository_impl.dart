@@ -7,12 +7,13 @@ class ContentRepositoryImpl implements ContentRepository {
 
   @override
   Future<Result<List<ContentModel>>> loadRecommendedContentInfo() async {
-    List<ContentModel> registeredContents = [];
-    List<ContentRecommendedInfoResponse> registeredList =
+    List<ContentModel> recommendedContents = [];
+    List<ContentRecommendedInfoResponse> recommendedContentInfoList =
         await _dataSource.loadRecommendedContentInfo();
     try {
-      for (ContentRecommendedInfoResponse content in registeredList) {
-        registeredContents.add(
+      for (ContentRecommendedInfoResponse content
+          in recommendedContentInfoList) {
+        recommendedContents.add(
           await _repository.loadMovieDetailInfo(content.contentId).then(
             (value) {
               return ContentModel.fromMovieDetailInfoResponse(
@@ -21,7 +22,7 @@ class ContentRepositoryImpl implements ContentRepository {
           ),
         );
       }
-      return Result.success(registeredContents);
+      return Result.success(recommendedContents);
     } on Exception catch (e) {
       return Result.failure(e);
     }
