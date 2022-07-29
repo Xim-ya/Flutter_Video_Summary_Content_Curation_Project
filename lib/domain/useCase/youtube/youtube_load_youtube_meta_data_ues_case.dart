@@ -18,24 +18,29 @@ class LoadYoutubeMetaDataListUseCase
     for (String videoId in request) {
       final String link = 'https://www.youtube.com/watch?v=$videoId';
       MetaDataModel metaData = await YoutubeMetaData.getData(link);
-      final String channelId = Regex.getChannelId(metaData.authorUrl!);
-
-      print(channelId);
-      // final response = await _youtubeRepository.loadYoutubeChannel(channelId);
-      // String? channelThumbnail;
-      // response.fold(onSuccess: (data) {
-      //   channelThumbnail = data.thumbnailUrl;
-      // }, onFailure: (error) {
-      //   channelThumbnail = null;
-      //   print("error");
-      // });
-      // print(channelThumbnail);
+      final String? channelId = Regex.getChannelId(metaData.authorUrl!);
+      String? channelThumbnail;
+      // 추출한 `channelId`로 썸네일 호출
+      if (channelId != null) {
+        final response = await _youtubeRepository.loadYoutubeChannel(channelId);
+        response.fold(
+          onSuccess: (data) {
+            channelThumbnail = data.thumbnailUrl;
+          },
+          onFailure: (error) {
+            channelThumbnail = null;
+            print("error");
+          },
+        );
+      } else {
+        channelThumbnail = null;
+      }
       youtubeVideoInfoList.add(
         YoutubeVideoContentModel(
           videoTitle: metaData.title,
           videoId: videoId,
           thumbnailUrl: metaData.thumbnailUrl,
-          profileUrl: metaData.version,
+          profileUrl: channelThumbnail,
         ),
       );
     }

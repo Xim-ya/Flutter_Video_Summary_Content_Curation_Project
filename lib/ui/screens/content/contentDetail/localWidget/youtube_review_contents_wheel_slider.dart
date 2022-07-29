@@ -20,7 +20,7 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
               itemHeight: kHS500,
               itemCount: 0,
               onItemTapCallback: (index) {
-                print(youtubeSearchList![0].profileUrl);
+                print(youtubeSearchList![index].profileUrl);
                 final videoId = youtubeSearchList![index].videoId;
                 Get.to(() => ContentYoutubePlayerScreen(videoId: videoId!));
               },
@@ -58,23 +58,36 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
   }
 
 /* Youtube Content Title  */
-  Container contentsTitle(String title, String profileUrl) {
+  Container contentsTitle(String title, String? profileUrl) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(top: 10),
       child: Row(
         children: <Widget>[
-          Text(profileUrl),
-          // Text()
-          // Container(
-          //   height: 50,
-          //   width: 50,
-          //   decoration: const BoxDecoration(
-          //     color: Colors.grey,
-          //     shape: BoxShape.circle,
-          //   ),
-          // ),
-          const SizedBox(width: 12),
+          profileUrl == null || profileUrl == 'miss Url'
+              ? SizedBox()
+              : Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  height: 50,
+                  width: 50,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(1000),
+                      child: CachedNetworkImage(
+                        imageUrl: profileUrl,
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      )),
+                ),
           Flexible(
             child: Text(title,
                 maxLines: 2,

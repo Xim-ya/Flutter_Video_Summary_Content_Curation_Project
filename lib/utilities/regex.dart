@@ -25,11 +25,12 @@ class Regex {
 
   /* Youtube 채널 URL에서 channelID를 추출 */
   // 정규식으로 변경 필요
-  static String getChannelId(String url) {
+  static String? getChannelId(String url) {
     if (url.contains('https://www.youtube.com/channel/')) {
       return url.replaceAll('https://www.youtube.com/channel/', '');
     } else {
-      return url.replaceAll('https://www.youtube.com/c/', '');
+      // USERID URL 형식이 아니라면 null 값을 리턴함
+      return null;
     }
   }
 }
