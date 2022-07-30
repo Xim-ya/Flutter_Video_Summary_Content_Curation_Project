@@ -106,6 +106,7 @@ export 'package:movie_curation/utilities/data/dummy_data.dart';
 export 'package:movie_curation/utilities/responsive_size.dart';
 export 'package:movie_curation/utilities/mixin/api_error_handler_mixin.dart';
 export 'package:movie_curation/utilities/result.dart';
+export 'package:movie_curation/utilities/resources/colors.dart';
 
 /* Base */
 export 'package:movie_curation/domain/base/base_no_param_use_case.dart';

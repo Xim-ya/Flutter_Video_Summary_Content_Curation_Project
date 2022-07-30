@@ -14,7 +14,7 @@ class RootPagedView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     //  PagedViewScreen의 Screen Index
-    final _screenIndex = useState(0);
+    final _screenIndex = useState(1);
 
     // PagedView Controller
     final PageController _pagedController = PageController(
@@ -24,7 +24,7 @@ class RootPagedView extends HookWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false, // Screen Resize Effect 제거
-      backgroundColor: kDarkGrey,
+      backgroundColor: AppColor.darkGrey,
       body: ResponsiveLayout(
         mobileWidget: const Center(
           child: Text("모바일 플랫폼에서 지원하지 않는 어플리케이션 입니다"),
@@ -33,7 +33,7 @@ class RootPagedView extends HookWidget {
           children: [
             Container(
               width: 70,
-              color: kDarkGrey,
+              color: AppColor.darkGrey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -81,7 +81,8 @@ class RootPagedView extends HookWidget {
             duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
       },
       icon: SvgPicture.asset(iconPath,
-          color: selectedScreen.value == page ? kYellow : Colors.white),
+          color:
+              selectedScreen.value == page ? AppColor.yellow : AppColor.white),
     );
   }
 }

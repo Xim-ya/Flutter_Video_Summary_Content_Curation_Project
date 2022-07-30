@@ -47,7 +47,7 @@ class ContentInfoContainer extends StatelessWidget {
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              color: kLightGrey,
+              color: AppColor.lightGrey,
             ),
             child: Text(
               adult ?? false ? "청소년 관람 불가" : "일반",
@@ -72,7 +72,7 @@ class ContentInfoContainer extends StatelessWidget {
             isUsedOnHomeScreen
                 ? ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: kYellow,
+                      primary: AppColor.yellow,
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                     ),
                     onPressed: routeAction,

@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:movie_curation/utilities/index.dart';
 
 class RandomPosterBackground extends StatelessWidget {
@@ -18,7 +17,7 @@ class RandomPosterBackground extends StatelessWidget {
   // 모바일 디바이스에서 사용되는 Background Layer
   Container darkLayerBox() {
     return Container(
-      color: kDarkGrey.withOpacity(0.86),
+      color: AppColor.darkGrey.withOpacity(0.86),
     );
   }
 
@@ -26,19 +25,7 @@ class RandomPosterBackground extends StatelessWidget {
   Container gradientLayerBox() {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: <Color>[
-            kDarkGrey,
-            kDarkGrey.withOpacity(0.95),
-            kDarkGrey.withOpacity(0.9),
-            kDarkGrey.withOpacity(0.7),
-            kDarkGrey.withOpacity(0.5),
-            kDarkGrey.withOpacity(0.4),
-          ],
-          tileMode: TileMode.clamp,
-        ),
+        gradient: AppColor.linearSearchBackground,
       ),
     );
   }

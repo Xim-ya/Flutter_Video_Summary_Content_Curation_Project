@@ -14,7 +14,7 @@ class FontStyles {
   FontStyles([this.size, this.isMobile]) //size 값은 Optional 타입
       /*  Home Screen (Tablet)  */
       : categoryGroupButton = TextStyle(
-          fontSize: isMobile ?? false ? 17.7.sp : 9.55.sp,
+          fontSize: false ? 17.7.sp : 9.55.sp,
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),

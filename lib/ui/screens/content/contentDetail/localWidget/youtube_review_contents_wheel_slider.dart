@@ -104,17 +104,7 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(11),
-        gradient: LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
-          colors: <Color>[
-            Colors.black.withOpacity(0.7),
-            kDarkGrey.withOpacity(0.3),
-            kDarkGrey.withOpacity(0.15),
-            kDarkGrey.withOpacity(0.1),
-          ],
-          tileMode: TileMode.clamp,
-        ),
+        gradient: AppColor.linearYoutubeThumbnailBackground,
       ),
     );
   }
