@@ -38,7 +38,12 @@ class ContentInfoContainer extends StatelessWidget {
   Widget buildTitle() => Text(
         title ?? "",
         maxLines: 1,
-        style: FontStyles(0, false).movieTitle,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 42,
+          fontWeight: FontWeight.w400,
+          overflow: TextOverflow.ellipsis,
+        ),
       );
 
   Widget buildGRatedAndReleaseYear() => Row(

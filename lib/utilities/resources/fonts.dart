@@ -3,6 +3,8 @@ import 'package:movie_curation/utilities/index.dart';
 abstract class AppTextStyle {
   AppTextStyle._();
 
+  /* Static Text Style */
+
   /* Responsive Text Size -  */
   // catgoryGorupButton
   static TextStyle r32B = TextStyle(
