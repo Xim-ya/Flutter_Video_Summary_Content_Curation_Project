@@ -14,7 +14,7 @@ class RootPagedView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     //  PagedViewScreen의 Screen Index
-    final _screenIndex = useState(0);
+    final _screenIndex = useState(1);
 
     // PagedView Controller
     final PageController _pagedController = PageController(
