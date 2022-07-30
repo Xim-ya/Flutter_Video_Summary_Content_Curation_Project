@@ -26,19 +26,7 @@ class _GradientBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: <Color>[
-            kDarkGrey,
-            kDarkGrey.withOpacity(0.95),
-            kDarkGrey.withOpacity(0.9),
-            kDarkGrey.withOpacity(0.7),
-            kDarkGrey.withOpacity(0.5),
-            kDarkGrey.withOpacity(0.4),
-          ],
-          tileMode: TileMode.clamp,
-        ),
+        gradient: AppColor.linearPosterBackground,
       ),
     );
   }

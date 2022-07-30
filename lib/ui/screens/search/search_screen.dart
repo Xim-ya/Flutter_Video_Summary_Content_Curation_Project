@@ -100,16 +100,16 @@ class _SearchScreenState extends State<SearchScreen>
         onSubmitted: (String inputs) {
           print(inputs);
         },
-        cursorColor: kYellow,
+        cursorColor: AppColor.yellow,
         style: FontStyles(0, false).searchBarInputs,
         decoration: InputDecoration(
           hintText: "제목을 입력하세요",
           hintStyle: FontStyles(0, false).searchBarPlaceHolder,
           enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: kCloudyLightGrey),
+            borderSide: BorderSide(color: AppColor.cloudyGrey),
           ),
           focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: kCloudyLightGrey),
+            borderSide: BorderSide(color: AppColor.cloudyLightGrey),
           ),
         ),
       ),
