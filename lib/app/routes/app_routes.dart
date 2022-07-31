@@ -5,4 +5,7 @@ abstract class Routes {
 
   /* Home */
   static const home = '/home';
+
+  /* Search */
+  static const search = '/search';
 }

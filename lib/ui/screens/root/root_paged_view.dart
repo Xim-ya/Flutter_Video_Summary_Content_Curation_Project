@@ -1,3 +1,6 @@
+import 'package:movie_curation/app/routes/app_pages.dart';
+import 'package:movie_curation/ui/screens/search/search_screen_new.dart';
+import 'package:movie_curation/ui/screens/search/search_view_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class RootPagedView extends HookWidget {
@@ -6,15 +9,25 @@ class RootPagedView extends HookWidget {
   // PagedView에서 관리하는 스크린 리스트
   final List<Widget> screenList = [
     const HomePagedView(),
-    const SearchScreen(),
+    // const SearchScreen(),
+    SearchScreenNew(),
     const TempScreen3(),
     const TempScreen4(),
   ];
 
+  void bindDirectlyOnPagedViewRoute(int screenIndex) {
+    switch (screenIndex) {
+      case 1:
+        if (!Get.isRegistered<SearchViewModel>()) {
+          Get.put(SearchViewModel());
+        }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     //  PagedViewScreen의 Screen Index
-    final _screenIndex = useState(2);
+    final _screenIndex = useState(0);
 
     // PagedView Controller
     final PageController _pagedController = PageController(
@@ -56,10 +69,12 @@ class RootPagedView extends HookWidget {
                   itemCount: screenList.length,
                   scrollDirection: Axis.vertical,
                   onPageChanged: (int page) {
+                    // bindDirectlyOnPagedViewRoute(page);
                     if (Get.isRegistered<ContentDetailViewModel>()) {
                       // 직접 Controller을 삭제.
                       Get.delete<ContentDetailViewModel>();
                     }
+
                     _screenIndex.value = page;
                   },
                   itemBuilder: (context, index) {

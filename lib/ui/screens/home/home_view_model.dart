@@ -42,26 +42,25 @@ class HomeViewModel extends BaseViewModel {
   // 카테고리 그룹 버튼을 탭 되었을 때
   void onCategoryBtnTap(int index) {
     loading(true);
-    if (selectedCategoryIndex.value == index)
-      return; // 현재 카테고리가 다시 클릭 되었을 때는 해당 메소드 종료 (불필요 API CALL 방지)
     selectedContentIndex.value = 0; // 컨텐츠 인덱스 초기화
     selectedCategoryIndex.value = index; // 카테고리 변경
     // 이미 카테고리 호출 되었다면 API CALL하지 않도록 함. (중복 API CALL 방지)
     switch (index) {
+      // 현재 카테고리가 다시 클릭 되었을 때는 해당 메소드 종료 (불필요 API CALL 방지)
       case 0:
-        if (_recommendedContentList.value == null) {
-          loadPopularContentList();
-        }
+        _recommendedContentList.value == null
+            ? loadPopularContentList()
+            : _selectedContentList.value = _recommendedContentList.value;
         break;
       case 1:
-        if (_popularMovieList.value == null) {
-          loadPopularContentList();
-        }
+        _popularMovieList.value == null
+            ? loadPopularContentList()
+            : _selectedContentList.value = _popularMovieList.value;
         break;
       case 2:
-        if (_popularDramaList.value == null) {
-          loadPopularContentList();
-        }
+        _popularDramaList.value == null
+            ? loadPopularContentList()
+            : _selectedContentList.value = _popularDramaList.value;
         break;
     }
     loading(false);
@@ -117,7 +116,8 @@ class HomeViewModel extends BaseViewModel {
   }
 
   /* 캡술화 - (Getter) */
-  List<ContentModel>? get selectedContentList => _selectedContentList.value;
+  static List<ContentModel>? get selectedContentList =>
+      Get.find<HomeViewModel>()._selectedContentList.value;
   ContentModel? get selectedContent =>
       _selectedContentList.value?[selectedContentIndex.value];
   ItemScrollController get itemScrollController => _itemScrollController;

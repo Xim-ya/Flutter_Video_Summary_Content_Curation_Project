@@ -1,12 +1,12 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class ContentThumbnailVerticalSlider extends StatelessWidget {
+class ContentThumbnailVerticalSlider extends BaseView {
   ContentThumbnailVerticalSlider({Key? key}) : super(key: key);
 
-  final _scrollController = ScrollController();
+  // final _scrollController = ScrollController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildView(BuildContext context) {
     return SizedBox(
       height: double.infinity,
       // child: ListView.builder(

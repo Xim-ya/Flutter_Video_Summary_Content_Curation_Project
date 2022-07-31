@@ -11,7 +11,7 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
   @override
   Widget buildScreen(BuildContext context) {
     return Obx(
-      () => vm.selectedContentList != null && vm.loading.isFalse
+      () => HomeViewModel.selectedContentList != null && vm.loading.isFalse
           ? Stack(
               children: [
                 /* Content Gradient Bacgkround */
