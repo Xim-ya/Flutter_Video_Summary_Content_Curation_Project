@@ -1,5 +1,5 @@
 import 'package:movie_curation/ui/screens/search/search_binding.dart';
-import 'package:movie_curation/ui/screens/search/search_screen_new.dart';
+import 'package:movie_curation/ui/screens/search/search_screen.dart';
 
 import '../../utilities/index.dart';
 part 'app_routes.dart';

@@ -12,7 +12,6 @@ class HomeViewModel extends BaseViewModel {
   final Rxn<List<ContentModel>> _popularDramaList = Rxn();
   final Rxn<List<ContentModel>> _recommendedContentList = Rxn();
   RxString? _trailerKey;
-  final db = FirebaseFirestore.instance;
 
   // State Variables;
   RxInt selectedCategoryIndex = 0.obs; // [인기, 최신, 추천] 카테고리 옵션
@@ -116,8 +115,6 @@ class HomeViewModel extends BaseViewModel {
   }
 
   /* 캡술화 - (Getter) */
-  // static List<ContentModel>? get selectedContentListG =>
-  //     Get.find<HomeViewModel>()._selectedContentList.value;
   List<ContentModel>? get selectedContentList => _selectedContentList.value;
   ContentModel? get selectedContent =>
       _selectedContentList.value?[selectedContentIndex.value];

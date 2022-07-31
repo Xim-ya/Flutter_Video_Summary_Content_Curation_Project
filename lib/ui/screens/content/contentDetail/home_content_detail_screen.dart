@@ -1,7 +1,7 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class ContentDetailScreen extends BaseScreen<ContentDetailViewModel> {
-  const ContentDetailScreen({Key? key, required this.routeAction})
+class HomeContentDetailScreen extends BaseScreen<ContentDetailViewModel> {
+  const HomeContentDetailScreen({Key? key, required this.routeAction})
       : super(key: key);
   final VoidCallback routeAction;
 

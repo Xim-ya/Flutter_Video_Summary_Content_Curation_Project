@@ -1,6 +1,7 @@
 import 'package:movie_curation/app/routes/app_pages.dart';
+import 'package:movie_curation/ui/screens/content/contentDetail/search_content_view_model.dart';
 import 'package:movie_curation/ui/screens/search/search_paged_view.dart';
-import 'package:movie_curation/ui/screens/search/search_screen_new.dart';
+import 'package:movie_curation/ui/screens/search/search_screen.dart';
 import 'package:movie_curation/ui/screens/search/search_view_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
@@ -25,6 +26,16 @@ class RootPagedView extends HookWidget {
   //       }
   //   }
   // }
+
+  // PagedView(Screen) 탭뷰 라우트 할 때 직접 필요없는 컨트롤러를 dispose해주는 메소드
+  void disposeControllerIfNeeded() {
+    if (Get.isRegistered<ContentDetailViewModel>()) {
+      Get.delete<ContentDetailViewModel>();
+    }
+    if (Get.isRegistered<SearchContentDetailViewModel>()) {
+      Get.delete<SearchContentDetailViewModel>();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,12 +82,7 @@ class RootPagedView extends HookWidget {
                   itemCount: screenList.length,
                   scrollDirection: Axis.vertical,
                   onPageChanged: (int page) {
-                    // bindDirectlyOnPagedViewRoute(page);
-                    if (Get.isRegistered<ContentDetailViewModel>()) {
-                      // 직접 Controller을 삭제.
-                      Get.delete<ContentDetailViewModel>();
-                    }
-
+                    disposeControllerIfNeeded();
                     _screenIndex.value = page;
                   },
                   itemBuilder: (context, index) {

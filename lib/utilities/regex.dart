@@ -14,6 +14,9 @@ class Regex {
   static String dateYM(String date) =>
       DateFormat('yyyy년 M월').format(DateTime.parse(date));
 
+  static String dateYDOTM(String date) =>
+      DateFormat('yyyy.M').format(DateTime.parse(date));
+
   static String dateToMdHHmm(String date) =>
       DateFormat('M월 d일 HH시 mm분').format(DateTime.parse(date));
 

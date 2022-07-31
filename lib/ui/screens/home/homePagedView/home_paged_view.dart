@@ -48,10 +48,17 @@ class HomePagedView extends HookWidget {
     }
 
     // PagedView에서 관리하는 스크린 리스트 -(화면이동 메소드를 인자로 전달)
+    // final screenList = [
+    //   HomeScreen(routeAction: _pagedRouteHandler),
+    //   _screenIndex.value == 1
+    //       ? ContentDetailScreen(routeAction: _pagedRouteHandler)
+    //       : const SizedBox(),
+    // ];
+
     final screenList = [
       HomeScreen(routeAction: _pagedRouteHandler),
       _screenIndex.value == 1
-          ? ContentDetailScreen(routeAction: _pagedRouteHandler)
+          ? HomeContentDetailScreen(routeAction: _pagedRouteHandler)
           : const SizedBox(),
     ];
 
