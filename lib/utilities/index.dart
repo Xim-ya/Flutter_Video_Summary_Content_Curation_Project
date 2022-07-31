@@ -47,6 +47,7 @@ export 'package:movie_curation/data/remote/network/api/content/response/content_
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_detail_info_response.dart';
 export 'package:movie_curation/data/remote/network/api/youtube/youtube_api.dart';
 export 'package:movie_curation/data/repository/content/content_repository.dart';
+export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_genre_movie_list_response.dart';
 
 /* Domain Layer (useCase, model) */
 export 'package:movie_curation/domain/models/content/content_model.dart';
@@ -66,12 +67,18 @@ export 'package:movie_curation/domain/useCase/tmdb/tmdb_load_poopular_dramas_use
 export 'package:movie_curation/domain/useCase/content/load_popular_content_list_use_case.dart';
 export 'package:movie_curation/domain/models/content/content_model.dart';
 export 'package:movie_curation/domain/models/tmdb/tmdb_movie_detail_info_model.dart';
+export 'package:movie_curation/domain/useCase/tmdb/load_movie_list_by_genre_use_case.dart';
+export 'package:movie_curation/domain/useCase/youtube/youtube_load_youtube_meta_data_ues_case.dart';
 
 /* Presentation Layer (MVVM) */
 export 'package:movie_curation/ui/screens/home/home_view_model.dart';
 export 'package:movie_curation/ui/screens/content/contentDetail/content_detail_scaffold.dart';
-export 'package:movie_curation/ui/screens/content/contentDetail/content_detail_screen.dart';
-export 'package:movie_curation/ui/screens/content/contentDetail/content_detail_view_model.dart';
+export 'package:movie_curation/ui/screens/content/contentDetail/home_content_detail_screen.dart';
+export 'package:movie_curation/ui/screens/content/contentDetail/home_content_detail_view_model.dart';
+export 'package:movie_curation/ui/screens/search/search_view_model.dart';
+export 'package:movie_curation/ui/screens/search/search_paged_view.dart';
+export 'package:movie_curation/ui/screens/content/contentDetail/search_content_view_model.dart';
+export 'package:movie_curation/ui/screens/search/search_screen_scaffold.dart';
 
 //old
 export 'package:movie_curation/ui/screens/home/homePagedView/home_paged_view.dart';
@@ -80,7 +87,6 @@ export 'package:movie_curation/utilities/temp_screen.dart';
 export 'package:movie_curation/utilities/temp_screen.dart';
 export 'package:youtube_player_flutter/youtube_player_flutter.dart';
 export 'package:movie_curation/ui/screens/content/contentPlayer/content_youtube_player_screen.dart';
-export 'package:movie_curation/ui/screens/search/search_screen.dart';
 
 /* Widgets */
 export 'package:movie_curation/ui/widgets/responsive_layout.dart';
@@ -96,7 +102,6 @@ export 'package:movie_curation/ui/widgets/back_arrow_button.dart';
 export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/youtube_review_contents_wheel_slider.dart'; // MovieDetailScreen(T) > WheelSlider
 export 'package:movie_curation/ui/screens/search/localWidget/random_poster_background.dart';
 export 'package:movie_curation/ui/screens/search/localWidget/content_thumbnail_vertical_slider.dart';
-export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/youtube_content_list_view.dart';
 
 /* Utilities */
 export 'package:movie_curation/utilities/palette.dart';
@@ -107,6 +112,8 @@ export 'package:movie_curation/utilities/responsive_size.dart';
 export 'package:movie_curation/utilities/mixin/api_error_handler_mixin.dart';
 export 'package:movie_curation/utilities/result.dart';
 export 'package:movie_curation/utilities/resources/colors.dart';
+export 'package:movie_curation/utilities/regex.dart';
+export 'package:movie_curation/app/config/size_config.dart';
 
 /* Base */
 export 'package:movie_curation/domain/base/base_no_param_use_case.dart';

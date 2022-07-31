@@ -24,8 +24,8 @@ const List<String> posterList = [
 
 // SearchScreen > Genre Dictionary
 const Map<int, String> genreDefaults = {
-  3210: "전체",
-  3211: "추천",
+  // 3210: "전체",
+  3210: "추천",
   28: "액션",
   12: "모험",
   16: "애니메이션",
@@ -49,7 +49,6 @@ const Map<int, String> genreDefaults = {
 
 const List<int> genreKeyList = [
   3210,
-  3211,
   28,
   12,
   16,

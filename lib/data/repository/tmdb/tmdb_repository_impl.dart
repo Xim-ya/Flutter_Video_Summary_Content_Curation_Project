@@ -5,6 +5,7 @@ class TmdbRepositoryImpl implements TmdbRepository {
 
   final TmdbRemoteDataSource _dataSource;
 
+  /* TMDB - 인기 영화 리스트 */
   @override
   Future<Result<List<ContentModel>>> loadPopularMovie() async {
     try {
@@ -16,6 +17,7 @@ class TmdbRepositoryImpl implements TmdbRepository {
     }
   }
 
+  /* TMDB - 인기 드라마 리스트 */
   @override
   Future<Result<List<ContentModel>>> loadPopularDrama() async {
     try {
@@ -27,6 +29,7 @@ class TmdbRepositoryImpl implements TmdbRepository {
     }
   }
 
+  /* TMDB - 영화 비디오 정보 */
   @override
   Future<Result<List<TmdbMovieVideoInfoModel>>> loadMovieVideoInfo(
       contentId) async {
@@ -40,6 +43,7 @@ class TmdbRepositoryImpl implements TmdbRepository {
     }
   }
 
+  /* TMDB - 드라마 크래딧 리스트 */
   @override
   Future<Result<List<ContentCastModel>>> loadDramaCastInfo(int dramaId) async {
     try {
@@ -52,6 +56,7 @@ class TmdbRepositoryImpl implements TmdbRepository {
     }
   }
 
+  /* TMDB - 영화 크래딧 리스트 */
   @override
   Future<Result<List<ContentCastModel>>> loadMovieCastInfo(int movieId) async {
     try {
@@ -64,8 +69,22 @@ class TmdbRepositoryImpl implements TmdbRepository {
     }
   }
 
+  /* TMDB - 영화 상세 정보 */
   @override
   Future<TmdbMovieDetailInfoResponse> loadMovieDetailInfo(int movieId) {
     return _dataSource.loadTmdbMovieDetailInfo(movieId);
+  }
+
+  @override
+  Future<Result<List<ContentModel>>> loadMovieListByGenre(int genreId) async {
+    try {
+      final response = await _dataSource.loadMovieListByGenre(genreId).then(
+          (value) => value.results
+              .map(ContentModel.fromGenreMovieListResponse)
+              .toList());
+      return Result.success(response);
+    } on Exception catch (e) {
+      return Result.failure(e);
+    }
   }
 }
