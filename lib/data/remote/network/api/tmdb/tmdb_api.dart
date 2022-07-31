@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_genre_movie_list_response.dart';
-import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_detail_info_response.dart';
 import 'package:movie_curation/utilities/index.dart';
 import 'package:retrofit/retrofit.dart';
 part 'tmdb_api.g.dart';

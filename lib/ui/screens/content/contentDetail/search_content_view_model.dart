@@ -1,15 +1,17 @@
-import 'package:movie_curation/domain/useCase/youtube/youtube_load_youtube_meta_data_ues_case.dart';
-import 'package:movie_curation/ui/screens/search/search_view_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchContentDetailViewModel extends BaseViewModel {
-  SearchContentDetailViewModel(this._loadYoutubeSearchList,
-      this._loadMovieCasts, this._loadYoutubeMetaDataListUseCase);
+  SearchContentDetailViewModel(
+      this._loadYoutubeSearchList,
+      this._loadMovieCasts,
+      this._loadYoutubeMetaDataListUseCase,
+      this._loadMovieTrailerKey);
 
   /* 전역변수 및 객체 */
   final Rxn<List<YoutubeVideoContentModel>> _youtubeSearchList = Rxn();
   final Rxn<List<ContentCastModel>> _contentCastList = Rxn();
   late List<String>? _contentGenreList;
+  RxString? _trailerKey; // 예고편 키 값
 
   /* 컨트롤러 */
   late ScrollController _scrollController;
@@ -18,12 +20,13 @@ class SearchContentDetailViewModel extends BaseViewModel {
   final YoutubeLoadSearchListUseCase _loadYoutubeSearchList;
   final TmdbLoadMovieCastsUseCase _loadMovieCasts;
   final LoadYoutubeMetaDataListUseCase _loadYoutubeMetaDataListUseCase;
+  final TmdbLoadMovieTrailerKeyUseCase _loadMovieTrailerKey;
 
   /* 컨트롤러 */
   //Youtube Player Controller - (예고편)
   YoutubePlayerController get _trailerYoutubeController {
     return YoutubePlayerController(
-      initialVideoId: HomeViewModel.trailerKey ?? "",
+      initialVideoId: _trailerKey?.value ?? "",
       flags: const YoutubePlayerFlags(
         autoPlay: false,
         mute: true,
@@ -34,9 +37,12 @@ class SearchContentDetailViewModel extends BaseViewModel {
   /* 메소드 */
   // 예고편 다이어로 위젯 띄우기
   Future<void> showContentTrailer() async {
+    final int contentId = selectedContent!.id.toInt();
+    final trailerKey = await _loadMovieTrailerKey.call(contentId);
+    _trailerKey = trailerKey?.obs;
     Get.dialog(MovieTrailerDialog(
         controller: _trailerYoutubeController,
-        hasTrailerKey: HomeViewModel.trailerKey == null ? false : true));
+        hasTrailerKey: trailerKey == null ? false : true));
   }
 
   /* 네트워킹 메소드 */

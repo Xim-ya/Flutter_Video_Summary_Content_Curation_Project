@@ -1,4 +1,3 @@
-import 'package:movie_curation/domain/useCase/tmdb/load_movie_list_by_genre_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchViewModel extends BaseViewModel {
@@ -6,8 +5,8 @@ class SearchViewModel extends BaseViewModel {
 
   /* 전역변수 및 객체 */
   // State Variables
-  final RxInt _selectedGenreKey = 3210.obs; // 선택된 장르
-  final RxInt _selectedContentIndex = 0.obs;
+  final RxInt _selectedGenreKey = 3210.obs; // 선택된 장르 키 값
+  final RxInt _selectedContentIndex = 0.obs; // 장르 컨텐츠 리스트 인덱스
   final Rxn<List<ContentModel>>? _selectedContentList = Rxn();
 
   /* UseCase -(핵심 비즈니스 로직) */
@@ -31,6 +30,7 @@ class SearchViewModel extends BaseViewModel {
   }
 
   Future<void> loadContentList() async {
+    loading(true);
     final responseResult =
         await _loadMovieListByGenre.call(_selectedGenreKey.value);
     responseResult.fold(onSuccess: (data) {
@@ -38,6 +38,7 @@ class SearchViewModel extends BaseViewModel {
     }, onFailure: (e) {
       print(e);
     });
+    loading(false);
   }
 
   @override

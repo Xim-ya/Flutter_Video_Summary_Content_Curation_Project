@@ -37,7 +37,7 @@ class HomeViewModel extends BaseViewModel {
   final TmdbLoadMovieTrailerKeyUseCase _loadMovieTrailerKey;
   final LoadPopularContentListUseCase _loadPopularContentListUseCase;
 
-  /* 메소드 */
+  /* Intent - (메소드) */
   // 카테고리 그룹 버튼을 탭 되었을 때
   void onCategoryBtnTap(int index) {
     loading(true);

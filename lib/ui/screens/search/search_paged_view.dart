@@ -25,9 +25,9 @@ class SearchPagedView extends HookWidget {
         // 직접 Controller을 삭제.
         Get.delete<SearchContentDetailViewModel>();
       } else {
-        // `ContentDetail` VM Controller 생성
-        Get.lazyPut(() =>
-            SearchContentDetailViewModel(Get.find(), Get.find(), Get.find()));
+        // `SearchContentDetailViewModel` VM Controller 생성
+        Get.lazyPut(() => SearchContentDetailViewModel(
+            Get.find(), Get.find(), Get.find(), Get.find()));
       }
 
       _pagedController.animateToPage(_screenIndex.value == 0 ? 1 : 0,

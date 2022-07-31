@@ -34,26 +34,18 @@ class HomePagedView extends HookWidget {
 
     // PagedView 안에서 화면이동(route) 하는 메소드
     void _pagedRouteHandler() {
-      if (Get.isRegistered<ContentDetailViewModel>()) {
+      if (Get.isRegistered<HomeContentDetailViewModel>()) {
         // 직접 Controller을 삭제.
-        Get.delete<ContentDetailViewModel>();
+        Get.delete<HomeContentDetailViewModel>();
       } else {
         // `ContentDetail` VM Controller 생성
-        Get.lazyPut(
-            () => ContentDetailViewModel(Get.find(), Get.find(), Get.find()));
+        Get.lazyPut(() =>
+            HomeContentDetailViewModel(Get.find(), Get.find(), Get.find()));
       }
       // PagedView 라우팅
       _pagedController.animateToPage(_screenIndex.value == 0 ? 1 : 0,
           duration: const Duration(milliseconds: 480), curve: Curves.easeIn);
     }
-
-    // PagedView에서 관리하는 스크린 리스트 -(화면이동 메소드를 인자로 전달)
-    // final screenList = [
-    //   HomeScreen(routeAction: _pagedRouteHandler),
-    //   _screenIndex.value == 1
-    //       ? ContentDetailScreen(routeAction: _pagedRouteHandler)
-    //       : const SizedBox(),
-    // ];
 
     final screenList = [
       HomeScreen(routeAction: _pagedRouteHandler),

@@ -1,6 +1,3 @@
-import 'package:movie_curation/app/config/size_config.dart';
-import 'package:movie_curation/ui/screens/search/search_screen_scaffold.dart';
-import 'package:movie_curation/ui/screens/search/search_view_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchScreen extends BaseScreen<SearchViewModel> {

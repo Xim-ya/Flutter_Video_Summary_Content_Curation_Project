@@ -1,8 +1,7 @@
-import 'package:movie_curation/domain/useCase/youtube/youtube_load_youtube_meta_data_ues_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
-class ContentDetailViewModel extends BaseViewModel {
-  ContentDetailViewModel(this._loadYoutubeSearchList, this._loadMovieCasts,
+class HomeContentDetailViewModel extends BaseViewModel {
+  HomeContentDetailViewModel(this._loadYoutubeSearchList, this._loadMovieCasts,
       this._loadYoutubeMetaDataListUseCase);
 
   /* 전역변수 및 객체 */
