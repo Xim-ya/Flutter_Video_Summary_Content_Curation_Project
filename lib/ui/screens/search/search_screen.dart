@@ -1,7 +1,8 @@
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+  final VoidCallback routeAction;
+  const SearchScreen({Key? key, required this.routeAction}) : super(key: key);
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();

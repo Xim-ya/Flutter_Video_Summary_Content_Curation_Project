@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_genre_movie_list_response.dart';
 import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_detail_info_response.dart';
 import 'package:movie_curation/utilities/index.dart';
 import 'package:retrofit/retrofit.dart';
@@ -49,9 +50,9 @@ abstract class TmdbApi {
   Future<TmdbDramaCreditResponse> loadDramaCreditInfo(
       @Path("dramaId") int dramaId);
 
-// https://api.themoviedb.org/3/discover/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&with_genres=28
+//  https://api.themoviedb.org/3
   @GET(
-      'discover/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&with_genres={genreId}')
-  Future<TmdbMovieResponse> loadMovieListByGenreResponse(
+      '/discover/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&with_genres={genreId}')
+  Future<TmdbGenreMovieListResponse> loadMovieListByGenreResponse(
       @Path('genreId') int genreId);
 }

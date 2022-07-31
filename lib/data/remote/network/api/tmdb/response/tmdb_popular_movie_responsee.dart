@@ -13,5 +13,5 @@ class TmdbMovieResponse {
   TmdbMovieResponse(this.page, this.results);
 
   factory TmdbMovieResponse.fromJson(Map<String, dynamic> json) =>
-      _$TmdbPopularMovieResponseFromJson(json);
+      _$TmdbMovieResponseFromJson(json);
 }

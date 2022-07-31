@@ -78,8 +78,11 @@ class TmdbRepositoryImpl implements TmdbRepository {
   @override
   Future<Result<List<ContentModel>>> loadMovieListByGenre(int genreId) async {
     try {
-      final response = await _dataSource.loadPopularMovie().then((value) =>
-          value.results.map(ContentModel.fromMovieResponse).toList());
+      print("aim333 -->${genreId}");
+      final response = await _dataSource.loadMovieListByGenre(genreId).then(
+          (value) => value.results
+              .map(ContentModel.fromGenreMovieListResponse)
+              .toList());
       return Result.success(response);
     } on Exception catch (e) {
       return Result.failure(e);

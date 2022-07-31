@@ -118,19 +118,20 @@ class _TmdbApi implements TmdbApi {
   }
 
   @override
-  Future<TmdbMovieResponse> loadMovieListByGenreResponse(genreKey) async {
+  Future<TmdbGenreMovieListResponse> loadMovieListByGenreResponse(
+      genreId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<
-        TmdbMovieResponse>(Options(
+        TmdbGenreMovieListResponse>(Options(
             method: 'GET', headers: _headers, extra: _extra)
         .compose(_dio.options,
-            'discover/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&with_genres=$genreKey',
+            '/discover/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&with_genres=$genreId',
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = TmdbMovieResponse.fromJson(_result.data!);
+    final value = TmdbGenreMovieListResponse.fromJson(_result.data!);
     return value;
   }
 

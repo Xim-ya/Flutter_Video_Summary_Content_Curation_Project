@@ -1,3 +1,4 @@
+import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_genre_movie_list_response.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class TmdbRemoteDataSourceImpl
@@ -37,8 +38,8 @@ class TmdbRemoteDataSourceImpl
   Future<TmdbMovieDetailInfoResponse> loadTmdbMovieDetailInfo(int movieId) =>
       loadResponseOrThrow(() => _api.loadMovieDetailInfo(movieId));
 
-/* TMDB - 장르키를 바다탕으로 영화 정보 리스트 호출*/
+  /* TMDB - 장르키를 바다탕으로 영화 정보 리스트 호출*/
   @override
-  Future<TmdbMovieResponse> loadMovieListByGenre(int genreId) =>
+  Future<TmdbGenreMovieListResponse> loadMovieListByGenre(int genreId) =>
       loadResponseOrThrow(() => _api.loadMovieListByGenreResponse(genreId));
 }

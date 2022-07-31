@@ -1,4 +1,5 @@
 import 'package:movie_curation/app/routes/app_pages.dart';
+import 'package:movie_curation/ui/screens/search/search_paged_view.dart';
 import 'package:movie_curation/ui/screens/search/search_screen_new.dart';
 import 'package:movie_curation/ui/screens/search/search_view_model.dart';
 import 'package:movie_curation/utilities/index.dart';
@@ -10,24 +11,25 @@ class RootPagedView extends HookWidget {
   final List<Widget> screenList = [
     const HomePagedView(),
     // const SearchScreen(),
-    SearchScreenNew(),
+    const SearchPagedView(),
+    // SearchScreenNew(),
     const TempScreen3(),
     const TempScreen4(),
   ];
 
-  void bindDirectlyOnPagedViewRoute(int screenIndex) {
-    switch (screenIndex) {
-      case 1:
-        if (!Get.isRegistered<SearchViewModel>()) {
-          Get.put(SearchViewModel());
-        }
-    }
-  }
+  // void bindDirectlyOnPagedViewRoute(int screenIndex) {
+  //   switch (screenIndex) {
+  //     case 1:
+  //       if (!Get.isRegistered<SearchViewModel>()) {
+  //         Get.put(SearchViewModel());
+  //       }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     //  PagedViewScreen의 Screen Index
-    final _screenIndex = useState(0);
+    final _screenIndex = useState(1);
 
     // PagedView Controller
     final PageController _pagedController = PageController(

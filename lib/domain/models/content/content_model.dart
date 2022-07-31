@@ -1,3 +1,4 @@
+import 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_genre_movie_list_response.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ContentModel {
@@ -49,6 +50,22 @@ class ContentModel {
         title: response.name,
         overview: response.overview,
         releaseDate: response.first_air_date,
+        voteAverage: response.vote_average,
+        backDropUrl: response.backdrop_path,
+        posterUrl: response.poster_path,
+        genreIds: response.genre_ids,
+        youtubeVideoIds: null,
+      );
+
+  // TMDB 인기 드라마 API
+  factory ContentModel.fromGenreMovieListResponse(
+          TmdbMovieGenreItemResponse response) =>
+      ContentModel(
+        adult: response.adult,
+        id: response.id,
+        title: response.title,
+        overview: response.overview,
+        releaseDate: response.release_date,
         voteAverage: response.vote_average,
         backDropUrl: response.backdrop_path,
         posterUrl: response.poster_path,
