@@ -1,4 +1,5 @@
 import 'package:movie_curation/utilities/index.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class ContentThumbnailVerticalSlider extends BaseView<SearchViewModel> {
   const ContentThumbnailVerticalSlider({Key? key, required this.routeAction})
@@ -14,7 +15,7 @@ class ContentThumbnailVerticalSlider extends BaseView<SearchViewModel> {
             child: ListView.builder(
               shrinkWrap: true,
               controller: vm.verticalScrollController,
-              itemCount: vm.selectedContentList?.length ?? 0,
+              itemCount: vm.selectedContentList!.length + 1 ?? 0,
               itemBuilder: (context, index) {
                 if (index < vm.selectedContentList!.length) {
                   final contentItem = vm.selectedContentList![index];
@@ -101,8 +102,18 @@ class ContentThumbnailVerticalSlider extends BaseView<SearchViewModel> {
                     ),
                   );
                 } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return VisibilityDetector(
+                    onVisibilityChanged: (VisibilityInfo info) {
+                      print(info);
+                    },
+                    key: const Key("the-end-of-content"),
+                    child: Center(
+                      child: Container(
+                        height: 100,
+                        width: 100,
+                        color: Colors.red,
+                      ),
+                    ),
                   );
                 }
               },
