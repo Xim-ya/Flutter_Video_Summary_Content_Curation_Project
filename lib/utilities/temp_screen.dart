@@ -1,3 +1,4 @@
+import 'package:movie_curation/app/config/size_config.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class TempScreen1 extends StatelessWidget {
@@ -52,16 +53,21 @@ class TempScreen3 extends StatelessWidget {
   const TempScreen3({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    YoutubePlayerController _controller = YoutubePlayerController(
-      initialVideoId: 'iLnmTe5Q2Qw',
-      flags: YoutubePlayerFlags(
-        autoPlay: true,
-        mute: true,
-      ),
-    );
     return Container(
-      color: Colors.blue,
-      child: Container(),
+      color: Colors.white,
+      child: Container(
+        child: Center(
+          child: Container(
+            width: SizeConfig().screenWidth - 100,
+            color: Colors.yellow,
+            child: Center(
+              child: Text(
+                "Test Message, 테스트 입니다",
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

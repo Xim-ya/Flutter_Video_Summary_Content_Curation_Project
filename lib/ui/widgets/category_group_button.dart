@@ -25,7 +25,7 @@ class CategoryGroupButton extends BaseView<HomeViewModel> {
                         vm.selectedCategoryIndex.value == _itemIndex
                             ? 1
                             : 0.24),
-                    fontSize: groupButtonTextSize,
+                    fontSize: 28,
                     fontWeight: FontWeight.bold),
               ),
             ),
