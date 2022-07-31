@@ -3,6 +3,10 @@ import 'package:movie_curation/utilities/index.dart';
 class SearchViewModel extends BaseViewModel {
   /* 전역변수 및 객체 */
   final RxInt _selectedGenreKey = 3210.obs; // 선택된 장르
+  // final List<ContentModel>? selectedContentList =
+  //     HomeViewModel.selectedContentList;
+  final List<ContentModel>? selectedContentList = [];
+  final Rxn<List<ContentModel>>? recommendedContentList = Rxn();
 
   /* 컨트롤러 */
   late final ScrollController _scrollController;
@@ -20,8 +24,6 @@ class SearchViewModel extends BaseViewModel {
   }
 
   /* Getter - (캡슐화) */
-
   int get selectedGenreKey => _selectedGenreKey.value;
   ScrollController get verticalScrollController => _scrollController;
-  // List<ContentModel>? get selectedContentList =>
 }

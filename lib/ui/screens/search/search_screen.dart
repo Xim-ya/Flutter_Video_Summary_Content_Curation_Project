@@ -42,10 +42,10 @@ class _SearchScreenState extends State<SearchScreen>
               ),
             ),
             /* Contents List Slider */
-            // Expanded(
-            //   flex: 2,
-            //   child: ContentThumbnailVerticalSlider(searchVM: _searchVM),
-            // ),
+            const Expanded(
+              flex: 2,
+              child: ContentThumbnailVerticalSlider(),
+            ),
             /* Right Side (Movie Contents) */
           ],
         ),

@@ -116,8 +116,9 @@ class HomeViewModel extends BaseViewModel {
   }
 
   /* 캡술화 - (Getter) */
-  static List<ContentModel>? get selectedContentList =>
-      Get.find<HomeViewModel>()._selectedContentList.value;
+  // static List<ContentModel>? get selectedContentListG =>
+  //     Get.find<HomeViewModel>()._selectedContentList.value;
+  List<ContentModel>? get selectedContentList => _selectedContentList.value;
   ContentModel? get selectedContent =>
       _selectedContentList.value?[selectedContentIndex.value];
   ItemScrollController get itemScrollController => _itemScrollController;

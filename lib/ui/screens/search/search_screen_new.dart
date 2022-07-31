@@ -14,7 +14,7 @@ class SearchScreenNew extends StatelessWidget {
       posterBackground: const RandomPosterBackground(),
       searchBar: _buildSearchBar(),
       verticalGenreGroupBtn: _buildVerticalGenreGroupBtn(),
-      verticalContentSlider: ContentThumbnailVerticalSlider(),
+      verticalContentSlider: const ContentThumbnailVerticalSlider(),
     );
   }
 

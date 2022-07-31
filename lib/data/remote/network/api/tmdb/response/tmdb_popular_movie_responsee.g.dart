@@ -6,9 +6,9 @@ part of 'tmdb_popular_movie_responsee.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TmdbPopularMovieResponse _$TmdbPopularMovieResponseFromJson(
+TmdbMovieResponse _$TmdbPopularMovieResponseFromJson(
         Map<String, dynamic> json) =>
-    TmdbPopularMovieResponse(
+    TmdbMovieResponse(
       json['page'] as int,
       (json['results'] as List<dynamic>)
           .map((e) => TmdbMovieItemResponse.fromJson(e as Map<String, dynamic>))

@@ -1,9 +1,8 @@
+import 'package:movie_curation/ui/screens/search/search_view_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
-class ContentThumbnailVerticalSlider extends BaseView {
-  ContentThumbnailVerticalSlider({Key? key}) : super(key: key);
-
-  // final _scrollController = ScrollController();
+class ContentThumbnailVerticalSlider extends BaseView<SearchViewModel> {
+  const ContentThumbnailVerticalSlider({Key? key}) : super(key: key);
 
   @override
   Widget buildView(BuildContext context) {
@@ -11,10 +10,10 @@ class ContentThumbnailVerticalSlider extends BaseView {
       height: double.infinity,
       // child: ListView.builder(
       //   shrinkWrap: true,
-      //   itemCount: 0,
+      //   itemCount: HomeViewModel.selectedContentListG!.length,
       //   itemBuilder: (context, index) {
-      //     if (index < searchVM.selectedMovies.length) {
-      //       final movieItem = searchVM.selectedMovies[index];
+      //     if (index < HomeViewModel.selectedContentListG!.length) {
+      //       final movieItem = HomeViewModel.selectedContentListG![index];
       //       return Container(
       //         padding: EdgeInsets.only(bottom: 22, top: 22, left: 32),
       //         height: 200,

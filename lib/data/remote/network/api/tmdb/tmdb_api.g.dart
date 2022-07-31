@@ -16,19 +16,19 @@ class _TmdbApi implements TmdbApi {
   String? baseUrl;
 
   @override
-  Future<TmdbPopularMovieResponse> loadPopularMovie() async {
+  Future<TmdbMovieResponse> loadPopularMovie() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<
-        TmdbPopularMovieResponse>(Options(
+        TmdbMovieResponse>(Options(
             method: 'GET', headers: _headers, extra: _extra)
         .compose(_dio.options,
             '/movie/popular?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1',
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = TmdbPopularMovieResponse.fromJson(_result.data!);
+    final value = TmdbMovieResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -114,6 +114,23 @@ class _TmdbApi implements TmdbApi {
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = TmdbDramaCreditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<TmdbMovieResponse> loadMovieListByGenreResponse(genreKey) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<
+        TmdbMovieResponse>(Options(
+            method: 'GET', headers: _headers, extra: _extra)
+        .compose(_dio.options,
+            'discover/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&with_genres=$genreKey',
+            queryParameters: queryParameters, data: _data)
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = TmdbMovieResponse.fromJson(_result.data!);
     return value;
   }
 

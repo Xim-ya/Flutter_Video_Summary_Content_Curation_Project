@@ -17,7 +17,7 @@ abstract class TmdbApi {
   //`인기 영화` 호출
   @GET(
       "/movie/popular?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1")
-  Future<TmdbPopularMovieResponse> loadPopularMovie();
+  Future<TmdbMovieResponse> loadPopularMovie();
 
   // `인기 드라마` 호출
   @GET(
@@ -48,4 +48,10 @@ abstract class TmdbApi {
       "/tv/{dramaId}/credits?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1")
   Future<TmdbDramaCreditResponse> loadDramaCreditInfo(
       @Path("dramaId") int dramaId);
+
+// https://api.themoviedb.org/3/discover/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&with_genres=28
+  @GET(
+      'discover/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&with_genres={genreId}')
+  Future<TmdbMovieResponse> loadMovieListByGenreResponse(
+      @Path('genreId') int genreId);
 }
