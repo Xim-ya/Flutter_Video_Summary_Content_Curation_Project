@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:movie_curation/utilities/index.dart';
 
@@ -9,7 +10,6 @@ class SearchViewModel extends BaseViewModel {
   final RxInt _selectedGenreKey = 28.obs; // 선택된 장르 키 값
   final RxInt _selectedContentIndex = 0.obs; // 장르 컨텐츠 리스트 인덱스
   final Rxn<List<ContentModel>>? _selectedContentList = Rxn();
-  final int _pageSize = 20;
   int page = 1;
   bool firstLoaded = true;
 
@@ -26,9 +26,6 @@ class SearchViewModel extends BaseViewModel {
     _selectedGenreKey.value = genreKey;
     pagingController.refresh();
     firstLoaded = false;
-    pagingController.addPageRequestListener((pageKey) {
-      loadContentList(1);
-    });
     // onInitialLoadingContentList();
   }
 
@@ -37,99 +34,51 @@ class SearchViewModel extends BaseViewModel {
     _selectedContentIndex.value = index;
   }
 
-  // Future<void> pagination() async {
-  //   if ((_scrollController.position.pixels ==
-  //           _scrollController.position.maxScrollExtent) &&
-  //       (_selectedContentList!.length < total)) {
-  //     // setState(() {
-  //     //   isLoading = true;
-  //     //   page += 1;
-  //     //   //add api for load the more data according to new page
-  //     // });
-  //   }
-  // }
-
-  // Paging 기능
-  Future<void> loadMoreContentList() async {
-    loading(true);
-    final responseResult =
-        await _loadMovieListByGenre.call(_selectedGenreKey.value, 2);
-    responseResult.fold(onSuccess: (data) {
-      _selectedContentList!.value!.addAll(data);
-    }, onFailure: (e) {
-      print(e);
-    });
-    loading(false);
-  }
-
-  // Future<void> loadContentList(int page) async {
+  // Future<void> loadMoreContentList() async {
   //   loading(true);
   //   final responseResult =
-  //       await _loadMovieListByGenre.call(_selectedGenreKey.value, page);
+  //       await _loadMovieListByGenre.call(_selectedGenreKey.value, 2);
   //   responseResult.fold(onSuccess: (data) {
-  //     _selectedContentList!.value = data;
+  //     _selectedContentList!.value!.addAll(data);
   //   }, onFailure: (e) {
   //     print(e);
   //   });
   //   loading(false);
   // }
 
+  // 컨텐츠 리스트 호출 - (pagination logic 적용)
   Future<void> loadContentListByPaging() async {
-    print("page key is --> ${pagingController.nextPageKey}");
+    loading(true);
     final responseResult = await _loadMovieListByGenre(
         _selectedGenreKey.value, pagingController.nextPageKey!);
     responseResult.fold(onSuccess: (data) {
-      final bool isLastPage = pagingController.nextPageKey! > 1;
-      print('nextPageKey = ${pagingController.nextPageKey}');
-      print('${isLastPage}');
-      if (isLastPage) {
-        print("last load");
+      // 최대 불러올 수 있는 page 넘버를 2로 설정 (컨텐츠 40개) - TMDB 기준
+      // 호출한 데이터가 20개 이하면 더 이상 불러올 수 없다고 판단.
+      final bool limitPage = pagingController.nextPageKey! > 1;
+      final bool noMoreReturn = data.length < 20;
+      if (limitPage || noMoreReturn) {
+        log('last load');
         pagingController.appendLastPage(data);
       } else {
-        print('first laod');
+        log('first load');
         pagingController.appendPage(data, pagingController.nextPageKey! + 1);
       }
-
-      firstLoaded = false;
     }, onFailure: (err) {
       pagingController.error = err;
     });
-  }
 
-  Future<void> loadContentList(int page) async {
-    print("why this is loading?");
-    // final responseResult = await _loadMovieListByGenre(
-    //     _selectedGenreKey.value, pagingController.nextPageKey!);
-    // responseResult.fold(onSuccess: (data) {
-    //   final bool isLastPage = pagingController.nextPageKey! > 2;
-    //   if (isLastPage) {
-    //     print("last load");
-    //     pagingController.appendLastPage(data);
-    //   } else {
-    //     print("keepLoading load");
-    //     pagingController.appendPage(data, pagingController.nextPageKey);
-    //   }
-    // }, onFailure: (err) {
-    //   pagingController.error = err;
-    // });
-
-    // update();
+    loading(false);
   }
 
   @override
   void onInit() {
-    // _scrollController = ScrollController();
-    // loadContentList(1);
     super.onInit();
-
-    pagingController =
-        PagingController(firstPageKey: 1, invisibleItemsThreshold: 1);
-
+    pagingController = PagingController(
+        firstPageKey: 1, invisibleItemsThreshold: 1); // paging controller 생성
+    // paging 컨트럴러 listener 설정
     pagingController.addPageRequestListener((pageKey) {
       loadContentListByPaging();
     });
-
-    // onInitialLoadingContentList();
   }
 
   /* Getter - (캡슐화) */
@@ -141,8 +90,4 @@ class SearchViewModel extends BaseViewModel {
       Get.find<SearchViewModel>().selectedContent;
 
   List<ContentModel>? get selectedContentList => _selectedContentList!.value;
-  // ScrollController get verticalScrollController => _scrollController;
-
-  // ContentModel? get selectedContent =>
-  //     _selectedContentList?.value![_selectedContentIndex.value];
 }
