@@ -40,6 +40,8 @@ class TmdbRemoteDataSourceImpl
 
   /* TMDB - 장르키를 바다탕으로 영화 정보 리스트 호출*/
   @override
-  Future<TmdbGenreMovieListResponse> loadMovieListByGenre(int genreId) =>
-      loadResponseOrThrow(() => _api.loadMovieListByGenreResponse(genreId));
+  Future<TmdbGenreMovieListResponse> loadMovieListByGenre(
+          {required int genreId, required int page}) =>
+      loadResponseOrThrow(
+          () => _api.loadMovieListByGenreResponse(genreId, page));
 }

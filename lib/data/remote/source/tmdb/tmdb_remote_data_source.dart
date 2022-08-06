@@ -8,5 +8,6 @@ abstract class TmdbRemoteDataSource {
   Future<TmdbMovieCreditResponse> loadTmdbMovieCredit(int movieId);
   Future<TmdbDramaCreditResponse> loadTmdbDramaCredit(int dramaId);
   Future<TmdbMovieDetailInfoResponse> loadTmdbMovieDetailInfo(int movieId);
-  Future<TmdbGenreMovieListResponse> loadMovieListByGenre(int genreId);
+  Future<TmdbGenreMovieListResponse> loadMovieListByGenre(
+      {required int genreId, required int page});
 }

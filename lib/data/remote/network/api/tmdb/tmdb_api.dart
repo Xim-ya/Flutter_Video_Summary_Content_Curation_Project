@@ -50,7 +50,7 @@ abstract class TmdbApi {
 
   // '장르'로 영화 리스트 정보 호출
   @GET(
-      '/discover/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&with_genres={genreId}')
+      '/discover/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page={page}&with_genres={genreId}')
   Future<TmdbGenreMovieListResponse> loadMovieListByGenreResponse(
-      @Path('genreId') int genreId);
+      @Path('genreId') int genreId, @Path('page') int page);
 }
