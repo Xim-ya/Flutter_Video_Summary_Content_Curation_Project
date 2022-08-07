@@ -1,4 +1,3 @@
-import 'package:movie_curation/ui/screens/search/localWidget/content_list_tile_item.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchScreen extends BaseScreen<SearchViewModel> {
@@ -8,70 +7,32 @@ class SearchScreen extends BaseScreen<SearchViewModel> {
   @override
   Widget buildScreen(BuildContext context) {
     return SearchScreenScaffold(
-      isSearchMode: vm.isSearchMode,
       posterBackground: const RandomPosterBackground(),
       searchBar: _buildSearchBar(),
-      verticalGenreGroupBtn: _buildVerticalGenreGroupBtn(),
-      verticalContentSlider:
-          ContentThumbnailVerticalSlider(routeAction: routeAction),
-      verticalSearchedListSlider: _buildVerticalSearchedListSlider(),
+      leadingPart: _buildLeadingPart(),
+      trailingPart: _buildTrailingPart(),
     );
   }
 
-  Widget _buildVerticalSearchedListSlider() {
-    return Obx(() => vm.selectedSearchContentIndex != null
-        ? Padding(
-            padding: const EdgeInsets.only(top: 40, left: 20),
-            child: Column(
-              children: [
-                ContentListTileItem(
-                    contentItem: vm.selectedSearchContent!,
-                    onItemTapped: () => routeAction()),
-              ],
-            ),
-          )
-        : const SizedBox());
+  Widget _buildLeadingPart() {
+    return Obx(() => vm.isSearchMode.value
+        ? SearchedResultListView(
+            isSearchLoading: vm.isSearchLoading,
+            contentSearchList: vm.contentSearchList,
+            onAutoCompleteResultTapped: vm.onAutoCompleteResultTapped,
+            selectedSearchContentIndex: vm.selectedSearchContentIndex)
+        : GenreGroupButtonListView(
+            onGenreBtnTapped: vm.onGenreBtnTapped,
+            selectedGenreKey: vm.selectedGenreKey));
   }
 
-  Widget _buildVerticalGenreGroupBtn() {
-    return Expanded(
-      child: ListView.builder(
-        padding: const EdgeInsets.only(top: 60, right: 60),
-        shrinkWrap: true,
-        itemCount: genreKeyList.length,
-        itemBuilder: (context, index) {
-          final genreKey = genreKeyList[index];
-          final genreItem = genreDefaults[genreKey];
-          return Obx(
-            () => TextButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.transparent,
-                padding: const EdgeInsets.symmetric(horizontal: 0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4)),
-              ),
-              onPressed: () => vm.onGenreBtnTapped(genreKey),
-              child: Container(
-                padding: const EdgeInsets.only(left: 12),
-                alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                  border: genreKey == vm.selectedGenreKey
-                      ? Border.all(color: kYellow, width: 1)
-                      : null,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                margin: const EdgeInsets.only(bottom: 4),
-                height: 54,
-                child: Text(
-                  genreItem ?? "장르",
-                  style: FontStyles().genreOption,
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
+  Widget _buildTrailingPart() {
+    return Obx(() => vm.showGenreContentList.isFalse
+        ? SearchedContentDetailListView(
+            selectedSearchContentIndex: vm.selectedContentIndex,
+            selectedSearchContent: vm.selectedContent!,
+            routeAction: routeAction)
+        : ContentThumbnailVerticalSlider(routeAction: routeAction));
   }
 
   Widget _buildSearchBar() {

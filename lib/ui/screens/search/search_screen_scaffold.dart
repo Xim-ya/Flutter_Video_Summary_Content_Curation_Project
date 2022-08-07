@@ -1,23 +1,18 @@
-import 'package:movie_curation/ui/screens/search/localWidget/content_list_tile_item.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchScreenScaffold extends BaseView<SearchViewModel> {
-  const SearchScreenScaffold({
-    Key? key,
-    required this.isSearchMode,
-    required this.searchBar,
-    required this.verticalGenreGroupBtn,
-    required this.posterBackground,
-    required this.verticalContentSlider,
-    required this.verticalSearchedListSlider,
-  }) : super(key: key);
+  const SearchScreenScaffold(
+      {Key? key,
+      required this.leadingPart,
+      required this.searchBar,
+      required this.posterBackground,
+      required this.trailingPart})
+      : super(key: key);
 
-  final RxBool isSearchMode;
   final Widget searchBar;
-  final Widget verticalGenreGroupBtn;
   final Widget posterBackground;
-  final Widget verticalContentSlider;
-  final Widget verticalSearchedListSlider;
+  final Widget leadingPart;
+  final Widget trailingPart;
 
   @override
   Widget buildView(BuildContext context) {
@@ -40,69 +35,10 @@ class SearchScreenScaffold extends BaseView<SearchViewModel> {
                     /* Search Bar */
                     searchBar,
                     /* Genre Group List */
-                    Obx(() => isSearchMode.value
-                        ? vm.isSearchLoading.isTrue
-                            ? Container(
-                                margin: const EdgeInsets.only(top: 20),
-                                child: const Center(
-                                    child: CircularProgressIndicator()))
-                            : Expanded(
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: vm.contentSearchList?.length ?? 1,
-                                  itemBuilder: (context, index) {
-                                    if (vm.contentSearchList == null) {
-                                      const Center(
-                                        child: Center(
-                                          child: Text(
-                                            "검색된 컨텐츠가 없습니다",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      );
-                                    }
-
-                                    return TextButton(
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors.transparent,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 0),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(4)),
-                                      ),
-                                      onPressed: () =>
-                                          vm.onAutoCompleteResultTapped(index),
-                                      child: Container(
-                                        padding:
-                                            const EdgeInsets.only(left: 12),
-                                        alignment: Alignment.centerLeft,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                        margin:
-                                            const EdgeInsets.only(bottom: 4),
-                                        height: 54,
-                                        child: Obx(() => Text(
-                                              vm.contentSearchList![index]
-                                                  .title,
-                                              style: FontStyles()
-                                                  .genreOption
-                                                  .copyWith(
-                                                      color:
-                                                          vm.selectedSearchContentIndex ==
-                                                                  index
-                                                              ? AppColor.yellow
-                                                              : Colors.white),
-                                            )),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              )
-                        : verticalGenreGroupBtn)
+                    leadingPart,
+                    // Obx(() => isSearchMode.value
+                    //     ? searchResultListView
+                    //     : verticalGenreGroupBtn)
                   ],
                 ),
               ),
@@ -110,9 +46,11 @@ class SearchScreenScaffold extends BaseView<SearchViewModel> {
             /* Contents List Slider */
             Expanded(
               flex: 2,
-              child: Obx(() => vm.selectedSearchContentIndex == null
-                  ? verticalContentSlider
-                  : verticalSearchedListSlider),
+              child: trailingPart,
+
+              // Obx(() => showSearchContent.value
+              //     ? verticalContentSlider
+              //     : verticalSearchedListSlider),
             ),
             /* Right Side (Movie Contents) */
           ],

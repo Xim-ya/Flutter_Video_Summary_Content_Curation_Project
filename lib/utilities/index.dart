@@ -72,6 +72,8 @@ export 'package:movie_curation/domain/models/content/content_model.dart';
 export 'package:movie_curation/domain/models/tmdb/tmdb_movie_detail_info_model.dart';
 export 'package:movie_curation/domain/useCase/tmdb/load_movie_list_by_genre_use_case.dart';
 export 'package:movie_curation/domain/useCase/youtube/youtube_load_youtube_meta_data_ues_case.dart';
+export 'package:movie_curation/domain/useCase/tmdb/load_movie_searched_list_use_case.dart';
+export 'package:movie_curation/domain/models/youtube/youtube_channel_model.dart';
 
 /* Presentation Layer (MVVM) */
 export 'package:movie_curation/ui/screens/home/home_view_model.dart';
@@ -107,6 +109,10 @@ export 'package:movie_curation/ui/widgets/back_arrow_button.dart';
 export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/youtube_review_contents_wheel_slider.dart'; // MovieDetailScreen(T) > WheelSlider
 export 'package:movie_curation/ui/screens/search/localWidget/random_poster_background.dart';
 export 'package:movie_curation/ui/screens/search/localWidget/content_thumbnail_vertical_slider.dart';
+export 'package:movie_curation/ui/screens/search/localWidget/genre_group_button_list_view.dart';
+export 'package:movie_curation/ui/screens/search/localWidget/searched_content_details_list_view.dart';
+export 'package:movie_curation/ui/screens/search/localWidget/searched_result_list_view.dart';
+export 'package:movie_curation/ui/screens/search/localWidget/content_list_tile_item.dart';
 
 /* Utilities */
 export 'package:movie_curation/utilities/palette.dart';

@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:movie_curation/domain/useCase/tmdb/load_movie_searched_list_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchViewModel extends BaseViewModel {
@@ -135,6 +134,7 @@ class SearchViewModel extends BaseViewModel {
   List<ContentModel>? get contentSearchList => _contentSearchList?.value;
   ContentModel? get selectedSearchContent =>
       _contentSearchList?.value?[_selectedSearchContentIndex.value!];
+  RxBool get showGenreContentList => RxBool(selectedSearchContentIndex == null);
 
   // Integrated Mode Getters
   int get selectedContentIndex => isSearchMode.isTrue
