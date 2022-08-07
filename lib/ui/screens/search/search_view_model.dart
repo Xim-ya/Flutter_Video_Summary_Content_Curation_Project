@@ -9,7 +9,7 @@ class SearchViewModel extends BaseViewModel {
   // Basic Mode Variables
   final RxInt _selectedGenreKey = 16.obs; // 선택된 장르 키 값
   final RxInt _selectedContentIndex = 0.obs; // 선택된 장르 컨텐츠 리스트 인덱스
-  final Rxn<List<ContentModel>>? _selectedContentList = Rxn(); // 컨텐츠 리스트
+  // final Rxn<List<ContentModel>>? _selectedContentList = Rxn(); // 컨텐츠 리스트
 
   // Search Mode Variables
   RxBool isSearchMode = false.obs; // 검색로직 활성화 여부
@@ -77,7 +77,6 @@ class SearchViewModel extends BaseViewModel {
 
   // 장르버튼이 클릭 되었을 때
   void onGenreBtnTapped(int genreKey) {
-    _selectedContentList!.value = null;
     _selectedGenreKey.value = genreKey;
     pagingController.refresh();
     // onInitialLoadingContentList();
@@ -94,7 +93,6 @@ class SearchViewModel extends BaseViewModel {
     final responseResult = await _loadMovieListByGenre(
         _selectedGenreKey.value, pagingController.nextPageKey!);
     responseResult.fold(onSuccess: (data) {
-      _selectedContentList!.value = data;
       // 최대 불러올 수 있는 page 넘버를 2로 설정 (컨텐츠 40개) - TMDB 기준
       // 호출한 데이터가 20개 이하면 더 이상 불러올 수 없다고 판단.
       final bool limitPage = pagingController.nextPageKey! > 1;
@@ -131,10 +129,9 @@ class SearchViewModel extends BaseViewModel {
   int get selectedGenreKey => _selectedGenreKey.value;
   int get selectedContentIndex => _selectedContentIndex.value;
   ContentModel? get selectedContent =>
-      _selectedContentList!.value![_selectedContentIndex.value];
+      pagingController.itemList?[_selectedContentIndex.value];
   static ContentModel? get selectedContentG =>
       Get.find<SearchViewModel>().selectedContent;
-  List<ContentModel>? get selectedContentList => _selectedContentList!.value;
 
   // Search Mode Getters
   int? get selectedSearchContentIndex => _selectedSearchContentIndex.value;
