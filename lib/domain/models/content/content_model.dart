@@ -7,7 +7,7 @@ class ContentModel {
   final num id;
   final String title;
   final String? overview;
-  final String releaseDate;
+  final String? releaseDate;
   final num voteAverage;
   final List<int>? genreIds;
   final List<String>? youtubeVideoIds;

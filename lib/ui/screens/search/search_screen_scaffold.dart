@@ -9,6 +9,7 @@ class SearchScreenScaffold extends BaseView<SearchViewModel> {
     required this.verticalGenreGroupBtn,
     required this.posterBackground,
     required this.verticalContentSlider,
+    required this.verticalSearchedListSlider,
   }) : super(key: key);
 
   final RxBool isSearchMode;
@@ -16,6 +17,7 @@ class SearchScreenScaffold extends BaseView<SearchViewModel> {
   final Widget verticalGenreGroupBtn;
   final Widget posterBackground;
   final Widget verticalContentSlider;
+  final Widget verticalSearchedListSlider;
 
   @override
   Widget buildView(BuildContext context) {
@@ -110,16 +112,7 @@ class SearchScreenScaffold extends BaseView<SearchViewModel> {
               flex: 2,
               child: Obx(() => vm.selectedSearchContentIndex == null
                   ? verticalContentSlider
-                  : Padding(
-                      padding: const EdgeInsets.only(top: 40, left: 20),
-                      child: Column(
-                        children: [
-                          ContentListTileItem(
-                              contentItem: vm.selectedSearchContent!,
-                              onItemTapped: () {}),
-                        ],
-                      ),
-                    )),
+                  : verticalSearchedListSlider),
             ),
             /* Right Side (Movie Contents) */
           ],

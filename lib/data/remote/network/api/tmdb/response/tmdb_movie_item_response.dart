@@ -31,7 +31,7 @@ class TmdbMovieItemResponse {
   String? poster_path;
 
   @JsonKey(name: 'release_date')
-  String release_date;
+  String? release_date;
 
   @JsonKey(name: 'title')
   String title;

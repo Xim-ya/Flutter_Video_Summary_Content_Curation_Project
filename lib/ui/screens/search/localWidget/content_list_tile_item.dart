@@ -57,7 +57,9 @@ class ContentListTileItem extends StatelessWidget {
                         Container(
                             margin: const EdgeInsets.only(right: 30),
                             child: Text(
-                              Regex.dateYDOTM(contentItem.releaseDate),
+                              contentItem.releaseDate == null
+                                  ? "개봉일 미확인"
+                                  : Regex.dateYDOTM(contentItem.releaseDate!),
                               style: FontStyles().searchedContentRYear,
                             ))
                       ],

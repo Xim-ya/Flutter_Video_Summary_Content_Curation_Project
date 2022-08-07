@@ -1,3 +1,4 @@
+import 'package:movie_curation/ui/screens/search/localWidget/content_list_tile_item.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchScreen extends BaseScreen<SearchViewModel> {
@@ -13,7 +14,23 @@ class SearchScreen extends BaseScreen<SearchViewModel> {
       verticalGenreGroupBtn: _buildVerticalGenreGroupBtn(),
       verticalContentSlider:
           ContentThumbnailVerticalSlider(routeAction: routeAction),
+      verticalSearchedListSlider: _buildVerticalSearchedListSlider(),
     );
+  }
+
+  Widget _buildVerticalSearchedListSlider() {
+    return Obx(() => vm.selectedSearchContentIndex != null
+        ? Padding(
+            padding: const EdgeInsets.only(top: 40, left: 20),
+            child: Column(
+              children: [
+                ContentListTileItem(
+                    contentItem: vm.selectedSearchContent!,
+                    onItemTapped: () => routeAction()),
+              ],
+            ),
+          )
+        : const SizedBox());
   }
 
   Widget _buildVerticalGenreGroupBtn() {

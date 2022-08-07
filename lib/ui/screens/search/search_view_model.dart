@@ -27,11 +27,6 @@ class SearchViewModel extends BaseViewModel {
 
   /* 메소드 */
 
-  // 검색 결과 리스트 아이템이 클릭 되었을 때
-  void onAutoCompleteResultTapped(int index) {
-    _selectedSearchContentIndex.value = index;
-  }
-
   // TextFiled에 검색 값이 입력 되었을 때
   void onSearchInputChanged(String input) {
     if (input.isNotEmpty) {
@@ -64,6 +59,7 @@ class SearchViewModel extends BaseViewModel {
         });
   }
 
+  // 검색된 영화 리스트 호출
   Future<void> loadMovieSearchList(String input) async {
     isSearchLoading(true);
     final responseResult = await _loadMovieSearchedList(input);
@@ -83,8 +79,14 @@ class SearchViewModel extends BaseViewModel {
   }
 
   // 컨텐츠 리스트 아이템이 클릭 되었을 때
-  Future<void> onContentItemTapped(int index) async {
+  Future<void> onContentItemTapped(int? index) async {
+    if (index == null) return;
     _selectedContentIndex.value = index;
+  }
+
+  // 검색 결과 리스트 아이템이 클릭 되었을 때
+  void onAutoCompleteResultTapped(int index) {
+    _selectedSearchContentIndex.value = index;
   }
 
   // 컨텐츠 리스트 호출 - (pagination logic 적용)
@@ -127,15 +129,20 @@ class SearchViewModel extends BaseViewModel {
 
   // Basic Mode Getters
   int get selectedGenreKey => _selectedGenreKey.value;
-  int get selectedContentIndex => _selectedContentIndex.value;
-  ContentModel? get selectedContent =>
-      pagingController.itemList?[_selectedContentIndex.value];
-  static ContentModel? get selectedContentG =>
-      Get.find<SearchViewModel>().selectedContent;
 
   // Search Mode Getters
   int? get selectedSearchContentIndex => _selectedSearchContentIndex.value;
   List<ContentModel>? get contentSearchList => _contentSearchList?.value;
   ContentModel? get selectedSearchContent =>
       _contentSearchList?.value?[_selectedSearchContentIndex.value!];
+
+  // Integrated Mode Getters
+  int get selectedContentIndex => isSearchMode.isTrue
+      ? _selectedSearchContentIndex.value!
+      : _selectedContentIndex.value;
+  ContentModel? get selectedContent => isSearchMode.isTrue
+      ? _contentSearchList?.value![selectedSearchContentIndex!]
+      : pagingController.itemList?[_selectedContentIndex.value];
+  static ContentModel? get selectedContentG =>
+      Get.find<SearchViewModel>().selectedContent;
 }
