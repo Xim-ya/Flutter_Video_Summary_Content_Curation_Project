@@ -6,13 +6,16 @@ class SearchViewModel extends BaseViewModel {
   SearchViewModel(this._loadMovieListByGenre, this._loadMovieSearchedList);
 
   /* 전역변수 및 객체 */
-  // State Variables
+  // Basic Mode Variables
   final RxInt _selectedGenreKey = 16.obs; // 선택된 장르 키 값
-  final RxInt _selectedContentIndex = 0.obs; // 장르 컨텐츠 리스트 인덱스
+  final RxInt _selectedContentIndex = 0.obs; // 선택된 장르 컨텐츠 리스트 인덱스
   final Rxn<List<ContentModel>>? _selectedContentList = Rxn(); // 컨텐츠 리스트
-  final Rxn<List<ContentModel>>? _contentSearchList = Rxn();
+
+  // Search Mode Variables
   RxBool isSearchMode = false.obs; // 검색로직 활성화 여부
   RxBool isSearchLoading = false.obs;
+  final Rxn<List<ContentModel>>? _contentSearchList = Rxn();
+  final RxnInt _selectedSearchContentIndex = RxnInt(); //선택된 검색 결과 리스트 인덱스
 
   /* UseCase -(핵심 비즈니스 로직) */
   final LoadMovieListByGenreUseCase _loadMovieListByGenre;
@@ -23,9 +26,18 @@ class SearchViewModel extends BaseViewModel {
   late final TextEditingController textEditingController;
 
   /* 메소드 */
+
+  // 검색 결과 리스트 아이템이 클릭 되었을 때
+  void onAutoCompleteResultTapped(int index) {
+    _selectedSearchContentIndex.value = index;
+  }
+
   // TextFiled에 검색 값이 입력 되었을 때
   void onSearchInputChanged(String input) {
     if (input.isNotEmpty) {
+      if (_selectedSearchContentIndex.value != null) {
+        _selectedSearchContentIndex.value = null;
+      }
       loadMovieSearchList(input);
     }
 
@@ -37,6 +49,7 @@ class SearchViewModel extends BaseViewModel {
       log("ON SEARCH MODE");
     } else {
       isSearchMode(false);
+      _selectedSearchContentIndex.value = null;
       log("DISPOSE SEARCH MODE");
     }
   }
@@ -113,12 +126,19 @@ class SearchViewModel extends BaseViewModel {
   }
 
   /* Getter - (캡슐화) */
+
+  // Basic Mode Getters
   int get selectedGenreKey => _selectedGenreKey.value;
   int get selectedContentIndex => _selectedContentIndex.value;
   ContentModel? get selectedContent =>
       _selectedContentList!.value![_selectedContentIndex.value];
   static ContentModel? get selectedContentG =>
       Get.find<SearchViewModel>().selectedContent;
-  List<ContentModel>? get contentSearchList => _contentSearchList?.value;
   List<ContentModel>? get selectedContentList => _selectedContentList!.value;
+
+  // Search Mode Getters
+  int? get selectedSearchContentIndex => _selectedSearchContentIndex.value;
+  List<ContentModel>? get contentSearchList => _contentSearchList?.value;
+  ContentModel? get selectedSearchContent =>
+      _contentSearchList?.value?[_selectedSearchContentIndex.value!];
 }
