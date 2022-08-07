@@ -10,8 +10,6 @@ class SearchViewModel extends BaseViewModel {
   final RxInt _selectedGenreKey = 28.obs; // 선택된 장르 키 값
   final RxInt _selectedContentIndex = 0.obs; // 장르 컨텐츠 리스트 인덱스
   final Rxn<List<ContentModel>>? _selectedContentList = Rxn();
-  int page = 1;
-  bool firstLoaded = true;
 
   /* UseCase -(핵심 비즈니스 로직) */
   final LoadMovieListByGenreUseCase _loadMovieListByGenre;
@@ -23,28 +21,16 @@ class SearchViewModel extends BaseViewModel {
   /* 메소드 */
   // 장르버튼이 클릭 되었을 때
   void onGenreBtnTapped(int genreKey) {
+    _selectedContentList!.value = null;
     _selectedGenreKey.value = genreKey;
     pagingController.refresh();
-    firstLoaded = false;
     // onInitialLoadingContentList();
   }
 
   // 컨텐츠 리스트 아이템이 클릭 되었을 때
-  void onContentItemTapped(int index) {
+  Future<void> onContentItemTapped(int index) async {
     _selectedContentIndex.value = index;
   }
-
-  // Future<void> loadMoreContentList() async {
-  //   loading(true);
-  //   final responseResult =
-  //       await _loadMovieListByGenre.call(_selectedGenreKey.value, 2);
-  //   responseResult.fold(onSuccess: (data) {
-  //     _selectedContentList!.value!.addAll(data);
-  //   }, onFailure: (e) {
-  //     print(e);
-  //   });
-  //   loading(false);
-  // }
 
   // 컨텐츠 리스트 호출 - (pagination logic 적용)
   Future<void> loadContentListByPaging() async {
@@ -52,6 +38,7 @@ class SearchViewModel extends BaseViewModel {
     final responseResult = await _loadMovieListByGenre(
         _selectedGenreKey.value, pagingController.nextPageKey!);
     responseResult.fold(onSuccess: (data) {
+      _selectedContentList!.value = data;
       // 최대 불러올 수 있는 page 넘버를 2로 설정 (컨텐츠 40개) - TMDB 기준
       // 호출한 데이터가 20개 이하면 더 이상 불러올 수 없다고 판단.
       final bool limitPage = pagingController.nextPageKey! > 1;
