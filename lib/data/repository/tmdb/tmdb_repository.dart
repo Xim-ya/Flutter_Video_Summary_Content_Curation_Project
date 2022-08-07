@@ -9,4 +9,5 @@ abstract class TmdbRepository {
   Future<TmdbMovieDetailInfoResponse> loadMovieDetailInfo(int movieId);
   Future<Result<List<ContentModel>>> loadMovieListByGenre(
       {required int genreId, required int page});
+  Future<Result<List<ContentModel>>> loadMovieSearchList(String query);
 }

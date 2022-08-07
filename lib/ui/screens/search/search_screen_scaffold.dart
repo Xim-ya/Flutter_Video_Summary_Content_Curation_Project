@@ -1,21 +1,21 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class SearchScreenScaffold extends StatelessWidget {
-  const SearchScreenScaffold({
-    Key? key,
-    required this.searchBar,
-    required this.verticalGenreGroupBtn,
-    required this.posterBackground,
-    required this.verticalContentSlider,
-  }) : super(key: key);
+class SearchScreenScaffold extends BaseView<SearchViewModel> {
+  const SearchScreenScaffold(
+      {Key? key,
+      required this.leadingPart,
+      required this.searchBar,
+      required this.posterBackground,
+      required this.trailingPart})
+      : super(key: key);
 
   final Widget searchBar;
-  final Widget verticalGenreGroupBtn;
   final Widget posterBackground;
-  final Widget verticalContentSlider;
+  final Widget leadingPart;
+  final Widget trailingPart;
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildView(BuildContext context) {
     return Stack(
       children: [
         // Gradient Background Container
@@ -35,7 +35,10 @@ class SearchScreenScaffold extends StatelessWidget {
                     /* Search Bar */
                     searchBar,
                     /* Genre Group List */
-                    verticalGenreGroupBtn
+                    leadingPart,
+                    // Obx(() => isSearchMode.value
+                    //     ? searchResultListView
+                    //     : verticalGenreGroupBtn)
                   ],
                 ),
               ),
@@ -43,7 +46,11 @@ class SearchScreenScaffold extends StatelessWidget {
             /* Contents List Slider */
             Expanded(
               flex: 2,
-              child: verticalContentSlider,
+              child: trailingPart,
+
+              // Obx(() => showSearchContent.value
+              //     ? verticalContentSlider
+              //     : verticalSearchedListSlider),
             ),
             /* Right Side (Movie Contents) */
           ],

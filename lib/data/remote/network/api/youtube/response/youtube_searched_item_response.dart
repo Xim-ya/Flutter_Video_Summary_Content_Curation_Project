@@ -64,7 +64,7 @@ class YoutubeItemIdInfoResponse {
   String kind;
 
   @JsonKey(name: 'videoId')
-  String videoId;
+  String? videoId;
 
   YoutubeItemIdInfoResponse(this.kind, this.videoId);
 

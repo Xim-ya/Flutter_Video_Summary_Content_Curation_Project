@@ -18,7 +18,7 @@ TmdbMovieItemResponse _$TmdbMovieItemResponseFromJson(
       json['overview'] as String,
       (json['popularity'] as num).toDouble(),
       json['poster_path'] as String?,
-      json['release_date'] as String,
+      json['release_date'] as String?,
       json['title'] as String,
       json['video'] as bool,
       (json['vote_average'] as num).toDouble(),

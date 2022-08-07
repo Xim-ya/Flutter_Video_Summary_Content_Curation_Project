@@ -7,7 +7,7 @@ class ContentModel {
   final num id;
   final String title;
   final String? overview;
-  final String releaseDate;
+  final String? releaseDate;
   final num voteAverage;
   final List<int>? genreIds;
   final List<String>? youtubeVideoIds;
@@ -92,4 +92,20 @@ class ContentModel {
       youtubeVideoIds: youtubeIdList,
     );
   }
+
+  // TMDB 영화 검색 정보 API
+  factory ContentModel.fromMovieSearchListResponse(
+          TmdbMovieItemResponse response) =>
+      ContentModel(
+        adult: response.adult,
+        id: response.id,
+        title: response.title,
+        overview: response.overview,
+        releaseDate: response.release_date,
+        voteAverage: response.vote_average,
+        backDropUrl: response.backdrop_path,
+        posterUrl: response.poster_path,
+        genreIds: response.genre_ids,
+        youtubeVideoIds: null,
+      );
 }

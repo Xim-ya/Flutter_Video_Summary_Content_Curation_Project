@@ -43,4 +43,9 @@ class TmdbRemoteDataSourceImpl
           {required int genreId, required int page}) =>
       loadResponseOrThrow(
           () => _api.loadMovieListByGenreResponse(genreId, page));
+
+  /* TMDB - 영화 검색 결과 리스트 호출 */
+  @override
+  Future<TmdbMovieResponse> loadMovieSearchList(String query) =>
+      loadResponseOrThrow(() => _api.loadMovieSearchList(query));
 }

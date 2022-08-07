@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 import 'package:movie_curation/utilities/index.dart';
 import 'package:retrofit/retrofit.dart';
 part 'tmdb_api.g.dart';
@@ -8,6 +9,7 @@ part 'tmdb_api.g.dart';
 
 // 인기 영화 컨텐츠
 // "https://api.themoviedb.org/3/movie/popular?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1"
+// https://api.themoviedb.org/3/search/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&query=닥터
 
 @RestApi(baseUrl: "https://api.themoviedb.org/3")
 abstract class TmdbApi {
@@ -53,4 +55,10 @@ abstract class TmdbApi {
       '/discover/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page={page}&with_genres={genreId}')
   Future<TmdbGenreMovieListResponse> loadMovieListByGenreResponse(
       @Path('genreId') int genreId, @Path('page') int page);
+
+  @GET(
+      '/search/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&query={query}')
+  Future<TmdbMovieResponse> loadMovieSearchList(@Path('query') String query);
 }
+
+// https://api.themoviedb.org/3/search/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&query=닥터
