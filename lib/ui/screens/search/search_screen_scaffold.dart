@@ -1,21 +1,23 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class SearchScreenScaffold extends StatelessWidget {
+class SearchScreenScaffold extends BaseView<SearchViewModel> {
   const SearchScreenScaffold({
     Key? key,
+    required this.isSearchMode,
     required this.searchBar,
     required this.verticalGenreGroupBtn,
     required this.posterBackground,
     required this.verticalContentSlider,
   }) : super(key: key);
 
+  final RxBool isSearchMode;
   final Widget searchBar;
   final Widget verticalGenreGroupBtn;
   final Widget posterBackground;
   final Widget verticalContentSlider;
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildView(BuildContext context) {
     return Stack(
       children: [
         // Gradient Background Container
@@ -35,7 +37,59 @@ class SearchScreenScaffold extends StatelessWidget {
                     /* Search Bar */
                     searchBar,
                     /* Genre Group List */
-                    verticalGenreGroupBtn
+                    Obx(() => isSearchMode.value
+                        ? vm.isSearchLoading.isTrue
+                            ? Container(
+                                margin: const EdgeInsets.only(top: 20),
+                                child: const Center(
+                                    child: CircularProgressIndicator()))
+                            : Expanded(
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount:
+                                        vm.contentSearchList?.length ?? 1,
+                                    itemBuilder: (context, index) {
+                                      if (vm.contentSearchList == null) {
+                                        const Center(
+                                            child: Center(
+                                          child: Text(
+                                            "검색된 컨텐츠가 없습니다",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ));
+                                      }
+
+                                      return TextButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.transparent,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 0),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(4)),
+                                        ),
+                                        onPressed: () {},
+                                        child: Container(
+                                          padding:
+                                              const EdgeInsets.only(left: 12),
+                                          alignment: Alignment.centerLeft,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                          ),
+                                          margin:
+                                              const EdgeInsets.only(bottom: 4),
+                                          height: 54,
+                                          child: Text(
+                                            vm.contentSearchList![index].title,
+                                            style: FontStyles().genreOption,
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                              )
+                        : verticalGenreGroupBtn)
                   ],
                 ),
               ),

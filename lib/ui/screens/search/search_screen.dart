@@ -7,6 +7,7 @@ class SearchScreen extends BaseScreen<SearchViewModel> {
   @override
   Widget buildScreen(BuildContext context) {
     return SearchScreenScaffold(
+      isSearchMode: vm.isSearchMode,
       posterBackground: const RandomPosterBackground(),
       searchBar: _buildSearchBar(),
       verticalGenreGroupBtn: _buildVerticalGenreGroupBtn(),

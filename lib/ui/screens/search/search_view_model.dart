@@ -9,7 +9,10 @@ class SearchViewModel extends BaseViewModel {
   // State Variables
   final RxInt _selectedGenreKey = 16.obs; // 선택된 장르 키 값
   final RxInt _selectedContentIndex = 0.obs; // 장르 컨텐츠 리스트 인덱스
-  final Rxn<List<ContentModel>>? _selectedContentList = Rxn();
+  final Rxn<List<ContentModel>>? _selectedContentList = Rxn(); // 컨텐츠 리스트
+  final Rxn<List<ContentModel>>? _contentSearchList = Rxn();
+  RxBool isSearchMode = false.obs; // 검색로직 활성화 여부
+  RxBool isSearchLoading = false.obs;
 
   /* UseCase -(핵심 비즈니스 로직) */
   final LoadMovieListByGenreUseCase _loadMovieListByGenre;
@@ -20,21 +23,43 @@ class SearchViewModel extends BaseViewModel {
   late final TextEditingController textEditingController;
 
   /* 메소드 */
-
-  // 검색되었을 때
+  // TextFiled에 검색 값이 입력 되었을 때
   void onSearchInputChanged(String input) {
-    log(input);
+    if (input.isNotEmpty) {
+      loadMovieSearchList(input);
+    }
+
+    if (isSearchMode.isTrue && input.isNotEmpty) return;
+    if (isSearchMode.isFalse && input.isEmpty) return;
+
+    if (input.isNotEmpty) {
+      isSearchMode(true);
+      log("ON SEARCH MODE");
+    } else {
+      isSearchMode(false);
+      log("DISPOSE SEARCH MODE");
+    }
   }
 
+  // TextFiled 값이 Sumbit 되었을 때
   Future<void> onSearchInputSubmitted(String input) async {
-    print('query -->${input}');
+    final responseResult = await _loadMovieSearchedList(input);
+    responseResult.fold(
+        onSuccess: (data) {},
+        onFailure: (err) {
+          log(err.toString());
+        });
+  }
+
+  Future<void> loadMovieSearchList(String input) async {
+    isSearchLoading(true);
     final responseResult = await _loadMovieSearchedList(input);
     responseResult.fold(onSuccess: (data) {
-      print("테스트1 ==> ${data[1].title}");
-      print("테스트2 ==> ${data.length}");
+      _contentSearchList?.value = data;
     }, onFailure: (err) {
       log(err.toString());
     });
+    isSearchLoading(false);
   }
 
   // 장르버튼이 클릭 되었을 때
@@ -62,10 +87,10 @@ class SearchViewModel extends BaseViewModel {
       final bool limitPage = pagingController.nextPageKey! > 1;
       final bool noMoreReturn = data.length < 20;
       if (limitPage || noMoreReturn) {
-        log('[Paging]last load');
+        log('[PAGING] LAST LOAD');
         pagingController.appendLastPage(data);
       } else {
-        log('[Paging]first load');
+        log('[PAGING] FIRST LOAD');
         pagingController.appendPage(data, pagingController.nextPageKey! + 1);
       }
     }, onFailure: (err) {
@@ -94,6 +119,6 @@ class SearchViewModel extends BaseViewModel {
       _selectedContentList!.value![_selectedContentIndex.value];
   static ContentModel? get selectedContentG =>
       Get.find<SearchViewModel>().selectedContent;
-
+  List<ContentModel>? get contentSearchList => _contentSearchList?.value;
   List<ContentModel>? get selectedContentList => _selectedContentList!.value;
 }
