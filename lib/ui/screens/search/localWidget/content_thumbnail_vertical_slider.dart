@@ -15,9 +15,8 @@ class ContentThumbnailVerticalSlider extends BaseView<SearchViewModel> {
           itemBuilder: (context, item, index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 1),
             child: GestureDetector(
-              onTap: () {
-                routeAction();
-                vm.onContentItemTapped(index);
+              onTap: () async {
+                vm.onContentItemTapped(index).whenComplete(() => routeAction());
               },
               child: Container(
                 padding: const EdgeInsets.only(bottom: 22, top: 22, left: 32),
