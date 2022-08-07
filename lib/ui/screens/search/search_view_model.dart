@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchViewModel extends BaseViewModel {
@@ -44,10 +43,10 @@ class SearchViewModel extends BaseViewModel {
       final bool limitPage = pagingController.nextPageKey! > 1;
       final bool noMoreReturn = data.length < 20;
       if (limitPage || noMoreReturn) {
-        log('last load');
+        log('[Paging]last load');
         pagingController.appendLastPage(data);
       } else {
-        log('first load');
+        log('[Paging]first load');
         pagingController.appendPage(data, pagingController.nextPageKey! + 1);
       }
     }, onFailure: (err) {

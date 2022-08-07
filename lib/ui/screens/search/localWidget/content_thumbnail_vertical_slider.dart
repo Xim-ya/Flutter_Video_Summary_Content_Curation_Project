@@ -1,4 +1,3 @@
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ContentThumbnailVerticalSlider extends BaseView<SearchViewModel> {

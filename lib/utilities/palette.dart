@@ -78,7 +78,7 @@ class FontStyles {
             color: Colors.white,
             fontSize: isMobile ?? false ? 30 : 7.5.sp,
             fontWeight: FontWeight.bold),
-        genreOption = TextStyle(
+        genreOption = const TextStyle(
           color: Colors.white,
           fontSize: 20,
         ),

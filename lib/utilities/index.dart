@@ -4,6 +4,7 @@ export 'package:flutter/foundation.dart';
 export 'package:flutter/services.dart';
 
 /* Packages */
+export 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 export 'package:fluro/fluro.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:flutter_hooks/flutter_hooks.dart';
@@ -27,6 +28,7 @@ export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_
 export 'package:movie_curation/data/remote/source/tmdb/tmdb_remote_data_source.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/tmdb_api.dart';
 export 'package:movie_curation/data/repository/tmdb/tmdb_repository.dart';
+export 'package:movie_curation/data/remote/network/api/youtube/response/youtube_channel_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_drama_credit_response.dart';
@@ -79,6 +81,8 @@ export 'package:movie_curation/ui/screens/search/search_view_model.dart';
 export 'package:movie_curation/ui/screens/search/search_paged_view.dart';
 export 'package:movie_curation/ui/screens/content/contentDetail/search_content_view_model.dart';
 export 'package:movie_curation/ui/screens/search/search_screen_scaffold.dart';
+export 'package:movie_curation/ui/screens/search/search_screen.dart';
+export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/search_content_detail_screen.dart';
 
 //old
 export 'package:movie_curation/ui/screens/home/homePagedView/home_paged_view.dart';
@@ -122,6 +126,7 @@ export 'package:movie_curation/ui/common/base/base_view_model.dart';
 export 'package:movie_curation/ui/common/base/base_view.dart';
 export 'package:movie_curation/domain/base/base_use_case.dart';
 export 'package:movie_curation/domain/base/base_use_case.dart';
+export 'package:movie_curation/domain/base/base_two_param_use_case.dart';
 
 /* Routes */
 export 'package:movie_curation/routes/fluro_router.dart';

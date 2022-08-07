@@ -1,4 +1,3 @@
-import 'package:movie_curation/domain/base/base_two_param_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class LoadMovieListByGenreUseCase
