@@ -1,23 +1,42 @@
 import 'dart:developer';
+import 'package:movie_curation/domain/useCase/tmdb/load_movie_searched_list_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchViewModel extends BaseViewModel {
-  SearchViewModel(this._loadMovieListByGenre);
+  SearchViewModel(this._loadMovieListByGenre, this._loadMovieSearchedList);
 
   /* 전역변수 및 객체 */
   // State Variables
-  final RxInt _selectedGenreKey = 28.obs; // 선택된 장르 키 값
+  final RxInt _selectedGenreKey = 16.obs; // 선택된 장르 키 값
   final RxInt _selectedContentIndex = 0.obs; // 장르 컨텐츠 리스트 인덱스
   final Rxn<List<ContentModel>>? _selectedContentList = Rxn();
 
   /* UseCase -(핵심 비즈니스 로직) */
   final LoadMovieListByGenreUseCase _loadMovieListByGenre;
+  final LoadMovieSearchedListUseCase _loadMovieSearchedList;
 
   /* 컨트롤러 */
-  // late final ScrollController _scrollController;
   late final PagingController<int, ContentModel> pagingController;
+  late final TextEditingController textEditingController;
 
   /* 메소드 */
+
+  // 검색되었을 때
+  void onSearchInputChanged(String input) {
+    log(input);
+  }
+
+  Future<void> onSearchInputSubmitted(String input) async {
+    print('query -->${input}');
+    final responseResult = await _loadMovieSearchedList(input);
+    responseResult.fold(onSuccess: (data) {
+      print("테스트1 ==> ${data[1].title}");
+      print("테스트2 ==> ${data.length}");
+    }, onFailure: (err) {
+      log(err.toString());
+    });
+  }
+
   // 장르버튼이 클릭 되었을 때
   void onGenreBtnTapped(int genreKey) {
     _selectedContentList!.value = null;
@@ -65,6 +84,7 @@ class SearchViewModel extends BaseViewModel {
     pagingController.addPageRequestListener((pageKey) {
       loadContentListByPaging();
     });
+    textEditingController = TextEditingController();
   }
 
   /* Getter - (캡슐화) */

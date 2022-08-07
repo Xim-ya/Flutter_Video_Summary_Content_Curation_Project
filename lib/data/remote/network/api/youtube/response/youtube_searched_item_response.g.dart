@@ -20,7 +20,7 @@ YoutubeItemIdInfoResponse _$YoutubeItemIdInfoResponseFromJson(
         Map<String, dynamic> json) =>
     YoutubeItemIdInfoResponse(
       json['kind'] as String,
-      json['videoId'] as String,
+      json['videoId'] as String?,
     );
 
 YoutubeItemSnippetResponse _$YoutubeItemSnippetResponseFromJson(

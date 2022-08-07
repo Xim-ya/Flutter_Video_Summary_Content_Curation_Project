@@ -18,6 +18,7 @@ export 'package:json_annotation/json_annotation.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 
 /* Data Layer (api, datasource, repository) */
+
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_cast_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_response.dart';

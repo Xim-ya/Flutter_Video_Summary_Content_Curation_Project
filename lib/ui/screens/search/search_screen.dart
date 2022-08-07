@@ -60,11 +60,11 @@ class SearchScreen extends BaseScreen<SearchViewModel> {
     return SizedBox(
       width: SizeConfig().screenWidth / 3 * 0.76,
       child: TextField(
+        onChanged: vm.onSearchInputChanged,
+        controller: vm.textEditingController,
         keyboardType: TextInputType.emailAddress,
         autocorrect: false,
-        onSubmitted: (String inputs) {
-          print(inputs);
-        },
+        onSubmitted: vm.onSearchInputSubmitted,
         cursorColor: AppColor.yellow,
         style: FontStyles(0, false).searchBarInputs,
         decoration: InputDecoration(
