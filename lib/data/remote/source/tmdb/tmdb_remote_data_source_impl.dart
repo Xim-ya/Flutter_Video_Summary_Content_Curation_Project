@@ -48,4 +48,9 @@ class TmdbRemoteDataSourceImpl
   @override
   Future<TmdbMovieResponse> loadMovieSearchList(String query) =>
       loadResponseOrThrow(() => _api.loadMovieSearchList(query));
+
+  /* TMDB - 선택된 컨텐초와 유사한 영화 리스트 호출 */
+  @override
+  Future<TmdbMovieResponse> loadSimilarMovieList(int movieId) =>
+      loadResponseOrThrow(() => _api.loadSimilarMovieList(movieId));
 }

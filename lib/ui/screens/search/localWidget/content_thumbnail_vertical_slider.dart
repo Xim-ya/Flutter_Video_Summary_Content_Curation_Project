@@ -1,4 +1,3 @@
-import 'package:movie_curation/ui/screens/search/localWidget/content_list_tile_item.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ContentThumbnailVerticalSlider extends BaseView<SearchViewModel> {
@@ -16,8 +15,10 @@ class ContentThumbnailVerticalSlider extends BaseView<SearchViewModel> {
           padding: const EdgeInsets.symmetric(vertical: 1),
           child: ContentListTileItem(
             contentItem: item,
-            onItemTapped: () =>
-                vm.onContentItemTapped(index).whenComplete(() => routeAction()),
+            onItemTapped: () => vm.onContentItemTapped(index).whenComplete(() {
+              routeAction();
+              print(vm.selectedContent!.id);
+            }),
           ),
         ),
       ),

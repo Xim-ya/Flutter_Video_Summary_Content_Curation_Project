@@ -7,6 +7,8 @@ part 'tmdb_api.g.dart';
 // 인기 드라마 컨텐츠
 // "https://api.themoviedb.org/3/tv/popular?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1";
 
+// "https://api.themoviedb.org/3/movie/438148/similar?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1"
+
 // 인기 영화 컨텐츠
 // "https://api.themoviedb.org/3/movie/popular?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1"
 // https://api.themoviedb.org/3/search/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&query=닥터
@@ -59,6 +61,10 @@ abstract class TmdbApi {
   @GET(
       '/search/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&query={query}')
   Future<TmdbMovieResponse> loadMovieSearchList(@Path('query') String query);
+
+  @GET(
+      '/movie/{movieId}/similar?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1')
+  Future<TmdbMovieResponse> loadSimilarMovieList(@Path('movieId') int movieId);
 }
 
 // https://api.themoviedb.org/3/search/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&query=닥터
