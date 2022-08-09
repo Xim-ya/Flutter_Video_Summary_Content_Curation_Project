@@ -43,7 +43,9 @@ class SearchedResultListView extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),
                   ),
-                  onPressed: () => onAutoCompleteResultTapped(index),
+                  onPressed: () async {
+                    onAutoCompleteResultTapped(index);
+                  },
                   child: Container(
                       padding: const EdgeInsets.only(left: 12),
                       alignment: Alignment.centerLeft,

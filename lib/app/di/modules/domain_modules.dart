@@ -1,5 +1,6 @@
 import 'package:movie_curation/domain/useCase/tmdb/load_movie_list_by_genre_use_case.dart';
 import 'package:movie_curation/domain/useCase/tmdb/load_movie_searched_list_use_case.dart';
+import 'package:movie_curation/domain/useCase/tmdb/load_similar_movie_list_use_case.dart';
 import 'package:movie_curation/domain/useCase/youtube/youtube_load_youtube_meta_data_ues_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
@@ -24,5 +25,6 @@ abstract class DomainModules {
     Get.lazyPut(() => LoadMovieListByGenreUseCase(Get.find(), Get.find()),
         fenix: true);
     Get.lazyPut(() => LoadMovieSearchedListUseCase(Get.find()));
+    Get.lazyPut(() => LoadSimilarMovieListUseCase(Get.find()));
   }
 }

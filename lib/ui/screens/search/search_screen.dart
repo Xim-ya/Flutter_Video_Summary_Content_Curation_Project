@@ -29,8 +29,8 @@ class SearchScreen extends BaseScreen<SearchViewModel> {
   Widget _buildTrailingPart() {
     return Obx(() => vm.showGenreContentList.isFalse
         ? SearchedContentDetailListView(
+            similarContentList: vm.similarContentList,
             selectedSearchContentIndex: vm.selectedContentIndex,
-            selectedSearchContent: vm.selectedContent!,
             routeAction: routeAction)
         : ContentThumbnailVerticalSlider(routeAction: routeAction));
   }
