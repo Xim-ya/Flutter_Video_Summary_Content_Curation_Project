@@ -62,6 +62,9 @@ abstract class TmdbApi {
       '/search/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&query={query}')
   Future<TmdbMovieResponse> loadMovieSearchList(@Path('query') String query);
 
+  // 유사 영화 컨텐츠 검색
+  // https://api.themoviedb.org/3/movie/{movieId}/similar?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1
+  // searchAnndSimilarContentList
   @GET(
       '/movie/{movieId}/similar?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1')
   Future<TmdbMovieResponse> loadSimilarMovieList(@Path('movieId') int movieId);

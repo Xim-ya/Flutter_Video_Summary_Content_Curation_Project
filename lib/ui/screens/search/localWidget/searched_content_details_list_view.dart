@@ -22,8 +22,10 @@ class SearchedContentDetailListView extends BaseView<SearchViewModel> {
                 // 검색리스트에서 선택된 컨텐츠
                 ContentListTileItem(
                     contentItem: vm.searchAnndSimilarContentList![0],
-                    onItemTapped: routeAction),
-                const Padding(
+                    onItemTapped: () async => vm
+                        .searchAndSimilarContentTapped(0)
+                        .whenComplete(() => routeAction())),
+                Padding(
                   padding: EdgeInsets.only(right: 40),
                   child: Text("연관 컨텐츠",
                       textAlign: TextAlign.end,
@@ -40,12 +42,18 @@ class SearchedContentDetailListView extends BaseView<SearchViewModel> {
                     ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: similarContentList!.length,
+                        itemCount: vm.searchAnndSimilarContentList == null
+                            ? 0
+                            : vm.searchAnndSimilarContentList!.length - 1,
                         itemBuilder: (context, index) {
+                          ContentModel? item =
+                              vm.searchAnndSimilarContentList?[index];
+
                           return ContentListTileItem(
-                              contentItem: similarContentList![index],
+                              contentItem:
+                                  vm.searchAnndSimilarContentList![index + 1],
                               onItemTapped: () => vm
-                                  .searchAndSimilarContentTapped(index)
+                                  .searchAndSimilarContentTapped(index + 1)
                                   .whenComplete(() => routeAction()));
                         }),
               ],

@@ -82,8 +82,6 @@ class SearchViewModel extends BaseViewModel {
     // onInitialLoadingContentList();
   }
 
-  void onSimilarContentItemTapped(int index) async {}
-
   // 컨텐츠 리스트 아이템이 클릭 되었을 때
   Future<void> onContentItemTapped(int? index) async {
     if (index == null) return;
@@ -92,6 +90,7 @@ class SearchViewModel extends BaseViewModel {
 
   // 검색 결과 리스트 아이템이 클릭 되었을 때
   Future<void> onAutoCompleteResultTapped(int index) async {
+    searchAndSimilarContentList?.value = null; // reset
     _selectedSearchContentIndex.value = index;
     ContentModel selectedSearchContent = _contentSearchList!.value![index];
     await loadSimilarContentList(contentSearchList![index].id as int)
@@ -106,7 +105,7 @@ class SearchViewModel extends BaseViewModel {
 
   // 검색 결과에서 선택된 컨텐츠 + 유사 컨텐츠 리스트 아이템이 선택되었을 때
   Future<void> searchAndSimilarContentTapped(int index) async {
-    _selectedSearchContentIndex.value = index + 1;
+    _selectedSearchContentIndex.value = index;
   }
 
   // 유사 영화 컨텐츠 리스트 호출
