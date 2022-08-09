@@ -16,11 +16,7 @@ class SearchScreen extends BaseScreen<SearchViewModel> {
 
   Widget _buildLeadingPart() {
     return Obx(() => vm.isSearchMode.value
-        ? SearchedResultListView(
-            isSearchLoading: vm.isSearchLoading,
-            contentSearchList: vm.contentSearchList,
-            onAutoCompleteResultTapped: vm.onAutoCompleteResultTapped,
-            selectedSearchContentIndex: vm.selectedSearchContentIndex)
+        ? const SearchedResultListView()
         : GenreGroupButtonListView(
             onGenreBtnTapped: vm.onGenreBtnTapped,
             selectedGenreKey: vm.selectedGenreKey));
@@ -28,10 +24,7 @@ class SearchScreen extends BaseScreen<SearchViewModel> {
 
   Widget _buildTrailingPart() {
     return Obx(() => vm.showGenreContentList.isFalse
-        ? SearchedContentDetailListView(
-            selectedSearchContentIndex: vm.selectedContentIndex,
-            selectedSearchContent: vm.selectedContent!,
-            routeAction: routeAction)
+        ? SearchedContentDetailListView(routeAction: routeAction)
         : ContentThumbnailVerticalSlider(routeAction: routeAction));
   }
 

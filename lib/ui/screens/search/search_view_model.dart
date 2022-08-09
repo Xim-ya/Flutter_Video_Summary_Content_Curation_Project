@@ -2,7 +2,8 @@ import 'dart:developer';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchViewModel extends BaseViewModel {
-  SearchViewModel(this._loadMovieListByGenre, this._loadMovieSearchedList);
+  SearchViewModel(this._loadMovieListByGenre, this._loadMovieSearchedList,
+      this._loadSimilarMovieList);
 
   /* 전역변수 및 객체 */
   // Basic Mode Variables
@@ -15,10 +16,13 @@ class SearchViewModel extends BaseViewModel {
   RxBool isSearchLoading = false.obs;
   final Rxn<List<ContentModel>>? _contentSearchList = Rxn();
   final RxnInt _selectedSearchContentIndex = RxnInt(); //선택된 검색 결과 리스트 인덱스
+  final Rxn<List<ContentModel>>? _similarContentList = Rxn();
+  final Rxn<List<ContentModel>>? _searchAndSimilarContentList = Rxn();
 
-  /* UseCase -(핵심 비즈니스 로직) */
+  /* UseCase -(비즈니스 로직 / 네트워킹 메소드) */
   final LoadMovieListByGenreUseCase _loadMovieListByGenre;
   final LoadMovieSearchedListUseCase _loadMovieSearchedList;
+  final LoadSimilarMovieListUseCase _loadSimilarMovieList;
 
   /* 컨트롤러 */
   late final PagingController<int, ContentModel> pagingController;
@@ -84,8 +88,34 @@ class SearchViewModel extends BaseViewModel {
   }
 
   // 검색 결과 리스트 아이템이 클릭 되었을 때
-  void onAutoCompleteResultTapped(int index) {
+  Future<void> onAutoCompleteResultTapped(int index) async {
+    _searchAndSimilarContentList?.value = null; // reset
     _selectedSearchContentIndex.value = index;
+    ContentModel selectedSearchContent = _contentSearchList!.value![index];
+    await loadSimilarContentList(contentSearchList![index].id as int)
+        .whenComplete(() {
+      // 두 개의 리스트를 Merge
+      _searchAndSimilarContentList?.value = [
+        selectedSearchContent,
+        ...?_similarContentList?.value
+      ];
+    });
+  }
+
+  // 검색 결과에서 선택된 컨텐츠 + 유사 컨텐츠 리스트 아이템이 선택되었을 때
+  Future<void> searchAndSimilarContentTapped(int index) async {
+    _selectedSearchContentIndex.value = index;
+  }
+
+  // 유사 영화 컨텐츠 리스트 호출
+  Future<void> loadSimilarContentList(int movieId) async {
+    final responseResult = await _loadSimilarMovieList(movieId);
+    responseResult.fold(onSuccess: (data) {
+      _similarContentList?.value = data;
+      log("유사 영화 호출됨! ${_similarContentList!.value!.length}");
+    }, onFailure: (err) {
+      log(err.toString());
+    });
   }
 
   // 컨텐츠 리스트 호출 - (pagination logic 적용)
@@ -125,24 +155,28 @@ class SearchViewModel extends BaseViewModel {
   }
 
   /* Getter - (캡슐화) */
-
   // Basic Mode Getters
   int get selectedGenreKey => _selectedGenreKey.value;
 
   // Search Mode Getters
   int? get selectedSearchContentIndex => _selectedSearchContentIndex.value;
   List<ContentModel>? get contentSearchList => _contentSearchList?.value;
+  List<ContentModel>? get searchAndSimilarContentList =>
+      _searchAndSimilarContentList?.value;
   ContentModel? get selectedSearchContent =>
       _contentSearchList?.value?[_selectedSearchContentIndex.value!];
-  RxBool get showGenreContentList => RxBool(selectedSearchContentIndex == null);
+  RxBool get showGenreContentList =>
+      RxBool(selectedSearchContentIndex == null ? true : false);
+  List<ContentModel>? get similarContentList => _similarContentList?.value;
 
   // Integrated Mode Getters
   int get selectedContentIndex => isSearchMode.isTrue
       ? _selectedSearchContentIndex.value!
       : _selectedContentIndex.value;
   ContentModel? get selectedContent => isSearchMode.isTrue
-      ? _contentSearchList?.value![selectedSearchContentIndex!]
+      ? _searchAndSimilarContentList?.value![selectedSearchContentIndex!]
       : pagingController.itemList?[_selectedContentIndex.value];
+
   static ContentModel? get selectedContentG =>
       Get.find<SearchViewModel>().selectedContent;
 }

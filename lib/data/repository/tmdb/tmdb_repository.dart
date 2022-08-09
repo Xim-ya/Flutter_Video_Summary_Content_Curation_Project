@@ -10,4 +10,5 @@ abstract class TmdbRepository {
   Future<Result<List<ContentModel>>> loadMovieListByGenre(
       {required int genreId, required int page});
   Future<Result<List<ContentModel>>> loadMovieSearchList(String query);
+  Future<Result<List<ContentModel>>> loadSimilarMovieList(int movieId);
 }

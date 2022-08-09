@@ -1,31 +1,22 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class SearchedResultListView extends StatelessWidget {
-  const SearchedResultListView(
-      {Key? key,
-      required this.isSearchLoading,
-      required this.contentSearchList,
-      required this.onAutoCompleteResultTapped,
-      required this.selectedSearchContentIndex})
-      : super(key: key);
-
-  final RxBool isSearchLoading;
-  final List<ContentModel>? contentSearchList;
-  final Function(int) onAutoCompleteResultTapped;
-  final int? selectedSearchContentIndex;
+class SearchedResultListView extends BaseView<SearchViewModel> {
+  const SearchedResultListView({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Obx(() => isSearchLoading.isTrue
+  Widget buildView(BuildContext context) {
+    return Obx(() => vm.isSearchLoading.isTrue
         ? Container(
             margin: const EdgeInsets.only(top: 20),
             child: const Center(child: CircularProgressIndicator()))
         : Expanded(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: contentSearchList?.length ?? 1,
+              itemCount: vm.contentSearchList?.length ?? 1,
               itemBuilder: (context, index) {
-                if (contentSearchList == null) {
+                if (vm.contentSearchList == null) {
                   const Center(
                     child: Center(
                       child: Text(
@@ -43,7 +34,9 @@ class SearchedResultListView extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),
                   ),
-                  onPressed: () => onAutoCompleteResultTapped(index),
+                  onPressed: () async {
+                    vm.onAutoCompleteResultTapped(index);
+                  },
                   child: Container(
                       padding: const EdgeInsets.only(left: 12),
                       alignment: Alignment.centerLeft,
@@ -53,9 +46,9 @@ class SearchedResultListView extends StatelessWidget {
                       margin: const EdgeInsets.only(bottom: 4),
                       height: 54,
                       child: Text(
-                        contentSearchList![index].title,
+                        vm.contentSearchList![index].title,
                         style: FontStyles().genreOption.copyWith(
-                            color: selectedSearchContentIndex == index
+                            color: vm.selectedSearchContentIndex == index
                                 ? AppColor.yellow
                                 : Colors.white),
                       )),
