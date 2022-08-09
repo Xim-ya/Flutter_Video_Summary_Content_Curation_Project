@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:movie_curation/domain/useCase/tmdb/load_similar_movie_list_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchViewModel extends BaseViewModel {
@@ -18,9 +17,9 @@ class SearchViewModel extends BaseViewModel {
   final Rxn<List<ContentModel>>? _contentSearchList = Rxn();
   final RxnInt _selectedSearchContentIndex = RxnInt(); //선택된 검색 결과 리스트 인덱스
   final Rxn<List<ContentModel>>? _similarContentList = Rxn();
-  final Rxn<List<ContentModel>>? searchAndSimilarContentList = Rxn();
+  final Rxn<List<ContentModel>>? _searchAndSimilarContentList = Rxn();
 
-  /* UseCase -(핵심 비즈니스 로직) */
+  /* UseCase -(비즈니스 로직 / 네트워킹 메소드) */
   final LoadMovieListByGenreUseCase _loadMovieListByGenre;
   final LoadMovieSearchedListUseCase _loadMovieSearchedList;
   final LoadSimilarMovieListUseCase _loadSimilarMovieList;
@@ -90,13 +89,13 @@ class SearchViewModel extends BaseViewModel {
 
   // 검색 결과 리스트 아이템이 클릭 되었을 때
   Future<void> onAutoCompleteResultTapped(int index) async {
-    searchAndSimilarContentList?.value = null; // reset
+    _searchAndSimilarContentList?.value = null; // reset
     _selectedSearchContentIndex.value = index;
     ContentModel selectedSearchContent = _contentSearchList!.value![index];
     await loadSimilarContentList(contentSearchList![index].id as int)
         .whenComplete(() {
       // 두 개의 리스트를 Merge
-      searchAndSimilarContentList?.value = [
+      _searchAndSimilarContentList?.value = [
         selectedSearchContent,
         ...?_similarContentList?.value
       ];
@@ -162,8 +161,8 @@ class SearchViewModel extends BaseViewModel {
   // Search Mode Getters
   int? get selectedSearchContentIndex => _selectedSearchContentIndex.value;
   List<ContentModel>? get contentSearchList => _contentSearchList?.value;
-  List<ContentModel>? get searchAnndSimilarContentList =>
-      searchAndSimilarContentList?.value;
+  List<ContentModel>? get searchAndSimilarContentList =>
+      _searchAndSimilarContentList?.value;
   ContentModel? get selectedSearchContent =>
       _contentSearchList?.value?[_selectedSearchContentIndex.value!];
   RxBool get showGenreContentList =>
@@ -175,7 +174,7 @@ class SearchViewModel extends BaseViewModel {
       ? _selectedSearchContentIndex.value!
       : _selectedContentIndex.value;
   ContentModel? get selectedContent => isSearchMode.isTrue
-      ? searchAndSimilarContentList?.value![selectedSearchContentIndex!]
+      ? _searchAndSimilarContentList?.value![selectedSearchContentIndex!]
       : pagingController.itemList?[_selectedContentIndex.value];
 
   static ContentModel? get selectedContentG =>
