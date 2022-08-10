@@ -20,7 +20,6 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
               itemHeight: kHS500,
               itemCount: 0,
               onItemTapCallback: (index) {
-                print(youtubeSearchList![index].profileUrl);
                 final videoId = youtubeSearchList![index].videoId;
                 Get.to(() => ContentYoutubePlayerScreen(videoId: videoId!));
               },

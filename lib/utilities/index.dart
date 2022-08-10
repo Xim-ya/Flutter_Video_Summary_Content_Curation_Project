@@ -135,6 +135,3 @@ export 'package:movie_curation/ui/common/base/base_view.dart';
 export 'package:movie_curation/domain/base/base_use_case.dart';
 export 'package:movie_curation/domain/base/base_use_case.dart';
 export 'package:movie_curation/domain/base/base_two_param_use_case.dart';
-
-/* Routes */
-export 'package:movie_curation/routes/fluro_router.dart';
