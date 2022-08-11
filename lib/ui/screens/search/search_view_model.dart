@@ -147,16 +147,17 @@ class SearchViewModel extends BaseViewModel {
   // Test !!!
   Future<void> loadRegisteredContentIdInfoList() async {
     final responseResult = await _loadRegisteredContentIdInfo.call();
-    responseResult.fold(onSuccess: (data) {
-      log('호출성공');
-    }, onFailure: (err) {
-      log(err.toString());
-    });
+    responseResult.fold(
+        onSuccess: (data) {},
+        onFailure: (err) {
+          log(err.toString());
+        });
   }
 
   @override
   void onInit() {
     super.onInit();
+    loadRegisteredContentIdInfoList();
     pagingController = PagingController(
         firstPageKey: 1, invisibleItemsThreshold: 1); // paging controller 생성
     // paging 컨트럴러 listener 설정

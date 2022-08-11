@@ -25,7 +25,11 @@ class ContentApi {
     final docRef = db.collection('contents').doc('RegisteredIdList');
     return docRef.get().then((DocumentSnapshot snapshot) {
       final data = snapshot.data() as Map<String, dynamic>;
-      final core = data['data'] as List<ContentRegisteredIdInfoItemResponse>;
+      final parentData = data['data'] as List<dynamic>;
+      final core = parentData
+          .map((e) => ContentRegisteredIdInfoItemResponse.fromJson(
+              e as Map<String, dynamic>))
+          .toList();
       return core;
     });
   }
