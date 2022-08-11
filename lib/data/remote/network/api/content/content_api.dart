@@ -1,3 +1,4 @@
+import 'package:movie_curation/data/remote/network/api/content/response/content_registered_id_info_item_response.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ContentApi {
@@ -19,11 +20,12 @@ class ContentApi {
   }
 
   // 등록된 컨텐츠 아이디 리스트 호출
-  Future<List<int>> loadRegisteredIdList() async {
+  Future<List<ContentRegisteredIdInfoItemResponse>>
+      loadRegisteredIdList() async {
     final docRef = db.collection('contents').doc('RegisteredIdList');
     return docRef.get().then((DocumentSnapshot snapshot) {
-      final data = snapshot.data() as Map<String, List<num>>;
-      final core = data['items'] as List<int>;
+      final data = snapshot.data() as Map<String, dynamic>;
+      final core = data['data'] as List<ContentRegisteredIdInfoItemResponse>;
       return core;
     });
   }

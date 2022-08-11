@@ -1,9 +1,10 @@
 import 'dart:developer';
+import 'package:movie_curation/domain/useCase/content/load_registered_content_id_info_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchViewModel extends BaseViewModel {
   SearchViewModel(this._loadMovieListByGenre, this._loadMovieSearchedList,
-      this._loadSimilarMovieList);
+      this._loadSimilarMovieList, this._loadRegisteredContentIdInfo);
 
   /* 전역변수 및 객체 */
   // Basic Mode Variables
@@ -23,6 +24,7 @@ class SearchViewModel extends BaseViewModel {
   final LoadMovieListByGenreUseCase _loadMovieListByGenre;
   final LoadMovieSearchedListUseCase _loadMovieSearchedList;
   final LoadSimilarMovieListUseCase _loadSimilarMovieList;
+  final LoadRegisteredContentIdInfoUseCase _loadRegisteredContentIdInfo;
 
   /* 컨트롤러 */
   late final PagingController<int, ContentModel> pagingController;
@@ -140,6 +142,16 @@ class SearchViewModel extends BaseViewModel {
     });
 
     loading(false);
+  }
+
+  // Test !!!
+  Future<void> loadRegisteredContentIdInfoList() async {
+    final responseResult = await _loadRegisteredContentIdInfo.call();
+    responseResult.fold(onSuccess: (data) {
+      log('호출성공');
+    }, onFailure: (err) {
+      log(err.toString());
+    });
   }
 
   @override

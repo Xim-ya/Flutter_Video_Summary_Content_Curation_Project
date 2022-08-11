@@ -11,6 +11,7 @@ class HomeViewModel extends BaseViewModel {
   final Rxn<List<ContentModel>> _popularMovieList = Rxn();
   final Rxn<List<ContentModel>> _popularDramaList = Rxn();
   final Rxn<List<ContentModel>> _recommendedContentList = Rxn();
+  final Rxn<List<YoutubeVideoContentModel>> _registeredYoutubeVideoInfo = Rxn();
   RxString? _trailerKey;
 
   // State Variables;
@@ -65,9 +66,14 @@ class HomeViewModel extends BaseViewModel {
     loading(false);
   }
 
-  // 콘텐츠가 선택 되었을 때
+  // 콘텐츠가 선택 되었을 때 (라우트됨)
   void contentSelectHandler(int index) {
     selectedContentIndex.value = index;
+    /*
+    if contains id {
+    youtubeContentInfo = put the data;
+    } else return;
+     */
   }
 
   // 예고편 다이어로 위젯 띄우기
@@ -120,6 +126,8 @@ class HomeViewModel extends BaseViewModel {
       _selectedContentList.value?[selectedContentIndex.value];
   ItemScrollController get itemScrollController => _itemScrollController;
   ItemPositionsListener get itemPositionListener => _itemPositionsListener;
+  List<YoutubeVideoContentModel>? get registeredYoutubeVideoInfo =>
+      _registeredYoutubeVideoInfo.value;
   static ContentModel? get selectedContentG =>
       Get.find<HomeViewModel>().selectedContent;
   static String? get trailerKey => Get.find<HomeViewModel>()._trailerKey?.value;

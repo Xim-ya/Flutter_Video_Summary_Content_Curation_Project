@@ -1,3 +1,4 @@
+import 'package:movie_curation/domain/models/content/content_registered_id_info_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ContentRepositoryImpl implements ContentRepository {
@@ -32,9 +33,11 @@ class ContentRepositoryImpl implements ContentRepository {
 
   /* 등록된 컨텐츠 아이디 리스트 호출 */
   @override
-  Future<Result<List<int>>> loadRegisteredIdList() async {
+  Future<Result<List<ContentRegisteredIdInfoModel>>>
+      loadRegisteredIdList() async {
     try {
-      final response = await _dataSource.loadRegisteredIdList();
+      final response = await _dataSource.loadRegisteredIdList().then((value) =>
+          value.map(ContentRegisteredIdInfoModel.fromResponse).toList());
       return Result.success(response);
     } on Exception catch (e) {
       return Result.failure(e);
