@@ -1,4 +1,3 @@
-import 'package:movie_curation/data/remote/network/api/content/response/content_registered_id_info_item_response.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ContentApi {
@@ -32,5 +31,22 @@ class ContentApi {
           .toList();
       return core;
     });
+  }
+
+  Future<List<String>> loadRegisteredContentYoutubeIdList(
+      String documentPath, int contentId) async {
+    final docRef = db.collection("contents").doc(documentPath);
+    return docRef.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        final core = data['data'] as List<dynamic>;
+        final needFormat = core
+            .map((e) => ContentRecommendedInfoResponse.fromResponse(e))
+            .toList();
+        return needFormat
+            .firstWhere((element) => element.contentId == contentId)
+            .youtubeVideoIdList;
+      },
+    );
   }
 }

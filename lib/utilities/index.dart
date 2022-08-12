@@ -18,7 +18,7 @@ export 'package:json_annotation/json_annotation.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 
 /* Data Layer (api, datasource, repository) */
-
+export 'package:movie_curation/data/remote/network/api/content/response/content_registered_id_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_cast_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_response.dart';
@@ -53,6 +53,7 @@ export 'package:movie_curation/data/repository/content/content_repository.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_genre_movie_list_response.dart';
 
 /* Domain Layer (useCase, model) */
+export 'package:movie_curation/domain/models/content/content_registered_id_info_model.dart';
 export 'package:movie_curation/domain/models/content/content_model.dart';
 export 'package:movie_curation/domain/models/tmdb/tmdb_movie_video_info_model.dart';
 export 'package:movie_curation/domain/models/content/content_model.dart';

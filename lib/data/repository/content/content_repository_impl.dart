@@ -1,4 +1,3 @@
-import 'package:movie_curation/domain/models/content/content_registered_id_info_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ContentRepositoryImpl implements ContentRepository {
@@ -38,6 +37,19 @@ class ContentRepositoryImpl implements ContentRepository {
     try {
       final response = await _dataSource.loadRegisteredIdList().then((value) =>
           value.map(ContentRegisteredIdInfoModel.fromResponse).toList());
+      return Result.success(response);
+    } on Exception catch (e) {
+      return Result.failure(e);
+    }
+  }
+
+  /* 특정 컨텐츠의 유튜브 비디오 url 리스트 호출 */
+  @override
+  Future<Result<List<String>>> loadRegisteredContentYoutubeIdList(
+      {required String documentPath, required int contentId}) async {
+    try {
+      final response = await _dataSource.loadRegisteredContentYoutubeIdList(
+          documentPath: documentPath, contentId: contentId);
       return Result.success(response);
     } on Exception catch (e) {
       return Result.failure(e);

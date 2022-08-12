@@ -1,4 +1,3 @@
-import 'package:movie_curation/data/remote/network/api/content/response/content_registered_id_info_item_response.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ContentRemoteDataSourceImpl
@@ -16,4 +15,13 @@ class ContentRemoteDataSourceImpl
   @override
   Future<List<ContentRegisteredIdInfoItemResponse>> loadRegisteredIdList() =>
       loadResponseOrThrow(() => _api.loadRegisteredIdList());
+
+  /* Content - 특정 컨텐츠의 yotube video id list 정보 호출
+     [document path]와 [content id] 값으로 조회
+   */
+  @override
+  Future<List<String>> loadRegisteredContentYoutubeIdList(
+          {required String documentPath, required int contentId}) =>
+      loadResponseOrThrow(() =>
+          _api.loadRegisteredContentYoutubeIdList(documentPath, contentId));
 }
