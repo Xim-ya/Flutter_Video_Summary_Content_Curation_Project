@@ -20,8 +20,8 @@ import 'package:youtube_metadata/youtube_metadata.dart'; // 다른 라이브러�
   *  2) Firebase DB에 해당 ID가 있다면 FirebaseDB에 저장된 유튜브 정보 리스트 호출
   * */
 
-class LoadRegisteredContentYoutubeInfo
-    extends BaseUseCase<int, Result<List<YoutubeVideoContentModel>>> {
+class LoadRegisteredContentYoutubeInfo extends BaseUseCase<
+    ContentRegisteredIdInfoModel, Result<List<YoutubeVideoContentModel>>> {
   LoadRegisteredContentYoutubeInfo(
       this._contentRepository, this._youtubeRepository);
 
@@ -29,33 +29,36 @@ class LoadRegisteredContentYoutubeInfo
   final YoutubeRepository _youtubeRepository;
 
   @override
-  Future<Result<List<YoutubeVideoContentModel>>> call(int request) async {
+  Future<Result<List<YoutubeVideoContentModel>>> call(
+      ContentRegisteredIdInfoModel request) async {
     List<YoutubeVideoContentModel> youtubeVideoInfoList = [];
-    // 1
-    final List<ContentRegisteredIdInfoModel> registeredIdList = [];
-    final idListResResult = await _contentRepository.loadRegisteredIdList();
-    idListResResult.fold(onSuccess: (data) {
-      registeredIdList.addAll(data);
-      // data.map((e) => registeredIdList.add(e));
-      // print(registeredIdList);
-    }, onFailure: (err) {
-      log(err.toString());
-    });
-
-    // 2
-    final ContentRegisteredIdInfoModel? matchedInfo =
-        registeredIdList.firstWhere((e) => e.contentId == request);
+    // // 1
+    // final List<ContentRegisteredIdInfoModel> registeredIdList = [];
+    // final idListResResult = await _contentRepository.loadRegisteredIdList();
+    // idListResResult.fold(onSuccess: (data) {
+    //   registeredIdList.addAll(data);
+    //   // data.map((e) => registeredIdList.add(e));
+    //   // print(registeredIdList);
+    // }, onFailure: (err) {
+    //   log(err.toString());
+    // });
+    //
+    // // 2
+    // final ContentRegisteredIdInfoModel? matchedInfo =
+    //     registeredIdList.firstWhere((e) => e.contentId == request);
+    //
+    //
 
     List<String> youtubeVideoIdList = [];
     // 3-1
-    if (matchedInfo != null) {
+    if (request != null) {
       // MATCHES
-      final int documentId = matchedInfo!.documentId;
+      final int documentId = request.documentId;
       if (documentId == 0) {
         // LOAD 0 <--(Need key Mapping) RECOMMENDED LIST
         final response =
             await _contentRepository.loadRegisteredContentYoutubeIdList(
-                documentPath: 'Recommend', contentId: matchedInfo.contentId);
+                documentPath: 'Recommend', contentId: request.contentId);
         response.fold(onSuccess: (data) {
           youtubeVideoIdList = data;
         }, onFailure: (err) {

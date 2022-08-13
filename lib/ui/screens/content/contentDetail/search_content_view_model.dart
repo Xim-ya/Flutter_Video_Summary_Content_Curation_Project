@@ -1,7 +1,3 @@
-import 'dart:developer';
-
-import 'package:movie_curation/domain/useCase/content/load_registered_content_id_info_use_case.dart';
-import 'package:movie_curation/domain/useCase/content/load_registered_content_youtube_info.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchContentDetailViewModel extends BaseViewModel {
@@ -98,7 +94,9 @@ class SearchContentDetailViewModel extends BaseViewModel {
     super.onInit();
     // 비동기 처리 X
 
-    loadYoutubeSearchList();
+    if (!SearchViewModel.selectedContentIsRegisteredG) {
+      loadYoutubeSearchList();
+    }
     loadMovieCastList();
 
     getContentGenre();
