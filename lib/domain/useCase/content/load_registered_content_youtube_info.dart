@@ -35,7 +35,9 @@ class LoadRegisteredContentYoutubeInfo
     final List<ContentRegisteredIdInfoModel> registeredIdList = [];
     final idListResResult = await _contentRepository.loadRegisteredIdList();
     idListResResult.fold(onSuccess: (data) {
-      data.map((e) => registeredIdList.add(e));
+      registeredIdList.addAll(data);
+      // data.map((e) => registeredIdList.add(e));
+      // print(registeredIdList);
     }, onFailure: (err) {
       log(err.toString());
     });
@@ -46,14 +48,14 @@ class LoadRegisteredContentYoutubeInfo
 
     List<String> youtubeVideoIdList = [];
     // 3-1
-    if (matchedInfo == null) {
+    if (matchedInfo != null) {
       // MATCHES
       final int documentId = matchedInfo!.documentId;
       if (documentId == 0) {
         // LOAD 0 <--(Need key Mapping) RECOMMENDED LIST
         final response =
             await _contentRepository.loadRegisteredContentYoutubeIdList(
-                documentPath: 'Recommended', contentId: matchedInfo.contentId);
+                documentPath: 'Recommend', contentId: matchedInfo.contentId);
         response.fold(onSuccess: (data) {
           youtubeVideoIdList = data;
         }, onFailure: (err) {

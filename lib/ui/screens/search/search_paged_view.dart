@@ -6,8 +6,8 @@ class SearchPagedView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     // VM Controller  생성
-    Get.lazyPut(
-        () => SearchViewModel(Get.find(), Get.find(), Get.find(), Get.find()));
+    Get.lazyPut(() => SearchViewModel(
+        Get.find(), Get.find(), Get.find(), Get.find(), Get.find()));
 
     //  PagedViewScreen의 Screen Index, 0 : 검색 스크린, 1 : 컨텐츠 상세 스크린
     final _screenIndex = useState(0);
@@ -24,7 +24,7 @@ class SearchPagedView extends HookWidget {
       } else {
         // `SearchContentDetailViewModel` VM Controller 생성
         Get.lazyPut(() => SearchContentDetailViewModel(
-            Get.find(), Get.find(), Get.find(), Get.find(), Get.find()));
+            Get.find(), Get.find(), Get.find(), Get.find()));
       }
 
       _pagedController.animateToPage(_screenIndex.value == 0 ? 1 : 0,

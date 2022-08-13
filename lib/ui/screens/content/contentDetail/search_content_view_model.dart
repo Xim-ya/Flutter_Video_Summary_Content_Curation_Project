@@ -9,7 +9,6 @@ class SearchContentDetailViewModel extends BaseViewModel {
       this._loadYoutubeSearchList,
       this._loadMovieCasts,
       this._loadYoutubeMetaDataListUseCase,
-      this._loadRegisteredContentYoutubeInfo,
       this._loadMovieTrailerKey);
 
   /* 전역변수 및 객체 */
@@ -26,7 +25,6 @@ class SearchContentDetailViewModel extends BaseViewModel {
   final TmdbLoadMovieCastsUseCase _loadMovieCasts;
   final LoadYoutubeMetaDataListUseCase _loadYoutubeMetaDataListUseCase;
   final TmdbLoadMovieTrailerKeyUseCase _loadMovieTrailerKey;
-  final LoadRegisteredContentYoutubeInfo _loadRegisteredContentYoutubeInfo;
 
   /* 컨트롤러 */
   //Youtube Player Controller - (예고편)
@@ -95,22 +93,14 @@ class SearchContentDetailViewModel extends BaseViewModel {
         filteredGenreList.map((e) => e ?? "확인 필요 장르").cast<String>().toList();
   }
 
-  Future<void> testUseCaseMethod() async {
-    final responseResult = await _loadRegisteredContentYoutubeInfo.call(453395);
-    responseResult.fold(onSuccess: (data) {
-      print("데이터 호출 성공@@@ -> ${data.length}");
-    }, onFailure: (err) {
-      log(err.toString());
-    });
-  }
-
   @override
   void onInit() {
     super.onInit();
     // 비동기 처리 X
-    testUseCaseMethod();
+
     loadYoutubeSearchList();
     loadMovieCastList();
+
     getContentGenre();
     _scrollController = ScrollController(initialScrollOffset: kWS200);
   }

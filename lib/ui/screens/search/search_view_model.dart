@@ -1,10 +1,16 @@
 import 'dart:developer';
 import 'package:movie_curation/domain/useCase/content/load_registered_content_id_info_use_case.dart';
+import 'package:movie_curation/domain/useCase/content/load_registered_content_youtube_info.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchViewModel extends BaseViewModel {
-  SearchViewModel(this._loadMovieListByGenre, this._loadMovieSearchedList,
-      this._loadSimilarMovieList, this._loadRegisteredContentIdInfo);
+  SearchViewModel(
+    this._loadMovieListByGenre,
+    this._loadMovieSearchedList,
+    this._loadSimilarMovieList,
+    this._loadRegisteredContentIdInfo,
+    this._loadRegisteredContentYoutubeInfo,
+  );
 
   /* 전역변수 및 객체 */
   // Basic Mode Variables
@@ -25,6 +31,7 @@ class SearchViewModel extends BaseViewModel {
   final LoadMovieSearchedListUseCase _loadMovieSearchedList;
   final LoadSimilarMovieListUseCase _loadSimilarMovieList;
   final LoadRegisteredContentIdInfoUseCase _loadRegisteredContentIdInfo;
+  final LoadRegisteredContentYoutubeInfo _loadRegisteredContentYoutubeInfo;
 
   /* 컨트롤러 */
   late final PagingController<int, ContentModel> pagingController;
@@ -147,17 +154,27 @@ class SearchViewModel extends BaseViewModel {
   // Test !!!
   Future<void> loadRegisteredContentIdInfoList() async {
     final responseResult = await _loadRegisteredContentIdInfo.call();
-    responseResult.fold(
-        onSuccess: (data) {},
-        onFailure: (err) {
-          log(err.toString());
-        });
+    responseResult.fold(onSuccess: (data) {
+      print("호출 성공 -> 개수 -> ${data.length}");
+    }, onFailure: (err) {
+      log(err.toString());
+    });
+  }
+
+  Future<void> testUseCaseMethod() async {
+    final responseResult = await _loadRegisteredContentYoutubeInfo.call(453395);
+    responseResult.fold(onSuccess: (data) {
+      print("데이터 호출 성공@@@ -> ${data[0].videoTitle}");
+    }, onFailure: (err) {
+      log(err.toString());
+    });
   }
 
   @override
   void onInit() {
     super.onInit();
-    loadRegisteredContentIdInfoList();
+    // loadRegisteredContentIdInfoList();
+    testUseCaseMethod();
     pagingController = PagingController(
         firstPageKey: 1, invisibleItemsThreshold: 1); // paging controller 생성
     // paging 컨트럴러 listener 설정
