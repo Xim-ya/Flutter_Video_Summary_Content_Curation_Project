@@ -89,6 +89,10 @@ class SearchContentDetailViewModel extends BaseViewModel {
         filteredGenreList.map((e) => e ?? "확인 필요 장르").cast<String>().toList();
   }
 
+  void onRouteBack(VoidCallback routeBackAction) {
+    routeBackAction();
+  }
+
   @override
   void onInit() {
     super.onInit();
