@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:movie_curation/utilities/index.dart';
 
 class HomeViewModel extends BaseViewModel {
   HomeViewModel(
     this._loadMovieTrailerKey,
     this._loadPopularContentListUseCase,
+    this._loadRegisteredContentYoutubeInfo,
+    this._loadRegisteredContentIdInfo,
   );
 
   /* 전역변수 및 객체 */
@@ -13,6 +17,11 @@ class HomeViewModel extends BaseViewModel {
   final Rxn<List<ContentModel>> _recommendedContentList = Rxn();
   final Rxn<List<YoutubeVideoContentModel>> _registeredYoutubeVideoInfo = Rxn();
   RxString? _trailerKey;
+  final RxBool _selectedContentIsRegistered =
+      false.obs; // 선택된 컨텐츠 firebaseDB에 등록되어 있는지에 대한 여부
+  final Rxn<ContentRegisteredIdInfoModel> _selectedRegisteredIdInfo =
+      Rxn(); // Firebase DB에 저장되어 있는 컨텐츠의 등록정보
+  final Rxn<List<YoutubeVideoContentModel>> _registeredYoutubeVideoList = Rxn();
 
   // State Variables;
   RxInt selectedCategoryIndex = 0.obs; // [인기, 최신, 추천] 카테고리 옵션
@@ -37,6 +46,8 @@ class HomeViewModel extends BaseViewModel {
   /* Usecase */
   final TmdbLoadMovieTrailerKeyUseCase _loadMovieTrailerKey;
   final LoadPopularContentListUseCase _loadPopularContentListUseCase;
+  final LoadRegisteredContentYoutubeInfo _loadRegisteredContentYoutubeInfo;
+  final LoadRegisteredContentIdInfoUseCase _loadRegisteredContentIdInfo;
 
   /* Intent - (메소드) */
   // 카테고리 그룹 버튼을 탭 되었을 때
@@ -98,6 +109,48 @@ class HomeViewModel extends BaseViewModel {
     contentSelectHandler(index);
   }
 
+  // 선택된 컨텐츠 DB이 등록되어 있는지 확인하는 메소드
+  Future<void> checkIfContentIsRegistered(int contentId) async {
+    final responseResult = await _loadRegisteredContentIdInfo.call(contentId);
+    responseResult.fold(onSuccess: (data) {
+      _selectedRegisteredIdInfo.value = data;
+      if (_selectedRegisteredIdInfo.value == null) {
+        _selectedContentIsRegistered.value = false;
+      } else {
+        _selectedContentIsRegistered.value = true;
+      }
+    }, onFailure: (err) {
+      log(err.toString());
+    });
+  }
+
+  // 컨텐츠가 등록되어 있는 컨텐츠라면 저장되어 있는 유튜브 정보 리스트 호출
+  Future<void> loadYoutubeInfoList() async {
+    _registeredYoutubeVideoList.value = null;
+    // 조건 : 컨텐츠 등록된 컨텐츠라면
+    if (_selectedRegisteredIdInfo.value != null) {
+      // 실행 : 유튜브 정보 리스트를 호출
+      final responseResult = await _loadRegisteredContentYoutubeInfo
+          .call(_selectedRegisteredIdInfo.value!);
+      responseResult.fold(onSuccess: (data) {
+        _registeredYoutubeVideoList.value = data;
+      }, onFailure: (err) {
+        log(err.toString());
+      });
+    }
+  }
+
+  // 컨텐츠가 선택되고 상세 페이지로 이동할 때
+  Future<void> onRouteToContentDetail({
+    required VoidCallback routeAction,
+  }) async {
+    print("aim!!");
+    checkIfContentIsRegistered(selectedContent!.id.toInt()).whenComplete(() {
+      loadYoutubeInfoList();
+      routeAction();
+    });
+  }
+
   /* 네트워킹 메소드 */
   // 인기 [컨텐츠] 데이터 호출. (현재 선택된 카테고리 인덱스를 기준으로 호출)
   Future<void> loadPopularContentList() async {
@@ -131,4 +184,8 @@ class HomeViewModel extends BaseViewModel {
   static ContentModel? get selectedContentG =>
       Get.find<HomeViewModel>().selectedContent;
   static String? get trailerKey => Get.find<HomeViewModel>()._trailerKey?.value;
+  static bool get selectedContentIsRegisteredG =>
+      Get.find<HomeViewModel>()._selectedContentIsRegistered.value;
+  static Rxn<List<YoutubeVideoContentModel>> get customYoutubeVideoInfoListG =>
+      Get.find<HomeViewModel>()._registeredYoutubeVideoList;
 }

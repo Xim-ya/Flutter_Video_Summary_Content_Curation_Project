@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchContentDetailViewModel extends BaseViewModel {
@@ -77,7 +78,7 @@ class SearchContentDetailViewModel extends BaseViewModel {
     responseResult.fold(onSuccess: (data) {
       _contentCastList.value = data;
     }, onFailure: (error) {
-      print(error);
+      log(error.toString());
     });
   }
 
@@ -89,11 +90,14 @@ class SearchContentDetailViewModel extends BaseViewModel {
         filteredGenreList.map((e) => e ?? "확인 필요 장르").cast<String>().toList();
   }
 
+  void onRouteBack(VoidCallback routeBackAction) {
+    routeBackAction();
+  }
+
   @override
   void onInit() {
     super.onInit();
     // 비동기 처리 X
-
     if (!SearchViewModel.selectedContentIsRegisteredG) {
       loadYoutubeSearchList();
     }

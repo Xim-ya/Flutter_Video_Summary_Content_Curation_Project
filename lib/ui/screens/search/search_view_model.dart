@@ -169,6 +169,7 @@ class SearchViewModel extends BaseViewModel {
 
   // 컨텐츠가 등록되어 있는 컨텐츠라면 저장되어 있는 유튜브 정보 리스트 호출
   Future<void> loadYoutubeInfoList() async {
+    _registeredYoutubeVideoList.value = null;
     // 조건 : 컨텐츠 등록된 컨텐츠라면
     if (_selectedRegisteredIdInfo.value != null) {
       // 실행 : 유튜브 정보 리스트를 호출

@@ -12,7 +12,8 @@ class SearchContentDetailScreen
       background: GradientPostBackground(
           backgroundImgUrl:
               vm.selectedContent?.posterUrl ?? vm.selectedContent?.backDropUrl),
-      backArrowBtn: BackArrowButton(routeAction: routeAction),
+      backArrowBtn:
+          BackArrowButton(routeAction: () => vm.onRouteBack(routeAction)),
       castSlider: Obx(() => CastSlider(castList: vm.contentCastList)),
       contentInfo: ContentInfoContainer(
           title: vm.selectedContent?.title,

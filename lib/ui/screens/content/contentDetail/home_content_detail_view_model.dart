@@ -85,7 +85,9 @@ class HomeContentDetailViewModel extends BaseViewModel {
   void onInit() {
     super.onInit();
     // 비동기 처리 X
-    loadYoutubeSearchList();
+    if (!HomeViewModel.selectedContentIsRegisteredG) {
+      loadYoutubeSearchList();
+    }
     loadMovieCastList();
     getContentGenre();
     _scrollController = ScrollController(initialScrollOffset: kWS200);
@@ -96,6 +98,8 @@ class HomeContentDetailViewModel extends BaseViewModel {
   List<ContentCastModel>? get contentCastList => _contentCastList.value;
   List<String>? get contentGenreList => _contentGenreList;
   List<YoutubeVideoContentModel>? get youtubeSearchList =>
-      _youtubeSearchList.value;
+      HomeViewModel.selectedContentIsRegisteredG
+          ? HomeViewModel.customYoutubeVideoInfoListG.value
+          : _youtubeSearchList.value;
   ScrollController get wheelScrollController => _scrollController;
 }

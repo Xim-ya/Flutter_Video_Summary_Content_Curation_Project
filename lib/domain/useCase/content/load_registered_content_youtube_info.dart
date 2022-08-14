@@ -60,12 +60,13 @@ class LoadRegisteredContentYoutubeInfo extends BaseUseCase<
               onSuccess: (data) {
                 channelThumbnail = data.thumbnailUrl;
               },
-              onFailure: (error) {
+              onFailure: (err) {
                 channelThumbnail = null;
-                log("[USECASE]Can't Find Channel Thumbnail");
+                log(err.toString());
               },
             );
           } else {
+            log("[USECASE]Can't Find Channel Thumbnail");
             channelThumbnail = null;
           }
           youtubeVideoInfoList.add(
