@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'package:movie_curation/domain/useCase/content/load_registered_content_id_info_use_case.dart';
-import 'package:movie_curation/domain/useCase/content/load_registered_content_youtube_info.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchViewModel extends BaseViewModel {
@@ -154,16 +152,22 @@ class SearchViewModel extends BaseViewModel {
     loading(false);
   }
 
+  // 선택된 컨텐츠 DB이 등록되어 있는지 확인하는 메소드
   Future<void> checkIfContentIsRegistered(int contentId) async {
     final responseResult = await _loadRegisteredContentIdInfo.call(contentId);
     responseResult.fold(onSuccess: (data) {
       _selectedRegisteredIdInfo.value = data;
-      _selectedContentIsRegistered.value = true;
+      if (_selectedRegisteredIdInfo.value == null) {
+        _selectedContentIsRegistered.value = false;
+      } else {
+        _selectedContentIsRegistered.value = true;
+      }
     }, onFailure: (err) {
       log(err.toString());
     });
   }
 
+  // 컨텐츠가 등록되어 있는 컨텐츠라면 저장되어 있는 유튜브 정보 리스트 호출
   Future<void> loadYoutubeInfoList() async {
     // 조건 : 컨텐츠 등록된 컨텐츠라면
     if (_selectedRegisteredIdInfo.value != null) {
@@ -179,6 +183,18 @@ class SearchViewModel extends BaseViewModel {
       // 조건 : 등록된 컨텐츠가 아니라면 리턴
       return;
     }
+  }
+
+  // 컨텐츠가 선택되고 상세 페이지로 이동할 때
+  Future<void> onRouteToContentDetail(
+      {required VoidCallback routeAction,
+      required onContentTappedCallBack}) async {
+    onContentTappedCallBack.whenComplete(() {
+      checkIfContentIsRegistered(selectedContent!.id.toInt()).whenComplete(() {
+        loadYoutubeInfoList();
+        routeAction();
+      });
+    });
   }
 
   @override

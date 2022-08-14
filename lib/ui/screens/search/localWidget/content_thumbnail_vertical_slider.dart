@@ -14,18 +14,11 @@ class ContentThumbnailVerticalSlider extends BaseView<SearchViewModel> {
         itemBuilder: (context, item, index) => Padding(
           padding: const EdgeInsets.symmetric(vertical: 1),
           child: ContentListTileItem(
-              contentItem: item,
-              onItemTapped: () {
-                vm.onContentItemTapped(index).whenComplete(() {
-                  vm
-                      .checkIfContentIsRegistered(
-                          vm.selectedContent!.id.toInt())
-                      .whenComplete(() {
-                    routeAction();
-                    vm.loadYoutubeInfoList();
-                  });
-                });
-              }),
+            contentItem: item,
+            onItemTapped: () => vm.onRouteToContentDetail(
+                routeAction: routeAction,
+                onContentTappedCallBack: vm.onContentItemTapped(index)),
+          ),
         ),
       ),
     );

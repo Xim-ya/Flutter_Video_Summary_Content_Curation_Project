@@ -24,7 +24,8 @@ class LoadRegisteredContentIdInfoUseCase
 
     // 2
     final ContentRegisteredIdInfoModel? matchedInfo =
-        registeredIdList.firstWhere((e) => e.contentId == request);
+        registeredIdList.firstWhereOrNull((e) => e.contentId == request);
+
     return Result.success(matchedInfo);
   }
 }

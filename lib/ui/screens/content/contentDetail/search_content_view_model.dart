@@ -108,6 +108,8 @@ class SearchContentDetailViewModel extends BaseViewModel {
   List<ContentCastModel>? get contentCastList => _contentCastList.value;
   List<String>? get contentGenreList => _contentGenreList;
   List<YoutubeVideoContentModel>? get youtubeSearchList =>
-      _youtubeSearchList.value;
+      SearchViewModel.selectedContentIsRegisteredG
+          ? SearchViewModel.customYoutubeVideoInfoListG.value
+          : _youtubeSearchList.value;
   ScrollController get wheelScrollController => _scrollController;
 }

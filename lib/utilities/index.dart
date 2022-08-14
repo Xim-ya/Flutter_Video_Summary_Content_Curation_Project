@@ -76,6 +76,8 @@ export 'package:movie_curation/domain/useCase/youtube/youtube_load_youtube_meta_
 export 'package:movie_curation/domain/useCase/tmdb/load_movie_searched_list_use_case.dart';
 export 'package:movie_curation/domain/models/youtube/youtube_channel_model.dart';
 export 'package:movie_curation/domain/useCase/tmdb/load_similar_movie_list_use_case.dart';
+export 'package:movie_curation/domain/useCase/content/load_registered_content_id_info_use_case.dart';
+export 'package:movie_curation/domain/useCase/content/load_registered_content_youtube_info.dart';
 
 /* Presentation Layer (MVVM) */
 export 'package:movie_curation/ui/screens/home/home_view_model.dart';
