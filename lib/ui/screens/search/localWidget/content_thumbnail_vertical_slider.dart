@@ -15,10 +15,9 @@ class ContentThumbnailVerticalSlider extends BaseView<SearchViewModel> {
           padding: const EdgeInsets.symmetric(vertical: 1),
           child: ContentListTileItem(
             contentItem: item,
-            onItemTapped: () => vm.onContentItemTapped(index).whenComplete(() {
-              routeAction();
-              print(vm.selectedContent!.id);
-            }),
+            onItemTapped: () => vm.onRouteToContentDetail(
+                routeAction: routeAction,
+                onContentTappedCallBack: vm.onContentItemTapped(index)),
           ),
         ),
       ),

@@ -12,6 +12,10 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
 
   @override
   Widget buildView(BuildContext context) {
+    // final bool isLoading = SearchViewModel.selectedContentIsRegisteredG
+    //     ? SearchViewModel.selectedContentIsRegisteredG
+    //     : youtubeSearchList != null;
+
     return youtubeSearchList != null
         ? Container(
             margin: EdgeInsets.symmetric(horizontal: kWS100),
@@ -20,7 +24,6 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
               itemHeight: kHS500,
               itemCount: 0,
               onItemTapCallback: (index) {
-                print(youtubeSearchList![index].profileUrl);
                 final videoId = youtubeSearchList![index].videoId;
                 Get.to(() => ContentYoutubePlayerScreen(videoId: videoId!));
               },

@@ -1,3 +1,5 @@
+import 'package:movie_curation/domain/useCase/content/load_registered_content_id_info_use_case.dart';
+import 'package:movie_curation/domain/useCase/content/load_registered_content_youtube_info.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 abstract class DomainModules {
@@ -22,5 +24,7 @@ abstract class DomainModules {
         fenix: true);
     Get.lazyPut(() => LoadMovieSearchedListUseCase(Get.find()));
     Get.lazyPut(() => LoadSimilarMovieListUseCase(Get.find()));
+    Get.lazyPut(() => LoadRegisteredContentIdInfoUseCase(Get.find()));
+    Get.lazyPut(() => LoadRegisteredContentYoutubeInfo(Get.find(), Get.find()));
   }
 }

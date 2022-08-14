@@ -2,14 +2,22 @@ import 'dart:developer';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchViewModel extends BaseViewModel {
-  SearchViewModel(this._loadMovieListByGenre, this._loadMovieSearchedList,
-      this._loadSimilarMovieList);
+  SearchViewModel(
+      this._loadMovieListByGenre,
+      this._loadMovieSearchedList,
+      this._loadSimilarMovieList,
+      this._loadRegisteredContentYoutubeInfo,
+      this._loadRegisteredContentIdInfo);
 
   /* 전역변수 및 객체 */
   // Basic Mode Variables
   final RxInt _selectedGenreKey = 16.obs; // 선택된 장르 키 값
   final RxInt _selectedContentIndex = 0.obs; // 선택된 장르 컨텐츠 리스트 인덱스
-  // final Rxn<List<ContentModel>>? _selectedContentList = Rxn(); // 컨텐츠 리스트
+  final RxBool _selectedContentIsRegistered =
+      false.obs; // 선택된 컨텐츠 firebaseDB에 등록되어 있는지에 대한 여부
+  final Rxn<ContentRegisteredIdInfoModel> _selectedRegisteredIdInfo =
+      Rxn(); // Firebase DB에 저장되어 있는 컨텐츠의 등록정보
+  final Rxn<List<YoutubeVideoContentModel>> _registeredYoutubeVideoList = Rxn();
 
   // Search Mode Variables
   RxBool isSearchMode = false.obs; // 검색로직 활성화 여부
@@ -23,6 +31,8 @@ class SearchViewModel extends BaseViewModel {
   final LoadMovieListByGenreUseCase _loadMovieListByGenre;
   final LoadMovieSearchedListUseCase _loadMovieSearchedList;
   final LoadSimilarMovieListUseCase _loadSimilarMovieList;
+  final LoadRegisteredContentYoutubeInfo _loadRegisteredContentYoutubeInfo;
+  final LoadRegisteredContentIdInfoUseCase _loadRegisteredContentIdInfo;
 
   /* 컨트롤러 */
   late final PagingController<int, ContentModel> pagingController;
@@ -142,6 +152,48 @@ class SearchViewModel extends BaseViewModel {
     loading(false);
   }
 
+  // 선택된 컨텐츠 DB이 등록되어 있는지 확인하는 메소드
+  Future<void> checkIfContentIsRegistered(int contentId) async {
+    final responseResult = await _loadRegisteredContentIdInfo.call(contentId);
+    responseResult.fold(onSuccess: (data) {
+      _selectedRegisteredIdInfo.value = data;
+      if (_selectedRegisteredIdInfo.value == null) {
+        _selectedContentIsRegistered.value = false;
+      } else {
+        _selectedContentIsRegistered.value = true;
+      }
+    }, onFailure: (err) {
+      log(err.toString());
+    });
+  }
+
+  // 컨텐츠가 등록되어 있는 컨텐츠라면 저장되어 있는 유튜브 정보 리스트 호출
+  Future<void> loadYoutubeInfoList() async {
+    // 조건 : 컨텐츠 등록된 컨텐츠라면
+    if (_selectedRegisteredIdInfo.value != null) {
+      // 실행 : 유튜브 정보 리스트를 호출
+      final responseResult = await _loadRegisteredContentYoutubeInfo
+          .call(_selectedRegisteredIdInfo.value!);
+      responseResult.fold(onSuccess: (data) {
+        _registeredYoutubeVideoList.value = data;
+      }, onFailure: (err) {
+        log(err.toString());
+      });
+    }
+  }
+
+  // 컨텐츠가 선택되고 상세 페이지로 이동할 때
+  Future<void> onRouteToContentDetail(
+      {required VoidCallback routeAction,
+      required onContentTappedCallBack}) async {
+    onContentTappedCallBack.whenComplete(() {
+      checkIfContentIsRegistered(selectedContent!.id.toInt()).whenComplete(() {
+        loadYoutubeInfoList();
+        routeAction();
+      });
+    });
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -177,6 +229,11 @@ class SearchViewModel extends BaseViewModel {
       ? _searchAndSimilarContentList?.value![selectedSearchContentIndex!]
       : pagingController.itemList?[_selectedContentIndex.value];
 
+  // Global Getter (`ContentDetailScreen`에서 사용됨)
   static ContentModel? get selectedContentG =>
       Get.find<SearchViewModel>().selectedContent;
+  static bool get selectedContentIsRegisteredG =>
+      Get.find<SearchViewModel>()._selectedContentIsRegistered.value;
+  static Rxn<List<YoutubeVideoContentModel>> get customYoutubeVideoInfoListG =>
+      Get.find<SearchViewModel>()._registeredYoutubeVideoList;
 }

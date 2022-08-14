@@ -1,18 +1,18 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class YoutubeSearchListParentModel {
-  final List<YoutubeVideoContentModel> items;
-
-  YoutubeSearchListParentModel({required this.items});
-
-  factory YoutubeSearchListParentModel.fromResponse(
-      YoutubeSearchListResponse response) {
-    List<YoutubeVideoContentModel> result = (response.items)
-        .map((e) => YoutubeVideoContentModel.fromResponse(e))
-        .toList();
-    return YoutubeSearchListParentModel(items: result);
-  }
-}
+// class YoutubeSearchListParentModel {
+//   final List<YoutubeVideoContentModel> items;
+//
+//   YoutubeSearchListParentModel({required this.items});
+//
+//   factory YoutubeSearchListParentModel.fromResponse(
+//       YoutubeSearchListResponse response) {
+//     List<YoutubeVideoContentModel> result = (response.items)
+//         .map((e) => YoutubeVideoContentModel.fromResponse(e))
+//         .toList();
+//     return YoutubeSearchListParentModel(items: result);
+//   }
+// }
 
 class YoutubeVideoContentModel {
   final String? videoTitle;

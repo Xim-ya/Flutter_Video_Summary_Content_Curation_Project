@@ -18,9 +18,10 @@ class SearchedContentDetailListView extends BaseView<SearchViewModel> {
                 // 검색리스트에서 선택된 컨텐츠
                 ContentListTileItem(
                     contentItem: vm.searchAndSimilarContentList![0],
-                    onItemTapped: () async => vm
-                        .searchAndSimilarContentTapped(0)
-                        .whenComplete(() => routeAction())),
+                    onItemTapped: () async => vm.onRouteToContentDetail(
+                        routeAction: routeAction,
+                        onContentTappedCallBack:
+                            vm.searchAndSimilarContentTapped(0))),
                 const Padding(
                   padding: EdgeInsets.only(right: 40),
                   child: Text("연관 컨텐츠",
@@ -42,16 +43,17 @@ class SearchedContentDetailListView extends BaseView<SearchViewModel> {
                             ? 0
                             : vm.searchAndSimilarContentList!.length - 1,
                         itemBuilder: (context, index) {
-                          ContentModel? item =
-                              vm.searchAndSimilarContentList?[index];
-
                           return ContentListTileItem(
-                              contentItem:
-                                  vm.searchAndSimilarContentList![index + 1],
-                              onItemTapped: () => vm
-                                  .searchAndSimilarContentTapped(index + 1)
-                                  .whenComplete(() => routeAction()));
-                        }),
+                            contentItem:
+                                vm.searchAndSimilarContentList![index + 1],
+                            onItemTapped: () => vm.onRouteToContentDetail(
+                              routeAction: routeAction,
+                              onContentTappedCallBack:
+                                  vm.searchAndSimilarContentTapped(index + 1),
+                            ),
+                          );
+                        },
+                      ),
               ],
             ),
           )

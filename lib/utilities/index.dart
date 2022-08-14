@@ -18,7 +18,7 @@ export 'package:json_annotation/json_annotation.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 
 /* Data Layer (api, datasource, repository) */
-
+export 'package:movie_curation/data/remote/network/api/content/response/content_registered_id_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_cast_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_response.dart';
@@ -53,6 +53,7 @@ export 'package:movie_curation/data/repository/content/content_repository.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_genre_movie_list_response.dart';
 
 /* Domain Layer (useCase, model) */
+export 'package:movie_curation/domain/models/content/content_registered_id_info_model.dart';
 export 'package:movie_curation/domain/models/content/content_model.dart';
 export 'package:movie_curation/domain/models/tmdb/tmdb_movie_video_info_model.dart';
 export 'package:movie_curation/domain/models/content/content_model.dart';
@@ -75,6 +76,8 @@ export 'package:movie_curation/domain/useCase/youtube/youtube_load_youtube_meta_
 export 'package:movie_curation/domain/useCase/tmdb/load_movie_searched_list_use_case.dart';
 export 'package:movie_curation/domain/models/youtube/youtube_channel_model.dart';
 export 'package:movie_curation/domain/useCase/tmdb/load_similar_movie_list_use_case.dart';
+export 'package:movie_curation/domain/useCase/content/load_registered_content_id_info_use_case.dart';
+export 'package:movie_curation/domain/useCase/content/load_registered_content_youtube_info.dart';
 
 /* Presentation Layer (MVVM) */
 export 'package:movie_curation/ui/screens/home/home_view_model.dart';
@@ -135,6 +138,3 @@ export 'package:movie_curation/ui/common/base/base_view.dart';
 export 'package:movie_curation/domain/base/base_use_case.dart';
 export 'package:movie_curation/domain/base/base_use_case.dart';
 export 'package:movie_curation/domain/base/base_two_param_use_case.dart';
-
-/* Routes */
-export 'package:movie_curation/routes/fluro_router.dart';

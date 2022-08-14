@@ -3,6 +3,7 @@ import 'package:movie_curation/utilities/index.dart';
 class ContentApi {
   final db = FirebaseFirestore.instance;
 
+  // 추천 컨텐츠 리스트 호출
   Future<List<ContentRecommendedInfoResponse>>
       loadRecommendedContentInfo() async {
     final docRef = db.collection("contents").doc("Recommend");
@@ -16,17 +17,36 @@ class ContentApi {
       },
     );
   }
-}
 
-// [
-//   {
-//     youtubeVideIdList: [TaUgXoYjY4U, PlAIolfdhW0, AQ7reWRisqU],
-//     contentId: 453395, title: 닥터 스트레인지,
-//     type: 0,
-//     youtubeChannelIdLit: [D120asdas3, D120asdas3, D120asdas3, D120asdas3]
-//   },
-//   {
-//   youtubeVideIdList: [TaUgXoYjY4U, PlAIolfdhW0, AQ7reWRisqU],
-//   contentId: 361743, title: 탑건 2 메버릭, type: 0, youtubeChannelIdLit: [D120asdas3, D120asdas3, D120asdas3, D120asdas3]
-//   }
-// ]
+  // 등록된 컨텐츠 아이디 리스트 호출
+  Future<List<ContentRegisteredIdInfoItemResponse>>
+      loadRegisteredIdList() async {
+    final docRef = db.collection('contents').doc('RegisteredIdList');
+    return docRef.get().then((DocumentSnapshot snapshot) {
+      final data = snapshot.data() as Map<String, dynamic>;
+      final parentData = data['data'] as List<dynamic>;
+      final core = parentData
+          .map((e) => ContentRegisteredIdInfoItemResponse.fromJson(
+              e as Map<String, dynamic>))
+          .toList();
+      return core;
+    });
+  }
+
+  Future<List<String>> loadRegisteredContentYoutubeIdList(
+      String documentPath, int contentId) async {
+    final docRef = db.collection("contents").doc(documentPath);
+    return docRef.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        final core = data['data'] as List<dynamic>;
+        final needFormat = core
+            .map((e) => ContentRecommendedInfoResponse.fromResponse(e))
+            .toList();
+        return needFormat
+            .firstWhere((element) => element.contentId == contentId)
+            .youtubeVideoIdList;
+      },
+    );
+  }
+}
