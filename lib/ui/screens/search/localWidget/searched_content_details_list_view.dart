@@ -43,8 +43,6 @@ class SearchedContentDetailListView extends BaseView<SearchViewModel> {
                             ? 0
                             : vm.searchAndSimilarContentList!.length - 1,
                         itemBuilder: (context, index) {
-                          ContentModel? item =
-                              vm.searchAndSimilarContentList?[index];
                           return ContentListTileItem(
                             contentItem:
                                 vm.searchAndSimilarContentList![index + 1],

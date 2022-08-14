@@ -9,15 +9,12 @@ import 'package:movie_curation/utilities/result.dart';
 import 'package:youtube_metadata/youtube_metadata.dart'; // 다른 라이브러리와 충돌됨 (Single Import X)
 
 /* Firebase DB에 등록된 컨텐츠가 있다면, 해당 컨텐츠의 저장된 [유튜브 정보]를 반환하는 Usecase
+   *** 1) 2) 로직은  [LoadRegisteredContentIdInfoUseCase]에 포함되어 잇음  ***
     1) firebase db에 저장된 등록된 컨텐츠 리스트 데이터 호출 -> id 값만 호출
     2) 전달 받은 Id가 Firebase DB에 저장되어 있는지 확인.
     3) Firebase DB에 해당 ID가 있다면 FirebaseDB에 저장된 유튜브 정보 리스트 호출
        3-1) docuemntId 값으로 해당 firebase document를 찾음.
        3-2) 해당 dcoument List를 찾고 찾으려고하는 컨텐츠을 위에서 도출 ID값으로 확인
-
-  *  1) content id - (movie Id, drama id)를 파라미터 값으로 전달 받음.
-  *  2) 전달 받은 Id가 Firebase DB에 저장되어 있는지 확인.
-  *  2) Firebase DB에 해당 ID가 있다면 FirebaseDB에 저장된 유튜브 정보 리스트 호출
   * */
 
 class LoadRegisteredContentYoutubeInfo extends BaseUseCase<
@@ -32,22 +29,6 @@ class LoadRegisteredContentYoutubeInfo extends BaseUseCase<
   Future<Result<List<YoutubeVideoContentModel>>> call(
       ContentRegisteredIdInfoModel request) async {
     List<YoutubeVideoContentModel> youtubeVideoInfoList = [];
-    // // 1
-    // final List<ContentRegisteredIdInfoModel> registeredIdList = [];
-    // final idListResResult = await _contentRepository.loadRegisteredIdList();
-    // idListResResult.fold(onSuccess: (data) {
-    //   registeredIdList.addAll(data);
-    //   // data.map((e) => registeredIdList.add(e));
-    //   // print(registeredIdList);
-    // }, onFailure: (err) {
-    //   log(err.toString());
-    // });
-    //
-    // // 2
-    // final ContentRegisteredIdInfoModel? matchedInfo =
-    //     registeredIdList.firstWhere((e) => e.contentId == request);
-    //
-    //
 
     List<String> youtubeVideoIdList = [];
     // 3-1
@@ -96,9 +77,6 @@ class LoadRegisteredContentYoutubeInfo extends BaseUseCase<
             ),
           );
         }
-
-        /// COPY PASTE LOGIC ENDS HERE
-
       }
     } else {
       // DOESN't MATCH

@@ -179,9 +179,6 @@ class SearchViewModel extends BaseViewModel {
       }, onFailure: (err) {
         log(err.toString());
       });
-    } else {
-      // 조건 : 등록된 컨텐츠가 아니라면 리턴
-      return;
     }
   }
 
@@ -200,7 +197,6 @@ class SearchViewModel extends BaseViewModel {
   @override
   void onInit() {
     super.onInit();
-    loadYoutubeInfoList();
     pagingController = PagingController(
         firstPageKey: 1, invisibleItemsThreshold: 1); // paging controller 생성
     // paging 컨트럴러 listener 설정
@@ -233,6 +229,7 @@ class SearchViewModel extends BaseViewModel {
       ? _searchAndSimilarContentList?.value![selectedSearchContentIndex!]
       : pagingController.itemList?[_selectedContentIndex.value];
 
+  // Global Getter (`ContentDetailScreen`에서 사용됨)
   static ContentModel? get selectedContentG =>
       Get.find<SearchViewModel>().selectedContent;
   static bool get selectedContentIsRegisteredG =>
