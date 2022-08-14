@@ -37,7 +37,9 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
                           releaseDate: vm.selectedContent?.releaseDate,
                           showTrailerDialog: vm.showContentTrailer,
                           isUsedOnHomeScreen: true,
-                          routeAction: routeAction,
+                          routeAction: () {
+                            vm.onRouteToContentDetail(routeAction: routeAction);
+                          },
                           adult: vm.selectedContent?.adult,
                         ),
                       ),

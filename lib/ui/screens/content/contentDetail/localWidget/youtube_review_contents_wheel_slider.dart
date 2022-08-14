@@ -12,10 +12,6 @@ class YoutubeReviewContentsWheelSlider extends BaseView<HomeViewModel> {
 
   @override
   Widget buildView(BuildContext context) {
-    // final bool isLoading = SearchViewModel.selectedContentIsRegisteredG
-    //     ? SearchViewModel.selectedContentIsRegisteredG
-    //     : youtubeSearchList != null;
-
     return youtubeSearchList != null
         ? Container(
             margin: EdgeInsets.symmetric(horizontal: kWS100),

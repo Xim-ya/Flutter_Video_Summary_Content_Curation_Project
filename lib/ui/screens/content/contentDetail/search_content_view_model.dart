@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:movie_curation/utilities/index.dart';
 
 class SearchContentDetailViewModel extends BaseViewModel {
@@ -77,7 +78,7 @@ class SearchContentDetailViewModel extends BaseViewModel {
     responseResult.fold(onSuccess: (data) {
       _contentCastList.value = data;
     }, onFailure: (error) {
-      print(error);
+      log(error.toString());
     });
   }
 
@@ -97,7 +98,6 @@ class SearchContentDetailViewModel extends BaseViewModel {
   void onInit() {
     super.onInit();
     // 비동기 처리 X
-
     if (!SearchViewModel.selectedContentIsRegisteredG) {
       loadYoutubeSearchList();
     }
