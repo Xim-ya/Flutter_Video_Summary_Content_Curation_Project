@@ -1,3 +1,4 @@
+import 'package:movie_curation/ui/screens/channel/channel_screen.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class RootPagedView extends HookWidget {
@@ -7,7 +8,7 @@ class RootPagedView extends HookWidget {
   final List<Widget> screenList = [
     const HomePagedView(),
     const SearchPagedView(),
-    const TempScreen3(),
+    const ChannelScreen(),
     const TempScreen4(),
   ];
 
@@ -24,7 +25,7 @@ class RootPagedView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     //  PagedViewScreen의 Screen Index
-    final _screenIndex = useState(1);
+    final _screenIndex = useState(2);
 
     // PagedView Controller
     final PageController _pagedController = PageController(
