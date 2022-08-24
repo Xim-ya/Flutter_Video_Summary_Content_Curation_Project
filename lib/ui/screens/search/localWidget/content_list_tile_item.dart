@@ -50,8 +50,11 @@ class ContentListTileItem extends StatelessWidget {
                       children: [
                         // Title
                         Flexible(
-                          child: Text(contentItem.title,
-                              style: FontStyles().searchedContentTitle),
+                          child: Text(
+                            contentItem.title,
+                            style: FontStyles().searchedContentTitle,
+                            maxLines: 1,
+                          ),
                         ),
                         // Release Year
                         Container(
