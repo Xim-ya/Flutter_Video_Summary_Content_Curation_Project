@@ -129,6 +129,8 @@ export 'package:movie_curation/utilities/result.dart';
 export 'package:movie_curation/utilities/resources/colors.dart';
 export 'package:movie_curation/utilities/regex.dart';
 export 'package:movie_curation/app/config/size_config.dart';
+export 'package:movie_curation/utilities/resources/new_fonts.dart';
+export 'package:movie_curation/utilities/resources/space.dart';
 
 /* Base */
 export 'package:movie_curation/domain/base/base_no_param_use_case.dart';

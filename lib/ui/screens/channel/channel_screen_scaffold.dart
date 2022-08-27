@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ChannelScreenScaffold extends StatelessWidget {
@@ -42,6 +43,24 @@ class ChannelScreenScaffold extends StatelessWidget {
                                     color: AppColor.cloudyGrey,
                                     shape: BoxShape.circle),
                               ),
+                              AppSpace.size6,
+                              Text(
+                                '어퍼컷',
+                                style: AppTextStyle.headline2
+                                    .copyWith(color: Colors.white),
+                              ),
+                              SizedBox(
+                                height: 32,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: 5,
+                                    itemBuilder: (context, index) =>
+                                        SvgPicture.asset(
+                                            "assets/icons/star_ic.svg")),
+                              )
                             ],
                           )),
                           Expanded(
