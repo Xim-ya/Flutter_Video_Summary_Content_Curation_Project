@@ -116,14 +116,39 @@ class ChannelScreenScaffold extends StatelessWidget {
                                 style: AppTextStyle.body2
                                     .copyWith(color: Colors.white),
                                 maxLines: 5,
+                              ),
+                              const Spacer(),
+                              Row(
+                                children: <Widget>[
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: SvgPicture.asset(
+                                      'assets/icons/like_fill_ic.svg',
+                                      height: 32,
+                                      width: 32,
+                                      color: AppColor.yellow,
+                                    ),
+                                  ),
+                                ],
                               )
                             ],
                           ),
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          color: Colors.blue,
+                        child: Column(
+                          children: <Widget>[
+                            /* 섹션 제목 */
+                            SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                "Comment",
+                                textAlign: TextAlign.end,
+                                style: AppTextStyle.headline1
+                                    .copyWith(color: Colors.white),
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ],
@@ -132,12 +157,20 @@ class ChannelScreenScaffold extends StatelessWidget {
               },
             ),
           ),
-          /* 오른쪽 섹션 */
+
+          /* 오른쪽 섹션 - 유저 Comment List */
           Container(
               width: 374,
-              child: Container(
-                color: Colors.blue,
-              ))
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 3,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: const <Widget>[
+                        Text("심야" "님"),
+                      ],
+                    );
+                  }))
         ],
       ),
     );
