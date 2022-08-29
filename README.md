@@ -5,7 +5,6 @@
 ```
 
 
-<img src="https://user-images.githubusercontent.com/75591730/160607656-74d4411f-8700-487e-8dcb-51e3283cbc79.png" width="600">
 
 ## 목차
 - [개발 동기](#개발-동기)
