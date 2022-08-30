@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:movie_curation/utilities/index.dart';
 import 'package:movie_curation/utilities/resources/fonts.dart';
 import 'package:movie_curation/utilities/resources/space.dart';
@@ -138,7 +139,7 @@ class ChannelScreenScaffold extends StatelessWidget {
                       Expanded(
                         child: Column(
                           children: <Widget>[
-                            /* 섹션 제목 */
+                            /* 섹션 제목 (comment) */
                             SizedBox(
                               width: double.infinity,
                               child: Text(
@@ -147,7 +148,70 @@ class ChannelScreenScaffold extends StatelessWidget {
                                 style: AppTextStyle.headline1
                                     .copyWith(color: Colors.white),
                               ),
-                            )
+                            ),
+                            /* 유저 대표 코멘트 리스트 */
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '심야' '님',
+                                        style: AppTextStyle.headline3
+                                            .copyWith(color: Colors.white),
+                                      ),
+                                      AppSpace.size8,
+                                      Text(
+                                        '여기 구독자들의 ott를 해지하게끔 만드는 유튜버가 있습니다. 여기 구독자들의 ott를 해지하게끔 만드는 유튜버가 있습니다.',
+                                        style: AppTextStyle.body3
+                                            .copyWith(color: Colors.white),
+                                        maxLines: 6,
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '심야' '님',
+                                        style: AppTextStyle.headline3
+                                            .copyWith(color: Colors.white),
+                                      ),
+                                      AppSpace.size8,
+                                      Text(
+                                        '여기 구독자들의 ott를 해지하게끔 만드는 유튜버가 있습니다. 여기 구독자들의 ott를 해지하게끔 만드는 유튜버가 있습니다.',
+                                        style: AppTextStyle.body3
+                                            .copyWith(color: Colors.white),
+                                        maxLines: 6,
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '심야' '님',
+                                        style: AppTextStyle.headline3
+                                            .copyWith(color: Colors.white),
+                                      ),
+                                      AppSpace.size8,
+                                      Text(
+                                        '여기 구독자들의 ott를 해지하게끔 만드는 유튜버가 있습니다. 여기 구독자들의 ott를 해지하게끔 만드는 유튜버가 있습니다.',
+                                        style: AppTextStyle.body3
+                                            .copyWith(color: Colors.white),
+                                        maxLines: 6,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
