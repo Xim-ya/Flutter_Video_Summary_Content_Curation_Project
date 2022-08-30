@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:movie_curation/ui/widgets/new_gradient_button.dart';
 import 'package:movie_curation/utilities/index.dart';
 import 'package:movie_curation/utilities/resources/fonts.dart';
 import 'package:movie_curation/utilities/resources/space.dart';
@@ -222,19 +222,69 @@ class ChannelScreenScaffold extends StatelessWidget {
             ),
           ),
 
-          /* 오른쪽 섹션 - 유저 Comment List */
+          /* 오른쪽 섹션 - channel 영상 리스트 */
           Container(
-              width: 374,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: const <Widget>[
-                        Text("심야" "님"),
-                      ],
-                    );
-                  }))
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            width: 374,
+            color: AppColor.subDarkGrey,
+            height: double.infinity,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: 1,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: <Widget>[
+                    /* 양상 썸네일 */
+                    SizedBox(
+                      height: 190,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(19),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgKPqqtQBDi4zHw9qqBgbQ17HMQFVx3vnIgOc_Cr9LyxPjpnMdzKq9pyjdLS1N171d4Dc&usqp=CAU",
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        ),
+                      ),
+                    ),
+                    /* 영상 제목 */
+                    Text(
+                      'Star Wars: Episode I - The Phantom Menace',
+                      style:
+                          AppTextStyle.headline2.copyWith(color: Colors.white),
+                    ),
+                    AppSpace.size14,
+                    SizedBox(
+                      width: double.infinity,
+                      child: Wrap(
+                        spacing: 10,
+                        alignment: WrapAlignment.start,
+                        direction: Axis.horizontal,
+                        children: <Widget>[
+                          NewGradientButton(
+                            content: '절대적인 몰입감',
+                          ),
+                          NewGradientButton(
+                            content: '적극 추천',
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                );
+              },
+            ),
+          )
         ],
       ),
     );
