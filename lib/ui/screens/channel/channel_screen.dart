@@ -1,14 +1,15 @@
 import 'package:movie_curation/ui/screens/channel/channel_screen_scaffold.dart';
+import 'package:movie_curation/ui/screens/channel/channel_view_model.dart';
 import 'package:movie_curation/ui/widgets/new_gradient_button.dart';
 import 'package:movie_curation/utilities/index.dart';
 import 'package:movie_curation/utilities/resources/fonts.dart';
 import 'package:movie_curation/utilities/resources/space.dart';
 
-class ChannelScreen extends StatelessWidget {
+class ChannelScreen extends BaseScreen<ChannelViewModel> {
   const ChannelScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return ChannelScreenScaffold(
       channelContentListView: _buildChannelContentListView(),
       channelInfoCarouselSlider: _buildChannelInfoCarouselSlider(),
