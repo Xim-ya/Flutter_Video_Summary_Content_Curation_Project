@@ -8,9 +8,9 @@ class ChannelRepositoryImpl extends ChannelRepository {
     final List<ChannelInfoModel> channelInfoList = [
       ChannelInfoModel(
         id: "UCuK80YHBZyyKrr2B1oHrgrw",
-        thumbnailUrl:
+        channelUrl:
             "https://yt3.ggpht.com/ytc/AMLnZu9tKXzVPuAGTdZ-jfWmuDYRcZwKZlOm6GWpduKnvg=s240-c-k-c0xffffffff-no-rj-mo",
-        name: '어퍼컷Tube',
+        name: '어퍼컷Tube1',
         rateScore: 12,
         likesCount: 3,
         subscribers: 691000,
@@ -27,9 +27,9 @@ class ChannelRepositoryImpl extends ChannelRepository {
       ),
       ChannelInfoModel(
         id: "UCuK80YHBZyyKrr2B1oHrgrw",
-        thumbnailUrl:
+        channelUrl:
             "https://yt3.ggpht.com/ytc/AMLnZu9tKXzVPuAGTdZ-jfWmuDYRcZwKZlOm6GWpduKnvg=s240-c-k-c0xffffffff-no-rj-mo",
-        name: '어퍼컷Tube',
+        name: '어퍼컷Tube2',
         rateScore: 12,
         likesCount: 3,
         subscribers: 691000,
@@ -46,9 +46,9 @@ class ChannelRepositoryImpl extends ChannelRepository {
       ),
       ChannelInfoModel(
         id: "UCuK80YHBZyyKrr2B1oHrgrw",
-        thumbnailUrl:
+        channelUrl:
             "https://yt3.ggpht.com/ytc/AMLnZu9tKXzVPuAGTdZ-jfWmuDYRcZwKZlOm6GWpduKnvg=s240-c-k-c0xffffffff-no-rj-mo",
-        name: '어퍼컷Tube',
+        name: '어퍼컷Tube3',
         rateScore: 12,
         likesCount: 3,
         subscribers: 691000,
@@ -65,7 +65,7 @@ class ChannelRepositoryImpl extends ChannelRepository {
       ),
       ChannelInfoModel(
         id: "UCuK80YHBZyyKrr2B1oHrgrw",
-        thumbnailUrl:
+        channelUrl:
             "https://yt3.ggpht.com/ytc/AMLnZu9tKXzVPuAGTdZ-jfWmuDYRcZwKZlOm6GWpduKnvg=s240-c-k-c0xffffffff-no-rj-mo",
         name: '어퍼컷Tube',
         rateScore: 12,

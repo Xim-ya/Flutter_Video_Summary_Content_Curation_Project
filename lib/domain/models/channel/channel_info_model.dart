@@ -1,6 +1,6 @@
 class ChannelInfoModel {
   final String id;
-  final String thumbnailUrl;
+  final String channelUrl;
   final String name;
   final double rateScore;
   final int likesCount;
@@ -13,7 +13,7 @@ class ChannelInfoModel {
 
   ChannelInfoModel(
       {required this.id,
-      required this.thumbnailUrl,
+      required this.channelUrl,
       required this.name,
       required this.rateScore,
       required this.likesCount,

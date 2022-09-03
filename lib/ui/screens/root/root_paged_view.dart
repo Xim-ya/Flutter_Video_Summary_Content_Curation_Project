@@ -1,4 +1,5 @@
 import 'package:movie_curation/ui/screens/channel/channel_screen.dart';
+import 'package:movie_curation/ui/screens/channel/channel_view_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class RootPagedView extends HookWidget {
@@ -24,6 +25,8 @@ class RootPagedView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => ChannelViewModel(Get.find()));
+
     //  PagedViewScreen의 Screen Index
     final _screenIndex = useState(2);
 
