@@ -298,25 +298,28 @@ class ChannelScreen extends BaseScreen<ChannelViewModel> {
           return Column(
             children: <Widget>[
               /* 양상 썸네일 */
-              SizedBox(
-                height: 190,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(19),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgKPqqtQBDi4zHw9qqBgbQ17HMQFVx3vnIgOc_Cr9LyxPjpnMdzKq9pyjdLS1N171d4Dc&usqp=CAU",
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
+              AspectRatio(
+                aspectRatio: 2 / 3,
+                child: SizedBox(
+                  height: 100,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(19),
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          "https://image.tmdb.org/t/p/w500/bZLrpWM065h5bu1msUcPmLFsHBe.jpg",
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
-                    placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
                   ),
                 ),
               ),
