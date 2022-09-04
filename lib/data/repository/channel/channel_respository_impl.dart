@@ -28,8 +28,8 @@ class ChannelRepositoryImpl extends ChannelRepository {
       ChannelInfoModel(
         id: "UCuK80YHBZyyKrr2B1oHrgrw",
         channelUrl:
-            "https://yt3.ggpht.com/ytc/AMLnZu9tKXzVPuAGTdZ-jfWmuDYRcZwKZlOm6GWpduKnvg=s240-c-k-c0xffffffff-no-rj-mo",
-        name: '어퍼컷Tube2',
+            "https://yt3.ggpht.com/jYOJyrwBpzE5ROYRfpaaW0sH19k_ManuoXC6_fQBz9KoE-nwzagPlVLaCjlXFIH0pOX8PVSk3Q=s240-c-k-c0xffffffff-no-rj-mo",
+        name: '오킹',
         rateScore: 12,
         likesCount: 3,
         subscribers: 691000,
@@ -47,8 +47,8 @@ class ChannelRepositoryImpl extends ChannelRepository {
       ChannelInfoModel(
         id: "UCuK80YHBZyyKrr2B1oHrgrw",
         channelUrl:
-            "https://yt3.ggpht.com/ytc/AMLnZu9tKXzVPuAGTdZ-jfWmuDYRcZwKZlOm6GWpduKnvg=s240-c-k-c0xffffffff-no-rj-mo",
-        name: '어퍼컷Tube3',
+            "https://yt3.ggpht.com/rbdoz4WVvAsqv-OWVanKm6dit-1U1u-EDVa-7w07rqho6TRR8EUtboqC_rE4JmEnhQIl6SO49oI=s240-c-k-c0xffffffff-no-rj-mo",
+        name: '영읽남',
         rateScore: 12,
         likesCount: 3,
         subscribers: 691000,
@@ -66,8 +66,8 @@ class ChannelRepositoryImpl extends ChannelRepository {
       ChannelInfoModel(
         id: "UCuK80YHBZyyKrr2B1oHrgrw",
         channelUrl:
-            "https://yt3.ggpht.com/ytc/AMLnZu9tKXzVPuAGTdZ-jfWmuDYRcZwKZlOm6GWpduKnvg=s240-c-k-c0xffffffff-no-rj-mo",
-        name: '어퍼컷Tube',
+            "https://yt3.ggpht.com/ytc/AMLnZu8hdQ4TWLl6M_wFDBQmQpSiK_GEhTgazzqGnL8u=s240-c-k-c0xffffffff-no-rj-mo",
+        name: '김시선',
         rateScore: 12,
         likesCount: 3,
         subscribers: 691000,

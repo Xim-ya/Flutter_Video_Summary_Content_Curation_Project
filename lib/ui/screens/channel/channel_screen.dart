@@ -19,27 +19,59 @@ class ChannelScreen extends BaseScreen<ChannelViewModel> {
   }
 
   /* 채널 썸네일 리스트*/
-  Widget _buildChannelThumbnailSlider() => SizedBox(
-        height: 120,
-        child: ListView.builder(
+  Widget _buildChannelThumbnailSlider() => Obx(() => vm.channelInfoList != null
+      ? SizedBox(
+          height: 120,
+          child: ListView.separated(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            itemCount: 10,
+            itemCount: vm.channelInfoList!.length,
+            separatorBuilder: (BuildContext context, int index) =>
+                AppSpace.size20,
             itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.only(right: 20),
-                height: 120,
-                width: 120,
-                decoration:
-                    BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
+              final String _thumbnailUrlItem =
+                  vm.channelInfoList![index].channelUrl;
+              return Obx(
+                () => GestureDetector(
+                  onTap: () => vm.onChannelLisItemTapped(index),
+                  child: Opacity(
+                    opacity: vm.selectedChannelIndex == index ? 1 : 0.15,
+                    child: SizedBox(
+                      height: 120,
+                      width: 120,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: CachedNetworkImage(
+                          imageUrl: _thumbnailUrlItem,
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               );
-            }),
-      );
+            },
+          ),
+        )
+      : const SizedBox());
 
   /* 채널 정보 리스트 */
   Widget _buildChannelInfoCarouselSlider() => Obx(() => vm.channelInfoList !=
           null
       ? CarouselSlider.builder(
+          carouselController: vm.swiperController,
           options: CarouselOptions(
             autoPlay: false,
             enlargeCenterPage: true,
@@ -266,25 +298,28 @@ class ChannelScreen extends BaseScreen<ChannelViewModel> {
           return Column(
             children: <Widget>[
               /* 양상 썸네일 */
-              SizedBox(
-                height: 190,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(19),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgKPqqtQBDi4zHw9qqBgbQ17HMQFVx3vnIgOc_Cr9LyxPjpnMdzKq9pyjdLS1N171d4Dc&usqp=CAU",
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
+              AspectRatio(
+                aspectRatio: 2 / 3,
+                child: SizedBox(
+                  height: 100,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(19),
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          "https://image.tmdb.org/t/p/w500/bZLrpWM065h5bu1msUcPmLFsHBe.jpg",
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
-                    placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
                   ),
                 ),
               ),
