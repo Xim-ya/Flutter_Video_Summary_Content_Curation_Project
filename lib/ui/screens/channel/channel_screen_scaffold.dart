@@ -1,54 +1,40 @@
-import 'package:movie_curation/ui/widgets/new_gradient_button.dart';
+import 'package:movie_curation/ui/screens/channel/localWidget/channel_main_info_container.dart';
 import 'package:movie_curation/utilities/index.dart';
-import 'package:movie_curation/utilities/resources/fonts.dart';
 import 'package:movie_curation/utilities/resources/space.dart';
 
 class ChannelScreenScaffold extends StatelessWidget {
-  const ChannelScreenScaffold({
-    Key? key,
-    required this.channelContentListView,
-    required this.channelInfoCarouselSlider,
-    required this.channelThumbnailSlider,
-  }) : super(key: key);
+  const ChannelScreenScaffold(
+      {Key? key, required this.tempBody, required this.scaffoldKey})
+      : super(key: key);
 
-  final Widget channelContentListView;
-  final Widget channelThumbnailSlider;
-  final Widget channelInfoCarouselSlider;
+  final Widget tempBody;
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Row(
-        children: <Widget>[
-          /* 왼쪽 섹션 */
-          Expanded(
-            child: Container(
-              height: double.infinity,
-              child: Stack(
-                children: [
-                  /* Channel Thumbnail Horizon 리스트 뷰 */
-                  channelThumbnailSlider,
-                  Positioned.fill(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: channelInfoCarouselSlider,
-                    ),
-                  ),
-                ],
-              ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false, // Screen Resize Effect 제거
+      backgroundColor: AppColor.darkGrey,
+      key: scaffoldKey,
+      endDrawer: Drawer(
+        backgroundColor: AppColor.subDarkGrey,
+        width: SizeConfig().screenWidth * 0.3,
+        child: SizedBox(
+          width: double.infinity,
+          child: ListView.separated(
+            padding: const EdgeInsets.only(top: 40),
+            shrinkWrap: true,
+            itemCount: 4,
+            separatorBuilder: (BuildContext context, int index) =>
+                AppSpace.size24,
+            itemBuilder: (context, index) => const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 14),
+              child: ChannelMainInfoContainer(channelImgSize: 100),
             ),
           ),
-
-          /* 오른쪽 섹션 - channel 영상 리스트 */
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            width: 374,
-            color: AppColor.subDarkGrey,
-            height: double.infinity,
-            child: channelContentListView,
-          ),
-        ],
+        ),
       ),
+      body: tempBody,
     );
   }
 }

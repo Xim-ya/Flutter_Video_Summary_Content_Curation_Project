@@ -1,5 +1,6 @@
-import 'package:movie_curation/ui/screens/channel/channel_screen.dart';
-import 'package:movie_curation/ui/screens/channel/channel_view_model.dart';
+import 'package:movie_curation/ui/screens/channel/channel_paged_view_scaffold.dart';
+import 'package:movie_curation/ui/screens/channelOld/channel_screen_old.dart';
+import 'package:movie_curation/ui/screens/channelOld/channel_view_model_old.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class RootPagedView extends HookWidget {
@@ -9,7 +10,7 @@ class RootPagedView extends HookWidget {
   final List<Widget> screenList = [
     const HomePagedView(),
     const SearchPagedView(),
-    const ChannelScreen(),
+    const ChannelPagedViewScaffold(),
     const TempScreen4(),
   ];
 
@@ -25,7 +26,7 @@ class RootPagedView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => ChannelViewModel(Get.find()));
+    Get.lazyPut(() => ChannelViewModelOld(Get.find()));
 
     //  PagedViewScreen의 Screen Index
     final _screenIndex = useState(2);
@@ -45,6 +46,7 @@ class RootPagedView extends HookWidget {
         ),
         tabletWidget: Row(
           children: [
+            /* Custom Rail Navigation Bar */
             Container(
               width: 70,
               color: AppColor.darkGrey,
