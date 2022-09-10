@@ -1,40 +1,64 @@
-import 'package:movie_curation/ui/screens/channel/localWidget/channel_main_info_container.dart';
 import 'package:movie_curation/utilities/index.dart';
-import 'package:movie_curation/utilities/resources/space.dart';
 
 class ChannelScreenScaffold extends StatelessWidget {
-  const ChannelScreenScaffold(
-      {Key? key, required this.tempBody, required this.scaffoldKey})
-      : super(key: key);
+  const ChannelScreenScaffold({
+    Key? key,
+    required this.backgroundPosterUrl,
+    required this.channelInfoSection,
+    required this.contentInfoSection,
+    required this.contentPosterSlider,
+    required this.scaffoldKey,
+    required this.drawer,
+    required this.drawerBtn,
+  }) : super(key: key);
 
-  final Widget tempBody;
+  final Widget channelInfoSection;
+  final Widget contentInfoSection;
+  final Widget contentPosterSlider;
+  final String backgroundPosterUrl;
+  final Widget drawer;
+  final Widget drawerBtn;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
   Widget build(BuildContext context) {
+    final sectionWidth = SizeConfig().screenWidth * 0.6;
     return Scaffold(
-      resizeToAvoidBottomInset: false, // Screen Resize Effect 제거
-      backgroundColor: AppColor.darkGrey,
-      key: scaffoldKey,
-      endDrawer: Drawer(
-        backgroundColor: AppColor.subDarkGrey,
-        width: SizeConfig().screenWidth * 0.3,
-        child: SizedBox(
-          width: double.infinity,
-          child: ListView.separated(
-            padding: const EdgeInsets.only(top: 40),
-            shrinkWrap: true,
-            itemCount: 4,
-            separatorBuilder: (BuildContext context, int index) =>
-                AppSpace.size24,
-            itemBuilder: (context, index) => const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 14),
-              child: ChannelMainInfoContainer(channelImgSize: 100),
+        resizeToAvoidBottomInset: false, // Screen Resize Effect 제거
+        backgroundColor: AppColor.darkGrey,
+        key: scaffoldKey,
+        endDrawer: drawer,
+        body: Stack(
+          children: [
+            /* Content Gradient Bacgkround */
+            GradientPostBackground(
+              backgroundImgUrl: backgroundPosterUrl,
             ),
-          ),
-        ),
-      ),
-      body: tempBody,
-    );
+            Container(
+              padding: EdgeInsets.only(
+                  top: contentTopP, left: contentLeftP, bottom: contentBottomP),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /** Top Section **/
+                  Expanded(
+                    flex: 4,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        /* Channel Main Info */
+                        channelInfoSection,
+                        const Spacer(),
+                        contentInfoSection,
+                        const Spacer(),
+                      ],
+                    ),
+                  ),
+                  contentPosterSlider,
+                ],
+              ),
+            ),
+          ],
+        ));
   }
 }
