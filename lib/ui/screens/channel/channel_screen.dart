@@ -1,352 +1,206 @@
-import 'package:movie_curation/domain/models/channel/channel_info_model.dart';
 import 'package:movie_curation/ui/screens/channel/channel_screen_scaffold.dart';
-import 'package:movie_curation/ui/screens/channel/channel_view_model.dart';
-import 'package:movie_curation/ui/widgets/new_gradient_button.dart';
+import 'package:movie_curation/ui/screens/channel/localWidget/channel_main_info_container.dart';
 import 'package:movie_curation/utilities/index.dart';
 import 'package:movie_curation/utilities/resources/fonts.dart';
 import 'package:movie_curation/utilities/resources/space.dart';
 
-class ChannelScreen extends BaseScreen<ChannelViewModel> {
-  const ChannelScreen({Key? key}) : super(key: key);
+class ChannelScreen extends BaseScreen<HomeViewModel> {
+  final VoidCallback routeAction; // PageViewBuilder 라우트 콜백 함수
+  const ChannelScreen({
+    Key? key,
+    required this.routeAction,
+  }) : super(key: key);
 
   @override
   Widget buildScreen(BuildContext context) {
-    return ChannelScreenScaffold(
-      channelContentListView: _buildChannelContentListView(),
-      channelInfoCarouselSlider: _buildChannelInfoCarouselSlider(),
-      channelThumbnailSlider: _buildChannelThumbnailSlider(),
-    );
-  }
+    final sectionWidth = SizeConfig().screenWidth * 0.6;
+    // () => vm.selectedContentList != null && vm.loading.isFalse
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  /* 채널 썸네일 리스트*/
-  Widget _buildChannelThumbnailSlider() => Obx(() => vm.channelInfoList != null
-      ? SizedBox(
-          height: 120,
-          child: ListView.separated(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: vm.channelInfoList!.length,
-            separatorBuilder: (BuildContext context, int index) =>
-                AppSpace.size20,
-            itemBuilder: (context, index) {
-              final String _thumbnailUrlItem =
-                  vm.channelInfoList![index].channelUrl;
-              return Obx(
-                () => GestureDetector(
-                  onTap: () => vm.onChannelLisItemTapped(index),
-                  child: Opacity(
-                    opacity: vm.selectedChannelIndex == index ? 1 : 0.15,
-                    child: SizedBox(
-                      height: 120,
-                      width: 120,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: CachedNetworkImage(
-                          imageUrl: _thumbnailUrlItem,
-                          imageBuilder: (context, imageProvider) => Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          placeholder: (context, url) => const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
+    return ChannelScreenScaffold(
+        backgroundPosterUrl: "/bZLrpWM065h5bu1msUcPmLFsHBe.jpg",
+        scaffoldKey: _scaffoldKey,
+        channelInfoSection: _ChannelInfoSection(sectionWidth: sectionWidth),
+        contentInfoSection: _ContentInfoSection(),
+        contentPosterSlider: ContentPosterSlider(),
+        drawerBtn: _DrawerBtn(),
+        drawer: _ChannelListDrawer());
+  }
+}
+
+class _ContentInfoSection extends StatelessWidget {
+  final sectionWidth = SizeConfig().screenWidth * 0.6;
+  @override
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            "탑건 메버릭",
+            style: AppTextStyle.headline1.copyWith(color: Colors.white),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: AppColor.lightGrey,
+                ),
+                child: Text(
+                  true ? "청소년 관람 불가" : "일반",
+                  style: FontStyles(0, false).gRated,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                true ? Regex.dateYM("2022-05-20") : "개봉일 확인 불가",
+                style: FontStyles(0, false).releaseY,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          SizedBox(
+            width: sectionWidth,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: AppColor.yellow,
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                  ),
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SvgPicture.asset("assets/icons/play_ic.svg",
+                          height: 20, color: Colors.black),
+                      const SizedBox(width: 6),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2),
+                        child: Text(
+                          "인기 컨텐츠",
+                          style: FontStyles(0, false).watchButton,
                         ),
-                      ),
-                    ),
+                      )
+                    ],
                   ),
                 ),
-              );
-            },
-          ),
-        )
-      : const SizedBox());
+                GradientButton(content: '예고편', onBtnTapHandler: () {}),
+              ],
+            ),
+          )
+        ],
+      );
+}
 
-  /* 채널 정보 리스트 */
-  Widget _buildChannelInfoCarouselSlider() => Obx(() => vm.channelInfoList !=
-          null
-      ? CarouselSlider.builder(
-          carouselController: vm.swiperController,
-          options: CarouselOptions(
-            autoPlay: false,
-            enlargeCenterPage: true,
-            initialPage: 0,
+class _DrawerBtn extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.only(right: 40),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.zero, primary: Colors.transparent),
+          onPressed: () {},
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "더 많은 채널 보기",
+                  style:
+                      AppTextStyle.headline1.copyWith(color: AppColor.textGrey),
+                ),
+                SvgPicture.asset(
+                  "assets/icons/right arrow_ic.svg",
+                  height: 32,
+                  color: AppColor.yellow.withOpacity(0.8),
+                ),
+              ],
+            ),
           ),
-          itemCount: vm.channelInfoList?.length ?? 0,
-          itemBuilder: (context, itemIndex, pageViewIndex) {
-            final ChannelInfoModel _item = vm.channelInfoList![itemIndex];
-            final List<UserCommentModel> _commentList =
-                vm.channelInfoList![itemIndex].comments;
-            return Container(
-              constraints: const BoxConstraints(
-                maxHeight: 448,
-                maxWidth: 512,
-              ),
-              height: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: AppColor.subDarkGrey,
-              ),
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 16),
-                      child: Column(
-                        children: <Widget>[
-                          /* 채널 프로필 이미지 */
-                          SizedBox(
-                            height: 70,
-                            width: 70,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: CachedNetworkImage(
-                                imageUrl: _item.channelUrl,
-                                imageBuilder: (context, imageProvider) =>
-                                    Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                placeholder: (context, url) => const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          AppSpace.size10,
-                          /* 채널명 */
-                          Text(
-                            _item.name,
-                            style: AppTextStyle.headline2
-                                .copyWith(color: Colors.white),
-                          ),
-                          AppSpace.size4,
-                          /* 채널 Star Rate */
-                          SizedBox(
-                            height: 32,
-                            child: ListView.separated(
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      AppSpace.size4,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 5,
-                              itemBuilder: (context, index) =>
-                                  SvgPicture.asset("assets/icons/star_ic.svg"),
-                            ),
-                          ),
-                          Text(
-                            '${Regex.getSubscriberNumber(_item.subscribers)}만 - ${_item.videoCount}개의 비디오',
-                            style: AppTextStyle.body3
-                                .copyWith(color: Colors.white),
-                          ),
-                          /* 구독자 수 & 비디오 개수 */
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Divider(
-                              color: AppColor.dividerColor,
-                              thickness: 1,
-                            ),
-                          ),
-                          /* 채널 Description */
-                          Text(
-                            _item.description,
-                            style: AppTextStyle.body1
-                                .copyWith(color: Colors.white),
-                            maxLines: 5,
-                          ),
-                          AppSpace.size24,
-                          /* 개발자 채널 설명 */
-                          Text(
-                            _item.customDescription,
-                            style: AppTextStyle.body2
-                                .copyWith(color: Colors.white),
-                            maxLines: 5,
-                          ),
-                          const Spacer(),
-                          Row(
-                            children: <Widget>[
-                              IconButton(
-                                onPressed: () {},
-                                icon: SvgPicture.asset(
-                                  'assets/icons/like_fill_ic.svg',
-                                  height: 32,
-                                  width: 32,
-                                  color: AppColor.yellow,
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
+        ),
+      );
+}
+
+class _ChannelInfoSection extends StatelessWidget {
+  const _ChannelInfoSection({required this.sectionWidth});
+
+  final double sectionWidth;
+
+  @override
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              const ChannelMainInfoContainer(channelImgSize: 120),
+              Container(
+                margin: const EdgeInsets.only(right: 40),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.zero, primary: Colors.transparent),
+                  onPressed: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        /* 섹션 제목 (comment) */
-                        SizedBox(
-                          width: double.infinity,
-                          child: Text(
-                            "Comment",
-                            textAlign: TextAlign.end,
-                            style: AppTextStyle.headline1
-                                .copyWith(color: Colors.white),
-                          ),
+                        Text(
+                          "더 많은 채널 보기",
+                          style: AppTextStyle.headline1
+                              .copyWith(color: AppColor.textGrey),
                         ),
-                        /* 유저 대표 코멘트 리스트 */
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '${_commentList[0].name}' '님',
-                                    style: AppTextStyle.headline3
-                                        .copyWith(color: Colors.white),
-                                  ),
-                                  AppSpace.size8,
-                                  Text(
-                                    _commentList[0].comment,
-                                    style: AppTextStyle.body3
-                                        .copyWith(color: Colors.white),
-                                    maxLines: 6,
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '${_commentList[1].name}' '님',
-                                    style: AppTextStyle.headline3
-                                        .copyWith(color: Colors.white),
-                                  ),
-                                  AppSpace.size8,
-                                  Text(
-                                    _commentList[1].comment,
-                                    style: AppTextStyle.body3
-                                        .copyWith(color: Colors.white),
-                                    maxLines: 6,
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '${_commentList[2].name}' '님',
-                                    style: AppTextStyle.headline3
-                                        .copyWith(color: Colors.white),
-                                  ),
-                                  AppSpace.size8,
-                                  Text(
-                                    _commentList[2].comment,
-                                    style: AppTextStyle.body3
-                                        .copyWith(color: Colors.white),
-                                    maxLines: 6,
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
+                        SvgPicture.asset(
+                          "assets/icons/right arrow_ic.svg",
+                          height: 32,
+                          color: AppColor.yellow.withOpacity(0.8),
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
-            );
-          },
-        )
-      : const SizedBox());
-
-  /* 채널 컨텐츠 비디오 정보 리스트 - 오른쪽 섹션 */
-  Widget _buildChannelContentListView() => ListView.builder(
-        shrinkWrap: true,
-        itemCount: 1,
-        itemBuilder: (context, index) {
-          return Column(
-            children: <Widget>[
-              /* 양상 썸네일 */
-              AspectRatio(
-                aspectRatio: 2 / 3,
-                child: SizedBox(
-                  height: 100,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(19),
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          "https://image.tmdb.org/t/p/w500/bZLrpWM065h5bu1msUcPmLFsHBe.jpg",
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      placeholder: (context, url) =>
-                          const Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                    ),
-                  ),
-                ),
-              ),
-              /* 영상 제목 */
-              Text(
-                'Star Wars: Episode I - The Phantom Menace',
-                style: AppTextStyle.headline2.copyWith(color: Colors.white),
-              ),
-              AppSpace.size14,
-              SizedBox(
-                width: double.infinity,
-                child: Wrap(
-                  spacing: 10,
-                  alignment: WrapAlignment.start,
-                  direction: Axis.horizontal,
-                  children: const <Widget>[
-                    NewGradientButton(
-                      content: '절대적인 몰입감',
-                    ),
-                    NewGradientButton(
-                      content: '적극 추천',
-                    ),
-                  ],
                 ),
               )
             ],
-          );
-        },
+          ),
+          AppSpace.size40,
+          /* Channel Description */
+          SizedBox(
+            width: sectionWidth,
+            child: Text(
+              "Lego Star Wars - Stormtrooper in desert (Stop motion shortfilm) #Shorts, Lego Star Wars - Stormtrooper in desert (Stop motion shortfilm) #Shorts, Lego Star Wars - Stormtrooper in desert (Stop motion shortfilm) #Shorts",
+              style: AppTextStyle.headline3.copyWith(color: Colors.white),
+            ),
+          ),
+        ],
+      );
+}
+
+class _ChannelListDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Drawer(
+        backgroundColor: AppColor.subDarkGrey,
+        width: SizeConfig().screenWidth * 0.3,
+        child: SizedBox(
+          width: double.infinity,
+          child: ListView.separated(
+            padding: const EdgeInsets.only(top: 40),
+            shrinkWrap: true,
+            itemCount: 4,
+            separatorBuilder: (BuildContext context, int index) =>
+                AppSpace.size24,
+            itemBuilder: (context, index) => const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 14),
+              child: ChannelMainInfoContainer(channelImgSize: 100),
+            ),
+          ),
+        ),
       );
 }

@@ -1,54 +1,64 @@
-import 'package:movie_curation/ui/widgets/new_gradient_button.dart';
 import 'package:movie_curation/utilities/index.dart';
-import 'package:movie_curation/utilities/resources/fonts.dart';
-import 'package:movie_curation/utilities/resources/space.dart';
 
 class ChannelScreenScaffold extends StatelessWidget {
   const ChannelScreenScaffold({
     Key? key,
-    required this.channelContentListView,
-    required this.channelInfoCarouselSlider,
-    required this.channelThumbnailSlider,
+    required this.backgroundPosterUrl,
+    required this.channelInfoSection,
+    required this.contentInfoSection,
+    required this.contentPosterSlider,
+    required this.scaffoldKey,
+    required this.drawer,
+    required this.drawerBtn,
   }) : super(key: key);
 
-  final Widget channelContentListView;
-  final Widget channelThumbnailSlider;
-  final Widget channelInfoCarouselSlider;
+  final Widget channelInfoSection;
+  final Widget contentInfoSection;
+  final Widget contentPosterSlider;
+  final String backgroundPosterUrl;
+  final Widget drawer;
+  final Widget drawerBtn;
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Row(
-        children: <Widget>[
-          /* 왼쪽 섹션 */
-          Expanded(
-            child: Container(
-              height: double.infinity,
-              child: Stack(
+    final sectionWidth = SizeConfig().screenWidth * 0.6;
+    return Scaffold(
+        resizeToAvoidBottomInset: false, // Screen Resize Effect 제거
+        backgroundColor: AppColor.darkGrey,
+        key: scaffoldKey,
+        endDrawer: drawer,
+        body: Stack(
+          children: [
+            /* Content Gradient Bacgkround */
+            GradientPostBackground(
+              backgroundImgUrl: backgroundPosterUrl,
+            ),
+            Container(
+              padding: EdgeInsets.only(
+                  top: contentTopP, left: contentLeftP, bottom: contentBottomP),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /* Channel Thumbnail Horizon 리스트 뷰 */
-                  channelThumbnailSlider,
-                  Positioned.fill(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: channelInfoCarouselSlider,
+                  /** Top Section **/
+                  Expanded(
+                    flex: 4,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        /* Channel Main Info */
+                        channelInfoSection,
+                        const Spacer(),
+                        contentInfoSection,
+                        const Spacer(),
+                      ],
                     ),
                   ),
+                  contentPosterSlider,
                 ],
               ),
             ),
-          ),
-
-          /* 오른쪽 섹션 - channel 영상 리스트 */
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            width: 374,
-            color: AppColor.subDarkGrey,
-            height: double.infinity,
-            child: channelContentListView,
-          ),
-        ],
-      ),
-    );
+          ],
+        ));
   }
 }

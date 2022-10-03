@@ -1,3 +1,4 @@
+import 'package:movie_curation/domain/service/config_service.dart';
 import 'package:movie_curation/domain/useCase/channel/load_channel_info_list_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
@@ -28,5 +29,6 @@ abstract class DomainModules {
 
     /* Channel */
     Get.lazyPut(() => LoadChannelInfoListUseCase(Get.find()));
+    Get.put(ConfigService.new());
   }
 }

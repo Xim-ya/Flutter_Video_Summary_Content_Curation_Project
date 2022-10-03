@@ -5,19 +5,13 @@ import 'package:movie_curation/utilities/index.dart';
 */
 
 class GradientButton extends StatelessWidget {
-  final String content;
-  final Function onBtnTapHandler;
-  // final MovieVM movieVM;
-  // final VoidCallback showTrailer;
-  // final bool? isUsedInMobile;
   const GradientButton({
     Key? key,
     required this.content,
     required this.onBtnTapHandler,
-    // required this.movieVM,
-    // required this.showTrailer,
-    // this.isUsedInMobile,
   }) : super(key: key);
+  final String content;
+  final Function onBtnTapHandler;
 
   @override
   Widget build(BuildContext context) {

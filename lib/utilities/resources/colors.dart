@@ -50,5 +50,6 @@ abstract class AppColor {
   static const Color cloudyGrey = Color(0xFFB9B9B9);
   static const Color cloudyLightGrey = Color(0xFF505050);
   static const Color dividerColor = Color(0xFF373737);
+  static const Color textGrey = Color(0xFFA1A1A1);
   static const Color white = Color(0xFFFFFFFF);
 }
