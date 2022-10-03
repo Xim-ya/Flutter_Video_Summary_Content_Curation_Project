@@ -1,10 +1,14 @@
+import 'package:movie_curation/domain/models/channel/channel_model.dart';
 import 'package:movie_curation/ui/screens/channel/channel_screen_scaffold.dart';
+import 'package:movie_curation/ui/screens/channel/channel_view_model.dart';
 import 'package:movie_curation/ui/screens/channel/localWidget/channel_main_info_container.dart';
+import 'package:movie_curation/ui/widgets/null_box.dart';
+import 'package:movie_curation/ui/widgets/round_cached_img_container.dart';
 import 'package:movie_curation/utilities/index.dart';
 import 'package:movie_curation/utilities/resources/fonts.dart';
 import 'package:movie_curation/utilities/resources/space.dart';
 
-class ChannelScreen extends BaseScreen<HomeViewModel> {
+class ChannelScreen extends BaseScreen<ChannelViewModel> {
   final VoidCallback routeAction; // PageViewBuilder 라우트 콜백 함수
   const ChannelScreen({
     Key? key,
@@ -14,18 +18,125 @@ class ChannelScreen extends BaseScreen<HomeViewModel> {
   @override
   Widget buildScreen(BuildContext context) {
     final sectionWidth = SizeConfig().screenWidth * 0.6;
-    // () => vm.selectedContentList != null && vm.loading.isFalse
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-    return ChannelScreenScaffold(
+    return Obx(
+      () => ChannelScreenScaffold(
         backgroundPosterUrl: "/bZLrpWM065h5bu1msUcPmLFsHBe.jpg",
-        scaffoldKey: _scaffoldKey,
-        channelInfoSection: _ChannelInfoSection(sectionWidth: sectionWidth),
+        scaffoldKey: vm.scaffoldKey,
+        channelInfoSection: _ChannelInfoSection(
+          selectedChannelInfo: vm.selectedChannel,
+          sectionWidth: sectionWidth,
+          openDrawer: vm.openDrawer,
+        ),
         contentInfoSection: _ContentInfoSection(),
-        contentPosterSlider: ContentPosterSlider(),
+        contentPosterSlider: ContentPosterSlider(
+          onPosterItemTapped: () => vm.onPosterItemTapped,
+          itemPositionsListener: vm.itemPositionListener,
+          contentList: null,
+          itemScrollController: vm.itemScrollController,
+        ),
         drawerBtn: _DrawerBtn(),
-        drawer: _ChannelListDrawer());
+        drawer: _ChannelListDrawer(
+          channelInfoList: vm.channelInfoList,
+        ),
+      ),
+    );
   }
+}
+
+class _ChannelInfoSection extends StatelessWidget {
+  const _ChannelInfoSection(
+      {required this.sectionWidth,
+      required this.selectedChannelInfo,
+      required this.openDrawer});
+
+  final ChannelModel? selectedChannelInfo;
+  final VoidCallback openDrawer;
+  final double sectionWidth;
+
+  @override
+  Widget build(BuildContext context) => selectedChannelInfo != null
+      ? Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {},
+                      child: RoundCachedImgContainer(
+                          size: 120, imgUrl: selectedChannelInfo!.thumbnailUrl),
+                    ),
+                    AppSpace.size20,
+                    /* Channel & Favorite Badge*/
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              selectedChannelInfo!.name,
+                              style: AppTextStyle.web3
+                                  .copyWith(color: Colors.white),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SvgPicture.asset("assets/icons/check_ic.svg"),
+                          ],
+                        ),
+                        Text(
+                          // "구독자 ${selectedChannelInfo!.subscribers}",
+                          "구독자 ${Regex.getSubscriberNumber(selectedChannelInfo!.subscribers)}만명",
+                          style: AppTextStyle.headline3
+                              .copyWith(color: AppColor.textGrey),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                Container(
+                  margin: const EdgeInsets.only(right: 40),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.zero, primary: Colors.transparent),
+                    onPressed: openDrawer,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "더 많은 채널 보기",
+                            style: AppTextStyle.headline1
+                                .copyWith(color: AppColor.textGrey),
+                          ),
+                          SvgPicture.asset(
+                            "assets/icons/right arrow_ic.svg",
+                            height: 32,
+                            color: AppColor.yellow.withOpacity(0.8),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            AppSpace.size40,
+            /* Channel Description */
+            SizedBox(
+              width: sectionWidth,
+              child: Text(
+                selectedChannelInfo?.description ?? "설명 없음",
+                style: AppTextStyle.headline3.copyWith(color: Colors.white),
+              ),
+            ),
+          ],
+        )
+      : const NullBox();
 }
 
 class _ContentInfoSection extends StatelessWidget {
@@ -64,36 +175,34 @@ class _ContentInfoSection extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          SizedBox(
-            width: sectionWidth,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: AppColor.yellow,
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                  ),
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SvgPicture.asset("assets/icons/play_ic.svg",
-                          height: 20, color: Colors.black),
-                      const SizedBox(width: 6),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 2),
-                        child: Text(
-                          "인기 컨텐츠",
-                          style: FontStyles(0, false).watchButton,
-                        ),
-                      )
-                    ],
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: AppColor.yellow,
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                 ),
-                GradientButton(content: '예고편', onBtnTapHandler: () {}),
-              ],
-            ),
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SvgPicture.asset("assets/icons/play_ic.svg",
+                        height: 20, color: Colors.black),
+                    const SizedBox(width: 6),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2),
+                      child: Text(
+                        "인기 컨텐츠",
+                        style: FontStyles(0, false).watchButton,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              AppSpace.size24,
+              GradientButton(content: '예고편', onBtnTapHandler: () {}),
+            ],
           )
         ],
       );
@@ -129,78 +238,35 @@ class _DrawerBtn extends StatelessWidget {
       );
 }
 
-class _ChannelInfoSection extends StatelessWidget {
-  const _ChannelInfoSection({required this.sectionWidth});
-
-  final double sectionWidth;
-
-  @override
-  Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const ChannelMainInfoContainer(channelImgSize: 120),
-              Container(
-                margin: const EdgeInsets.only(right: 40),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.zero, primary: Colors.transparent),
-                  onPressed: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "더 많은 채널 보기",
-                          style: AppTextStyle.headline1
-                              .copyWith(color: AppColor.textGrey),
-                        ),
-                        SvgPicture.asset(
-                          "assets/icons/right arrow_ic.svg",
-                          height: 32,
-                          color: AppColor.yellow.withOpacity(0.8),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-          AppSpace.size40,
-          /* Channel Description */
-          SizedBox(
-            width: sectionWidth,
-            child: Text(
-              "Lego Star Wars - Stormtrooper in desert (Stop motion shortfilm) #Shorts, Lego Star Wars - Stormtrooper in desert (Stop motion shortfilm) #Shorts, Lego Star Wars - Stormtrooper in desert (Stop motion shortfilm) #Shorts",
-              style: AppTextStyle.headline3.copyWith(color: Colors.white),
-            ),
-          ),
-        ],
-      );
-}
-
 class _ChannelListDrawer extends StatelessWidget {
+  const _ChannelListDrawer({required this.channelInfoList});
+
+  final List<ChannelModel>? channelInfoList;
+
   @override
   Widget build(BuildContext context) => Drawer(
         backgroundColor: AppColor.subDarkGrey,
-        width: SizeConfig().screenWidth * 0.3,
+        width: SizeConfig().screenWidth * 0.26,
         child: SizedBox(
           width: double.infinity,
           child: ListView.separated(
-            padding: const EdgeInsets.only(top: 40),
-            shrinkWrap: true,
-            itemCount: 4,
-            separatorBuilder: (BuildContext context, int index) =>
-                AppSpace.size24,
-            itemBuilder: (context, index) => const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 14),
-              child: ChannelMainInfoContainer(channelImgSize: 100),
-            ),
-          ),
+              padding: const EdgeInsets.only(top: 40),
+              shrinkWrap: true,
+              itemCount: channelInfoList?.length ?? 0,
+              separatorBuilder: (BuildContext context, int index) =>
+                  AppSpace.size24,
+              itemBuilder: (context, index) {
+                final ChannelModel item = channelInfoList![index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  child: ChannelMainInfoContainer(
+                    imgSize: 86,
+                    name: item.name,
+                    subscribers: item.subscribers as int,
+                    imgUrl: item.thumbnailUrl,
+                  ),
+                );
+              }),
         ),
       );
 }

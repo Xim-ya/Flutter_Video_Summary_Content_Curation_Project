@@ -1,20 +1,20 @@
 import 'dart:developer';
 
-import 'package:movie_curation/domain/models/channel/channel_info_model.dart';
-import 'package:movie_curation/domain/useCase/channel/load_channel_info_list_use_case.dart';
+import 'package:movie_curation/domain/models/channel/channel_model.dart';
+import 'package:movie_curation/domain/useCase/channel/load_channel_list_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ChannelViewModelOld extends BaseViewModel {
   ChannelViewModelOld(this._loadChannelInfoList);
   /* 전역 변수 및 객체 */
-  final Rxn<List<ChannelInfoModel>> _channelInfoList = Rxn();
+  final Rxn<List<ChannelModel>> _channelInfoList = Rxn();
   final RxInt _selectedChannelIndex = 0.obs;
 
   /* Controller*/
   final CarouselController swiperController = CarouselController();
 
   /* Usecase */
-  final LoadChannelInfoListUseCase _loadChannelInfoList;
+  final LoadChannelListUseCase _loadChannelInfoList;
 
   /* Intent */
 
@@ -47,6 +47,6 @@ class ChannelViewModelOld extends BaseViewModel {
   }
 
   /* Getters */
-  List<ChannelInfoModel>? get channelInfoList => _channelInfoList.value;
+  List<ChannelModel>? get channelInfoList => _channelInfoList.value;
   int get selectedChannelIndex => _selectedChannelIndex.value;
 }

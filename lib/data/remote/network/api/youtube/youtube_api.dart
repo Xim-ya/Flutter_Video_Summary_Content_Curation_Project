@@ -19,6 +19,7 @@ abstract class YoutubeApi {
   Future<YoutubeChannelResponse> loadYoutubeChannel(
       @Path('channelId') String channelId);
 }
+
 //https://www.googleapis.com/youtube/v3/channels?key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&forUsername=이해주&part=id
 //https://www.googleapis.com/youtube/v3/channels?part=snippetforUsername=BMan삐맨&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY
 //https://www.googleapis.com/youtube/v3/channels?part=snippetforUsername={username}&key={your key}
@@ -28,5 +29,6 @@ abstract class YoutubeApi {
 //  https://www.googleapis.com/youtube/v3/channels?part=snippet&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&id=BMan%EC%82%90%EB%A7%A8
 // https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&q=미니언즈&영화리뷰
 // 채널 검색
-// https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&type=channel&maxResults=10&q=오킹
+// https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY&type=channel&maxResults=10&q=어퍼컷
 // https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCuK80YHBZyyKrr2B1oHrgrw&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY
+// https://www.googleapis.com/youtube/v3/channels?part=statistics&part=snippet&id=UCuK80YHBZyyKrr2B1oHrgrw&key=AIzaSyCIYVB7l7anQLIxmops2GWA6sQFmG8VxmY

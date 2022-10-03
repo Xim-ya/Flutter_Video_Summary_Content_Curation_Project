@@ -58,6 +58,7 @@ abstract class TmdbApi {
   Future<TmdbGenreMovieListResponse> loadMovieListByGenreResponse(
       @Path('genreId') int genreId, @Path('page') int page);
 
+  // '영화 컨텐츠 검색'
   @GET(
       '/search/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&query={query}')
   Future<TmdbMovieResponse> loadMovieSearchList(@Path('query') String query);
@@ -67,7 +68,7 @@ abstract class TmdbApi {
   // searchAnndSimilarContentList
   @GET(
       '/movie/{movieId}/similar?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1')
-  Future<TmdbMovieResponse> loadSimilarMovieList(@Path('movieId') int movieId);
+  Future<TmdbMovieResponse> loadSimilarMovieList(@Path('query') int movieId);
 }
 
 // https://api.themoviedb.org/3/search/movie?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1&query=닥터

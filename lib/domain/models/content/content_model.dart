@@ -10,7 +10,7 @@ class ContentModel {
   final String? releaseDate;
   final num voteAverage;
   final List<int>? genreIds;
-  final List<String>? youtubeVideoIds;
+  final List<String>? youtubeVideoIds; // custom
 
   ContentModel({
     required this.adult,

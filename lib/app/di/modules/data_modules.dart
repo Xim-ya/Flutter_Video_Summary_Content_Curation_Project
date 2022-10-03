@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:movie_curation/data/remote/network/api/channel/channel_api.dart';
 import 'package:movie_curation/data/remote/source/content/content_remote_data_source_impl.dart';
 import 'package:movie_curation/data/remote/source/tmdb/tmdb_remote_data_source_impl.dart';
 import 'package:movie_curation/data/remote/source/youtube/youtube_remote_data_source_impl.dart';
@@ -19,7 +20,7 @@ abstract class DataModules {
     Get.lazyPut<YoutubeRepository>(() => YoutubeRepositoryImpl(Get.find()));
     Get.lazyPut<ContentRepository>(
         () => ContentRepositoryImpl(Get.find(), Get.find()));
-    Get.lazyPut<ChannelRepository>(() => ChannelRepositoryImpl());
+    Get.lazyPut<ChannelRepository>(() => ChannelRepositoryImpl(Get.find()));
 
     // Datasource
     Get.lazyPut<TmdbRemoteDataSource>(
@@ -33,5 +34,6 @@ abstract class DataModules {
     Get.lazyPut(() => TmdbApi(Dio()));
     Get.lazyPut(() => YoutubeApi(Dio()));
     Get.lazyPut(() => ContentApi());
+    Get.lazyPut(() => ChannelApi());
   }
 }

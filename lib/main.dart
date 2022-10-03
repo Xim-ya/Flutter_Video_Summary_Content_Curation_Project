@@ -1,5 +1,4 @@
 import 'package:device_preview/device_preview.dart';
-import 'package:movie_curation/app/config/size_config.dart';
 import 'package:movie_curation/app/di/app_binding.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';

@@ -44,7 +44,12 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
                         ),
                       ),
                       /* Content Post Slider  */
-                      const ContentPosterSlider()
+                      ContentPosterSlider(
+                        onPosterItemTapped: () => vm.onPosterItemTapped,
+                        itemPositionsListener: vm.itemPositionListener,
+                        contentList: vm.selectedContentList!,
+                        itemScrollController: vm.itemScrollController,
+                      )
                     ],
                   ),
                 ),
