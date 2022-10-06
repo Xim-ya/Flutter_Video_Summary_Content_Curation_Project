@@ -1,10 +1,11 @@
 import 'dart:developer';
 import 'package:movie_curation/domain/models/channel/channel_model.dart';
 import 'package:movie_curation/domain/useCase/channel/load_channel_list_use_case.dart';
+import 'package:movie_curation/domain/useCase/content/load_channel_contents_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ChannelViewModel extends BaseViewModel {
-  ChannelViewModel(this._loadChannelInfoList);
+  ChannelViewModel(this._loadChannelInfoList, this._loadChannelContentList);
 
   /* 전역 변수 및 객체 */
   /// Data Variables
@@ -21,6 +22,7 @@ class ChannelViewModel extends BaseViewModel {
 
   /* Usecase */
   final LoadChannelListUseCase _loadChannelInfoList;
+  final LoadChannelContentListUseCase _loadChannelContentList;
 
   /* Intent */
   /// 네트워킹
@@ -34,7 +36,11 @@ class ChannelViewModel extends BaseViewModel {
     });
   }
 
-  // 네트워크
+  Future<void> _fetchContentList() async {
+    final selectedChannelContents = selectedChannel!.contents;
+  }
+
+  // 채널 더 보기 drawer 열기
   Future<void> openDrawer() async {
     _scaffoldKey.currentState!.openEndDrawer();
   }
@@ -55,7 +61,7 @@ class ChannelViewModel extends BaseViewModel {
   void onInit() async {
     super.onInit();
 
-    _fetchChannelInfo();
+    _fetchChannelInfo().whenComplete(() => _fetchContentList());
     _itemScrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
   }

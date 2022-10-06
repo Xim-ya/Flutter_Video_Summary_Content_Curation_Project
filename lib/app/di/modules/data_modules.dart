@@ -19,7 +19,7 @@ abstract class DataModules {
     Get.lazyPut<TmdbRepository>(() => TmdbRepositoryImpl(Get.find()));
     Get.lazyPut<YoutubeRepository>(() => YoutubeRepositoryImpl(Get.find()));
     Get.lazyPut<ContentRepository>(
-        () => ContentRepositoryImpl(Get.find(), Get.find()));
+        () => ContentRepositoryImpl(Get.find(), Get.find(), Get.find()));
     Get.lazyPut<ChannelRepository>(() => ChannelRepositoryImpl(Get.find()));
 
     // Datasource

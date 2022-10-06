@@ -6,7 +6,7 @@ abstract class TmdbRepository {
   Future<Result<List<TmdbMovieVideoInfoModel>>> loadMovieVideoInfo(int movieId);
   Future<Result<List<ContentCastModel>>> loadMovieCastInfo(int movieId);
   Future<Result<List<ContentCastModel>>> loadDramaCastInfo(int dramaId);
-  Future<TmdbMovieDetailInfoResponse> loadMovieDetailInfo(int movieId);
+  Future<Result<ContentModel>> loadMovieDetailInfo(int movieId);
   Future<Result<List<ContentModel>>> loadMovieListByGenre(
       {required int genreId, required int page});
   Future<Result<List<ContentModel>>> loadMovieSearchList(String query);

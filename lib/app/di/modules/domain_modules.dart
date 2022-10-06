@@ -1,5 +1,6 @@
 import 'package:movie_curation/domain/service/config_service.dart';
 import 'package:movie_curation/domain/useCase/channel/load_channel_list_use_case.dart';
+import 'package:movie_curation/domain/useCase/content/load_channel_contents_use_case.dart';
 import 'package:movie_curation/ui/screens/channel/channel_view_model.dart';
 import 'package:movie_curation/utilities/index.dart';
 
@@ -30,7 +31,9 @@ abstract class DomainModules {
 
     /* Channel */
     Get.lazyPut(() => LoadChannelListUseCase(Get.find()));
-    Get.lazyPut(() => ChannelViewModel(Get.find()));
+    Get.lazyPut(() => ChannelViewModel(Get.find(), Get.find()), fenix: true);
+    Get.lazyPut(() => LoadChannelContentListUseCase(Get.find(), Get.find()),
+        fenix: true);
 
     /* Global Service */
     Get.put(ConfigService.new());

@@ -1,8 +1,10 @@
 import 'package:movie_curation/utilities/index.dart';
 
 class ContentRepositoryImpl implements ContentRepository {
-  ContentRepositoryImpl(this._dataSource, this._repository);
-  final ContentRemoteDataSource _dataSource;
+  ContentRepositoryImpl(
+      this._contentDataSource, this._repository, this._tmdbRemoteDataSource);
+  final ContentRemoteDataSource _contentDataSource;
+  final TmdbRemoteDataSource _tmdbRemoteDataSource;
   final TmdbRepository _repository;
 
   /* 추천 컨텐츠 리스트 호출 */
@@ -11,18 +13,22 @@ class ContentRepositoryImpl implements ContentRepository {
   Future<Result<List<ContentModel>>> loadRecommendedContentInfo() async {
     List<ContentModel> recommendedContents = [];
     List<ContentRecommendedInfoResponse> recommendedContentInfoList =
-        await _dataSource.loadRecommendedContentInfo();
+        await _contentDataSource.loadRecommendedContentInfo();
     try {
       for (ContentRecommendedInfoResponse content
           in recommendedContentInfoList) {
-        recommendedContents.add(
-          await _repository.loadMovieDetailInfo(content.contentId).then(
-            (value) {
-              return ContentModel.fromMovieDetailInfoResponse(
-                  value, content.youtubeVideoIdList);
-            },
-          ),
-        );
+        recommendedContents.add(await _tmdbRemoteDataSource
+                .loadTmdbMovieDetailInfo(content.contentId)
+                .then((value) => ContentModel.fromMovieDetailInfoResponse(
+                    value, content.youtubeVideoIdList))
+
+            // await _repository.loadMovieDetailInfo(content.contentId).then(
+            //   (value) {
+            //     return ContentModel.fromMovieDetailInfoResponse(
+            //         value, content.youtubeVideoIdList);
+            //   },
+            // ),
+            );
       }
       return Result.success(recommendedContents);
     } on Exception catch (e) {
@@ -35,8 +41,9 @@ class ContentRepositoryImpl implements ContentRepository {
   Future<Result<List<ContentRegisteredIdInfoModel>>>
       loadRegisteredIdList() async {
     try {
-      final response = await _dataSource.loadRegisteredIdList().then((value) =>
-          value.map(ContentRegisteredIdInfoModel.fromResponse).toList());
+      final response = await _contentDataSource.loadRegisteredIdList().then(
+          (value) =>
+              value.map(ContentRegisteredIdInfoModel.fromResponse).toList());
       return Result.success(response);
     } on Exception catch (e) {
       return Result.failure(e);
@@ -48,8 +55,9 @@ class ContentRepositoryImpl implements ContentRepository {
   Future<Result<List<String>>> loadRegisteredContentYoutubeIdList(
       {required String documentPath, required int contentId}) async {
     try {
-      final response = await _dataSource.loadRegisteredContentYoutubeIdList(
-          documentPath: documentPath, contentId: contentId);
+      final response =
+          await _contentDataSource.loadRegisteredContentYoutubeIdList(
+              documentPath: documentPath, contentId: contentId);
       return Result.success(response);
     } on Exception catch (e) {
       return Result.failure(e);

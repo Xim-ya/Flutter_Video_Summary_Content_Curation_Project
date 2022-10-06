@@ -108,4 +108,23 @@ class ContentModel {
         genreIds: response.genre_ids,
         youtubeVideoIds: null,
       );
+
+  // TMDB 영화 상세정보 API
+  factory ContentModel.fromMovieDetailInfo(
+      TmdbMovieDetailInfoResponse response) {
+    final List<int> genreIdList = response.genres!.map((e) => e.id).toList();
+
+    return ContentModel(
+      adult: response.adult,
+      id: response.id,
+      title: response.title,
+      overview: response.overview,
+      releaseDate: response.release_date,
+      voteAverage: response.vote_average,
+      backDropUrl: response.backdrop_path,
+      posterUrl: response.poster_path,
+      genreIds: genreIdList,
+      youtubeVideoIds: null,
+    );
+  }
 }

@@ -1,7 +1,7 @@
 class ContentRecommendedInfoResponse {
   final int contentId;
   final String? title;
-  final int type;
+  final String type;
   final List<String> youtubeVideoIdList;
 
   ContentRecommendedInfoResponse(

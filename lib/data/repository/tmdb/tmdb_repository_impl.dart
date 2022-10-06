@@ -69,12 +69,6 @@ class TmdbRepositoryImpl implements TmdbRepository {
     }
   }
 
-  /* TMDB - 영화 상세 정보 */
-  @override
-  Future<TmdbMovieDetailInfoResponse> loadMovieDetailInfo(int movieId) {
-    return _dataSource.loadTmdbMovieDetailInfo(movieId);
-  }
-
   @override
   Future<Result<List<ContentModel>>> loadMovieListByGenre(
       {required int genreId, required int page}) async {
@@ -84,6 +78,19 @@ class TmdbRepositoryImpl implements TmdbRepository {
           .then((value) => value.results
               .map(ContentModel.fromGenreMovieListResponse)
               .toList());
+      return Result.success(response);
+    } on Exception catch (e) {
+      return Result.failure(e);
+    }
+  }
+
+  /* TMDB - 영화 상세 정보 */
+  @override
+  Future<Result<ContentModel>> loadMovieDetailInfo(int movieId) async {
+    try {
+      final response = await _dataSource
+          .loadTmdbMovieDetailInfo(movieId)
+          .then((value) => ContentModel.fromMovieDetailInfo(value));
       return Result.success(response);
     } on Exception catch (e) {
       return Result.failure(e);
