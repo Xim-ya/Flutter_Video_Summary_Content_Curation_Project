@@ -1,12 +1,4 @@
-import 'package:movie_curation/domain/models/channel/channel_model.dart';
-import 'package:movie_curation/ui/screens/channel/channel_screen_scaffold.dart';
-import 'package:movie_curation/ui/screens/channel/channel_view_model.dart';
-import 'package:movie_curation/ui/screens/channel/localWidget/channel_main_info_container.dart';
-import 'package:movie_curation/ui/widgets/null_box.dart';
-import 'package:movie_curation/ui/widgets/round_cached_img_container.dart';
 import 'package:movie_curation/utilities/index.dart';
-import 'package:movie_curation/utilities/resources/fonts.dart';
-import 'package:movie_curation/utilities/resources/space.dart';
 
 class ChannelScreen extends BaseScreen<ChannelViewModel> {
   final VoidCallback routeAction; // PageViewBuilder 라우트 콜백 함수
@@ -20,20 +12,26 @@ class ChannelScreen extends BaseScreen<ChannelViewModel> {
     final sectionWidth = SizeConfig().screenWidth * 0.6;
     return Obx(
       () => ChannelScreenScaffold(
-        backgroundPosterUrl: "/bZLrpWM065h5bu1msUcPmLFsHBe.jpg",
+        backgroundPosterUrl: vm.contentList != null
+            ? vm.selectedContent!.backDropUrl ?? vm.selectedContent!.posterUrl
+            : null,
         scaffoldKey: vm.scaffoldKey,
-        channelInfoSection: _ChannelInfoSection(
-          selectedChannelInfo: vm.selectedChannel,
-          sectionWidth: sectionWidth,
-          openDrawer: vm.openDrawer,
-        ),
+        channelInfoSection: vm.channelInfoList != null
+            ? _ChannelInfoSection(
+                selectedChannelInfo: vm.selectedChannel,
+                sectionWidth: sectionWidth,
+                openDrawer: vm.openDrawer,
+              )
+            : const SizedBox(),
         contentInfoSection: _ContentInfoSection(),
-        contentPosterSlider: ContentPosterSlider(
-          onPosterItemTapped: () => vm.onPosterItemTapped,
-          itemPositionsListener: vm.itemPositionListener,
-          contentList: null,
-          itemScrollController: vm.itemScrollController,
-        ),
+        contentPosterSlider: vm.contentList != null
+            ? ContentPosterSlider(
+                onPosterItemTapped: () => vm.onPosterItemTapped,
+                itemPositionsListener: vm.itemPositionListener,
+                contentList: vm.contentList,
+                itemScrollController: vm.itemScrollController,
+              )
+            : const SizedBox(),
         drawerBtn: _DrawerBtn(),
         drawer: _ChannelListDrawer(
           channelInfoList: vm.channelInfoList,

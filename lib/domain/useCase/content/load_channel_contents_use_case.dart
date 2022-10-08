@@ -1,5 +1,3 @@
-import 'package:movie_curation/data/repository/channel/channel_repository.dart';
-import 'package:movie_curation/domain/models/channel/channel_content_model.dart';
 import '../../../utilities/index.dart';
 
 class LoadChannelContentListUseCase
@@ -10,21 +8,28 @@ class LoadChannelContentListUseCase
   final ChannelRepository _channelRepository;
 
   @override
-  Future<Result<List<ContentModel>>> call(List<ChannelContentModel> request) {
-    throw UnimplementedError();
-  }
+  Future<Result<List<ContentModel>>> call(
+      List<ChannelContentModel> request) async {
+    print("LOAD!!");
+    print(request[0].type);
+    /* 1. Channel >  [contents]  > type & contentId 정보 확인 */
+    // `content Id`로 컨텐츠 정보 호출
+    List<ContentModel> contentList = [];
 
-  // @override
-  // Future<Result<List<ContentModel>>> call(List<ChannelContentModel> request) {
-  // /* 1. Channel >  [contents]  > type & contentId 정보 확인 */
-  // // `content Id`로 컨텐츠 정보 호출
-  // request.map((e) {
-  //   if (e.type == "movie") {
-  //     final response =
-  //         _tmdbRepository.loadMovieDetailInfo(int.parse(e.contentId));
-  //   } else {
-  //     // tv(darama)
-  //   }
-  // });
-  // }
+    for (var e in request) {
+      print("neste Block");
+      if (e.type == "movie") {
+        print(e.contentId);
+        final response = await _tmdbRepository
+            .loadMovieDetailInfo(int.parse(e.contentId))
+            .then((value) => value.getOrThrow());
+        contentList.add(response);
+        print("USECASE SUCCESS");
+      } else {
+        print("USECASE FALSE");
+        // tv(darama)
+      }
+    }
+    return Result.success(contentList);
+  }
 }

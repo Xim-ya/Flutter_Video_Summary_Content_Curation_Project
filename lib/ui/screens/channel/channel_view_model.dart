@@ -1,19 +1,19 @@
 import 'dart:developer';
-import 'package:movie_curation/domain/models/channel/channel_model.dart';
-import 'package:movie_curation/domain/useCase/channel/load_channel_list_use_case.dart';
-import 'package:movie_curation/domain/useCase/content/load_channel_contents_use_case.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class ChannelViewModel extends BaseViewModel {
-  ChannelViewModel(this._loadChannelInfoList, this._loadChannelContentList);
+  ChannelViewModel(
+      this._loadChannelInfoList, this._loadChannelContentListUseCase);
 
   /* 전역 변수 및 객체 */
   /// Data Variables
   final Rxn<List<ChannelModel>> _channelInfoList = Rxn();
+  final Rxn<List<ContentModel>> _contentList = Rxn();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /// State Variables
   final RxInt _selectedChannelIndex = 0.obs;
+  final RxInt selectedContentIndex = 0.obs;
 
   /* 컨트롤러 */
   // ItemScrollController & Listener - (Horizontal Post Slider )
@@ -22,10 +22,23 @@ class ChannelViewModel extends BaseViewModel {
 
   /* Usecase */
   final LoadChannelListUseCase _loadChannelInfoList;
-  final LoadChannelContentListUseCase _loadChannelContentList;
+  final LoadChannelContentListUseCase _loadChannelContentListUseCase;
 
   /* Intent */
   /// 네트워킹
+
+  // 채널에 속한 컨텐츠 리스트 호출
+  Future<void> _loadChannelContentList() async {
+    final responseResult =
+        await _loadChannelContentListUseCase.call(selectedChannel!.contents!);
+    responseResult.fold(onSuccess: (data) {
+      _contentList.value = data;
+      loading(false);
+    }, onFailure: (err) {
+      log(err.toString());
+    });
+  }
+
   // 채널정보 리스트 호출
   Future<void> _fetchChannelInfo() async {
     final response = await _loadChannelInfoList.call();
@@ -34,10 +47,6 @@ class ChannelViewModel extends BaseViewModel {
     }, onFailure: (err) {
       log(err.toString());
     });
-  }
-
-  Future<void> _fetchContentList() async {
-    final selectedChannelContents = selectedChannel!.contents;
   }
 
   // 채널 더 보기 drawer 열기
@@ -60,14 +69,18 @@ class ChannelViewModel extends BaseViewModel {
   @override
   void onInit() async {
     super.onInit();
+    loading(true);
 
-    _fetchChannelInfo().whenComplete(() => _fetchContentList());
+    _fetchChannelInfo().whenComplete(() => _loadChannelContentList());
     _itemScrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
   }
 
   /* Getters - (캡슐화)*/
   List<ChannelModel>? get channelInfoList => _channelInfoList.value;
+  List<ContentModel>? get contentList => _contentList.value;
+  ContentModel? get selectedContent =>
+      _contentList.value?[_selectedChannelIndex.value];
   ChannelModel? get selectedChannel =>
       _channelInfoList.value?[_selectedChannelIndex.value];
 

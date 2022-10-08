@@ -15,7 +15,7 @@ class ChannelScreenScaffold extends StatelessWidget {
   final Widget channelInfoSection;
   final Widget contentInfoSection;
   final Widget contentPosterSlider;
-  final String backgroundPosterUrl;
+  final String? backgroundPosterUrl;
   final Widget drawer;
   final Widget drawerBtn;
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -31,9 +31,11 @@ class ChannelScreenScaffold extends StatelessWidget {
         body: Stack(
           children: [
             /* Content Gradient Bacgkround */
-            GradientPostBackground(
-              backgroundImgUrl: backgroundPosterUrl,
-            ),
+            backgroundPosterUrl != null
+                ? GradientPostBackground(
+                    backgroundImgUrl: backgroundPosterUrl,
+                  )
+                : const SizedBox(),
             Container(
               padding: EdgeInsets.only(
                   top: contentTopP, left: contentLeftP, bottom: contentBottomP),

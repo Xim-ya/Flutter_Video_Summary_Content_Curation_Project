@@ -1,14 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:movie_curation/data/remote/network/api/channel/channel_api.dart';
-import 'package:movie_curation/data/remote/source/content/content_remote_data_source_impl.dart';
-import 'package:movie_curation/data/remote/source/tmdb/tmdb_remote_data_source_impl.dart';
-import 'package:movie_curation/data/remote/source/youtube/youtube_remote_data_source_impl.dart';
-import 'package:movie_curation/data/repository/channel/channel_repository.dart';
-import 'package:movie_curation/data/repository/channel/channel_respository_impl.dart';
-import 'package:movie_curation/data/repository/content/content_repository_impl.dart';
-import 'package:movie_curation/data/repository/tmdb/tmdb_repository_impl.dart';
-import 'package:movie_curation/data/repository/youtube/youtube_repository_impl.dart';
-
 import '../../../utilities/index.dart';
 
 abstract class DataModules {

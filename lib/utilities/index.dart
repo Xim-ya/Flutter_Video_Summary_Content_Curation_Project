@@ -17,7 +17,7 @@ export 'package:carousel_slider/carousel_slider.dart';
 export 'package:json_annotation/json_annotation.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 
-/* Data Layer (api, datasource, repository) */
+/* Data Layer (api, datasource) */
 export 'package:movie_curation/data/remote/network/api/content/response/content_registered_id_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_video_info_item_response.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_cast_info_item_response.dart';
@@ -51,8 +51,14 @@ export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_movie_
 export 'package:movie_curation/data/remote/network/api/youtube/youtube_api.dart';
 export 'package:movie_curation/data/repository/content/content_repository.dart';
 export 'package:movie_curation/data/remote/network/api/tmdb/response/tmdb_genre_movie_list_response.dart';
+export 'package:movie_curation/data/remote/network/api/channel/channel_api.dart';
+export 'package:movie_curation/data/remote/source/content/content_remote_data_source_impl.dart';
+export 'package:movie_curation/data/remote/source/tmdb/tmdb_remote_data_source_impl.dart';
+export 'package:movie_curation/data/remote/source/youtube/youtube_remote_data_source_impl.dart';
 
-/* Domain Layer (useCase, model) */
+/* Domain Layer (useCase, model, repository) */
+export 'package:movie_curation/domain/models/channel/channel_content_model.dart';
+export 'package:movie_curation/data/repository/channel/channel_repository.dart';
 export 'package:movie_curation/domain/models/content/content_registered_id_info_model.dart';
 export 'package:movie_curation/domain/models/content/content_model.dart';
 export 'package:movie_curation/domain/models/tmdb/tmdb_movie_video_info_model.dart';
@@ -78,6 +84,12 @@ export 'package:movie_curation/domain/models/youtube/youtube_channel_model.dart'
 export 'package:movie_curation/domain/useCase/tmdb/load_similar_movie_list_use_case.dart';
 export 'package:movie_curation/domain/useCase/content/load_registered_content_id_info_use_case.dart';
 export 'package:movie_curation/domain/useCase/content/load_registered_content_youtube_info.dart';
+export 'package:movie_curation/domain/useCase/channel/load_channel_list_use_case.dart';
+export 'package:movie_curation/domain/useCase/content/load_channel_contents_use_case.dart';
+export 'package:movie_curation/data/repository/channel/channel_respository_impl.dart';
+export 'package:movie_curation/data/repository/content/content_repository_impl.dart';
+export 'package:movie_curation/data/repository/tmdb/tmdb_repository_impl.dart';
+export 'package:movie_curation/data/repository/youtube/youtube_repository_impl.dart';
 
 /* Presentation Layer (MVVM) */
 export 'package:movie_curation/ui/screens/home/home_view_model.dart';
@@ -90,6 +102,12 @@ export 'package:movie_curation/ui/screens/content/contentDetail/search_content_v
 export 'package:movie_curation/ui/screens/search/search_screen_scaffold.dart';
 export 'package:movie_curation/ui/screens/search/search_screen.dart';
 export 'package:movie_curation/ui/screens/content/contentDetail/localWidget/search_content_detail_screen.dart';
+export 'package:movie_curation/domain/models/channel/channel_model.dart';
+export 'package:movie_curation/ui/screens/channel/channel_screen_scaffold.dart';
+export 'package:movie_curation/ui/screens/channel/channel_view_model.dart';
+export 'package:movie_curation/ui/screens/channel/localWidget/channel_main_info_container.dart';
+export 'package:movie_curation/ui/widgets/null_box.dart';
+export 'package:movie_curation/ui/widgets/round_cached_img_container.dart';
 
 //old
 export 'package:movie_curation/ui/screens/home/homePagedView/home_paged_view.dart';
@@ -129,6 +147,8 @@ export 'package:movie_curation/utilities/result.dart';
 export 'package:movie_curation/utilities/resources/colors.dart';
 export 'package:movie_curation/utilities/regex.dart';
 export 'package:movie_curation/app/config/size_config.dart';
+export 'package:movie_curation/utilities/resources/fonts.dart';
+export 'package:movie_curation/utilities/resources/space.dart';
 
 /* Base */
 export 'package:movie_curation/domain/base/base_no_param_use_case.dart';
