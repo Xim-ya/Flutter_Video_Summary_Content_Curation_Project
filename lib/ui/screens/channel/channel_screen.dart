@@ -12,19 +12,26 @@ class ChannelScreen extends BaseScreen<ChannelViewModel> {
     final sectionWidth = SizeConfig().screenWidth * 0.6;
     return Obx(
       () => ChannelScreenScaffold(
-        backgroundPosterUrl: vm.contentList != null
+        backgroundPosterUrl: vm.isContentLoaded
             ? vm.selectedContent!.backDropUrl ?? vm.selectedContent!.posterUrl
             : null,
         scaffoldKey: vm.scaffoldKey,
-        channelInfoSection: vm.channelInfoList != null
+        channelInfoSection: vm.isChannelLoaded
             ? _ChannelInfoSection(
                 selectedChannelInfo: vm.selectedChannel,
                 sectionWidth: sectionWidth,
                 openDrawer: vm.openDrawer,
               )
             : const SizedBox(),
-        contentInfoSection: _ContentInfoSection(),
-        contentPosterSlider: vm.contentList != null
+        contentInfoSection: vm.isContentLoaded
+            ? _ContentInfoSection(
+                contentTitle: vm.selectedContent!.title,
+                releaseDate: vm.selectedContent!.releaseDate,
+                isAdultContent: vm.selectedContent!.adult,
+                onRouteBtnClicked: routeAction,
+              )
+            : const SizedBox(),
+        contentPosterSlider: vm.isContentLoaded
             ? ContentPosterSlider(
                 onPosterItemTapped: () => vm.onPosterItemTapped,
                 itemPositionsListener: vm.itemPositionListener,
@@ -138,13 +145,24 @@ class _ChannelInfoSection extends StatelessWidget {
 }
 
 class _ContentInfoSection extends StatelessWidget {
+  _ContentInfoSection(
+      {required this.contentTitle,
+      required this.releaseDate,
+      required this.isAdultContent,
+      required this.onRouteBtnClicked});
+
+  final String contentTitle;
+  final String? releaseDate;
+  final bool? isAdultContent;
+  final VoidCallback onRouteBtnClicked;
+
   final sectionWidth = SizeConfig().screenWidth * 0.6;
   @override
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            "탑건 메버릭",
+            contentTitle,
             style: AppTextStyle.headline1.copyWith(color: Colors.white),
           ),
           const SizedBox(
@@ -159,13 +177,13 @@ class _ContentInfoSection extends StatelessWidget {
                   color: AppColor.lightGrey,
                 ),
                 child: Text(
-                  true ? "청소년 관람 불가" : "일반",
+                  isAdultContent ?? false ? "청소년 관람 불가" : "일반",
                   style: FontStyles(0, false).gRated,
                 ),
               ),
               const SizedBox(width: 12),
               Text(
-                true ? Regex.dateYM("2022-05-20") : "개봉일 확인 불가",
+                true ? Regex.dateYM(releaseDate!) : "개봉일 확인 불가",
                 style: FontStyles(0, false).releaseY,
               ),
             ],
@@ -181,7 +199,7 @@ class _ContentInfoSection extends StatelessWidget {
                   primary: AppColor.yellow,
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                 ),
-                onPressed: () {},
+                onPressed: onRouteBtnClicked,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

@@ -6,10 +6,10 @@ class ContentRegisteredIdInfoItemResponse {
   @JsonKey(name: 'contentId')
   int contentId;
 
-  @JsonKey(name: 'documentId')
-  int documentId;
+  @JsonKey(name: 'type')
+  String type;
 
-  ContentRegisteredIdInfoItemResponse(this.contentId, this.documentId);
+  ContentRegisteredIdInfoItemResponse(this.contentId, this.type);
 
   factory ContentRegisteredIdInfoItemResponse.fromJson(
           Map<String, dynamic> json) =>

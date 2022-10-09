@@ -34,8 +34,8 @@ class LoadRegisteredContentYoutubeInfo extends BaseUseCase<
     // 3-1
     if (request != null) {
       // MATCHES
-      final int documentId = request.documentId;
-      if (documentId == 0) {
+      final String type = request.type;
+      if (type == "movie") {
         // LOAD 0 <--(Need key Mapping) RECOMMENDED LIST
         final response =
             await _contentRepository.loadRegisteredContentYoutubeIdList(

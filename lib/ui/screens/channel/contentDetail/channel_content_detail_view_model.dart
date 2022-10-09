@@ -1,8 +1,8 @@
 import 'package:movie_curation/utilities/index.dart';
 
-class HomeContentDetailViewModel extends BaseViewModel {
-  HomeContentDetailViewModel(this._loadYoutubeSearchList, this._loadMovieCasts,
-      this._loadYoutubeMetaDataListUseCase);
+class ChannelContentDetailViewModel extends BaseViewModel {
+  ChannelContentDetailViewModel(this._loadYoutubeSearchList,
+      this._loadMovieCasts, this._loadYoutubeMetaDataListUseCase);
 
   /* 전역변수 및 객체 */
   final Rxn<List<YoutubeVideoContentModel>> _youtubeSearchList = Rxn();
@@ -85,8 +85,7 @@ class HomeContentDetailViewModel extends BaseViewModel {
   void onInit() {
     super.onInit();
     // 비동기 처리 X
-    print("WORKED ?");
-    if (!HomeViewModel.selectedContentIsRegisteredG) {
+    if (ChannelViewModel.to.selectedContent != null) {
       loadYoutubeSearchList();
     }
     loadMovieCastList();
@@ -94,13 +93,21 @@ class HomeContentDetailViewModel extends BaseViewModel {
     _scrollController = ScrollController(initialScrollOffset: kWS200);
   }
 
-  /* 캡슐화 - (Getter) */
-  ContentModel? get selectedContent => HomeViewModel.selectedContentG;
+/* 캡슐화 - (Getter) */
+  ContentModel? get selectedContent => ChannelViewModel.to.selectedContent;
   List<ContentCastModel>? get contentCastList => _contentCastList.value;
   List<String>? get contentGenreList => _contentGenreList;
-  List<YoutubeVideoContentModel>? get youtubeSearchList =>
-      HomeViewModel.selectedContentIsRegisteredG
-          ? HomeViewModel.customYoutubeVideoInfoListG.value
-          : _youtubeSearchList.value;
+  List<YoutubeVideoContentModel>? get youtubeSearchList => [];
+
   ScrollController get wheelScrollController => _scrollController;
+
+// /* 캡슐화 - (Getter) */
+// ContentModel? get selectedContent => HomeViewModel.selectedContentG;
+// List<ContentCastModel>? get contentCastList => _contentCastList.value;
+// List<String>? get contentGenreList => _contentGenreList;
+// List<YoutubeVideoContentModel>? get youtubeSearchList =>
+//     HomeViewModel.selectedContentIsRegisteredG
+//         ? HomeViewModel.customYoutubeVideoInfoListG.value
+//         : _youtubeSearchList.value;
+// ScrollController get wheelScrollController => _scrollController;
 }

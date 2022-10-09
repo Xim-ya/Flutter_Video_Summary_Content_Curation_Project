@@ -162,7 +162,7 @@ class _TmdbApi implements TmdbApi {
         TmdbMovieResponse>(Options(
             method: 'GET', headers: _headers, extra: _extra)
         .compose(_dio.options,
-            '/movie/$movieId/similar?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1',
+            '/movie/{movieId}/similar?api_key=b40235ce96defc556ca26d48159f5f13&language=ko-KR&page=1',
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = TmdbMovieResponse.fromJson(_result.data!);

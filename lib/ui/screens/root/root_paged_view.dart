@@ -1,6 +1,5 @@
+import 'package:movie_curation/ui/screens/channel/channelPagedView/channel_paged_view.dart';
 import 'package:movie_curation/ui/screens/channel/channel_paged_view_scaffold.dart';
-import 'package:movie_curation/ui/screens/channelOld/channel_screen_old.dart';
-import 'package:movie_curation/ui/screens/channelOld/channel_view_model_old.dart';
 import 'package:movie_curation/utilities/index.dart';
 
 class RootPagedView extends HookWidget {
@@ -8,9 +7,10 @@ class RootPagedView extends HookWidget {
 
   // PagedView에서 관리하는 스크린 리스트
   final List<Widget> screenList = [
-    const HomePagedView(),
+    HomePagedView(),
     const SearchPagedView(),
-    const ChannelPagedViewScaffold(),
+    const ChannelPagedView(),
+    // const ChannelPagedViewScaffold(),
     const TempScreen4(),
   ];
 
@@ -26,10 +26,10 @@ class RootPagedView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => ChannelViewModelOld(Get.find()));
+    Get.lazyPut(() => ChannelViewModel(Get.find(), Get.find()));
 
     //  PagedViewScreen의 Screen Index
-    final _screenIndex = useState(2);
+    final _screenIndex = useState(0);
 
     // PagedView Controller
     final PageController _pagedController = PageController(

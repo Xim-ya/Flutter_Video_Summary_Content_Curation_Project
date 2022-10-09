@@ -144,7 +144,6 @@ class HomeViewModel extends BaseViewModel {
   Future<void> onRouteToContentDetail({
     required VoidCallback routeAction,
   }) async {
-    print("aim!!");
     checkIfContentIsRegistered(selectedContent!.id.toInt()).whenComplete(() {
       loadYoutubeInfoList();
       routeAction();

@@ -10,5 +10,5 @@ ContentRegisteredIdInfoItemResponse
     _$ContentRegisteredIdInfoItemResponseFromJson(Map<String, dynamic> json) =>
         ContentRegisteredIdInfoItemResponse(
           json['contentId'] as int,
-          json['documentId'] as int,
+          json['type'] as String,
         );

@@ -83,9 +83,13 @@ class ChannelViewModel extends BaseViewModel {
       _contentList.value?[_selectedChannelIndex.value];
   ChannelModel? get selectedChannel =>
       _channelInfoList.value?[_selectedChannelIndex.value];
+  bool get isContentLoaded => _contentList.value != null;
+  bool get isChannelLoaded => _channelInfoList.value != null;
 
   /// 컨트롤러
   GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
   ItemScrollController get itemScrollController => _itemScrollController;
   ItemPositionsListener get itemPositionListener => _itemPositionsListener;
+
+  static ChannelViewModel get to => Get.find();
 }
