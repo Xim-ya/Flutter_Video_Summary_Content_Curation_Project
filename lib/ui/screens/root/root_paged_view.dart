@@ -7,7 +7,7 @@ class RootPagedView extends HookWidget {
 
   // PagedView에서 관리하는 스크린 리스트
   final List<Widget> screenList = [
-    HomePagedView(),
+    const HomePagedView(),
     const SearchPagedView(),
     const ChannelPagedView(),
     // const ChannelPagedViewScaffold(),
